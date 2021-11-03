@@ -25,7 +25,9 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
             }
         }
     },
-    onTimeSheetLunchStore_Done: function(){
+    onTimeSheetLunchStore_Done: function () {
+        var me = this;
+        me.sumInfo();
         this.getView().setLoading(false);
     },
     CreateColumns: function (data) {
@@ -110,7 +112,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         var viewModel = this.getViewModel();
         var TimeSheetLunchStore = viewModel.get('TimeSheetLunchStore');
         var isConfirm = viewModel.get('isConfirm');
-        if(isConfirm){
+        if (isConfirm) {
             TimeSheetLunchStore.rejectChanges();
             return;
         }
@@ -408,6 +410,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
 
         var viewModel = this.getViewModel();
         var me = this.getView();
+        var th = this;
         var TimeSheetLunchStore = viewModel.get('TimeSheetLunchStore');
 
         var params = new Object();
@@ -423,6 +426,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                         TimeSheetLunchStore.commitChanges();
                     }
                     me.setLoading(false);
+                    th.sumInfo();
                 } else {
                     var response = Ext.decode(response.responseText);
                     Ext.MessageBox.show({
@@ -557,7 +561,27 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
             this.personnelFullnameFilter = null;
         }
     },
-    onSave: function(){
+    sumInfo: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('TimeSheetLunchStore');
+        var ca1 = 0, ca2 = 0, ca3 = 0, ca4 = 0;
+        for (var i = 0; i < store.data.length; i++) {
+            var rec = store.data.items[i].data;
+            if (rec.lunchShift1)
+                ca1++;
+            else if (rec.lunchShift2)
+                ca2++;
+            else if (rec.lunchShift3)
+                ca3++;
+            else if (rec.lunchShift4)
+                ca4++;
+        }
+        viewmodel.set('sumCa1', ca1);
+        viewmodel.set('sumCa2', ca2);
+        viewmodel.set('sumCa3', ca3);
+        viewmodel.set('sumCa4', ca4);
+    },
+    onSave: function () {
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
@@ -571,38 +595,38 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         // console.log(storeData);
         // console.log(modifiers); 
 
-        for(var i = 0; i < modifiers.length; i++){
+        for (var i = 0; i < modifiers.length; i++) {
             var recData = modifiers[i].data;
 
             // console.log(modifiers[i]);
             var modified = modifiers[i].modified;
             var arr = new Array();
-            if(modified.lunchShift1 != null){
+            if (modified.lunchShift1 != null) {
                 var o = new Object();
                 o.dataIndex = 1;
                 o.lunchShift = modified.lunchShift1;
                 arr.push(o);
             }
-            if(modified.lunchShift2 != null){
+            if (modified.lunchShift2 != null) {
                 var o = new Object();
                 o.dataIndex = 2;
                 o.lunchShift = modified.lunchShift2;
                 arr.push(o);
             }
-            if(modified.lunchShift3 != null){
+            if (modified.lunchShift3 != null) {
                 var o = new Object();
                 o.dataIndex = 3;
                 o.lunchShift = modified.lunchShift3;
                 arr.push(o);
             }
-            if(modified.lunchShift4 != null){
+            if (modified.lunchShift4 != null) {
                 var o = new Object();
                 o.dataIndex = 4;
                 o.lunchShift = modified.lunchShift4;
                 arr.push(o);
             }
 
-            for(var j = 0; j<arr.length; j++){
+            for (var j = 0; j < arr.length; j++) {
                 var obj = new Object();
                 var lunchShift = "lunchShift" + arr[j].dataIndex;
                 var workingShift = "workingShift" + arr[j].dataIndex;
@@ -640,5 +664,5 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
 
         m.saveRecord(data);
     },
-    onAutoGetInfo: function(){},
+    onAutoGetInfo: function () { },
 })

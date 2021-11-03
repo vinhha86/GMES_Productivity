@@ -14,7 +14,7 @@ Ext.define('GSmartApp.view.personel.TimeSheetLunch_MainViewModel', {
         }
     },
     data: {
-        orgtypeid_link : null,
+        orgtypeid_link: null,
         orgid_link: null,
         isConfirm: null,
         isToday: true,
@@ -26,6 +26,10 @@ Ext.define('GSmartApp.view.personel.TimeSheetLunch_MainViewModel', {
         isBtnUnconfirmHidden: true,
         isBtnUnconfirmHiddenDisabled: true,
 
-        numberShift:null
+        numberShift: null,
+        sumCa1: 0,
+        sumCa2: 0,
+        sumCa3: 0,
+        sumCa4: 0
     }
 })

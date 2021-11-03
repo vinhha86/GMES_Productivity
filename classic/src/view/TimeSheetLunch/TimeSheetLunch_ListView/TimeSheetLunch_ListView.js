@@ -54,6 +54,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
         width: 100,
         sortable: false,
         menuDisabled: true,
+        hidden: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -225,6 +226,50 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
                 flex: 1,
             }
         ]
+    }, {
+        dock: 'top',
+        layout: 'hbox',
+        items: [{
+            xtype: 'textfield',
+            fieldLabel: 'Ca 1',
+            margin: 3,
+            width: 100,
+            labelWidth: 50,
+            eidtable: false,
+            bind: {
+                value: '{sumCa1}'
+            }
+        }, {
+            xtype: 'textfield',
+            fieldLabel: 'Ca 2',
+            margin: 3,
+            width: 100,
+            labelWidth: 50,
+            eidtable: false,
+            bind: {
+                value: '{sumCa2}'
+            }
+        }, {
+            xtype: 'textfield',
+            fieldLabel: 'Ca 3',
+            margin: 3,
+            width: 100,
+            labelWidth: 50,
+            eidtable: false,
+            bind: {
+                value: '{sumCa3}'
+            }
+        }, {
+            xtype: 'textfield',
+            fieldLabel: 'Ca 4',
+            margin: 3,
+            width: 100,
+            labelWidth: 50,
+            eidtable: false,
+            bind: {
+                value: '{sumCa4}'
+            }
+        }]
     }]
 });
 
