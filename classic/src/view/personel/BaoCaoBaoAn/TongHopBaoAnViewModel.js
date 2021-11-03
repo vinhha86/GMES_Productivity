@@ -1,14 +1,10 @@
 Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.TongHopBaoAnViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.TongHopBaoAnViewModel',
-    requires: ['GSmartApp.store.org.ListOrgStore',
-        'GSmartApp.store.TimeSheetAbsence.TimeSheetAbsenceStore'],
+    requires: ['GSmartApp.store.org.ListOrgStore'],
     stores: {
         OrgStore: {
             type: 'ListOrgStore'
-        },
-        TimeSheetAbsenceStore: {
-            type: 'TimeSheetAbsenceStore'
         }
     },
     data: {
@@ -18,7 +14,7 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.TongHopBaoAnViewModel', {
     },
     formulas: {
         title_detail: function (data) {
-            var name = 'Danh sách vắng ';
+            var name = 'Tổng hợp báo ăn ';
             name = data('org_name') == '' ? name : name + " đơn vị " + data('org_name');
             return name;
         }

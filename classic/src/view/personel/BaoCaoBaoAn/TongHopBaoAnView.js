@@ -11,13 +11,13 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.TongHopBaoAnView', {
         region: 'west',
         width: 220,
         title: 'Danh sách đơn vị',
-        xtype: 'BaoCaoVangMat_listOrgView',
+        xtype: 'TongHopBaoAnListOrgView',
         border: true,
         margin: 1
 
     }, {
         region: 'center',
-        xtype: 'BaoCaoVangMat_DetailView',
+        xtype: 'ChiTietBaoAnView',
         border: true,
         margin: 1
     }]
