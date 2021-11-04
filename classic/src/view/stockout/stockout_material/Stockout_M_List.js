@@ -332,8 +332,14 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                         itemId: 'btnXuatCat', // id:1
                         // iconCls: 'fa fa-file-pdf-o greenIcon',
                         text: 'Xuất NPL cho nhà cắt',
-                        handler: 'onXuatCat'
+                        // handler: 'onXuatCat'
                     },
+                    // {
+                    //     itemId: 'btnXuatNoiBo', // id:2
+                    //     // iconCls: 'fa fa-file-pdf-o greenIcon',
+                    //     text: 'Xuất điều chuyển nội bộ',
+                    //     // handler: 'onXuatDieuChuyenNoiBo'
+                    // },
                     // {
                     //     // itemId: 'btnNhapGiaCong', // id:3
                     //     // iconCls: 'fa fa-file-pdf-o greenIcon',
@@ -357,12 +363,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                     //     // iconCls: 'fa fa-file-pdf-o greenIcon',
                     //     text: 'Xuất tiêu huỷ',
                     //     // handler: 'onNhapMuaMoi'
-                    // },
-                    // {
-                    //     // itemId: 'btnNhapCungCap', // id:2
-                    //     // iconCls: 'fa fa-file-pdf-o greenIcon',
-                    //     text: 'Xuất điều chuyển nội bộ',
-                    //     handler: 'onXuatDieuChuyenNoiBo'
                     // },
                 ],
                 // bind: {

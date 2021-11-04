@@ -20,7 +20,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pcontract.Stockou
                 {
                     region: 'west',
                     xtype: 'Stockout_Pcontract_View',
-                    width: '40%',
+                    // width: '40%',
+                    flex: 1,
                     margin: 1
                 },
                 {
