@@ -6,7 +6,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
         var store = viewmodel.getStore('porderReqStore');
         store.setGroupField('productinfo');
     },
-    onThemOrg: function(){
+    onThemOrg: function () {
         var listorg = Ext.getCmp('ListOrg_Req');
         listorg.setWidth(150);
     },
@@ -14,6 +14,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
 
     },
     onBeforeDropOrg: function (node, context, overModel, dropPosition, dropHandlers, eOpts) {
+        console.log(2134);
         var viewmodel = this.getViewModel();
         //Chi cho phep keo phan xuong
         var pcontractid_link = viewmodel.get('po.pcontractid_link');
@@ -21,15 +22,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
         var orgId = 0;
         var orgCode = "";
         var list_product = [];
-        
+
         //cap nhat po_quantity tu po_productivity
         viewmodel.set('po.po_quantity', viewmodel.get('pcontract_po_productivity.amount'));
 
         if (context.records[0].get('parentId') == 'root') {
             orgId = context.records[0].get('id_origin');
             orgCode = context.records[0].get('code');
-        } 
-        else if (context.records[0].get('parentid_link') == 1){
+        }
+        else if (context.records[0].get('parentid_link') == 1) {
             var porderReqStore = viewmodel.getStore('porderReqStore');
 
             orgId = context.records[0].get('id');
@@ -72,13 +73,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
         var porderReqStore = viewmodel.getStore('porderReqStore');
 
         var ProductStore = viewmodel.getStore('ProductStore');
-        // console.log(ProductStore);
+        console.log(ProductStore);
 
         if (ProductStore.data.length == 1) {
             //San pham don chiec
             var obj = ProductStore.data.items[0].data;
             var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : viewmodel.get('po.po_quantity');
-            obj.pairamount = obj.pairamount == null ? 1:obj.pairamount;
+            obj.pairamount = obj.pairamount == null ? 1 : obj.pairamount;
             obj.total_req = po_quantity * obj.pairamount
             list_product.push(obj);
         }
@@ -99,9 +100,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
             var lstCheck = porderReqStore.queryBy(function (record, id) {
                 return (record.get('granttoorgid_link') == orgId && record.get('productid_link') == data.id);
             }).items;
-            
+            console.log(lstCheck);
             //Chi thuc hien tinh toan khi chua co Phan xuong va San pham trong POrder_req
-            if (lstCheck.length == 0 && orgId != 0){
+            if (lstCheck.length == 0 && orgId != 0) {
                 var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi, ''));
                 var porder_New = new Object({
                     id: null,
@@ -111,10 +112,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                     // sizesetname: price_data.sizesetname,
                     granttoorgid_link: orgId,
                     granttoorgcode: orgCode,
-                    productid_link : data.id,
-                    product_code : data.code,
+                    productid_link: data.id,
+                    product_code: data.code,
                     amount_inset: data.pairamount,
-                    productinfo: data.code + " ("+Ext.util.Format.number(po_quantity * data.pairamount, '0,000') + ")"
+                    productinfo: data.code + " (" + Ext.util.Format.number(po_quantity * data.pairamount, '0,000') + ")"
                     // totalorder: po.po_quantity
                 });
                 porderReqStore.insert(0, porder_New);
@@ -124,7 +125,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                 var amount_fix = 0;
                 for (var i = 0; i < porderReqStore.data.length; i++) {
                     var record = porderReqStore.data.items[i];
-                    if(record.get('productid_link') == data.id){
+                    if (record.get('productid_link') == data.id) {
                         if (record.get('is_calculate')) {
                             amount_fix += record.get('totalorder');
                         }
@@ -134,21 +135,21 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                 }
 
                 //Chia deu so luong cho cac phan xuong
-               
+
                 po_quantity = po_quantity * data.pairamount;
                 po_quantity -= amount_fix;
                 var org_quantity = Math.round(po_quantity / count);
 
                 porderReqStore.each(function (record) {
                     if (!record.get('is_calculate') && record.get('productid_link') == data.id) {
-                        if (po_quantity-org_quantity >= org_quantity -1 ){
+                        if (po_quantity - org_quantity >= org_quantity - 1) {
                             record.set('totalorder', org_quantity);
                             po_quantity = po_quantity - org_quantity;
                         }
                         else
                             record.set('totalorder', po_quantity);//Lay phan con lai
                     }
-                });  
+                });
 
             }
         }
@@ -177,7 +178,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
         var me = this;
         var viewmodel = this.getViewModel();
         var store = grid.getStore();
-        if(store.data.length == 1 && viewmodel.get('po.parentpoid_link') != null){
+        if (store.data.length == 1 && viewmodel.get('po.parentpoid_link') != null) {
             Ext.MessageBox.show({
                 title: "Thông báo",
                 msg: "Bạn không được xóa hết phân xưởng !! Bạn hãy kéo phân xưởng mới vào trước khi xóa",
@@ -215,7 +216,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                                         grid.getStore().remove(objDel);
                                         me.reCalculate();
                                         var storeDV = viewmodel.getStore('OrgStore');
-                                        if(storeDV!=null)
+                                        if (storeDV != null)
                                             storeDV.load();
                                     }
                                     // porderReqStore.reload();
@@ -226,7 +227,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                         }
                     }
                 });
-            }
+        }
     },
     reCalculate: function () {
         var viewmodel = this.getViewModel();
@@ -236,7 +237,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
 
             var ProductStore = viewmodel.getStore('ProductStore');
             var list_product = [];
-            if(ProductStore != null) {
+            if (ProductStore != null) {
                 if (ProductStore.data.length == 1) {
                     list_product.push(ProductStore.data.items[0].data);
                 }
@@ -248,18 +249,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
             }
             else {
                 porderReqStore.each(function (record) {
-                    if(list_product.length > 0) {
+                    if (list_product.length > 0) {
                         var check = false;
-    
-                        for(var i=0; i<list_product.length;i++){
+
+                        for (var i = 0; i < list_product.length; i++) {
                             var data = list_product[i];
-                            if(data.id == record.get('productid_link')){
+                            if (data.id == record.get('productid_link')) {
                                 check = true;
                                 break;
                             }
                         }
-    
-                        if(!check){
+
+                        if (!check) {
                             var newobj = new Object();
                             newobj.id = record.get('productid_link');
                             newobj.pairamount = record.get('amount_inset');
@@ -267,7 +268,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                             list_product.push(newobj);
                         }
                     }
-                    else{
+                    else {
                         var data = new Object();
                         data.id = record.get('productid_link');
                         data.pairamount = record.get('amount_inset');
@@ -277,13 +278,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                 });
             }
 
-            for(var j=0; j< list_product.length; j++){
+            for (var j = 0; j < list_product.length; j++) {
                 var data = list_product[j];
                 var count = 0;
                 var amount_fix = 0;
                 for (var i = 0; i < porderReqStore.data.length; i++) {
                     var rec = porderReqStore.data.items[i];
-                    if(rec.get('productid_link') != data.id) continue;
+                    if (rec.get('productid_link') != data.id) continue;
 
                     if (rec.get('is_calculate')) {
                         amount_fix += rec.get('totalorder');
@@ -297,14 +298,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
 
                 porderReqStore.each(function (record) {
                     if (!record.get('is_calculate') && record.get('productid_link') == data.id) {
-                        if (po_quantity-amount >= amount -1 ){
+                        if (po_quantity - amount >= amount - 1) {
                             record.set('totalorder', amount);
                             po_quantity = po_quantity - amount;
                         }
                         else
                             record.set('totalorder', po_quantity);//Lay phan con lai
                     }
-                });  
+                });
 
                 // for (var i = 0; i < porderReqStore.data.length; i++) {
                 //     var rec = porderReqStore.data.items[i];
@@ -315,7 +316,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                 // }
             }
 
-            
+
         }
     },
     onEdit: function (editor, context, e) {
@@ -331,14 +332,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
 
             list_product.push(data);
 
-            for(var j =0; j < list_product.length; j++){
+            for (var j = 0; j < list_product.length; j++) {
                 var count = 0;
                 var amount_fix = 0;
                 var data = list_product[j];
 
                 for (var i = 0; i < porderReqStore.data.length; i++) {
                     var rec = porderReqStore.data.items[i];
-                    if(rec.get('productid_link') != data.id) continue;
+                    if (rec.get('productid_link') != data.id) continue;
                     if (rec.get('is_calculate')) {
                         amount_fix += rec.get('totalorder');
                     }
@@ -346,24 +347,24 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PordersController', {
                         count++;
                 }
 
-                if(count > 1){
+                if (count > 1) {
                     var po_quantity = viewmodel.get('po.po_quantity') == null ? 0 : parseFloat(viewmodel.get('po.po_quantity').toString().replace(/,/gi, ''));
                     po_quantity = po_quantity * data.pairamount - context.value;
-                    var amount = Math.round((po_quantity - amount_fix ) / (count - 1));
+                    var amount = Math.round((po_quantity - amount_fix) / (count - 1));
                     var curRec = porderReqStore.getAt(context.rowIdx);
                     if (po_quantity - amount_fix >= 0) {
-                        
+
                         porderReqStore.each(function (record) {
-                            if (!record.get('is_calculate') && record.get('productid_link') == curRec.get('productid_link') 
-                            && record.get('id') != curRec.get('id')) {
-                                if (po_quantity-amount >= amount -1 ){
+                            if (!record.get('is_calculate') && record.get('productid_link') == curRec.get('productid_link')
+                                && record.get('id') != curRec.get('id')) {
+                                if (po_quantity - amount >= amount - 1) {
                                     record.set('totalorder', amount);
                                     po_quantity = po_quantity - amount;
                                 }
                                 else
                                     record.set('totalorder', po_quantity - amount_fix);//Lay phan con lai
                             }
-                        });  
+                        });
                     }
                     else {
                         curRec.set('totalorder', context.originalValue);

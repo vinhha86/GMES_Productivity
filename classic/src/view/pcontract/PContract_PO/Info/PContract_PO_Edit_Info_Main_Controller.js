@@ -13,12 +13,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info_Main_Controller', {
         var ctrportfromto = Ext.getCmp('PContract_PO_Edit_Info_PortFromTo');
         var porder_req_view = main.down('#PContract_PO_Edit_Porder_Req');
         var productStore = viewmodel.getStore('ProductStore');
-        if (productStore != null) {
-            var productpairid_link = viewmodel.get('productpairid_link');
-            if (productpairid_link > 0) {
-                productStore.loadStore_bypairid_Async(productpairid_link, viewmodel.get('pcontractid_link'));
-                productStore.load();
-            }
+        var productpairid_link = viewmodel.get('productpairid_link');
+        var productid_link = viewmodel.get('productid_link');
+        if (productpairid_link > 0) {
+            productStore.loadStore_bypairid_Async(productpairid_link, viewmodel.get('pcontractid_link'));
+            productStore.load();
+        }
+        else {
+            productStore.loadStore_bypairid_Async(productid_link, viewmodel.get('pcontractid_link'));
+            productStore.load();
         }
 
         var ShipModeStore = viewmodel.getStore('ShipModeStore');
