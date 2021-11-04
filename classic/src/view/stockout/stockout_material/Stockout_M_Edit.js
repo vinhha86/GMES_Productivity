@@ -42,10 +42,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit', {
                 text:  "Duyệt",
                 iconCls: 'x-fa fa-check',
                 itemId: 'btnConfirm',
+                hidden: true,
                 bind: {
                     hidden: '{isBtnConfirmHidden}'
                 },
-                // hidden: true
             },
             {
                 margin: '0 5 5 0',
@@ -53,10 +53,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit', {
                 text:  "Hủy duyệt",
                 iconCls: 'x-fa fa-close',
                 itemId: 'btnUnConfirm',
+                hidden: true,
                 bind: {
                     hidden: '{isBtnUnConfirmHidden}'
                 },
-                // hidden: true
             },
             {
                 flex:1
@@ -105,6 +105,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit', {
                 text:  'Lưu',
                 iconCls: 'x-fa fa-floppy-o',
                 // handler: 'onSave',
+                hidden: true,
                 bind:{
                     hidden: '{isBtnSaveHidden}'
                 }

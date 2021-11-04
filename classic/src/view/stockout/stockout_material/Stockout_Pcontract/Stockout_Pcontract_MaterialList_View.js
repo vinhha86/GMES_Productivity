@@ -36,7 +36,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pcontract.Stockou
             flex: 1
         },
         { 
-            header: 'Têm NPL', 
+            header: 'Tên NPL', 
             dataIndex: 'materialName', 
             flex: 1
         },

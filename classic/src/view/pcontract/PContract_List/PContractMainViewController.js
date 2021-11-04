@@ -214,7 +214,8 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
                                     });
                                 }
                                 else {
-                                    store.removeAt(rowIndex);
+                                    // store.removeAt(rowIndex);
+                                    store.load();
                                 }
                             } else {
                                 var response = Ext.decode(response.responseText);

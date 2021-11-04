@@ -56,6 +56,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
         '#limitpage': {
             specialkey: 'onSpecialkey'
         },
+        '#btnXuatCat': {
+            click: 'onXuatCat'
+        },
+        '#btnXuatNoiBo': {
+            click: 'onXuatDieuChuyenNoiBo'
+        },
     },
     onXuatTo: function () {
         this.redirectTo('stockout_m/11/create');

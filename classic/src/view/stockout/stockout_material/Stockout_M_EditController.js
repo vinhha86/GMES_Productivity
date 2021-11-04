@@ -1224,6 +1224,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		var viewModel = this.getViewModel();
 		var stockout = viewModel.get('stockout');
 		var productid_link = viewModel.get('stockout.productid_link');
+		var stockouttypeid_link = stockout.stockouttypeid_link;
+		// console.log(stockout);
+		// return;
 
 		if(productid_link == null || productid_link == ''){
 			Ext.Msg.show({
@@ -1236,6 +1239,21 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
             });
             return;
 		}
+
+		if(stockouttypeid_link == 1){ // xuat cat
+			m.loadDsPcontract_XuatCat();
+		}
+		if(stockouttypeid_link == 2){ // xuat dieu chuyen
+			m.loadDsPcontract_XuatDieuChuyen();
+		}
+	},
+	loadDsPcontract_XuatCat: function(){
+		var m = this;
+		var me = this.getView();
+		var viewModel = this.getViewModel();
+		var stockout = viewModel.get('stockout');
+		var productid_link = viewModel.get('stockout.productid_link');
+		var stockouttypeid_link = stockout.stockouttypeid_link;
 
 		var form = Ext.create('Ext.window.Window', {
             height: '90%',
@@ -1281,6 +1299,59 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
             m.getPcontractProductId(pcontractid_link, productid_link);
             form.close();
         });
+	},
+	loadDsPcontract_XuatDieuChuyen: function(){
+		var m = this;
+		var me = this.getView();
+		var viewModel = this.getViewModel();
+		var stockout = viewModel.get('stockout');
+		var productid_link = viewModel.get('stockout.productid_link');
+		var stockouttypeid_link = stockout.stockouttypeid_link;
+
+		var form = Ext.create('Ext.window.Window', {
+            height: '90%',
+            width: '45%',
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Danh sách đơn hàng',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Stockout_Pcontract_SearchByProduct_View',
+                viewModel: {
+                    data: {
+						stockout: stockout,
+                        productid_link: productid_link
+                    }
+                }
+            }]
+        });
+        form.show();
+        form.down('#Stockout_Pcontract_SearchByProduct_View').getController().on('Thoat', function () {
+            form.close();
+        });
+        // form.down('#Stockout_Pcontract_MaterialList_View').getController().on('ThemNPL', function (select, pcontractid_link, productid_link) {
+
+        //     viewModel.set('stockout.pcontractid_link', pcontractid_link);
+        //     viewModel.set('stockout.productid_link', productid_link);
+
+        //     for(var i=0; i<select.length; i++){
+        //         var isExist = m.checkSkuInDListFromStockout_Pcontract(select[i]);
+		// 		if(isExist){ // thông báo
+		// 			// đã có loại vải này
+		// 		}else{ // thêm
+		// 			m.addSkuToDListFromStockout_Pcontract(select[i]);
+		// 		}
+        //     }
+        //     m.getPcontractProductId(pcontractid_link, productid_link);
+        //     form.close();
+        // });
 	},
 	getPcontractProductId: function(pcontractid_link, productid_link){
         var m = this;
