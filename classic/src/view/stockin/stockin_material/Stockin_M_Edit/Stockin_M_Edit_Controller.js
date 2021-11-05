@@ -531,55 +531,55 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                     })
             }
             if(stockin.stockintypeid_link == 2){ // nhap dieu chuyen
-                // var params = new Object();
-                // params.stockin = stockin;
-                // params.stockinId = stockinId;
-                // params.approver_userid_link = approver_userid_link;
+                var params = new Object();
+                params.stockin = stockin;
+                params.stockinId = stockinId;
+                params.approver_userid_link = approver_userid_link;
     
-                // var mainView = Ext.getCmp('Stockin_P_Edit');
-                // if (mainView) mainView.setLoading(true);
+                var mainView = Ext.getCmp('Stockin_P_Edit');
+                if (mainView) mainView.setLoading(true);
     
-                // GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_approve_nhapDieuChuyenVai', Ext.JSON.encode(params),
-                //     function (success, response, options) {
-                //         if (mainView) mainView.setLoading(false);
-                //         var response = Ext.decode(response.responseText);
-                //         if (success) {
-                //             // console.log(response);
-                //             if (response.respcode == 200) {
-                //                 Ext.Msg.show({
-                //                     title: 'Thông báo',
-                //                     msg: 'Duyệt thành công',
-                //                     buttons: Ext.MessageBox.YES,
-                //                     buttonText: {
-                //                         yes: 'Đóng',
-                //                     }
-                //                 });
-                //                 var data = response.data;
-                //                 viewModel.set('stockin', data);
-                //                 m.getApproverName(data.approverid_link);
-                //             }
-                //             else {
-                //                 Ext.Msg.show({
-                //                     title: 'Duyệt thất bại',
-                //                     msg: response.message,
-                //                     buttons: Ext.MessageBox.YES,
-                //                     buttonText: {
-                //                         yes: 'Đóng',
-                //                     }
-                //                 });
-                //             }
+                GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_approve_nhapDieuChuyenVai', Ext.JSON.encode(params),
+                    function (success, response, options) {
+                        if (mainView) mainView.setLoading(false);
+                        var response = Ext.decode(response.responseText);
+                        if (success) {
+                            // console.log(response);
+                            if (response.respcode == 200) {
+                                Ext.Msg.show({
+                                    title: 'Thông báo',
+                                    msg: 'Duyệt thành công',
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
+                                var data = response.data;
+                                viewModel.set('stockin', data);
+                                m.getApproverName(data.approverid_link);
+                            }
+                            else {
+                                Ext.Msg.show({
+                                    title: 'Duyệt thất bại',
+                                    msg: response.message,
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
+                            }
     
-                //         } else {
-                //             Ext.Msg.show({
-                //                 title: 'Duyệt thất bại',
-                //                 msg: response.message,
-                //                 buttons: Ext.MessageBox.YES,
-                //                 buttonText: {
-                //                     yes: 'Đóng',
-                //                 }
-                //             });
-                //         }
-                //     })
+                        } else {
+                            Ext.Msg.show({
+                                title: 'Duyệt thất bại',
+                                msg: response.message,
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                        }
+                    })
             }
         })
     },
