@@ -43,8 +43,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
                     text:  'Thêm cây vải mất tem',
                     iconCls: 'x-fa fa-plus',
                     itemId: 'btnThemMatTem',
+                    hidden: true,
                     bind: {
-                        hidden: '{isBtnSelectHidden}'
+                        hidden: '{isBtnThemMatTemHidden}'
                     }
                 },
             ]
@@ -67,6 +68,7 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
                     margin: 3,
                     itemId:'btnSelect',
                     iconCls: 'x-fa fa-plus',
+                    hidden: true,
                     bind: {
                         hidden: '{isBtnSelectHidden}'
                     }

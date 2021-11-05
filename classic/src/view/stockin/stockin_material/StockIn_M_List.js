@@ -371,12 +371,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List', {
                         text: 'Nhập mua mới',
                         handler: 'onNhapMuaMoi'
                     },
-                    {
-                        itemId: 'btnNhapDieuChuyen', // id:2
-                        iconCls: 'x-fa fa-plus',
-                        text: 'Nhập điều chuyển',
-                        handler: 'onNhapDieuChuyen'
-                    },
+                    // {
+                    //     itemId: 'btnNhapDieuChuyen', // id:2
+                    //     iconCls: 'x-fa fa-plus',
+                    //     text: 'Nhập điều chuyển',
+                    //     handler: 'onNhapDieuChuyen'
+                    // },
                 ],
                 bind: {
                     hidden: '{isAdd_Pcontract_Stockin}'

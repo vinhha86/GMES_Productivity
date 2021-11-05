@@ -29,5 +29,15 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
             }
             return false;
         },
+        
+        isBtnThemMatTemHidden: function (get) {
+            if(get('stockout.status') >= 1){ // phiếu đã duyệt, ko cho thêm
+                return true;
+            }
+            if(get('stockout.stockouttypeid_link') == 2){ // xuat dieu chuyen
+                return true;
+            }
+            return false;
+        },
     }
 })

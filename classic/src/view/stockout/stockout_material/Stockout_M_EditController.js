@@ -846,34 +846,51 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		params.stockoutId = stockout.id;
 		params.approver_userid_link = stockout.approver_userid_link;
 
-		me.setLoading("Đang duyệt phiếu");
-		GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_approve',Ext.JSON.encode(params),
-		function(success,response,options ) {
-			me.setLoading(false);
-				if (success) {
-					var response = Ext.decode(response.responseText);
-					if (response.respcode == 200) {
-						Ext.MessageBox.show({
-							title: "Thông báo",
-							msg: 'Duyệt phiếu thành công',
-							buttons: Ext.MessageBox.YES,
-							buttonText: {
-								yes: 'Đóng',
+		if(stockout.stockouttypeid_link == 1){
+			me.setLoading("Đang duyệt phiếu");
+			GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_approve',Ext.JSON.encode(params),
+			function(success,response,options ) {
+				me.setLoading(false);
+					if (success) {
+						var response = Ext.decode(response.responseText);
+						if (response.respcode == 200) {
+							Ext.MessageBox.show({
+								title: "Thông báo",
+								msg: 'Duyệt phiếu thành công',
+								buttons: Ext.MessageBox.YES,
+								buttonText: {
+									yes: 'Đóng',
+								}
+							});		
+							// Ext.getCmp('Stockout_M_Edit').down('#btnConfirm').setHidden(true);
+							// Ext.getCmp('Stockout_M_Edit').down('#statusString').setValue('Đã duyệt');
+							
+							// m.redirectTo("stockout_m/" + response.id + "/edit");
+							// m.getInfo(response.id);
+							var str = Ext.getWin().dom.location.href;
+							var hash = str.split('#')[1];
+							if(hash == "stockout_m/" + response.id + "/edit"){
+								m.getInfo(response.id);
+							}else{
+								m.redirectTo("stockout_m/" + response.id + "/edit");
 							}
-						});		
-						// Ext.getCmp('Stockout_M_Edit').down('#btnConfirm').setHidden(true);
-						// Ext.getCmp('Stockout_M_Edit').down('#statusString').setValue('Đã duyệt');
-						
-						// m.redirectTo("stockout_m/" + response.id + "/edit");
-						// m.getInfo(response.id);
-						var str = Ext.getWin().dom.location.href;
-						var hash = str.split('#')[1];
-						if(hash == "stockout_m/" + response.id + "/edit"){
-							m.getInfo(response.id);
 						}else{
-							m.redirectTo("stockout_m/" + response.id + "/edit");
+							Ext.MessageBox.show({
+								title: "Thông báo",
+								msg: 'Lỗi duyệt phiếu: ' + response.message,
+								buttons: Ext.MessageBox.YES,
+								buttonText: {
+									yes: 'Đóng',
+								}
+							});		
 						}
-					}else{
+					} else {
+						var response = Ext.decode(response.responseText);
+						// if (null!=response.epc_err){
+						// 	response.epc_err.forEach(function(record, recordIdx){
+						// 		console.log(record.epc);
+						// 	}, this);
+						// }
 						Ext.MessageBox.show({
 							title: "Thông báo",
 							msg: 'Lỗi duyệt phiếu: ' + response.message,
@@ -881,25 +898,66 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 							buttonText: {
 								yes: 'Đóng',
 							}
-						});		
+						});
 					}
-				} else {
-					var response = Ext.decode(response.responseText);
-					// if (null!=response.epc_err){
-					// 	response.epc_err.forEach(function(record, recordIdx){
-					// 		console.log(record.epc);
-					// 	}, this);
-					// }
-					Ext.MessageBox.show({
-						title: "Thông báo",
-						msg: 'Lỗi duyệt phiếu: ' + response.message,
-						buttons: Ext.MessageBox.YES,
-						buttonText: {
-							yes: 'Đóng',
+			})	
+		}
+		if(stockout.stockouttypeid_link == 2){
+			me.setLoading("Đang duyệt phiếu");
+			GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_approve_xuatDieuChuyenVai',Ext.JSON.encode(params),
+			function(success,response,options ) {
+				me.setLoading(false);
+					if (success) {
+						var response = Ext.decode(response.responseText);
+						if (response.respcode == 200) {
+							Ext.MessageBox.show({
+								title: "Thông báo",
+								msg: 'Duyệt phiếu thành công',
+								buttons: Ext.MessageBox.YES,
+								buttonText: {
+									yes: 'Đóng',
+								}
+							});		
+							// Ext.getCmp('Stockout_M_Edit').down('#btnConfirm').setHidden(true);
+							// Ext.getCmp('Stockout_M_Edit').down('#statusString').setValue('Đã duyệt');
+							
+							// m.redirectTo("stockout_m/" + response.id + "/edit");
+							// m.getInfo(response.id);
+							var str = Ext.getWin().dom.location.href;
+							var hash = str.split('#')[1];
+							if(hash == "stockout_m/" + response.id + "/edit"){
+								m.getInfo(response.id);
+							}else{
+								m.redirectTo("stockout_m/" + response.id + "/edit");
+							}
+						}else{
+							Ext.MessageBox.show({
+								title: "Thông báo",
+								msg: 'Lỗi duyệt phiếu: ' + response.message,
+								buttons: Ext.MessageBox.YES,
+								buttonText: {
+									yes: 'Đóng',
+								}
+							});		
 						}
-					});
-				}
-		})	
+					} else {
+						var response = Ext.decode(response.responseText);
+						// if (null!=response.epc_err){
+						// 	response.epc_err.forEach(function(record, recordIdx){
+						// 		console.log(record.epc);
+						// 	}, this);
+						// }
+						Ext.MessageBox.show({
+							title: "Thông báo",
+							msg: 'Lỗi duyệt phiếu: ' + response.message,
+							buttons: Ext.MessageBox.YES,
+							buttonText: {
+								yes: 'Đóng',
+							}
+						});
+					}
+			})	
+		}
     },
 	onUnConfirm: function(){
 		var me = this;
@@ -950,38 +1008,58 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
         var m = this;
         var viewModel = this.getViewModel();
 		var stockout = viewModel.get('stockout');
-		var params=new Object();
-		params.stockoutId = stockout.id;
-		params.unapprover_userid_link = stockout.unapprover_userid_link;
-
-		me.setLoading("Đang hủy duyệt phiếu");
-		GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_unapprove',Ext.JSON.encode(params),
-		function(success,response,options ) {
-			me.setLoading(false);
-				if (success) {
-					var response = Ext.decode(response.responseText);
-					if (response.respcode == 200) {
-						Ext.MessageBox.show({
-							title: "Thông báo",
-							msg: 'Hủy duyệt phiếu thành công',
-							buttons: Ext.MessageBox.YES,
-							buttonText: {
-								yes: 'Đóng',
+		// console.log(stockout);
+		// console.log(stockout.stockouttypeid_link);
+		// return;
+		if(stockout.stockouttypeid_link == 1){ // xuat cat
+			var params=new Object();
+			params.stockoutId = stockout.id;
+			params.unapprover_userid_link = stockout.unapprover_userid_link;
+	
+			me.setLoading("Đang hủy duyệt phiếu");
+			GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_unapprove',Ext.JSON.encode(params),
+			function(success,response,options ) {
+				me.setLoading(false);
+					if (success) {
+						var response = Ext.decode(response.responseText);
+						if (response.respcode == 200) {
+							Ext.MessageBox.show({
+								title: "Thông báo",
+								msg: 'Hủy duyệt phiếu thành công',
+								buttons: Ext.MessageBox.YES,
+								buttonText: {
+									yes: 'Đóng',
+								}
+							});		
+							// Ext.getCmp('Stockout_M_Edit').down('#btnConfirm').setHidden(true);
+							// Ext.getCmp('Stockout_M_Edit').down('#statusString').setValue('Đã duyệt');
+							
+							// m.redirectTo("stockout_m/" + response.id + "/edit");
+							// m.getInfo(response.id);
+							var str = Ext.getWin().dom.location.href;
+							var hash = str.split('#')[1];
+							if(hash == "stockout_m/" + response.id + "/edit"){
+								m.getInfo(response.id);
+							}else{
+								m.redirectTo("stockout_m/" + response.id + "/edit");
 							}
-						});		
-						// Ext.getCmp('Stockout_M_Edit').down('#btnConfirm').setHidden(true);
-						// Ext.getCmp('Stockout_M_Edit').down('#statusString').setValue('Đã duyệt');
-						
-						// m.redirectTo("stockout_m/" + response.id + "/edit");
-						// m.getInfo(response.id);
-						var str = Ext.getWin().dom.location.href;
-						var hash = str.split('#')[1];
-						if(hash == "stockout_m/" + response.id + "/edit"){
-							m.getInfo(response.id);
 						}else{
-							m.redirectTo("stockout_m/" + response.id + "/edit");
+							Ext.MessageBox.show({
+								title: "Thông báo",
+								msg: 'Lỗi hủy duyệt phiếu: ' + response.message,
+								buttons: Ext.MessageBox.YES,
+								buttonText: {
+									yes: 'Đóng',
+								}
+							});		
 						}
-					}else{
+					} else {
+						var response = Ext.decode(response.responseText);
+						// if (null!=response.epc_err){
+						// 	response.epc_err.forEach(function(record, recordIdx){
+						// 		console.log(record.epc);
+						// 	}, this);
+						// }
 						Ext.MessageBox.show({
 							title: "Thông báo",
 							msg: 'Lỗi hủy duyệt phiếu: ' + response.message,
@@ -989,25 +1067,70 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 							buttonText: {
 								yes: 'Đóng',
 							}
-						});		
+						});
 					}
-				} else {
-					var response = Ext.decode(response.responseText);
-					// if (null!=response.epc_err){
-					// 	response.epc_err.forEach(function(record, recordIdx){
-					// 		console.log(record.epc);
-					// 	}, this);
-					// }
-					Ext.MessageBox.show({
-						title: "Thông báo",
-						msg: 'Lỗi hủy duyệt phiếu: ' + response.message,
-						buttons: Ext.MessageBox.YES,
-						buttonText: {
-							yes: 'Đóng',
+			})	
+		}
+		if(stockout.stockouttypeid_link == 2){ // xuat dieu chuyen
+			var params=new Object();
+			params.stockoutId = stockout.id;
+			params.unapprover_userid_link = stockout.unapprover_userid_link;
+	
+			me.setLoading("Đang hủy duyệt phiếu");
+			GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_unapprove_xuatDieuChuyenVai',Ext.JSON.encode(params),
+			function(success,response,options ) {
+				me.setLoading(false);
+					if (success) {
+						var response = Ext.decode(response.responseText);
+						if (response.respcode == 200) {
+							Ext.MessageBox.show({
+								title: "Thông báo",
+								msg: 'Hủy duyệt phiếu thành công',
+								buttons: Ext.MessageBox.YES,
+								buttonText: {
+									yes: 'Đóng',
+								}
+							});		
+							// Ext.getCmp('Stockout_M_Edit').down('#btnConfirm').setHidden(true);
+							// Ext.getCmp('Stockout_M_Edit').down('#statusString').setValue('Đã duyệt');
+							
+							// m.redirectTo("stockout_m/" + response.id + "/edit");
+							// m.getInfo(response.id);
+							var str = Ext.getWin().dom.location.href;
+							var hash = str.split('#')[1];
+							if(hash == "stockout_m/" + response.id + "/edit"){
+								m.getInfo(response.id);
+							}else{
+								m.redirectTo("stockout_m/" + response.id + "/edit");
+							}
+						}else{
+							Ext.MessageBox.show({
+								title: "Thông báo",
+								msg: 'Lỗi hủy duyệt phiếu: ' + response.message,
+								buttons: Ext.MessageBox.YES,
+								buttonText: {
+									yes: 'Đóng',
+								}
+							});		
 						}
-					});
-				}
-		})	
+					} else {
+						var response = Ext.decode(response.responseText);
+						// if (null!=response.epc_err){
+						// 	response.epc_err.forEach(function(record, recordIdx){
+						// 		console.log(record.epc);
+						// 	}, this);
+						// }
+						Ext.MessageBox.show({
+							title: "Thông báo",
+							msg: 'Lỗi hủy duyệt phiếu: ' + response.message,
+							buttons: Ext.MessageBox.YES,
+							buttonText: {
+								yes: 'Đóng',
+							}
+						});
+					}
+			})	
+		}
     },
 
 	onMenu_Stockout_M_Edit_D_List: function (grid, rowIndex, colIndex, item, e, record) {
@@ -1240,14 +1363,14 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
             return;
 		}
 
-		if(stockouttypeid_link == 1){ // xuat cat
-			m.loadDsPcontract_XuatCat();
+		if(stockouttypeid_link == 1 || stockouttypeid_link == 2){
+			m.loadDsPcontract();
 		}
-		if(stockouttypeid_link == 2){ // xuat dieu chuyen
-			m.loadDsPcontract_XuatDieuChuyen();
-		}
+		// if(stockouttypeid_link == 2){ // xuat dieu chuyen
+		// 	m.loadDsPcontract_XuatDieuChuyen();
+		// }
 	},
-	loadDsPcontract_XuatCat: function(){
+	loadDsPcontract: function(){
 		var m = this;
 		var me = this.getView();
 		var viewModel = this.getViewModel();

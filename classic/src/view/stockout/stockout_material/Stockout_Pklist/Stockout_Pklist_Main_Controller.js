@@ -58,49 +58,96 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
         var mainView = Ext.getCmp('Stockout_Pklist_Main');
         if(mainView) mainView.setLoading(true);
 
-        var params = new Object();
-        params.stockid_link = orgid_from_link ;
-        params.skuid_link = skuid_link ;
-        params.pcontractid_link = pcontractid_link ;
-        params.productid_link = productid_link ;
+        if(stockout.stockouttypeid_link == 1){ // xuat cat
+            var params = new Object();
+            params.stockid_link = orgid_from_link ;
+            params.skuid_link = skuid_link ;
+            params.pcontractid_link = pcontractid_link ;
+            params.productid_link = productid_link ;
 
-        GSmartApp.Ajax.postJitin('/api/v1/warehouse/getMaterialListBySku',Ext.JSON.encode(params),
-		function(success,response,options ) {
-            if(mainView) mainView.setLoading(false);
-            var response = Ext.decode(response.responseText);
-            if(response.respcode == 200) {
-				// console.log(response);
-                var data = response.data;
-                var storeData = new Array();
-                // storeData = m.setStoreData(data);
-                storeData = data;
+            GSmartApp.Ajax.postJitin('/api/v1/warehouse/getMaterialListBySku',Ext.JSON.encode(params),
+            function(success,response,options ) {
+                if(mainView) mainView.setLoading(false);
+                var response = Ext.decode(response.responseText);
+                if(response.respcode == 200) {
+                    // console.log(response);
+                    var data = response.data;
+                    var storeData = new Array();
+                    // storeData = m.setStoreData(data);
+                    storeData = data;
 
-                viewModel.set('storeData', storeData);
+                    viewModel.set('storeData', storeData);
 
-                // var StockStore = viewModel.getStore('StockStore');
-                // StockStore.insert(0, storeData);
-                // StockStore.getSorters().add({
-                //     property: 'spaceString',
-                //     direction: 'ASC'
-                // });
+                    // var StockStore = viewModel.getStore('StockStore');
+                    // StockStore.insert(0, storeData);
+                    // StockStore.getSorters().add({
+                    //     property: 'spaceString',
+                    //     direction: 'ASC'
+                    // });
 
-                 var WarehouseStore = viewModel.getStore('WarehouseStore');
-                 WarehouseStore.insert(0, storeData);
-                 WarehouseStore.setGroupField('nhomCayVai');
-                 WarehouseStore.getSorters().add({
-                    property: 'spaceString',
-                    direction: 'ASC'
-                },{
-                    property: 'lotnumber',
-                    direction: 'ASC'
-                },{
-                    property: 'packageid',
-                    direction: 'ASC'
-                });
-                
-                // console.log(storeData);
-            }
-		})
+                    var WarehouseStore = viewModel.getStore('WarehouseStore');
+                    WarehouseStore.insert(0, storeData);
+                    WarehouseStore.setGroupField('nhomCayVai');
+                    WarehouseStore.getSorters().add({
+                        property: 'spaceString',
+                        direction: 'ASC'
+                    },{
+                        property: 'lotnumber',
+                        direction: 'ASC'
+                    },{
+                        property: 'packageid',
+                        direction: 'ASC'
+                    });
+                    
+                    // console.log(storeData);
+                }
+            })
+        }
+        if(stockout.stockouttypeid_link == 2){  // xuat dieu chuyen
+            var params = new Object();
+            params.stockid_link = orgid_from_link ;
+            params.skuid_link = skuid_link ;
+            params.pcontractid_link = pcontractid_link ;
+            params.productid_link = productid_link ;
+
+            GSmartApp.Ajax.postJitin('/api/v1/warehouse/getMaterialListBySku_xuatDieuChuyen',Ext.JSON.encode(params),
+            function(success,response,options ) {
+                if(mainView) mainView.setLoading(false);
+                var response = Ext.decode(response.responseText);
+                if(response.respcode == 200) {
+                    // console.log(response);
+                    var data = response.data;
+                    var storeData = new Array();
+                    // storeData = m.setStoreData(data);
+                    storeData = data;
+
+                    viewModel.set('storeData', storeData);
+
+                    // var StockStore = viewModel.getStore('StockStore');
+                    // StockStore.insert(0, storeData);
+                    // StockStore.getSorters().add({
+                    //     property: 'spaceString',
+                    //     direction: 'ASC'
+                    // });
+
+                    var WarehouseStore = viewModel.getStore('WarehouseStore');
+                    WarehouseStore.insert(0, storeData);
+                    WarehouseStore.setGroupField('nhomCayVai');
+                    WarehouseStore.getSorters().add({
+                        property: 'spaceString',
+                        direction: 'ASC'
+                    },{
+                        property: 'lotnumber',
+                        direction: 'ASC'
+                    },{
+                        property: 'packageid',
+                        direction: 'ASC'
+                    });
+                    
+                    // console.log(storeData);
+                }
+            })
+        }
     },
     
     // onAfterrender: function(){

@@ -75,22 +75,22 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pcontract.Stockou
         form.down('#Stockout_Pcontract_View').getController().on('Thoat', function () {
             form.close();
         });
-        // form.down('#Stockout_Pcontract_MaterialList_View').getController().on('ThemNPL', function (select, pcontractid_link, productid_link) {
+        form.down('#Stockout_Pcontract_MaterialList_View').getController().on('ThemNPL_XuatDieuChuyen', function (select, stockout_pcontractid_link, pcontractid_link_loanfrom, productid_link) {
 
-        //     viewModel.set('stockout.pcontractid_link', pcontractid_link);
-        //     viewModel.set('stockout.productid_link', productid_link);
+            // viewModel.set('stockout.pcontractid_link', pcontractid_link);
+            // viewModel.set('stockout.productid_link', productid_link);
 
-        //     for(var i=0; i<select.length; i++){
-        //         var isExist = m.checkSkuInDListFromStockout_Pcontract(select[i]);
-		// 		if(isExist){ // thông báo
-		// 			// đã có loại vải này
-		// 		}else{ // thêm
-		// 			m.addSkuToDListFromStockout_Pcontract(select[i]);
-		// 		}
-        //     }
-        //     m.getPcontractProductId(pcontractid_link, productid_link);
-        //     form.close();
-        // });
+            // for(var i=0; i<select.length; i++){
+            //     var isExist = m.checkSkuInDListFromStockout_Pcontract(select[i]);
+			// 	if(isExist){ // thông báo
+			// 		// đã có loại vải này
+			// 	}else{ // thêm
+			// 		m.addSkuToDListFromStockout_Pcontract(select[i]);
+			// 	}
+            // }
+            // m.getPcontractProductId(pcontractid_link, productid_link);
+            // form.close();
+        });
 
         // this.fireEvent("ThemDonHang", select);
         // this.onThoat();

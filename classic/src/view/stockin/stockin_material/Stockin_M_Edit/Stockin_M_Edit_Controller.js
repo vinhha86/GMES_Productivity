@@ -177,9 +177,10 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                     if (data.stockintypeid_link == 1) {// mua moi va cap bu thi là nha cung cap
                         var orgfromstore = viewModel.getStore('OrgFromStore');
                         orgfromstore.loadStore(5, false);
-                    } else if (id == 2) { // nhap dieu chuyen (kho -> kho)
+                    } else if (data.stockintypeid_link == 2) { // nhap dieu chuyen (kho -> kho)
                         var orgfromstore = viewModel.getStore('OrgFromStore');
-                        orgfromstore.loadOrgByTypeAndUser([3]);
+                        // orgfromstore.loadOrgByTypeAndUser([3]);
+                        orgfromstore.loadStore(3, false);
                     } else {
                         var listidtype = "13,4,8,9";
                         var orgfromstore = viewModel.getStore('OrgFromStore');
@@ -193,7 +194,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                     }
                     if (data.stockintypeid_link == 2) {// nhap dieu chuyen (kho -> kho)
                         var OrgToStore = viewModel.getStore('OrgToStore');
-                        OrgToStore.loadStore(3, false);
+                        // OrgToStore.loadStore(3, false);
+                        OrgToStore.loadOrgByTypeAndUser([3]);
                     }
                 }
             })
@@ -477,34 +479,46 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             form.close();
             // console.log(approver_userid_link);
 
-            var params = new Object();
-            params.stockin = stockin;
-            params.stockinId = stockinId;
-            params.approver_userid_link = approver_userid_link;
-
-            var mainView = Ext.getCmp('Stockin_P_Edit');
-            if (mainView) mainView.setLoading(true);
-
-            GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_approve', Ext.JSON.encode(params),
-                function (success, response, options) {
-                    if (mainView) mainView.setLoading(false);
-                    var response = Ext.decode(response.responseText);
-                    if (success) {
-                        // console.log(response);
-                        if (response.respcode == 200) {
-                            Ext.Msg.show({
-                                title: 'Thông báo',
-                                msg: 'Duyệt thành công',
-                                buttons: Ext.MessageBox.YES,
-                                buttonText: {
-                                    yes: 'Đóng',
-                                }
-                            });
-                            var data = response.data;
-                            viewModel.set('stockin', data);
-                            m.getApproverName(data.approverid_link);
-                        }
-                        else {
+            if(stockin.stockintypeid_link == 1){ // nhap moi vai
+                var params = new Object();
+                params.stockin = stockin;
+                params.stockinId = stockinId;
+                params.approver_userid_link = approver_userid_link;
+    
+                var mainView = Ext.getCmp('Stockin_P_Edit');
+                if (mainView) mainView.setLoading(true);
+    
+                GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_approve', Ext.JSON.encode(params),
+                    function (success, response, options) {
+                        if (mainView) mainView.setLoading(false);
+                        var response = Ext.decode(response.responseText);
+                        if (success) {
+                            // console.log(response);
+                            if (response.respcode == 200) {
+                                Ext.Msg.show({
+                                    title: 'Thông báo',
+                                    msg: 'Duyệt thành công',
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
+                                var data = response.data;
+                                viewModel.set('stockin', data);
+                                m.getApproverName(data.approverid_link);
+                            }
+                            else {
+                                Ext.Msg.show({
+                                    title: 'Duyệt thất bại',
+                                    msg: response.message,
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
+                            }
+    
+                        } else {
                             Ext.Msg.show({
                                 title: 'Duyệt thất bại',
                                 msg: response.message,
@@ -514,18 +528,59 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                                 }
                             });
                         }
-
-                    } else {
-                        Ext.Msg.show({
-                            title: 'Duyệt thất bại',
-                            msg: response.message,
-                            buttons: Ext.MessageBox.YES,
-                            buttonText: {
-                                yes: 'Đóng',
-                            }
-                        });
-                    }
-                })
+                    })
+            }
+            if(stockin.stockintypeid_link == 2){ // nhap dieu chuyen
+                // var params = new Object();
+                // params.stockin = stockin;
+                // params.stockinId = stockinId;
+                // params.approver_userid_link = approver_userid_link;
+    
+                // var mainView = Ext.getCmp('Stockin_P_Edit');
+                // if (mainView) mainView.setLoading(true);
+    
+                // GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_approve_nhapDieuChuyenVai', Ext.JSON.encode(params),
+                //     function (success, response, options) {
+                //         if (mainView) mainView.setLoading(false);
+                //         var response = Ext.decode(response.responseText);
+                //         if (success) {
+                //             // console.log(response);
+                //             if (response.respcode == 200) {
+                //                 Ext.Msg.show({
+                //                     title: 'Thông báo',
+                //                     msg: 'Duyệt thành công',
+                //                     buttons: Ext.MessageBox.YES,
+                //                     buttonText: {
+                //                         yes: 'Đóng',
+                //                     }
+                //                 });
+                //                 var data = response.data;
+                //                 viewModel.set('stockin', data);
+                //                 m.getApproverName(data.approverid_link);
+                //             }
+                //             else {
+                //                 Ext.Msg.show({
+                //                     title: 'Duyệt thất bại',
+                //                     msg: response.message,
+                //                     buttons: Ext.MessageBox.YES,
+                //                     buttonText: {
+                //                         yes: 'Đóng',
+                //                     }
+                //                 });
+                //             }
+    
+                //         } else {
+                //             Ext.Msg.show({
+                //                 title: 'Duyệt thất bại',
+                //                 msg: response.message,
+                //                 buttons: Ext.MessageBox.YES,
+                //                 buttonText: {
+                //                     yes: 'Đóng',
+                //                 }
+                //             });
+                //         }
+                //     })
+            }
         })
     },
     getApproverName: function (userid) {

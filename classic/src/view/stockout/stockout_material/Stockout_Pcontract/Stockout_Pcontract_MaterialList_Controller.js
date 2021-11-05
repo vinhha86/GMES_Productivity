@@ -25,6 +25,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pcontract.Stockou
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
+        var stockout = viewModel.get('stockout');
+        var stockout_pcontractid_link = viewModel.get('stockout_pcontractid_link');
         var pcontractid_link = viewModel.get('pcontractid_link');
         var productid_link = viewModel.get('productid_link');
         var select = me.getSelectionModel().getSelection();
@@ -39,7 +41,16 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pcontract.Stockou
             });
             return;
         }
-        this.fireEvent("ThemNPL", select, pcontractid_link, productid_link);
+        var stockouttypeid_link = stockout.stockouttypeid_link;
+        if(stockouttypeid_link == 1 || stockouttypeid_link == 2){
+            m.fireEvent("ThemNPL", select, pcontractid_link, productid_link);
+        }
+        // if(stockouttypeid_link == 2){ // xuat dieu chuyen
+        //     m.fireEvent("ThemNPL_XuatDieuChuyen", select, stockout_pcontractid_link, pcontractid_link, productid_link);
+        //     // console.log('stockout_pcontractid_link ' + stockout_pcontractid_link);
+        //     // console.log('pcontractid_link ' + pcontractid_link);
+        //     // console.log('productid_link ' + productid_link);
+        // }
         // this.onThoat();
     },
     // onAfterrender: function(){
