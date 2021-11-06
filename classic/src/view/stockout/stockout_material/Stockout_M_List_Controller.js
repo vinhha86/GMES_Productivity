@@ -298,7 +298,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
         if (filterValue != null) {
             this.orgFromFilter = filters.add({
                 id: 'orgFromFilter',
-                property: 'orgfrom_name',
+                property: 'org_from_name',
                 value: filterValue,
                 // exactMatch: true,
                 anyMatch: true,
@@ -319,7 +319,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
         if (filterValue != null) {
             this.orgToFilter = filters.add({
                 id: 'orgToFilter',
-                property: 'orgto_name',
+                property: 'org_to_name',
                 value: filterValue,
                 // exactMatch: true,
                 anyMatch: true,
