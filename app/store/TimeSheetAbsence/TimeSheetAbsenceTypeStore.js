@@ -1,39 +1,39 @@
 Ext.define('GSmartApp.store.TimeSheetAbsence.TimeSheetAbsenceTypeStore', {
-    extend: 'Ext.data.Store',
+	extend: 'Ext.data.Store',
 	alias: 'store.TimeSheetAbsenceTypeStore',
 	storeId: 'TimeSheetAbsenceTypeStore',
 	fields: [
-    ],
-    loadStore:function(){
-		var me=this;
+	],
+	loadStore: function () {
+		var me = this;
 		var params = new Object();
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
-				create : 'POST',
-				read   : 'POST',
-				update : 'POST',
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
 				destroy: 'POST'
 			},
 			// url: config.getAppBaseUrl()+'/api/v1/pcontract/getbypaging',
-			url: config.getAppBaseUrl()+'/api/v1/timesheetabsence/getAllTimeSheetAbsenceType',
-			paramsAsJson:true,
-			extraParams : params,
+			url: config.getAppBaseUrl() + '/api/v1/timesheetabsence/getAllTimeSheetAbsenceType',
+			paramsAsJson: true,
+			extraParams: params,
 			noCache: false,
-			headers :{
-				'Accept': "application/json", 
-				'Content-Type':"application/json"
-			 },
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
 			reader: {
 				type: 'json',
 				rootProperty: 'data'
 			}
 		});
-		this.loadPage(1,{
+		this.loadPage(1, {
 			scope: this,
-			callback: function(records, operation, success) {
-				if(!success){
-					 // this.fireEvent('logout');
+			callback: function (records, operation, success) {
+				if (!success) {
+					// this.fireEvent('logout');
 				} else {
 				}
 			}

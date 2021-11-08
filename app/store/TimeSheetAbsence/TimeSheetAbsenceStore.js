@@ -16,6 +16,7 @@ Ext.define('GSmartApp.store.TimeSheetAbsence.TimeSheetAbsenceStore', {
 		{ name: 'timeapprove', type: 'date', dateFormat: 'c' },
 	],
 	pageSize: 25,
+	groupField: 'timesheetAbsenceType',
 	loadStore: function (datefrom, dateto) {
 		var me = this;
 		var params = new Object();

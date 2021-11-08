@@ -12,20 +12,28 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.BaoCaoVangMat_DetailView', {
         store: '{TimeSheetAbsenceStore}',
         title: '{title_detail}'
     },
+    features: [{
+        ftype: 'groupingsummary',
+        groupHeaderTpl: '{name}',
+        startCollapsed: true,
+        collapseTip: "",
+        expandTip: ""
+    },
+    {
+        ftype: 'summary',
+        dock: 'bottom'
+    }],
     columns: [
         {
-            text: 'STT',
-            width: 50,
-            xtype: 'rownumberer',
-            align: 'center'
-        }, {
             text: 'Đơn vị',
-            dataIndex: 'personnelOrgManagename',
+            dataIndex: 'personnelOrgname',
             width: 100,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
-            }
+            },
+            summaryType: 'count',
+            summaryRenderer: 'renderSum'
         }, {
             text: 'Mã NV',
             dataIndex: 'personnelCode',
@@ -37,7 +45,7 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.BaoCaoVangMat_DetailView', {
         }, {
             text: 'Họ tên',
             dataIndex: 'personnelFullname',
-            width: 120,
+            width: 150,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;

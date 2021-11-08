@@ -13,6 +13,10 @@ Ext.define('GSmartApp.store.TimeSheetLunch.TimeSheetLunchStore', {
 		{ name: 'workingShift2', type: 'boolean' },
 		{ name: 'workingShift3', type: 'boolean' },
 	],
+	sorters: [{
+		property: 'personnelCode',
+		direction: 'ASC'
+	}],
 	loadStore: function (orgid_link, date) {
 		var me = this;
 		var params = new Object();
@@ -39,12 +43,12 @@ Ext.define('GSmartApp.store.TimeSheetLunch.TimeSheetLunchStore', {
 				rootProperty: 'data'
 			}
 		});
-		this.loadPage(1,{
+		this.loadPage(1, {
 			scope: this,
-			callback: function(records, operation, success) {
+			callback: function (records, operation, success) {
 				this.fireEvent('TimeSheetLunchStore_Done');
-				if(!success){
-					 // this.fireEvent('logout');
+				if (!success) {
+					// this.fireEvent('logout');
 				}
 			}
 		});

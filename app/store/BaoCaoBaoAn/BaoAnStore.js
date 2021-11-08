@@ -50,6 +50,13 @@ Ext.define('GSmartApp.store.BaoCaoBaoAn.BaoAnStore', {
             }
         });
 
-        this.load();
+        this.load({
+            scope: this,
+            callback: function (records, operation, success) {
+                if (success) {
+                    this.fireEvent('LoadTongHopBaoAnSuccess');
+                }
+            }
+        });
     }
 });

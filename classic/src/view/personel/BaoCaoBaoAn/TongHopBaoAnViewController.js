@@ -5,5 +5,16 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.TongHopBaoAnViewController', {
     },
     control: {
 
+    },
+    listen: {
+        store: {
+            'BaoAnStore': {
+                'LoadTongHopBaoAnSuccess': 'onLoadTongHopBaoAnSuccess'
+            }
+        }
+    },
+    onLoadTongHopBaoAnSuccess: function () {
+        var grid = this.getView();
+        grid.setLoading(false);
     }
 })
