@@ -711,8 +711,15 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         form.down('#Shift_List_View').getController().on('Select', function (listCa, data) {
             // console.log(listCa);
             // console.log(data);
+            viewModel.set('personnelCodeFilterValue', null);
+            viewModel.set('personnelRegCodeFilterValue', null);
+            viewModel.set('personnelFullnameFilterValue', null);
+            m.personnelCodeFilter = null;
+            m.personnelRegCodeFilter = null;
+            m.personnelFullnameFilter = null;
 
             var TimeSheetLunchStore = viewModel.getStore('TimeSheetLunchStore');
+            TimeSheetLunchStore.clearFilter();
             TimeSheetLunchStore.rejectChanges();
             var items = TimeSheetLunchStore.getData().items;
 

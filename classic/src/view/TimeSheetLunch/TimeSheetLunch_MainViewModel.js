@@ -30,6 +30,10 @@ Ext.define('GSmartApp.view.personel.TimeSheetLunch_MainViewModel', {
         sumCa1: 0,
         sumCa2: 0,
         sumCa3: 0,
-        sumCa4: 0
+        sumCa4: 0,
+
+        personnelCodeFilterValue: null,
+        personnelRegCodeFilterValue: null,
+        personnelFullnameFilterValue: null,
     }
 })

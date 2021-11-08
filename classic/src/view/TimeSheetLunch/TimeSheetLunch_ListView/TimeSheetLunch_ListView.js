@@ -40,9 +40,13 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
             xtype: 'textfield',
             fieldStyle: "",
             reference: 'personnelCodeFilter',
+            itemId: 'personnelCodeFilter',
             width: 96,
             margin: 2,
             enableKeyEvents: true,
+            bind: {
+                value: '{personnelCodeFilterValue}'
+            },
             listeners: {
                 keyup: 'onPersonnelCodeFilterKeyup',
                 buffer: 500
@@ -63,9 +67,13 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
             xtype: 'textfield',
             fieldStyle: "",
             reference: 'personnelRegCodeFilter',
+            itemId: 'personnelRegCodeFilter',
             width: 96,
             margin: 2,
             enableKeyEvents: true,
+            bind: {
+                value: '{personnelRegCodeFilterValue}'
+            },
             listeners: {
                 keyup: 'onPersonnelRegCodeFilterKeyup',
                 buffer: 500
@@ -86,10 +94,14 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
             xtype: 'textfield',
             fieldStyle: "",
             reference: 'personnelFullnameFilter',
+            itemId: 'personnelFullnameFilter',
             // flex: 1,
             width: 196,
             margin: 2,
             enableKeyEvents: true,
+            bind: {
+                value: '{personnelFullnameFilterValue}'
+            },
             listeners: {
                 keyup: 'onPersonnelFullnameFilterKeyup',
                 buffer: 500
