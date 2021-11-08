@@ -1,44 +1,44 @@
 Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
-    extend: 'Ext.form.Panel',
+    extend: 'Ext.grid.Panel',
     xtype: 'ChiTietBaoAnView',
     id: 'ChiTietBaoAnView',
     controller: 'ChiTietBaoAnViewController',
-    layout: 'vbox',
     bind: {
+        store: '{BaoAnStore}',
         title: '{title_detail}'
     },
-    items: [{
-        xtype: 'textfield',
-        fieldLabel: 'Ca 1',
-        readOnly: true,
-        margin: 5,
-        bind: {
-            value: '{ca1}'
-        }
+    features: [{
+        ftype: 'summary',
+        dock: 'bottom'
+    }],
+    columns: [{
+        dataIndex: 'org_name',
+        text: 'Tổ',
+        flex: 1
     }, {
-        xtype: 'textfield',
-        fieldLabel: 'Ca 2',
-        readOnly: true,
-        margin: 5,
-        bind: {
-            value: '{ca2}'
-        }
+        dataIndex: 'ca1',
+        text: 'Ca 1',
+        width: 70,
+        summaryType: 'sum',
+        summaryRenderer: 'renderSum'
     }, {
-        xtype: 'textfield',
-        fieldLabel: 'Ca 3',
-        readOnly: true,
-        margin: 5,
-        bind: {
-            value: '{ca3}'
-        }
+        dataIndex: 'ca2',
+        text: 'Ca 2',
+        width: 70,
+        summaryType: 'sum',
+        summaryRenderer: 'renderSum'
     }, {
-        xtype: 'textfield',
-        fieldLabel: 'Ca 4',
-        readOnly: true,
-        margin: 5,
-        bind: {
-            value: '{ca4}'
-        }
+        dataIndex: 'ca3',
+        text: 'Ca 3',
+        width: 70,
+        summaryType: 'sum',
+        summaryRenderer: 'renderSum'
+    }, {
+        dataIndex: 'ca4',
+        text: 'Ca 4',
+        width: 70,
+        summaryType: 'sum',
+        summaryRenderer: 'renderSum'
     }]
 });
 
