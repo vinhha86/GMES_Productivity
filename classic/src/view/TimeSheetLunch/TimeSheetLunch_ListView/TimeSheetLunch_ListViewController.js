@@ -148,7 +148,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         var m = this;
         var viewModel = this.getViewModel();
 
-        console.log('Header:' + checked);
+        // console.log('Header:' + checked);
 
         var TimeSheetLunchStore = viewModel.get('TimeSheetLunchStore');
         // TimeSheetLunchStore.rejectChanges();
@@ -167,12 +167,12 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         if (status == 1) {
             return;
         }
-        console.log(dataIndex);
+        // console.log(dataIndex);
         var col = dataIndex.substr(dataIndex.length - 1);
 
         var lunchShift = "lunchShift" + col;
         var workingShift = "workingShift" + col;
-        console.log(lunchShift);
+        // console.log(lunchShift);
 
 
         // checked lunchShift
