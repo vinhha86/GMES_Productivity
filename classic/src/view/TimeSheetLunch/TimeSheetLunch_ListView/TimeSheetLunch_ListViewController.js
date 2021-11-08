@@ -12,11 +12,14 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
             click: 'onUnconfirm'
         },
         '#btnAutoGetInfo': {
-            click: 'onAutoGetInfo'
+            click: 'onBtnAutoGetInfo'
         },
         '#btnSave': {
             click: 'onSave'
-        }
+        },
+        '#btnTest': {
+            click: 'onTest'
+        },
     },
     listen: {
         store: {
@@ -664,5 +667,91 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
 
         m.saveRecord(data);
     },
-    onAutoGetInfo: function () { },
+    onBtnAutoGetInfo: function () { 
+        // popup window danh sach ca -> chon
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var orgid_link = viewModel.get('orgid_link');
+        var TimeSheetLunch_MainView = Ext.getCmp('TimeSheetLunch_MainView');
+        var date = TimeSheetLunch_MainView.down('#txtdatefield').getValue();
+        //
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Danh sách ca ăn',
+            closeAction: 'destroy',
+			// height: Ext.getBody().getViewSize().height * .95,
+			// width: Ext.getBody().getViewSize().width * .95,
+            height: 300,
+            width: 300,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Shift_List_View',
+                viewModel: {
+                    data: {
+                        orgid_link: orgid_link,
+                        date: date,
+                    }
+                }
+            }],
+        });
+        form.show();
+
+        form.down('#Shift_List_View').getController().on('Thoat', function () {
+            form.close();
+        });
+
+        form.down('#Shift_List_View').getController().on('Select', function (listCa, data) {
+            // console.log(listCa);
+            // console.log(data);
+
+            var TimeSheetLunchStore = viewModel.getStore('TimeSheetLunchStore');
+            TimeSheetLunchStore.rejectChanges();
+            var items = TimeSheetLunchStore.getData().items;
+
+            for(var i = 0; i < items.length; i++){
+                for(var j = 0; j < listCa.length; j++){
+                    if(listCa[j].name == 'Ca ăn 1'){
+                        items[i].set('lunchShift1', true);
+                    }
+                    if(listCa[j].name == 'Ca ăn 2'){
+                        items[i].set('lunchShift2', true);
+                    }
+                    if(listCa[j].name == 'Ca ăn 3'){
+                        items[i].set('lunchShift3', true);
+                    }
+                    if(listCa[j].name == 'Ca ăn 4'){
+                        items[i].set('lunchShift4', true);
+                    }
+                }
+            }
+
+            for(var i = 0; i < data.length; i++){
+                var gridRecord = TimeSheetLunchStore.findRecord('personnelid_link', data[i].personnelid_link, 0, false, false, true);
+                // console.log(gridRecord);
+                gridRecord.set('lunchShift' + data[i].lunchShift, false);
+            }
+
+            form.close();
+        });
+    },
+    onTest: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var TimeSheetLunchStore = viewModel.getStore('TimeSheetLunchStore');
+        var items = TimeSheetLunchStore.getData().items;
+        console.log(items);
+
+        for(var i = 0; i < items.length; i++){
+            items[i].set('lunchShift2', true);
+        }
+    }
 })

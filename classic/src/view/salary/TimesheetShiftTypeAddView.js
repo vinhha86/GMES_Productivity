@@ -7,35 +7,38 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddView', {
     items: [{
         layout: 'hbox',
         width: '100%',
-        items: [{
-            xtype: 'combobox',
-            margin: 5,
-            fieldLabel: 'Tên ca',
-           // reference: 'name',
-            allowBlank: false,
-            flex:1,
-            labelWidth: 90,
-            displayField: 'name',
-            valueField: 'id',
-            queryMode: 'local',
-            bind: {
-                store:'TimesheetShiftTypeStore',
-                value: '{TimeShift.name}',
-               
-            }
-        },{
-            xtype: 'checkbox',
-            reference: 'checkboxcaan',
-            fieldLabel: 'Ca ăn',
-            margin: 5,
-            labelWidth: 70,
-            width: 120,
-            inputValue:1,
-            uncheckedValue:-1,
-            // bind: {
-            //     value: '{checkboxto}'
+        items: [
+            {
+                xtype: 'combobox',
+                margin: 5,
+                fieldLabel: 'Tên ca',
+            // reference: 'name',
+                allowBlank: false,
+                flex:1,
+                labelWidth: 90,
+                displayField: 'name',
+                valueField: 'id',
+                queryMode: 'local',
+                bind: {
+                    store:'TimesheetShiftTypeStore',
+                    value: '{TimeShift.name}',
+                
+                }
+            },
+            // {
+            //     xtype: 'checkbox',
+            //     reference: 'checkboxcaan',
+            //     fieldLabel: 'Ca ăn',
+            //     margin: 5,
+            //     labelWidth: 70,
+            //     width: 120,
+            //     inputValue:1,
+            //     uncheckedValue:-1,
+            //     // bind: {
+            //     //     value: '{checkboxto}'
+            //     // }
             // }
-        }]
+        ]
     },{
         layout: 'hbox',
         width: '100%',

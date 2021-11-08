@@ -17,6 +17,7 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeViewController',
         var shift = new Object();
         shift.name = viewmodel.get('shift.name');
         shift.code = viewmodel.get('shift.code');
+        shift.is_ca_an = viewmodel.get('shift.is_ca_an');
 
         params.data = shift;
  
@@ -42,6 +43,7 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeViewController',
     Them_DB(params) {
         var me = this;
         var viewmodel = this.getViewModel();
+        var TimesheetShiftTypeStore = viewmodel.getStore('TimesheetShiftTypeStore');
         GSmartApp.Ajax.post('/api/v1/timesheetshifttype/add_timesheetshifttype', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
@@ -58,10 +60,12 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeViewController',
                         })
                         viewmodel.set('shift.name', null);
                         viewmodel.set('shift.code', null);
+                        viewmodel.set('shift.is_ca_an', null);
                         //load
                        me.onloadPage();
                     }
                 } else {
+                    TimesheetShiftTypeStore.rejectChanges();
                     Ext.MessageBox.show({
                         title: "Thông báo",
                         msg: "Lưu thất bại",
@@ -186,6 +190,16 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeViewController',
             }
         }
         return true;
+    },
+    onCheckcolumnCheckChange: function(checkcolumn, rowIndex, checked, record, eOpts){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        
+        var params = new Object();
+        var data = record.data;
+        params.data = data;
+        this.Them_DB(params);
     },
     //lọc - filter
     onNameFilter: function () {

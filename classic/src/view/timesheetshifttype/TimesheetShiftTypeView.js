@@ -42,6 +42,8 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeView', {
     }, {
         text: 'Tên ca làm việc',
         dataIndex: 'name',
+        sortable: false,
+        menuDisabled: true,
         flex: 1,
         items: {
             xtype: 'textfield',
@@ -64,6 +66,8 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeView', {
     }, {
         text: 'Mã ca làm việc',
         dataIndex: 'code',
+        sortable: false,
+        menuDisabled: true,
         flex: 1,
         items: {
             xtype: 'textfield',
@@ -83,6 +87,17 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeView', {
             selectOnFocus: true,
 
         },
+    }, {
+        xtype: 'checkcolumn',
+        dataIndex: 'is_ca_an',
+        width: 50,
+        headerCheckbox: false,
+        sortable: false,
+        menuDisabled: true,
+        text: 'Ca ăn',
+        listeners: {
+            checkchange: 'onCheckcolumnCheckChange',
+        }
     }],
     dockedItems: [{
         dock: 'bottom',
@@ -116,6 +131,19 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeView', {
                 emptyText: 'Mã ca làm việc',
                 bind: {
                     value: '{shift.code}'
+                }
+            },
+            {
+                xtype: 'checkbox',
+                itemId: 'txtIsCaAn',
+                margin: 5,
+                // width: 50,
+                labelWidth: 60,
+                // allowBlank: false,
+                emptyText: 'Ca ăn',
+                fieldLabel: 'Ca ăn',
+                bind: {
+                    value: '{shift.is_ca_an}'
                 }
             }
         ]
