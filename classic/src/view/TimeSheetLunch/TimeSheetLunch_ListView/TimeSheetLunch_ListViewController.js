@@ -736,7 +736,9 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
             for(var i = 0; i < data.length; i++){
                 var gridRecord = TimeSheetLunchStore.findRecord('personnelid_link', data[i].personnelid_link, 0, false, false, true);
                 // console.log(gridRecord);
-                gridRecord.set('lunchShift' + data[i].lunchShift, false);
+                if(gridRecord){
+                    gridRecord.set('lunchShift' + data[i].lunchShift, false);
+                }
             }
 
             form.close();

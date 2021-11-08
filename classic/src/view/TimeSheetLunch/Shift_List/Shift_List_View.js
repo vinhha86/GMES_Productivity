@@ -44,7 +44,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.Shift_List.Shift_List_View', {
                     text: 'Chọn',
                     margin: 3,
                     itemId:'btnSelect',
-                    iconCls: 'x-fa fa-plus',
+                    iconCls: 'x-fa fa-check',
                 },
             ]
         }
