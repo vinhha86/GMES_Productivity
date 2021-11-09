@@ -237,13 +237,13 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
             {
                 flex: 1,
             },
-            {
-                xtype: 'button',
-                margin: 5,
-                text: 'Test',
-                iconCls: 'x-fa fa-save',
-                itemId: 'btnTest',
-            },
+            // {
+            //     xtype: 'button',
+            //     margin: 5,
+            //     text: 'Test',
+            //     iconCls: 'x-fa fa-save',
+            //     itemId: 'btnTest',
+            // },
         ]
     }, {
         dock: 'top',
