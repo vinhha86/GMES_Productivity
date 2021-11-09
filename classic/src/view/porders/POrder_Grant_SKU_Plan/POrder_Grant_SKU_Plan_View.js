@@ -37,6 +37,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
             // 'percentage', 'uniform'
             defaultUpdater: 'overwrite',
             listeners: {
+                beforeedit: 'onBeforeedit',
                 validateedit: 'onAmount_Edit'
             }       
         }        

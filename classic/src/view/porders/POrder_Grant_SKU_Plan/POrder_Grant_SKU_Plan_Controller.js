@@ -113,6 +113,12 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
             }
         }
     }, 
+    onBeforeedit: function ( editor, context, eOpts ) {
+        if (context.record.get('leftAxisKey') == "grandtotal" || context.column.text == "Tổng") {
+            context.cancel = true;
+            return false;
+        }
+    },
     onAmount_Edit:function(editor, context){
         // e.record.data[e.field] = e.value;
         // console.log(context);
