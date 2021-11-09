@@ -32,8 +32,12 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
         var sourceView = viewModel.get('sourceView');
         var eventRecord = viewModel.get('eventRecord');
         var porder_grantid_link = viewModel.get('porder_grantid_link');
-        var startDate = eventRecord.get('startDate');
-        var endDate = eventRecord.get('endDate');
+        // var startDate = eventRecord.get('startDate');
+        // var endDate = eventRecord.get('endDate');
+        var startDate = eventRecord.get('StartDate');
+        var endDate = eventRecord.get('EndDate');
+
+        console.log(eventRecord);
 
         var POrderGrant_SKU_PlanStore = viewModel.getStore('POrderGrant_SKU_PlanStore');
         if(sourceView == 'SchedulePlan'){
