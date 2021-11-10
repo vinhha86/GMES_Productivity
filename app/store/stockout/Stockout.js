@@ -101,7 +101,7 @@ Ext.define('GSmartApp.store.Stockout', {
 		});
     }, 
     loadByDate_Material:function(stockouttypeid,stockoutcode, stockoutdate_from, stockoutdate_to, page, limit,
-        orgid_from_link, orgid_to_link, stockouttypefrom, stockouttypeto, statuses, skuid_link, product){
+        orgid_from_link, orgid_to_link, stockouttypefrom, stockouttypeto, statuses, skuid_link, product, maNpl, lotnumber){
         var me = this;
         var param=new Object();
         param.stockoutdate_from = stockoutdate_from;
@@ -115,6 +115,8 @@ Ext.define('GSmartApp.store.Stockout', {
         param.statuses = statuses;
         param.skuid_link = skuid_link;
         param.product = product;
+        param.maNpl = maNpl;
+        param.lotnumber = lotnumber;
         
         me.pageSize = limit;
 

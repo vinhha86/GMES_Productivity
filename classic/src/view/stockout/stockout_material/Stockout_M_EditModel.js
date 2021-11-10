@@ -64,6 +64,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
 			stockoutdate_to: new Date(),
 			stockouttypeid_link: null,
 			product: null, // string
+            maNpl: null, // string
+            lotnumber: null, // string
 		},
 
         stockout: {

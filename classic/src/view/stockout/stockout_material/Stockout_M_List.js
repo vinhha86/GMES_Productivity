@@ -374,8 +374,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                 margin: 3,
                 fieldLabel: 'Xuất từ ngày:',
                 labelWidth: 86,
-                width: 215,
-                format:'d/m/Y',
+                width: 200,
+                format:'d/m/y',
                 itemId: 'stockoutdate_from',
                 // value: new Date(),  // defaults to today
                 bind: {
@@ -387,8 +387,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                 margin: 3,
                 fieldLabel: 'đến ngày:',
                 labelWidth: 65,
-                width: 195,
-                format:'d/m/Y',
+                width: 180,
+                format:'d/m/y',
                 itemId: 'stockoutdate_to',
                 // value: new Date(),  // defaults to today
                 bind: {
@@ -427,26 +427,55 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                 emptyText: 'Loại xuất kho',
                 displayField: 'name',
                 valueField: 'id',
+                width: 140,
                 bind: {
                     store: '{StockoutTypeStore}',
                     value: '{searchObj.stockouttypeid_link}',
-                }
+                },
+                matchFieldWidth: false,
+                listConfig: {
+                    listeners: {
+                        beforeshow: function(picker) {
+                            picker.minWidth = picker.up('combobox').getSize().width;
+                        }
+                    }
+                },
             },
             {
                 itemId: 'productString',
                 xtype: 'textfield',
                 emptyText: 'Sản phẩm',
-                width: 140,
+                width: 110,
                 bind:{
                     value: '{searchObj.product}',
                 },
                 margin: 3,
             },
             {
+                itemId: 'maNplString',
+                xtype: 'textfield',
+                emptyText: 'Mã NPL',
+                width: 110,
+                bind:{
+                    value: '{searchObj.maNpl}',
+                },
+                margin: 3,
+            },
+            {
+                itemId: 'lotnumberString',
+                xtype: 'textfield',
+                emptyText: 'Số Lot',
+                width: 110,
+                bind:{
+                    value: '{searchObj.lotnumber}',
+                },
+                margin: 3,
+            },
+            {
                 tooltip: 'Tìm phiếu xuất',
                 iconCls: 'x-fa fa-search',
+                itemId: 'btnSearch',
                 margin: 1,
-                handler: 'onSearch'
             }
         ]
     }, 

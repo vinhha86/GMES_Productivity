@@ -5,14 +5,14 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
-        var StockoutType = this.getViewModel().getStore('StockoutTypeStore');
+        var StockoutType = viewModel.getStore('StockoutTypeStore');
         if(null!=StockoutType) StockoutType.loadStore(null, 10);
 
         var listidtype = "4,8,9,11,12";
-        var fromStore = this.getViewModel().getStore('OrgFromStore');
+        var fromStore = viewModel.getStore('OrgFromStore');
         if(null!=fromStore) fromStore.loadStore_allchildren_byorg(listidtype);
 
-        var orgtostore = this.getViewModel().getStore('OrgToStore');
+        var orgtostore = viewModel.getStore('OrgToStore');
         if(null!=orgtostore) orgtostore.loadStore_byRoot(listidtype);
 
         var today = new Date();
@@ -22,15 +22,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
         // me.down('#stockoutdate_from').setValue(new Date(priorDate));
 
         this.onSearch();
-
-        // var store_stockout = this.getViewModel().getStore('Stockout');
-        // if (store_stockout) {
-        //     var page = store_stockout.currentPage;
-        //     if (page == null) {
-        //         page = 1;
-        //     }
-        //      store_stockout.loadByDate(0,'', new Date(),new Date(), page, 25, 0 ,0);
-        // }
     },
     onActivate: function () {
         this.onSearch();
@@ -55,6 +46,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
         },
         '#limitpage': {
             specialkey: 'onSpecialkey'
+        },
+        '#btnSearch': {
+            click: 'onSearch'
         },
         '#btnXuatCat': {
             click: 'onXuatCat'
@@ -95,6 +89,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
         var stockoutdate_from = viewModel.get('searchObj.stockoutdate_from');
         var stockoutdate_to = viewModel.get('searchObj.stockoutdate_to');
         var product = viewModel.get('searchObj.product');
+        var maNpl = viewModel.get('searchObj.maNpl');
+        var lotnumber = viewModel.get('searchObj.lotnumber');
         // var OrgToStore = me.down('#OrgToStore').getValue();
         // var OrgFromStore = me.down('#OrgFromStore').getValue();
         var stockoutcode = '';
@@ -106,7 +102,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List_Controller', {
         var mat_skuid_link = viewModel.get('mat_skuid_link');
 
         store.loadByDate_Material(stockouttypeid, stockoutcode, stockoutdate_from, stockoutdate_to, null, null,
-            orgid_from_link, orgid_to_link, stockouttypefrom, stockouttypeto, statuses, mat_skuid_link, product);
+            orgid_from_link, orgid_to_link, stockouttypefrom, stockouttypeto, statuses, mat_skuid_link, product, maNpl, lotnumber);
 
         var StockoutD_Store = viewModel.getStore('StockoutD_Store');
         if(null!=StockoutD_Store) StockoutD_Store.removeAll();
