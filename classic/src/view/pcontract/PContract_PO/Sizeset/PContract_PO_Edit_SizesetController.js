@@ -107,6 +107,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_SizesetController', {
         priceStore.filter('productid_link', viewmodel.get('product_selected_id_link'));
     },
     onItemSelect: function (m, rec) {
+        console.log(rec);
         var viewModel = this.getViewModel();
         viewModel.set('po_price', rec.data);
 

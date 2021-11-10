@@ -164,11 +164,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         // width: 50,
         xtype: 'numbercolumn',
         format: '0.0000',
-        // editor: {
-        //     xtype: 'textfield',
-        //     maskRe: /[0-9.]/,
-        //     selectOnFocus: true
-        // },
+        editor: {
+            xtype: 'textfield',
+            maskRe: /[0-9.]/,
+            selectOnFocus: true
+        },
         renderer: function (value, metaData, record) {
             if (value == 0) return "";
             metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0.0000') + '"';
