@@ -15,7 +15,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
             click: 'onThoat'
         },
         '#btnSelect': {
-            click: 'onSelect'
+            click: 'onBeforeSelect',
+            // click: 'onSelect',
         },
         '#btnInfo': {
             click: 'onInfo'
@@ -264,33 +265,95 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
             }
 		})
     },
-    // onSelect: function(){
-    //     var m = this;
-    //     var me = this.getView();
-    //     var viewModel = this.getViewModel();
-    //     var StockStore = viewModel.getStore('StockStore');
-    //     var StockStoreData = StockStore.getData();
 
-    //     var listCayVaiThem = new Array();
+    onBeforeSelect: function(){
+        // kiểm tra các cây vải đã nằm trong phiếu xuất khác chưa, nếu có -> thông báo
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var stockout = viewModel.get('stockout');
+        var WarehouseStore = viewModel.getStore('WarehouseStore');
+        var WarehouseStoreData = WarehouseStore.getData();
+        var allRecords = (WarehouseStore.getData().getSource() || WarehouseStore.getData()).getRange();
 
-    //     var items = StockStoreData.items;
-    //     var totalcay = 0;
-    //     var totaldai = 0;
-    //     for(var i=0; i<items.length; i++){
-    //         var khoang = items[i]; console.log(khoang);
-    //         var warehouseList = khoang.get('warehouseList');
-    //         for(var j=0;j< warehouseList.length; j++){
-    //             if(warehouseList[j].isChecked){
-    //                 warehouseList[j].spaceString = khoang.get('spaceString');
-    //                 totalcay++;
-    //                 totaldai+= warehouseList[j].met == null ? 0 : warehouseList[j].met;
-    //                 listCayVaiThem.push(warehouseList[j]);
-    //             }
-    //         }
-    //     }
+        var listCayVaiThem = new Array();
 
-    //     m.fireEvent('ThemCayVai', listCayVaiThem, totalcay, totaldai);
-    // },
+        // var items = WarehouseStoreData.items;
+        var items = allRecords;
+
+        // console.log(items);
+
+        var totalcay = 0;
+        var totaldai = 0;
+        for(var i=0; i<items.length; i++){
+            var cayVai = items[i].data;
+            if(cayVai.isChecked){
+                totalcay++;
+                totaldai+= cayVai.met == null ? 0 : cayVai.met;
+                listCayVaiThem.push(cayVai);
+            }
+        }
+
+        me.setLoading(true);
+        // console.log(listCayVaiThem);
+        var params = new Object();
+        params.data = listCayVaiThem;
+        params.stockoutid_link = isNaN(stockout.id) ? null : stockout.id;
+
+        GSmartApp.Ajax.postJitin('/api/v1/warehouse/check_warehouse_in_stockout', Ext.JSON.encode(params),
+            function (success, response, options) {
+                me.setLoading(false);
+                var response = Ext.decode(response.responseText);
+                if (success) {
+                    if(response.respcode == 200){
+                        // console.log(response);
+                        if(response.message == ""){
+                            m.onSelect();
+                        }else{
+                            var returnMessage = '';
+                            var myArray = response.message.split("%seperator%");
+                            for(var i = 0; i < myArray.length; i++){
+                                if(myArray[i] != ''){
+                                    returnMessage += myArray[i] + '<br />';
+                                }
+                            }
+                            Ext.Msg.show({
+                                title: 'Thông báo',
+                                msg: returnMessage,
+                                buttons: Ext.MessageBox.YESNO,
+                                buttonText: {
+                                    yes: 'Thêm',
+                                    no: 'Thoát',
+                                },
+                                fn: function (btn) {
+                                    if (btn === 'yes') {
+                                        m.onSelect();
+                                    }
+                                }
+                            });
+                        }
+                    }else{
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lấy thông tin thất bại: bạn hãy kiểm tra lại kết nối mạng',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Lấy thông tin thất bại: bạn hãy kiểm tra lại kết nối mạng',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
+    },
     onSelect: function(){
         var m = this;
         var me = this.getView();
