@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
     extend: 'Ext.pivot.Grid',
     xtype: 'POrder_Grant_SKU_Plan_View',
     itemId:'POrder_Grant_SKU_Plan_View',
+    cls: 'POrder_Grant_SKU_Plan_View',
     controller: 'POrder_Grant_SKU_Plan_Controller',
     // viewModel: {
     //     type: 'POrder_Grant_SKU_Plan_ViewModel'
@@ -92,7 +93,38 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
                 dataIndex: 'skuCode_string',
                 header: 'Mã SP(Buyer) - Màu - Cỡ - Số lượng tổng',
                 sortable: false,
-                width: 400
+                width: 400,
+                renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                    // metaData.tdCls = (value < 0) ? 'redCls' : 'greenCls';
+                    if(record.get('isRowGrandTotal') == false){
+                        // console.log(value);
+                        // console.log(record);
+                        // console.log(store);
+                        // console.log('-----');
+
+                        var colNum = 1;
+                        while(record.get('c' + colNum) != null){
+                            colNum++;
+                        }
+                        var totalSum = record.get('c' + (colNum-1));
+                        var valueArr = value.split(" - ");
+                        var total = valueArr[valueArr.length - 1];
+                        if(!isNaN(totalSum) && !isNaN(total)){
+                            // console.log(total);
+                            // console.log(totalSum);
+                            if(totalSum < total){
+                                // metaData.tdCls = 'redCls';
+                                metaData.tdStyle = 'background-color: rgb(255, 125, 125);';
+                                // console.log(metaData);
+                            }else{
+                                // metaData.tdCls = 'whiteCls';
+                                metaData.tdStyle = 'background-color: white;';
+                                // console.log(metaData);
+                            }
+                        }
+                    }
+                    return value;
+                }
             },
         ],
 

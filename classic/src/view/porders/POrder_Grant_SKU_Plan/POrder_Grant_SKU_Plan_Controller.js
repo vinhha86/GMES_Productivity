@@ -37,7 +37,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
         var startDate = eventRecord.get('StartDate');
         var endDate = eventRecord.get('EndDate');
 
-        console.log(eventRecord);
+        // console.log(eventRecord);
 
         var POrderGrant_SKU_PlanStore = viewModel.getStore('POrderGrant_SKU_PlanStore');
         if(sourceView == 'SchedulePlan'){
@@ -74,15 +74,15 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
             var record = POrderGrant_SKU_PlanStore.data.items[i];
             // console.log(record);
             if (null != record.modified){
-                console.log(record);
-                // me.setLoading(true);
+                // console.log(record);
+                me.setLoading(true);
                 //Update to DB
                 var params = new Object();
                 params.data = record.data;
         
                 GSmartApp.Ajax.post('/api/v1/porder_grant_sku_plan/porder_grant_sku_plan_update', Ext.JSON.encode(params),
                     function (success, response, options) {
-                        // me.setLoading(false);
+                        me.setLoading(false);
                         if (success) {
                             var response = Ext.decode(response.responseText);
                             if(response.respcode == 200){
