@@ -2,6 +2,17 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_MainController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockout_ForCheck_MainController',
     init: function() {
+       
+    },
+    control: {
+        '#btnBack': {
+            tap: 'onBtnBackTap'
+        },
+        '#stockoutforcheckmain': {
+            painted: 'onPainted'
+        }
+    },
+    onPainted: function(){
         var me = this.getView();
         var viewmodel = this.getViewModel();
 
@@ -15,12 +26,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_MainController', {
         var today = new Date();
 		var priorDate = new Date().setDate(today.getDate()-30);
 		me.down('#fromDate').setValue(new Date(priorDate));
-        this.loadData();
-    },
-    control: {
-        '#btnBack': {
-            tap: 'onBtnBackTap'
-        }
+        this.loadData(); 
     },
     loadData: function(){
         var m = this;

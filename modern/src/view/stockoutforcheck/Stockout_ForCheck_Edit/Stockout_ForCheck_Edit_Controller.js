@@ -2,21 +2,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockout_ForCheck_Edit_Controller',
 	init: function() {
-        var viewModel = this.getViewModel();
         
-        // nếu vào từ view xuất kho
-        var tempObj = GSmartApp.util.State.get('tempObj');
-        if(tempObj){
-            viewModel.set('is_stockout_m_view', tempObj.is_stockout_m_view);
-            GSmartApp.util.State.set('tempObj', null);
-
-            // ẩn tab tở vải nếu vào từ view xuất kho
-            // var view = this.getView().down('#TabView');
-            // var tabToVai = view.down('#Stockout_ForCheck_Edit_ToVai_Main');
-            // tabToVai.tab.hide();
-        }else{ // nếu vào từ view tở vải
-            // do nothing
-        }
     },
     listen: {
         controller: {
@@ -43,6 +29,26 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
         '#TabView':{
             activeItemchange: 'onTabViewActiveItemchange'
         },
+        '#stockoutforcheckmain_edit': {
+            painted: 'onPainted'
+        }
+    },
+    onPainted: function(){
+        var viewModel = this.getViewModel();
+        
+        // nếu vào từ view xuất kho
+        var tempObj = GSmartApp.util.State.get('tempObj');
+        if(tempObj){
+            viewModel.set('is_stockout_m_view', tempObj.is_stockout_m_view);
+            GSmartApp.util.State.set('tempObj', null);
+
+            // ẩn tab tở vải nếu vào từ view xuất kho
+            // var view = this.getView().down('#TabView');
+            // var tabToVai = view.down('#Stockout_ForCheck_Edit_ToVai_Main');
+            // tabToVai.tab.hide();
+        }else{ // nếu vào từ view tở vải
+            // do nothing
+        }
     },
     onTabViewActiveItemchange: function(sender, value, oldValue, eOpts){
         var m = this;
