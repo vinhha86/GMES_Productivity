@@ -117,6 +117,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit', {
                     }],
                 },
             ],
+            hidden: true,
             bind: {
                 hidden: '{!isTabToVaiHidden}'
             }

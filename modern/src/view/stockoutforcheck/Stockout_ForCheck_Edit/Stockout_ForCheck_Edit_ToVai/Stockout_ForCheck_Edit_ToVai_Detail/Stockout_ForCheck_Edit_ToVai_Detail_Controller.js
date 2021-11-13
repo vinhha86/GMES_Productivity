@@ -2,13 +2,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
 	extend: 'Ext.app.ViewController',
 	alias: 'controller.Stockout_ForCheck_Edit_ToVai_Detail_Controller',
 	init: function () {
-        var m = this;
-		var viewModel = this.getViewModel();
-        var stockout_order = viewModel.get('stockout_order');
-        var selectedPklRecord = viewModel.get('selectedPklRecord');
-        if(selectedPklRecord != null){
-            m.onSetFormData();
-        }
+        
 	},
     control: {
         '#btnCheck':{
@@ -17,6 +11,21 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
         '#btnDeletePklToVai':{
             tap: 'onBtnDeletePklToVai'
         },
+        '#Stockout_ForCheck_Edit_ToVai_Detail': {
+            painted: 'onPainted'
+        }
+    },
+    onPainted: function(){
+        var m = this;
+        var me = this.getView();
+		var viewModel = this.getViewModel();
+        var stockout_order = viewModel.get('stockout_order');
+        var selectedPklRecord = viewModel.get('selectedPklRecord');
+        if(selectedPklRecord != null){
+            m.onSetFormData();
+        }else{
+            me.down('#lotnumberTxt').focus();
+        }
     },
     onFocus: function(textfield, e, eOpts){
         //

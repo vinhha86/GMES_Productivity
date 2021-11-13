@@ -67,6 +67,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
                 if(status == 1){
                     metaData.tdCls =  'rowGreen';
                 }
+                if(status == 2){
+                    metaData.tdCls =  'rowBlue';
+                }
                 metaData.tdAttr = 'data-qtip="' + val + '"';
                 return val;
             },
