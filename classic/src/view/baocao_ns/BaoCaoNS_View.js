@@ -39,9 +39,13 @@ Ext.define('GSmartApp.view.baocao_ns.BaoCaoNS_View', {
             text: 'Tổng lao động',
             dataIndex: 'tongLaoDong',
             flex: 1,
+            align: 'end',
             sortable: false,
             menuDisabled: true,
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                if(!isNaN(value)) {
+                    value = Ext.util.Format.number(value, '0,000');
+                }
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
             }
@@ -50,9 +54,13 @@ Ext.define('GSmartApp.view.baocao_ns.BaoCaoNS_View', {
             text: 'Số có mặt',
             dataIndex: 'soCoMat',
             flex: 1,
+            align: 'end',
             sortable: false,
             menuDisabled: true,
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                if(!isNaN(value)) {
+                    value = Ext.util.Format.number(value, '0,000');
+                }
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
             }
@@ -61,9 +69,13 @@ Ext.define('GSmartApp.view.baocao_ns.BaoCaoNS_View', {
             text: 'Nghỉ phép',
             dataIndex: 'nghiPhep',
             flex: 1,
+            align: 'end',
             sortable: false,
             menuDisabled: true,
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                if(!isNaN(value)) {
+                    value = Ext.util.Format.number(value, '0,000');
+                }
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
             }
@@ -72,9 +84,13 @@ Ext.define('GSmartApp.view.baocao_ns.BaoCaoNS_View', {
             text: 'Nghỉ 1/2 ngày',
             dataIndex: 'nghi1phan2',
             flex: 1,
+            align: 'end',
             sortable: false,
             menuDisabled: true,
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                if(!isNaN(value)) {
+                    value = Ext.util.Format.number(value, '0,000');
+                }
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
             }
@@ -83,9 +99,13 @@ Ext.define('GSmartApp.view.baocao_ns.BaoCaoNS_View', {
             text: 'Không phép',
             dataIndex: 'nghiKhongPhep',
             flex: 1,
+            align: 'end',
             sortable: false,
             menuDisabled: true,
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                if(!isNaN(value)) {
+                    value = Ext.util.Format.number(value, '0,000');
+                }
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
             }
@@ -94,9 +114,13 @@ Ext.define('GSmartApp.view.baocao_ns.BaoCaoNS_View', {
             text: 'Cách ly',
             dataIndex: 'nghiCachLy',
             flex: 1,
+            align: 'end',
             sortable: false,
             menuDisabled: true,
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                if(!isNaN(value)) {
+                    value = Ext.util.Format.number(value, '0,000');
+                }
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
             }
