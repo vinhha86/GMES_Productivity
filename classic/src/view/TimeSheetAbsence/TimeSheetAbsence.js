@@ -12,6 +12,15 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsence', {
         columnLines: true,
         rowLines: true
     },
+    features: [{
+        ftype: 'groupingsummary',
+        groupHeaderTpl: '{name}',
+        collapseTip: "",
+        expandTip: ""
+    }, {
+        ftype: 'summary',
+        dock: 'bottom'
+    }],
     bind: {
         store: '{TimeSheetAbsenceStore}'
     },
@@ -32,18 +41,14 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsence', {
                 handler: 'onXoa',
             }]
         }, {
-            text: 'STT',
-            width: 50,
-            xtype: 'rownumberer',
-            align: 'center'
-        }, {
             text: 'Đơn vị',
             dataIndex: 'personnelOrgManagename',
             width: 100,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
-            }
+            },
+            summaryType: 'count', summaryRenderer: 'renderSum'
         }, {
             text: 'Mã NV',
             dataIndex: 'personnelCode',
@@ -57,6 +62,14 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsence', {
             dataIndex: 'personnelFullname',
             // width: 120,
             flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            }
+        }, {
+            text: 'Tổ',
+            dataIndex: 'personnelOrgname',
+            width: 80,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;

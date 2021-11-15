@@ -107,6 +107,12 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
                     var tab = Ext.getCmp('Stockin_M_List_Main');
                     tab.getController().onPContract_Stockin(viewmodel.get('IdPContract'));
                 }
+                else if (newCard.xtype == 'POrderBomKyThuatView') {
+                    // console.log('Stockin_M_List_Main')
+                    viewmodel.set('isHidden_btnLuu', true);
+                    var tab = Ext.getCmp('POrderBomKyThuatView');
+                    tab.getController().CreateColumns();
+                }
                 else {
                     var storeproductlist = viewmodel.getStore('PContractProductStore');
                     storeproductlist.load();

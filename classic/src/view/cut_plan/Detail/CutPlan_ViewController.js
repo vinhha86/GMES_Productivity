@@ -34,7 +34,6 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
     onThemKeHoach: function () {
         var viewmodel = this.getViewModel();
         var npl = viewmodel.get('npl');
-        var porder = viewmodel.get('porder');
 
         if (npl.id == null) {
             Ext.Msg.alert({
@@ -49,9 +48,9 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         else {
             var params = new Object();
             params.material_skuid_link = npl.id;
-            params.porderid_link = porder.id;
-            params.productid_link = porder.productid_link;
-            params.pcontractid_link = porder.pcontractid_link;
+            params.porderid_link = null;
+            params.productid_link = viewmodel.get('productid_link');
+            params.pcontractid_link = viewmodel.get('pcontractid_link');
 
             GSmartApp.Ajax.post('/api/v1/cutplan/create', Ext.JSON.encode(params),
                 function (success, response, options) {
@@ -257,10 +256,10 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
 
         var params = new Object();
         var porder = viewmodel.get('porder');
-        params.porderid_link = porder.id;
+        params.porderid_link = 0;
         params.material_skuid_link = npl.id;
-        params.productid_link = porder.productid_link;
-        params.pcontractid_link = porder.pcontractid_link;
+        params.productid_link = viewmodel.get('productid_link');
+        params.pcontractid_link = viewmodel.get('pcontractid_link');
         params.colorid_link = viewmodel.get('colorid_link_active');
 
         GSmartApp.Ajax.post('/api/v1/cutplan/add_row', Ext.JSON.encode(params),
@@ -287,8 +286,8 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         var listtitle = [];
         var listid = [];
 
-        var productid_link = viewmodel.get('porder.productid_link');
-        var pcontractid_link = viewmodel.get('porder.pcontractid_link');
+        var productid_link = viewmodel.get('productid_link');
+        var pcontractid_link = viewmodel.get('pcontractid_link');
 
         //kiem tra mau co trong sku khong thi moi sinh tab 
         var params = new Object();
@@ -304,7 +303,6 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
 
                     for (var i = 0; i < response.data.length; i++) {
                         var data = response.data[i];
-                        var colorid_
                         if (!listid.includes(data.sizeid_link) && data.color_id == colorid_link) {
                             listid.push(data.sizeid_link);
                             listtitle.push(data.coSanPham);

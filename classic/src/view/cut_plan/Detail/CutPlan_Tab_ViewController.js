@@ -16,8 +16,8 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_Tab_ViewController', {
         newActiveItem = this.getView();
         var npl = viewmodel.get('npl');
 
-        var productid_link = viewmodel.get('porder.productid_link');
-        var pcontractid_link = viewmodel.get('porder.pcontractid_link');
+        var productid_link = viewmodel.get('productid_link');
+        var pcontractid_link = viewmodel.get('pcontractid_link');
 
         //kiem tra mau co trong sku khong thi moi sinh tab 
         var params = new Object();
@@ -58,15 +58,13 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_Tab_ViewController', {
         var gridsize = Ext.getCmp(tabPanel.getActiveTab().id).down('#CutPlan_View').getController();
         gridsize.CreateColumns();
         var colorid_link = newCard.colorid_link;
-        var porder = viewmodel.get('porder');
-        var npl = viewmodel.get('npl');
+        var pcontractid_link = viewmodel.get('pcontractid_link');
+        var productid_link = viewmodel.get('productid_link');
 
         viewmodel.set('colorid_link_active', colorid_link);
 
-        var porder = viewmodel.get('porder');
-
         var productStore = viewmodel.getStore('ProductStore');
-        productStore.load_by_type_and_pcontract_product(20, porder.pcontractid_link, porder.productid_link, colorid_link);
+        productStore.load_by_type_and_pcontract_product(20, pcontractid_link, productid_link, colorid_link);
         productStore.setGroupField('producttype_name');
 
         // if (npl.id != null) {

@@ -89,7 +89,7 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
                 bind: {
                     // disabled: '{disabledTab}'
                 }
-            }, 
+            },
             // {
             //     title: 'Định mức cân đối',
             //     xtype: 'PContractProduct_Bom2_TabColorView',
@@ -100,6 +100,10 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
             {
                 title: 'Định mức cân đối',
                 xtype: 'PContract_Bom_View'
+            },
+            {
+                title: 'Định mức kỹ thuật',
+                xtype: 'POrderBomKyThuatView',
             },
             {
                 title: 'Cân đối NPL',

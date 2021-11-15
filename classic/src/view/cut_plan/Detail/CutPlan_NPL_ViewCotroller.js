@@ -44,10 +44,12 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_NPL_ViewCotroller', {
         viewmodel.set('npl', record.data);
 
         var colorid_link = viewmodel.get('colorid_link_active');
-        var porder = viewmodel.get('porder');
+        var porderid_link = 0;
+        var pcontractid_link = viewmodel.get('pcontractid_link');
+        var productid_link = viewmodel.get('productid_link');
         var npl = viewmodel.get('npl');
 
         var store = viewmodel.getStore('CutPlanRowStore');
-        store.loadStore_bycolor(colorid_link, porder.id, npl.id, porder.productid_link, porder.pcontractid_link);
+        store.loadStore_bycolor(colorid_link, porderid_link, npl.id, productid_link, pcontractid_link);
     }
 })

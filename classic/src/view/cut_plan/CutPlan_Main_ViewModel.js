@@ -17,7 +17,6 @@ Ext.define('GSmartApp.view.Detail.CutPlan_Main_ViewModel', {
         }
     },
     data: {
-        porder: null,
         isReadOnly: true,
         npl: {
 
@@ -27,6 +26,8 @@ Ext.define('GSmartApp.view.Detail.CutPlan_Main_ViewModel', {
         width_npl: '100%',
         type: {
             type: 1
-        }
+        },
+        productid_link: 0,
+        pcontractid_link: 0
     }
 })

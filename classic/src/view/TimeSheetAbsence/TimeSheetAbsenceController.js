@@ -43,6 +43,8 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceController', {
         var todate_hour = dateto.toDateString() + " 23:59";
         var dateto_hour = new Date(todate_hour);
         var TimeSheetAbsenceStore = viewModel.getStore('TimeSheetAbsenceStore');
+        TimeSheetAbsenceStore.setGroupField("personnelOrgname");
+
         TimeSheetAbsenceStore.loadStore_ByPage(25, page,
             orgFactory, personnelCode, personnelName, datefrom_hour, dateto_hour, timeSheetAbsenceType);
 
@@ -66,6 +68,9 @@ Ext.define('GSmartApp.view.TimeSheetAbsence.TimeSheetAbsenceController', {
         '#TimeSheetAbsence': {
             itemdblclick: 'onCapNhatdbl'
         }
+    },
+    renderSum: function (value, summaryData, dataIndex) {
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
     },
     onXoa: function (grid, rowIndex, colIndex) {
         var me = this;
