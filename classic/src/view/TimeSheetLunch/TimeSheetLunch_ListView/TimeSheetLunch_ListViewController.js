@@ -572,11 +572,11 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
             var rec = store.data.items[i].data;
             if (rec.lunchShift1)
                 ca1++;
-            else if (rec.lunchShift2)
+            if (rec.lunchShift2)
                 ca2++;
-            else if (rec.lunchShift3)
+            if (rec.lunchShift3)
                 ca3++;
-            else if (rec.lunchShift4)
+            if (rec.lunchShift4)
                 ca4++;
         }
         viewmodel.set('sumCa1', ca1);
