@@ -106,6 +106,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
    *   thời gian công tác theo thời gian vào làm - ngày nghỉ việc tại  cty
    */
   onTG_NghiCty: function (combo, newvalue, oldValue, e) {
+    // var me = this.getView();
     var viewmodel = this.getViewModel();
 
     //ngày vào công ty
@@ -121,6 +122,14 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
         var viewmodel = this.getViewModel();
         viewmodel.set('personnel.time_work', time_work.toFixed(1))
       }
+    }
+
+    // đổi trạng thái
+    // console.log(newvalue);
+    if(newvalue == null){
+      viewmodel.set('personnel.status', 0);
+    }else{
+      viewmodel.set('personnel.status', 1);
     }
 
   },
