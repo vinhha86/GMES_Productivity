@@ -53,7 +53,8 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_Tab_ViewController', {
     },
     onTabChange: function (tabPanel, newCard, oldCard, eOpts) {
         var viewmodel = this.getViewModel();
-        var mainView = Ext.getCmp(tabPanel.getActiveTab().id);
+        var CutPlanRowStore = viewmodel.getStore('CutPlanRowStore');
+        CutPlanRowStore.removeAll();
 
         var gridsize = Ext.getCmp(tabPanel.getActiveTab().id).down('#CutPlan_View').getController();
         gridsize.CreateColumns();

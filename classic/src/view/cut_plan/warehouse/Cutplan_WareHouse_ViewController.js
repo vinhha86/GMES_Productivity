@@ -18,14 +18,15 @@ Ext.define('GSmartApp.view.cut_plan.warehouse.Cutplan_WareHouse_ViewController',
 
         var material_skuid_link = viewmodel.get('npl.id');
         var org_from_id_link = null;
-        var porderid_link = viewmodel.get('porder.id');
+        var porderid_link = 0;
+        var pcontractid_link = viewmodel.get('pcontractid_link');
         var type = viewmodel.get('type.type');
         var stockout_orderid_link = null;
 
         var warehouseStore = viewmodel.getStore('WarehouseStore');
         warehouseStore.setGroupField('');
 
-        warehouseStore.loadbyorg(material_skuid_link, org_from_id_link, porderid_link, type, stockout_orderid_link, function (records, operation, success) {
+        warehouseStore.loadbyorg(material_skuid_link, org_from_id_link, porderid_link, pcontractid_link, type, stockout_orderid_link, function (records, operation, success) {
             warehouse_grid.setLoading(false);
         })
 

@@ -22,13 +22,14 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         viewmodel.set('cutplanrowid_link', record.get('id'));
 
         var grid = this.getView();
-        grid.setLoading('Đang tải dữ liệu');
+        var warehouse_view = grid.up('CutPlan_DetailView').up('CutPlan_Tab_View').up('CutPlan_MainView').down('#Cutplan_Warehouse_MainView');
+        warehouse_view.setLoading('Đang tải dữ liệu');
 
         var storecutplan_warehouse = viewmodel.getStore('WarehouseCutplanStore');
         var cutplanrowid_link = viewmodel.get('cutplanrowid_link');
 
         storecutplan_warehouse.loadby_cutplan(cutplanrowid_link, function (records, operation, success) {
-            grid.setLoading(false);
+            warehouse_view.setLoading(false);
         })
     },
     onThemKeHoach: function () {
@@ -51,6 +52,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
             params.porderid_link = null;
             params.productid_link = viewmodel.get('productid_link');
             params.pcontractid_link = viewmodel.get('pcontractid_link');
+            params.colorid_link = viewmodel.get('colorid_link_active');
 
             GSmartApp.Ajax.post('/api/v1/cutplan/create', Ext.JSON.encode(params),
                 function (success, response, options) {
@@ -111,8 +113,10 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
 
                         var params = new Object();
                         params.cutplanrowid_link = rec.get('id');
-                        params.porderid_link = porder.id;
+                        params.porderid_link = 0;
                         params.material_skuid_link = npl.id;
+                        params.productid_link = viewmodel.get('productid_link');
+                        params.pcontractid_link = viewmodel.get('pcontractid_link');
 
                         GSmartApp.Ajax.post('/api/v1/cutplan/delete_row', Ext.JSON.encode(params),
                             function (success, response, options) {
@@ -122,6 +126,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                                         var store = viewmodel.getStore('CutPlanRowStore');
                                         store.remove(rec);
                                         store.load();
+                                        console.log(1234);
                                         me.fireEvent('ReloadBOM');
                                     }
                                     else {
@@ -143,10 +148,9 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
     },
     onEdit: function (editor, context, e) {
         if (context.originalValue == context.value) return;
-
-        if (context.colIdx > 8) {
+        if (context.colIdx > 6) {
             this.UpdateSizeAmount(context);
-        } else if (context.colIdx == 8) { // ngay
+        } else if (context.colIdx == 6) { // ngay
             return;
         } else {
             this.UpdateRow(context);
@@ -174,6 +178,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         store.load();
+                        console.log(12345);
                         me.fireEvent('ReloadBOM');
                     }
                     else {
@@ -197,14 +202,15 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
 
         var me = this;
         var viewmodel = this.getViewModel();
-        var porder = viewmodel.get('porder');
+        // var porder = viewmodel.get('porder');
         var npl = viewmodel.get('npl');
         var store = viewmodel.getStore('CutPlanRowStore');
 
         var params = new Object();
-        params.porderid_link = porder.id;
+        params.porderid_link = 0;
         params.material_skuid_link = npl.id;
-        params.productid_link = porder.productid_link;
+        params.productid_link = viewmodel.get('productid_link');
+        params.pcontractid_link = viewmodel.get('pcontractid_link');
         params.colorid_link = viewmodel.get('colorid_link_active');
         params.sizeid_link = parseInt(context.field);
         params.amount = parseInt(context.value);
@@ -217,6 +223,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         store.load();
+                        console.log(123);
                         me.fireEvent('ReloadBOM');
                     }
                     else {
@@ -276,7 +283,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
     CreateColumns: function () {
         var viewmodel = this.getViewModel();
         var grid = this.getView();
-        var length = 9;
+        var length = 7;
         for (var i = 0; i < grid.headerCt.items.length; i++) {
             if (i > length - 1) {
                 grid.headerCt.remove(i);

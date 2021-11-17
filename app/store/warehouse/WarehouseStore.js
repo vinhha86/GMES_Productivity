@@ -8,13 +8,14 @@ Ext.define('GSmartApp.store.warehouse.WarehouseStore', {
 		direction: 'ASC',
 		property: 'material_product_code'
 	},
-	loadbyorg: function (material_skuid_link, org_from_id_link, porderid_link, type, stockout_orderid_link, callback) {
+	loadbyorg: function (material_skuid_link, org_from_id_link, porderid_link, pcontractid_link, type, stockout_orderid_link, callback) {
 		var params = new Object();
 		params.material_skuid_link = material_skuid_link;
 		params.org_from_id_link = org_from_id_link;
 		params.porderid_link = porderid_link;
 		params.typeFilter = type;
 		params.stockout_orderid_link = stockout_orderid_link;
+		params.pcontractid_link = pcontractid_link;
 
 		this.setProxy({
 			type: 'ajax',

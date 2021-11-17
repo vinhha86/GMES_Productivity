@@ -98,6 +98,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatView', {
         style: "background-color : white",
         items: [
             {
+                xtype: 'button',
+                text: 'Đồng bộ định mức cân đối',
+                margin: 3,
+                itemId: 'btnDongBo',
+                iconCls: 'x-fa fa-refresh',
+            },
+            {
                 xtype: 'combo',
                 width: 400,
                 margin: 3,

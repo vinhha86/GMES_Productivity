@@ -25,19 +25,27 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatViewContro
     onSelectSP: function (cmb, rec, e) {
         var me = this;
         me.CreateColumns();
+        me.onReloadBOM();
     },
     onReloadBOM: function () {
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('POrderBom2Store');
-        store.getbom_by_porder(viewmodel.get('porder.id'));
+        var porderid_link = 0;
+        var pcontractid_link = viewmodel.get('PContract.id');
+        var productid_link = viewmodel.get('IdProduct');
+
+        store.getbom_by_porder(porderid_link, pcontractid_link, productid_link);
     },
     onDongBo: function () {
         var grid = this.getView();
         var viewmodel = this.getViewModel();
         grid.setLoading('Đang đồng bộ');
-
+        var pcontractid_link = viewmodel.get('PContract.id');
+        var productid_link = viewmodel.get('IdProduct');
         var params = new Object();
-        params.porderid_link = viewmodel.get('porder.id');
+        params.porderid_link = 0;
+        params.pcontractid_link = pcontractid_link;
+        params.productid_link = productid_link;
 
         GSmartApp.Ajax.post('/api/v1/porderbom/sync', Ext.JSON.encode(params),
             function (success, response, options) {

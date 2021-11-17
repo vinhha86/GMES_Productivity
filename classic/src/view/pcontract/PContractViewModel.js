@@ -22,7 +22,8 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         'GSmartApp.store.pcontract.PContractBom2ColorStore',
         'GSmartApp.store.market.MarketStore',
         'GSmartApp.store.PayerStore',
-        'GSmartApp.store.attribute.attributeValueStore'],
+        'GSmartApp.store.attribute.attributeValueStore',
+        'GSmartApp.store.pcontract.POrderBomColorStore',],
     stores: {
         PContractStore: {
             type: 'PContractStore'
@@ -146,6 +147,9 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         },
         MauSanPhamStore: {
             type: 'attributeValueStore'
+        },
+        POrderBom2Store: {
+            type: 'POrderBomColorStore'
         }
     },
     data: {

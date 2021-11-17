@@ -86,10 +86,12 @@ Ext.define('GSmartApp.store.pcontract.POrderBomColorStore', {
 		});
 	},
 
-	getbom_by_porder: function (porderid_link) {
+	getbom_by_porder: function (porderid_link, pcontractid_link, productid_link) {
 		var me = this;
 		var params = new Object();
 		params.porderid_link = porderid_link;
+		params.pcontractid_link = pcontractid_link;
+		params.productid_link = productid_link;
 
 		this.setProxy({
 			type: 'ajax',
