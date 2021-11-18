@@ -326,7 +326,15 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 handler: function () {
                     me.porderGrantSkuPlan(eventRecord);
                 }
-            }
+            },
+            // {
+            //     text: 'Kế hoạch vào chuyền 2',
+            //     itemId: 'Schedule_KHVC2',
+            //     iconCls: 'x-fa fa-calendar-minus',
+            //     handler: function () {
+            //         me.porderGrantSkuPlan2(eventRecord);
+            //     }
+            // }
             ]
         })
         e.stopEvent();
@@ -1370,6 +1378,41 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         form.show();
 
         form.down('#POrder_Grant_SKU_Plan_Main_View').getController().on('Thoat', function (productivity) {
+            form.close();
+        })
+    },
+    porderGrantSkuPlan2: function (eventRecord) {
+        var sourceView = 'SchedulePlan'
+        var porder_grantid_link = eventRecord.data.porder_grantid_link;
+
+        var form = Ext.create('Ext.window.Window', {
+            height: '90%',
+            width: '95%',
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Kế hoạch vào chuyền',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'POrder_Grant_Plan_Main_View',
+                viewModel: {
+                    data: {
+                        sourceView: sourceView,
+                        eventRecord: eventRecord,
+                        porder_grantid_link: porder_grantid_link
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#POrder_Grant_Plan_Main_View').getController().on('Thoat', function (productivity) {
             form.close();
         })
     },

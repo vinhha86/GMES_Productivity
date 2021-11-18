@@ -1,8 +1,11 @@
+
+
 Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.POrder_Grant_SKU_Plan_Controller',
     init: function () {
     },
+
     control: {
         '#POrder_Grant_SKU_Plan_View': {
             afterrender: 'onAfterrender',
@@ -37,7 +40,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
         var startDate = eventRecord.get('StartDate');
         var endDate = eventRecord.get('EndDate');
 
-        // console.log(eventRecord);
+        console.log(eventRecord);
 
         var POrderGrant_SKU_PlanStore = viewModel.getStore('POrderGrant_SKU_PlanStore');
         if(sourceView == 'SchedulePlan'){
@@ -68,8 +71,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
         var viewModel = this.getViewModel();
 
         // Ext.log('Event "pivotupdate" fired');
-        var viewmodel = this.getViewModel();
-        var POrderGrant_SKU_PlanStore = viewmodel.getStore('POrderGrant_SKU_PlanStore');
+        var viewModel = this.getViewModel();
+        var POrderGrant_SKU_PlanStore = viewModel.getStore('POrderGrant_SKU_PlanStore');
         for (i=0;i<POrderGrant_SKU_PlanStore.data.items.length;i++){
             var record = POrderGrant_SKU_PlanStore.data.items[i];
             // console.log(record);
@@ -132,8 +135,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
     onItemclick: function( thisView, record, item, index, e, eOpts ){
         console.log(record);
         // console.log(item);
-        var viewmodel = this.getViewModel();
-        var POrderGrant_SKU_PlanStore = viewmodel.getStore('POrderGrant_SKU_PlanStore');
+        var viewModel = this.getViewModel();
+        var POrderGrant_SKU_PlanStore = viewModel.getStore('POrderGrant_SKU_PlanStore');
         for (i=0;i<POrderGrant_SKU_PlanStore.data.items.length;i++){
             var record = POrderGrant_SKU_PlanStore.data.items[i];
             console.log(record);
@@ -142,8 +145,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
     onPivotitemclick: function(params, e, eOpts){
         // console.log(params);
         var name = params.leftItem.name;
-        var viewmodel = this.getViewModel();
-        var POrderGrant_SKU_PlanStore = viewmodel.getStore('POrderGrant_SKU_PlanStore');
+        var viewModel = this.getViewModel();
+        var POrderGrant_SKU_PlanStore = viewModel.getStore('POrderGrant_SKU_PlanStore');
         var porder_grant_skuid_link = null;
 
         for (i=0;i<POrderGrant_SKU_PlanStore.data.items.length;i++){

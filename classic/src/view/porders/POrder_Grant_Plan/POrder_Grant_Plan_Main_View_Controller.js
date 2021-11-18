@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_Main_View_Controller', {
+Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_Main_View_Controller', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.POrder_Grant_SKU_Plan_Main_View_Controller',
+    alias: 'controller.POrder_Grant_Plan_Main_View_Controller',
     init: function () {
         
     },
@@ -11,6 +11,17 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_M
         '#btnCanDoi': {
             click: 'onCanDoi',
         },
+        '#btnTest': {
+            click: 'onTest',
+        },
+    },
+    onTest: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = m.getViewModel();
+
+        var POrderGrant_SKU_PlanStore = viewModel.getStore('POrderGrant_SKU_PlanStore');
+        console.log(POrderGrant_SKU_PlanStore.getData().items);
     },
     onThoat: function(){
         this.fireEvent('Thoat');
