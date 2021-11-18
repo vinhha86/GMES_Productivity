@@ -19,18 +19,21 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
     },
     onSelectRow: function (grid, record, item, index, e, eOpts) {
         var viewmodel = this.getViewModel();
-        viewmodel.set('cutplanrowid_link', record.get('id'));
+        if (record.get('type') == 0) {
+            viewmodel.set('cutplanrowid_link', record.get('id'));
 
-        var grid = this.getView();
-        var warehouse_view = grid.up('CutPlan_DetailView').up('CutPlan_Tab_View').up('CutPlan_MainView').down('#Cutplan_Warehouse_MainView');
-        warehouse_view.setLoading('Đang tải dữ liệu');
+            var grid = this.getView();
+            var warehouse_view = grid.up('CutPlan_DetailView').up('CutPlan_Tab_View').up('CutPlan_MainView').down('#Cutplan_Warehouse_MainView');
+            warehouse_view.setLoading('Đang tải dữ liệu');
 
-        var storecutplan_warehouse = viewmodel.getStore('WarehouseCutplanStore');
-        var cutplanrowid_link = viewmodel.get('cutplanrowid_link');
+            var storecutplan_warehouse = viewmodel.getStore('WarehouseCutplanStore');
+            var cutplanrowid_link = viewmodel.get('cutplanrowid_link');
 
-        storecutplan_warehouse.loadby_cutplan(cutplanrowid_link, function (records, operation, success) {
-            warehouse_view.setLoading(false);
-        })
+            storecutplan_warehouse.loadby_cutplan(cutplanrowid_link, function (records, operation, success) {
+                warehouse_view.setLoading(false);
+            })
+        }
+
     },
     onThemKeHoach: function () {
         var viewmodel = this.getViewModel();

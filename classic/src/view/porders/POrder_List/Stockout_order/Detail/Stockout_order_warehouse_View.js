@@ -23,10 +23,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_or
         groupHeaderTpl: '<b>{name}</b>',
         hideGroupedHeader: false,
         enableGroupingMenu: false
-    },{
+    }, {
         ftype: 'summary',
         dock: 'bottom'
-    }], 
+    }],
     columns: [{
         text: 'STT',
         width: 45,
@@ -46,7 +46,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_or
         text: 'Mã NPL',
         dataIndex: 'material_product_code',
         width: 120,
-        renderer: function (value, metaData, record, rowIdx, colIdx, store) {            
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             var c = record.get('status');
             if (c == 0) {
                 metaData.tdCls = 'process-free';
@@ -56,7 +56,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_or
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value == 'null' ? '' : value;
         },
-        summaryRenderer: function(){
+        summaryRenderer: function () {
             return '<div style="font-weight: bold; color:red;"> Tổng</div>';
         }
     }, {
@@ -93,7 +93,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_or
         },
         summaryType: 'count',
         summaryRenderer: 'renderCount'
-    },{
+    }, {
         text: 'Chiều dài',
         dataIndex: 'met',
         width: 120,
@@ -125,9 +125,9 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_or
                 value: '{type}'
             },
             items: [
-                { boxLabel: 'Tồn theo đơn', name: 'type', inputValue: '1', checked: true , width: 120},
-                { boxLabel: 'Tồn theo Buyer',name: 'type', inputValue: '2', width: 120 },
-                { boxLabel: 'Tồn toàn kho',name: 'type',  inputValue: '3' }]
+                { boxLabel: 'Tồn theo đơn', name: 'type', inputValue: '1', checked: true, width: 120 },
+                { boxLabel: 'Tồn theo Buyer', name: 'type', inputValue: '2', width: 120 },
+                { boxLabel: 'Tồn toàn kho', name: 'type', inputValue: '3' }]
         },
             '->',
         {
@@ -154,7 +154,10 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detail.Stockout_or
                     tooltip: 'Thêm vào yêu cầu',
                     iconCls: 'x-fa fa-arrow-left',
                     itemId: 'btnAddmat',
-                    weight: 30
+                    weight: 30,
+                    bind: {
+                        disabled: '{isLock}'
+                    }
                 },
                 {
                     flex: 1

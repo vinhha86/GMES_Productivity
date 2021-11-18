@@ -112,6 +112,14 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
                     viewmodel.set('isHidden_btnLuu', true);
                     var tab = Ext.getCmp('POrderBomKyThuatView');
                     tab.getController().CreateColumns();
+
+                    var porderid_link = 0;
+                    var pcontractid_link = viewmodel.get('PContract.id');
+                    var productid_link = viewmodel.get('IdProduct');
+                    if (productid_link > 0) {
+                        var store = viewmodel.getStore('POrderBom2Store');
+                        store.getbom_by_porder(porderid_link, pcontractid_link, productid_link);
+                    }
                 }
                 else {
                     var storeproductlist = viewmodel.getStore('PContractProductStore');

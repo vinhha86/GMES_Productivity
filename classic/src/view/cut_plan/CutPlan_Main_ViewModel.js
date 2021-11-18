@@ -28,6 +28,17 @@ Ext.define('GSmartApp.view.Detail.CutPlan_Main_ViewModel', {
             type: 1
         },
         productid_link: 0,
-        pcontractid_link: 0
+        pcontractid_link: 0,
+        cutplan_selection: null
+    },
+    formulas: {
+        isLock: function (get) {
+            if (get('cutplan_selection') != null) {
+                if (get('cutplan_selection.type') == 0)
+                    return false;
+            }
+
+            return true;
+        }
     }
 })

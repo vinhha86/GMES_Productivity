@@ -34,7 +34,19 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatViewContro
         var pcontractid_link = viewmodel.get('PContract.id');
         var productid_link = viewmodel.get('IdProduct');
 
-        store.getbom_by_porder(porderid_link, pcontractid_link, productid_link);
+        if (productid_link == 0) {
+            Ext.Msg.show({
+                title: "Thông báo",
+                msg: "Bạn chưa chọn sản phẩm",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
+                }
+            });
+        }
+        else {
+            store.getbom_by_porder(porderid_link, pcontractid_link, productid_link);
+        }
     },
     onDongBo: function () {
         var grid = this.getView();
@@ -61,20 +73,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatViewContro
                             mes = response.message;
                         }
                         var store = viewmodel.getStore('POrderBom2Store');
-                        store.getbom_by_porder(viewmodel.get('porder.id'));
+                        store.getbom_by_porder(porderid_link, pcontractid_link, productid_link);
                     }
                 } else {
                     mes = "Đồng bộ thất bại";
                 }
 
-                Ext.Msg.show({
-                    title: "Thông báo",
-                    msg: mes,
-                    buttons: Ext.MessageBox.YES,
-                    buttonText: {
-                        yes: 'Đóng'
-                    }
-                });
+
             })
     },
     onCutPlan: function () {

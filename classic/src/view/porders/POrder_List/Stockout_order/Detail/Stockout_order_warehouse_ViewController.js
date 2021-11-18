@@ -23,11 +23,12 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_ord
         var viewmodel = this.getViewModel();
         var warehouse_grid = Ext.getCmp('Stockout_order_warehouse_View');
         warehouse_grid.setLoading("Đang tải dữ liệu");
-        var material_skuid_link = viewmodel.get('material_skuid_link');
+        var material_skuid_link = viewmodel.get('material_skuid_link') == null ? viewmodel.get('npl.id') : viewmodel.get('material_skuid_link');
         var org_from_id_link = viewmodel.get('org_from_id_link');
         var porderid_link = viewmodel.get('porderid_link');
         var type = viewmodel.get('type.type');
         var stockout_orderid_link = viewmodel.get('stockout_orderid_link');
+        var pcontractid_link = viewmodel.get('pcontractid_link');
 
         var warehouseStore = viewmodel.getStore('WarehouseStore');
         warehouseStore.removeAll();
@@ -41,7 +42,7 @@ Ext.define('GSmartApp.view.porders.POrder_List.Stockout_order.Detai.Stockout_ord
             warehouseStore.setGroupField('buyername');
         }
 
-        warehouseStore.loadbyorg(material_skuid_link, org_from_id_link, porderid_link, type, stockout_orderid_link, function (records, operation, success) {
+        warehouseStore.loadbyorg(material_skuid_link, org_from_id_link, porderid_link, pcontractid_link, type, stockout_orderid_link, function (records, operation, success) {
             warehouse_grid.setLoading(false);
         })
     },

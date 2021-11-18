@@ -26,7 +26,8 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         }
     },
     bind: {
-        store: '{CutPlanRowStore}'
+        store: '{CutPlanRowStore}',
+        selection: '{cutplan_selection}'
     },
     columns: [{
         xtype: 'actioncolumn',
