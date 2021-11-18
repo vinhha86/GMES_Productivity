@@ -398,9 +398,10 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                         margin: 1,
                         format: 'd/m/Y',
                         altFormats: "Y-m-d\\TH:i:s.uO",
+                        maxValue: new Date(),
                         bind: {
                             value: '{personnel.date_endworking}'
-                        }
+                        },
                     }
                 ]
             }, {
