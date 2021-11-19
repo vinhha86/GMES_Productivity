@@ -62,6 +62,10 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         var viewModel = m.getViewModel();
 
         var date = m.getEarliestDate();
+        var dateXuat = new Date().setDate(date.getDate()-3);
+        var dateTo = new Date().setDate(date.getDate()-2);
+        dateXuat = new Date(dateXuat);
+        dateTo = new Date(dateTo);
 
         var storeData = new Array();
         for(var i = 0; i < responseData.length; i++) {
@@ -80,18 +84,29 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
             storeObj.sku_product_desc = responseObj.mat_sku_desc;
             storeObj.coKho = responseObj.mat_sku_size_name;
             storeObj.color_name = responseObj.mat_sku_color_name;
-            storeObj.date_to_vai_yc = date;
-            storeObj.date_xuat_yc = date;
+            storeObj.date_to_vai_yc = dateTo;
+            storeObj.date_xuat_yc = dateXuat;
             storeData.push(storeObj);
         }
 
         var Stockout_order_d_store = viewModel.getStore('Stockout_order_d_store');
         Stockout_order_d_store.removeAll();
         Stockout_order_d_store.insert(0, storeData);
+        Stockout_order_d_store.commitChanges();
     },
     loadInfo: function(){},
     onEdit: function(editor, context, e){
-        console.log(context);
+        var m = this;
+        var me = this.getView();
+        var viewModel = m.getViewModel();
+        // console.log(context);
+
+        var Stockout_order_d_store = viewModel.getStore('Stockout_order_d_store');
+        if(context.value instanceof Date || context.value == null){
+            Stockout_order_d_store.commitChanges();
+        }else{
+            Stockout_order_d_store.rejectChanges();
+        }
     },
     getEarliestDate: function(){
         var m = this;
