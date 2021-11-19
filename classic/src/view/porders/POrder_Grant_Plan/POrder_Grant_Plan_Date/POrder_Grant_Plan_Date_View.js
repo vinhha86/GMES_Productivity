@@ -42,6 +42,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_Date_View
     },
     columns:[
         { 
+            xtype: 'datecolumn',
+            format: 'd/m/Y',
             header: 'Ngày', 
             dataIndex: 'date', 
             flex: 1,
@@ -57,10 +59,10 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_Date_View
 			// 		buffer: 500
 			// 	}
 			// },
-            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-				metaData.tdAttr = 'data-qtip="' + value + '"';
-				return value;
-			},
+            // renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+			// 	metaData.tdAttr = 'data-qtip="' + value + '"';
+			// 	return value;
+			// },
             // summaryType: 'count',
 			// summaryRenderer: 'renderCount',
         },

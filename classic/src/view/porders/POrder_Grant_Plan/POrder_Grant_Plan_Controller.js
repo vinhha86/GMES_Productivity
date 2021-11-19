@@ -120,7 +120,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_Controlle
                                     var status = record.get('amountdate' + (i + 1) + '_color');
                                     if(status == null) status = false;
                                     // metaData.tdCls = 'rowGreen';
-                                    console.log('amountdate' + (i + 1) + '_color');
+                                    // console.log('amountdate' + (i + 1) + '_color');
                                     if(status){ 
                                         console.log('in here');
                                         metaData.tdCls = 'rowGreen';
@@ -193,7 +193,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_Controlle
         // popup
         var form = Ext.create('Ext.window.Window', {
 			height: 500,
-			width: 500,
+			width: 400,
 			closable: true,
 			resizable: false,
 			modal: true,
@@ -216,7 +216,58 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_Controlle
 		});
 		form.show();
 
-		form.down('#POrder_Grant_Plan_Date_View').getController().on('Thoat', function (ordercode) {
+		form.down('#POrder_Grant_Plan_Date_View').getController().on('Thoat', function () {
+			form.close();
+		})
+
+        form.down('#POrder_Grant_Plan_Date_View').getController().on('createStockoutOrder_popup', function ( dateList, pordergrantid_link) {
+			// console.log(dateList);
+            // console.log(pordergrantid_link);
+            var date_list = new Array();
+            for(var i=0; i<dateList.length; i++){
+                date_list.push(dateList[i].get('date'));
+            }
+            // return;
+            m.createStockoutOrder_window(date_list, pordergrantid_link);
+            form.close();
+		})
+    },
+    createStockoutOrder_window: function(date_list, pordergrantid_link){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        // return;
+
+        // popup
+        var form = Ext.create('Ext.window.Window', {
+			height: '90%',
+            width: '95%',
+			closable: true,
+			resizable: false,
+			modal: true,
+			border: false,
+			title: 'Yêu cầu xuất',
+			closeAction: 'destroy',
+			bodyStyle: 'background-color: transparent',
+			layout: {
+				type: 'fit', // fit screen for window
+				padding: 5
+			},
+			items: [{
+				xtype: 'POrder_Grant_Plan_StockoutOrder_Edit_View',
+                viewModel:{
+                    data: {
+                        id: null, // stockout_order id
+                        date_list: date_list,
+                        pordergrantid_link: pordergrantid_link,
+                    }
+                }
+			}]
+		});
+		form.show();
+
+		form.down('#POrder_Grant_Plan_StockoutOrder_Edit_View').getController().on('Thoat', function () {
 			form.close();
 		})
     },

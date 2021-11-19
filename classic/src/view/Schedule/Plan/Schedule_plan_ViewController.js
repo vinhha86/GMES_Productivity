@@ -328,11 +328,11 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                 }
             },
             // {
-            //     text: 'Kế hoạch vào chuyền 2',
-            //     itemId: 'Schedule_KHVC2',
+            //     text: 'Lệnh cấp vải',
+            //     itemId: 'Schedule_LenhCapVai',
             //     iconCls: 'x-fa fa-calendar-minus',
             //     handler: function () {
-            //         me.porderGrantSkuPlan2(eventRecord);
+            //         me.createStockoutOrder(eventRecord);
             //     }
             // }
             ]
@@ -1381,7 +1381,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             form.close();
         })
     },
-    porderGrantSkuPlan2: function (eventRecord) {
+    createStockoutOrder: function (eventRecord) {
         var sourceView = 'SchedulePlan'
         var porder_grantid_link = eventRecord.data.porder_grantid_link;
 

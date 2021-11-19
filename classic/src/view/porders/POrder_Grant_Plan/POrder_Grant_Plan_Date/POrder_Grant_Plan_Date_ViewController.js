@@ -22,7 +22,37 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_Date_View
         this.fireEvent('Thoat');
     },
     onSelect: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var DateStore = viewModel.getStore('DateStore');
+        var select = me.getSelectionModel().getSelection();
+        if (select.length == 0) {
+            Ext.Msg.show({
+                title: "Thông báo",
+                msg: "Bạn phải chọn ít nhất một ngày",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }else{
+            m.selectDate(select);
+        }
+    },
+    selectDate: function(select){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var pordergrant = viewModel.get('pordergrant');
+        var pordergrantid_link = pordergrant.get('id');
+        
+        // console.log(select);
+        // console.log(pordergrant);
+        // return;
 
+        this.fireEvent('createStockoutOrder_popup', select, pordergrantid_link);
     },
     onAfterrender: function(){
         var m = this;
@@ -31,7 +61,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_Date_View
         
         var pordergrant = viewModel.get('pordergrant');
         var porder_grantid_link = pordergrant.get('id');
-        console.log(pordergrant);
+        // console.log(pordergrant);
 
         // porder_grantid_link
         me.setLoading(true);
@@ -44,8 +74,15 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_Date_View
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                        console.log(response);
-
+                        var data = new Array();
+                        // console.log(response);
+                        for(var i = 0; i<response.data.length; i++){
+                            var dateObj = new Object();
+                            dateObj.date = response.data[i];
+                            data.push(dateObj);
+                        }
+                        var DateStore = viewModel.getStore('DateStore');
+                        DateStore.insert(0,data);
                     }
                 }
             })

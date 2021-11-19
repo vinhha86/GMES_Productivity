@@ -94,7 +94,8 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_DetailWindowView', {
                             border: true
                         },
                     ]
-                }]
+                }
+            ]
         }
         // {
         //     region: 'center',

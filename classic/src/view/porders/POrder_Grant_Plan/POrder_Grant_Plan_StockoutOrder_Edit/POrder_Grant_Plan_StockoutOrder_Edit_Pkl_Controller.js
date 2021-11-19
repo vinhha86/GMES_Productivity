@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_Material_View_Controller', {
+Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutOrder_Edit_Pkl_Controller', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.POrder_Grant_Plan_Material_View_Controller',
+    alias: 'controller.POrder_Grant_Plan_StockoutOrder_Edit_Pkl_Controller',
     init: function () {
         
     },

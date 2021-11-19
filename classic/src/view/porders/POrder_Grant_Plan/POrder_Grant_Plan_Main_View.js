@@ -20,7 +20,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_Main_View
             border: true,
             margin: 1,
             height: '50%',
-            xtype: 'POrder_Grant_Plan_Material_View'
+            xtype: 'POrder_Grant_Plan_StockoutOrder_View',
+            title: 'Lệnh cấp vải'
         },
     ],
     dockedItems: [
@@ -39,9 +40,9 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_Main_View
                 {
                     margin: 3,
                     xtype:'button',
-                    text:  'Cân đối',
-                    iconCls: 'x-fa fa-refresh',
-                    itemId: 'btnCanDoi'
+                    text:  'In hướng dẫn nhặt vải',
+                    iconCls: 'x-fa fa-print',
+                    itemId: 'btnInHuongDanNhatVai'
                 },
                 {
                     margin: 3,
