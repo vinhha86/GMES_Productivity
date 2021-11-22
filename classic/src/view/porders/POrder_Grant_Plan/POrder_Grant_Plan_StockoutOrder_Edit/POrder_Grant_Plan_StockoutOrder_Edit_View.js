@@ -32,6 +32,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
                         {
                             // region: 'west',
                             xtype: 'POrder_Grant_Plan_StockoutOrder_Edit_Pkl_Warehouse',
+                            title: 'Cây vải tồn',
                             flex: 1,
                             height: '100%',
                             border: true,
@@ -69,6 +70,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
                         },
                         {
                             xtype: 'POrder_Grant_Plan_StockoutOrder_Edit_Pkl',
+                            title: 'Cây vải yêu cầu tở',
                             flex: 1,
                             height: '100%',
                             border: true

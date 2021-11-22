@@ -9,6 +9,10 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         columnLines: true,
         rowLines: true
     },
+    selModel: {
+        selType: 'checkboxmodel',
+        mode: 'MULTI'
+    },
     // features: [
     //     {
     //         id: 'group',
@@ -27,6 +31,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			// width: 120,
 			flex: 1,
 			// dataIndex: 'mat_sku_code',
+            sortable: false,
+            menuDisabled: true,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				var val = value == 'null' ? "" : value;
 				metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -50,6 +56,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			// dataIndex: 'mat_sku_color_name',
 			// width: 85,
 			flex: 1,
+            sortable: false,
+            menuDisabled: true,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
@@ -60,6 +68,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			// dataIndex: 'mat_sku_color_name',
 			// width: 85,
 			flex: 1,
+            sortable: false,
+            menuDisabled: true,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
@@ -70,6 +80,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			// dataIndex: 'mat_sku_color_name',
 			// width: 85,
 			flex: 1,
+            sortable: false,
+            menuDisabled: true,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
@@ -85,6 +97,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			// summaryRenderer: 'renderSum',
 			// width: 70,
             flex: 1,
+            sortable: false,
+            menuDisabled: true,
 		},
 	],
 });

@@ -260,4 +260,41 @@ Ext.define('GSmartApp.store.warehouse.WarehouseStore', {
 			}
 		});
 	},
+	loadBySku_pordergrant_stockoutorder: function (stockoutorderid_link, skuid_link, pordergrantid_link) {
+		var me = this;
+		var params = new Object();
+		params.stockoutorderid_link = stockoutorderid_link;
+		params.skuid_link = skuid_link;
+		params.pordergrantid_link = pordergrantid_link;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl_Jitin() + '/api/v1/warehouse/getBySku_pordergrant_stockoutorder',
+			paramsAsJson: true,
+			noCache: false,
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.load({
+			scope: this,
+			callback: function (records, operation, success) {
+				if (!success) {
+					// this.fireEvent('logout');
+				}
+			}
+		});
+	},
 });

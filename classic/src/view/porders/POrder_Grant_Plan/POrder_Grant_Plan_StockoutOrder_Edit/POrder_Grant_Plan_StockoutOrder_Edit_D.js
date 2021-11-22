@@ -26,6 +26,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			// width: 120,
 			flex: 1,
 			dataIndex: 'skucode',
+            sortable: false,
+            menuDisabled: true,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				var val = value == 'null' ? "" : value;
 				metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -49,6 +51,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			dataIndex: 'skuname',
 			// width: 85,
 			flex: 1,
+            sortable: false,
+            menuDisabled: true,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
@@ -59,6 +63,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			dataIndex: 'sku_product_desc',
 			// width: 85,
 			flex: 1,
+            sortable: false,
+            menuDisabled: true,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
@@ -69,6 +75,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			dataIndex: 'color_name',
 			// width: 85,
 			flex: 1,
+            sortable: false,
+            menuDisabled: true,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
@@ -79,6 +87,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			dataIndex: 'coKho',
 			// width: 85,
 			flex: 1,
+            sortable: false,
+            menuDisabled: true,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
@@ -94,6 +104,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			// summaryRenderer: 'renderSum',
 			// width: 70,
             flex: 1,
+            sortable: false,
+            menuDisabled: true,
 		},
 		{ 
             xtype: 'datecolumn',
@@ -101,6 +113,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
             header: 'Ngày tở Y/C', 
             dataIndex: 'date_to_vai_yc',
             flex: 1,
+            sortable: false,
+            menuDisabled: true,
             editor:{
                 completeOnEnter: true,
                 field: {
@@ -121,6 +135,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
             header: 'Ngày xuất Y/C', 
             dataIndex: 'date_xuat_yc', 
             flex: 1,
+            sortable: false,
+            menuDisabled: true,
             editor:{
                 completeOnEnter: true,
                 field: {

@@ -6,7 +6,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
     },
     control: {
         '#POrder_Grant_Plan_StockoutOrder_Edit_D': {
-            afterrender: 'onAfterrender'
+            afterrender: 'onAfterrender',
+            itemclick: 'onItemclick'
         },
     },
     onAfterrender: function(){
@@ -123,4 +124,21 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         }
         return new Date(date);
     },
+    onItemclick: function( grid, record, item, index, e, eOpts){
+        var m = this;
+        var me = this.getView();
+        var viewModel = m.getViewModel();
+
+        var pordergrantid_link = viewModel.get('pordergrantid_link');
+        var skuid_link = record.get('material_skuid_link');
+        var stockoutorderid_link = record.get('stockoutorderid_link');
+        // console.log(record);
+        // console.log(stockoutorderid_link);
+        // console.log(skuid_link);
+        // console.log(pordergrantid_link);
+
+        var WarehouseStore = viewModel.getStore('WarehouseStore');
+        WarehouseStore.loadBySku_pordergrant_stockoutorder(stockoutorderid_link, skuid_link, pordergrantid_link);
+        // loadBySku_pordergrant_stockoutorder
+    }
 })

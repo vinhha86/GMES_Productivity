@@ -14,6 +14,12 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         '#btnCreate': {
             click: 'onCreate',
         },
+        '#btnAdd': {
+            click: 'onAddWarehouse',
+        },
+        '#btnRemove': {
+            click: 'onRemovePkl',
+        },
         '#btnTest': {
             click: 'onTest',
         },
@@ -42,5 +48,20 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 
         var date_list = viewModel.get('date_list');
         var pordergrantid_link = viewModel.get('pordergrantid_link');
+    },
+    onAddWarehouse: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = m.getViewModel();
+
+        var Warehouse_View = me.down('#POrder_Grant_Plan_StockoutOrder_Edit_Pkl_Warehouse');
+        var Pkl_View = me.down('#POrder_Grant_Plan_StockoutOrder_Edit_Pkl');
+
+        var warehouse_selection = Warehouse_View.getSelectionModel().getSelection();
+
+        console.log(warehouse_selection);
+    },
+    onRemovePkl: function(){
+
     },
 })
