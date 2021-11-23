@@ -21,6 +21,9 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         id: null,
         date_list: null,
         pordergrantid_link: null,
+
+        // stockout_order_d_view
+        stockout_order_d_selected_record: null,
     },
     formulas: {
         

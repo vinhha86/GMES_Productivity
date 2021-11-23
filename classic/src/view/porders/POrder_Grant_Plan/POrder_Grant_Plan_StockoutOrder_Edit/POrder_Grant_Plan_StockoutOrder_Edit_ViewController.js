@@ -44,7 +44,65 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         this.fireEvent('Thoat');
     },
     onCreate: function(){
-        console.log('btn create pressed');
+        var m = this;
+        var me = this.getView();
+        var viewModel = m.getViewModel();
+
+        var Stockout_order_d_store = viewModel.getStore('Stockout_order_d_store');
+        var Stockout_order_d_store_items = Stockout_order_d_store.getData().items;
+
+        // console.log(Stockout_order_d_store_items);
+        var Stockout_order_list = new Array();
+        for(var i=0; i < Stockout_order_d_store_items.length;i++){
+            var stockout_order = new Object();
+            stockout_order.id = null
+            stockout_order.date_to_vai_yc = Stockout_order_d_store_items[i].get('date_to_vai_yc');
+            stockout_order.date_xuat_yc = Stockout_order_d_store_items[i].get('date_xuat_yc');
+            stockout_order.orderdate = new Date();
+            stockout_order.stockouttypeid_link = 1;
+            // stockout_order.orgid_from_link
+            // stockout_order.orgid_to_link
+            stockout_order.unitid_link = 1;
+            // stockout_order.pcontractid_link
+            stockout_order.stockout_order_d = new Array();
+            stockout_order.stockout_order_d.push(Stockout_order_d_store_items[i].data);
+            Stockout_order_list.push(stockout_order);
+        }
+
+        if(Stockout_order_list.length == 0){
+            return;
+        }
+
+        var params = new Object();
+        params.data = Stockout_order_list;
+
+        console.log(Stockout_order_list);
+        // return;
+
+        GSmartApp.Ajax.post('/api/v1/stockoutorder/create_YeuCauXuat', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    Ext.Msg.show({
+                        title: "Thông báo",
+                        msg: "Lưu thành công",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                    m.fireEvent('createStockoutOrder');
+                } else {
+                    Ext.Msg.show({
+                        title: "Thông báo",
+                        msg: "Lưu thất bại",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
     },
     onAfterrender: function(){
         var m = this;
@@ -63,7 +121,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         var Pkl_View = me.down('#POrder_Grant_Plan_StockoutOrder_Edit_Pkl');
 
         var warehouse_selection = Warehouse_View.getSelectionModel().getSelection();
-        console.log(warehouse_selection);
+        // console.log(warehouse_selection);
 
         // add vao danh sach pkl, remove o danh sach warehouse
         
@@ -105,6 +163,18 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         WarehouseStore.commitChanges();
         Stockout_order_pkl_Store.insert(0, newPkl_list);
         Stockout_order_pkl_Store.commitChanges();
+
+        // sua thong tin vao stockout_order_d_selected_record
+        var stockout_order_pkl_items = Stockout_order_pkl_Store.getData().items;
+        var stockout_order_pkl = new Array();
+        for(var i=0;i<stockout_order_pkl_items.length;i++){
+            stockout_order_pkl.push(stockout_order_pkl_items[i].data);
+        }
+
+        var stockout_order_d_selected_record = viewModel.get('stockout_order_d_selected_record');
+        stockout_order_d_selected_record.set('stockout_order_pkl', stockout_order_pkl);
+        // console.log(stockout_order_d_selected_record); // stockout_order_pkl
+        
     },
     onRemovePkl: function(){
         var m = this;
@@ -114,6 +184,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         var Warehouse_View = me.down('#POrder_Grant_Plan_StockoutOrder_Edit_Pkl_Warehouse');
         var Pkl_View = me.down('#POrder_Grant_Plan_StockoutOrder_Edit_Pkl');
 
+        // var warehouse_selection = Warehouse_View.getSelectionModel().getSelection();
+        // console.log(warehouse_selection);
         var pkl_selection = Pkl_View.getSelectionModel().getSelection();
         console.log(pkl_selection);
 
@@ -124,30 +196,23 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 
         // console.log(WarehouseStore.getData().items);
         // console.log(Stockout_order_pkl_Store.getData().items);
-        return;
+        // return;
 
         var newWarehouse_list = new Array();
         for(var i=0;i<pkl_selection.length;i++){
             var pkl_obj = pkl_selection[i];
             var newWarehouse = new Object();
             newWarehouse.id = null;
-            newWarehouse.stockoutorderid_link = null;
-            newWarehouse.stockoutorderdid_link = null;
             newWarehouse.spaceString = pkl_obj.get('spaceString');
             newWarehouse.lotnumber = pkl_obj.get('lotnumber');
             newWarehouse.packageid = pkl_obj.get('packageid');
             newWarehouse.epc = pkl_obj.get('epc');
             newWarehouse.skuid_link = pkl_obj.get('skuid_link');
             newWarehouse.colorid_link = pkl_obj.get('colorid_link');
-            newWarehouse.width = pkl_obj.get('width_met');
             newWarehouse.width_met = pkl_obj.get('width_met');
-            newWarehouse.width_met_check = 0;
             newWarehouse.width_yds = pkl_obj.get('width_yds');
-            newWarehouse.width_yds_check = 0;
-            newWarehouse.metorigin = pkl_obj.get('met');
-            newWarehouse.metcheck = 0;
-            newWarehouse.ydsorigin = pkl_obj.get('yds');
-            newWarehouse.ydscheck = 0;
+            newWarehouse.met = pkl_obj.get('metorigin');
+            newWarehouse.yds = pkl_obj.get('ydsorigin');
             newWarehouse.netweight = pkl_obj.get('netweight');
             newWarehouse.grossweight = pkl_obj.get('grossweight');
             newWarehouse.spaceepc_link = pkl_obj.get('spaceepc_link');
@@ -158,5 +223,14 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         Stockout_order_pkl_Store.commitChanges();
         WarehouseStore.insert(0, newWarehouse_list);
         WarehouseStore.commitChanges();
+
+        // sua thong tin vao stockout_order_d_selected_record
+        var stockout_order_pkl_items = Stockout_order_pkl_Store.getData().items;
+        var stockout_order_pkl = new Array();
+        for(var i=0;i<stockout_order_pkl_items.length;i++){
+            stockout_order_pkl.push(stockout_order_pkl_items[i].data);
+        }
+        var stockout_order_d_selected_record = viewModel.get('stockout_order_d_selected_record');
+        stockout_order_d_selected_record.set('stockout_order_pkl', stockout_order_pkl);
     },
 })

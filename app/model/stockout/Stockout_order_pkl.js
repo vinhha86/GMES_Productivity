@@ -3,7 +3,8 @@ Ext.define('GSmartApp.model.stockout.Stockout_order_pkl', {
     idProperty: 'idx',
     fields: [
         {name: 'id'},
-        {name: 'idx', type: 'int'},
+        // {name: 'idx', type: 'int'},
+        {name: 'idx'},
         'orgid_link',
         'stockoutorderid_link',
         'stockoutorderdid_link',

@@ -260,12 +260,13 @@ Ext.define('GSmartApp.store.warehouse.WarehouseStore', {
 			}
 		});
 	},
-	loadBySku_pordergrant_stockoutorder: function (stockoutorderid_link, skuid_link, pordergrantid_link) {
+	loadBySku_pordergrant_stockoutorder: function (stockoutorderid_link, skuid_link, pordergrantid_link, listSelectedEpc) {
 		var me = this;
 		var params = new Object();
 		params.stockoutorderid_link = stockoutorderid_link;
 		params.skuid_link = skuid_link;
 		params.pordergrantid_link = pordergrantid_link;
+		params.listSelectedEpc = listSelectedEpc;
 
 		this.setProxy({
 			type: 'ajax',
@@ -294,6 +295,35 @@ Ext.define('GSmartApp.store.warehouse.WarehouseStore', {
 				if (!success) {
 					// this.fireEvent('logout');
 				}
+			}
+		});
+	},
+	loadBySku_pordergrant_stockoutorder_async: function (stockoutorderid_link, skuid_link, pordergrantid_link) {
+		var me = this;
+		var params = new Object();
+		params.stockoutorderid_link = stockoutorderid_link;
+		params.skuid_link = skuid_link;
+		params.pordergrantid_link = pordergrantid_link;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl_Jitin() + '/api/v1/warehouse/getBySku_pordergrant_stockoutorder',
+			paramsAsJson: true,
+			noCache: false,
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
 			}
 		});
 	},
