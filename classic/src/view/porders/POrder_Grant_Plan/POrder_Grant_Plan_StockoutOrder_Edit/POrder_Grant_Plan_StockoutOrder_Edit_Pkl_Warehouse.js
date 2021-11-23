@@ -13,15 +13,19 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         selType: 'checkboxmodel',
         mode: 'MULTI'
     },
-    // features: [
-    //     {
-    //         id: 'group',
-    //         ftype: 'groupingsummary',
-    //         groupHeaderTpl: '<b>NPL: {name}</b>',
-    //         hideGroupedHeader: false,
-    //         enableGroupingMenu: false,
-    //     },
-    // ],
+    features: [
+        // {
+        //     id: 'group',
+        //     ftype: 'groupingsummary',
+        //     groupHeaderTpl: '<b>Khoang: {name}</b>',
+        //     hideGroupedHeader: false,
+        //     enableGroupingMenu: false,
+        // },
+		{
+			ftype: 'summary',
+			dock: 'top'
+		}
+    ],
     bind:{
         store: '{WarehouseStore}',
     },
@@ -102,8 +106,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			text: 'Dài (m)', 
 			align:'right',
 			dataIndex: 'met',
-			// summaryType: 'sum',
-			// summaryRenderer: 'renderSum',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
 			// width: 70,
             flex: 1,
             sortable: false,

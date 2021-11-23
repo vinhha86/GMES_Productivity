@@ -9,6 +9,10 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
             afterrender: 'onAfterrender',
         },
     },
+    renderSum: function(value, summaryData, dataIndex) {
+        if (null == value) value = 0;
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000.00') + '</div>';    
+    },
     onAfterrender: function(){
         var m = this;
         var me = this.getView();

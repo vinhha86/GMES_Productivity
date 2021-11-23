@@ -13,15 +13,19 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         selType: 'checkboxmodel',
         mode: 'MULTI'
     },
-    // features: [
-    //     {
-    //         id: 'group',
-    //         ftype: 'groupingsummary',
-    //         groupHeaderTpl: '<b>NPL: {name}</b>',
-    //         hideGroupedHeader: false,
-    //         enableGroupingMenu: false,
-    //     },
-    // ],
+    features: [
+        // {
+        //     id: 'group',
+        //     ftype: 'groupingsummary',
+        //     groupHeaderTpl: '<b>Khoang: {name}</b>',
+        //     hideGroupedHeader: false,
+        //     enableGroupingMenu: false,
+        // },
+		{
+			ftype: 'summary',
+			dock: 'top'
+		}
+    ],
     bind:{
         store: '{Stockout_order_pkl_Store}',
     },
@@ -30,7 +34,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			text: 'Khoang', 
 			// width: 120,
 			flex: 1,
-			// dataIndex: 'mat_sku_code',
+			dataIndex: 'spaceString',
             sortable: false,
             menuDisabled: true,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -53,7 +57,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 		},
 		{
 			text: 'Số Lot', 
-			// dataIndex: 'mat_sku_color_name',
+			dataIndex: 'lotnumber',
 			// width: 85,
 			flex: 1,
             sortable: false,
@@ -65,19 +69,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 		},
 		{
 			text: 'Số cây', 
-			// dataIndex: 'mat_sku_color_name',
-			// width: 85,
-			flex: 1,
-            sortable: false,
-            menuDisabled: true,
-			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-				metaData.tdAttr = 'data-qtip="' + value + '"';
-				return value;
-			}
-		},
-		{
-			text: 'Khổ', 
-			// dataIndex: 'mat_sku_color_name',
+			dataIndex: 'packageid',
 			// width: 85,
 			flex: 1,
             sortable: false,
@@ -89,16 +81,46 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 		},
 		{
 			xtype: 'numbercolumn',
-			format:'0,000.00',
+			// format:'0,000.00',
+			text: 'Khổ (cm)',
+			align:'right',
+			dataIndex: 'width_met',
+			// width: 85,
+			flex: 1,
+            sortable: false,
+            menuDisabled: true,
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				if(value == null) {
+					value = '';
+				}else{
+					value = value * 100;
+					value = Ext.Number.roundToPrecision(value, 2);
+				}
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			}
+		},
+		{
+			xtype: 'numbercolumn',
+			// format:'0,000.00',
 			text: 'Dài (m)', 
 			align:'right',
-			// dataIndex: 'mat_sku_demand',
-			// summaryType: 'sum',
-			// summaryRenderer: 'renderSum',
+			dataIndex: 'metorigin',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
 			// width: 70,
             flex: 1,
             sortable: false,
             menuDisabled: true,
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				if(value == null) {
+					value = '';
+				}else{
+					value = Ext.Number.roundToPrecision(value, 2);
+				}
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			}
 		},
 	],
 });
