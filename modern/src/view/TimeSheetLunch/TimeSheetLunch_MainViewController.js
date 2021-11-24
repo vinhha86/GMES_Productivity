@@ -111,4 +111,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_MainViewController', {
                 }
             })
     },
+    renderSum: function(value ){
+        if (null == value) value = 0;
+        return Ext.util.Format.number(value, '0,000');    
+    },
 })

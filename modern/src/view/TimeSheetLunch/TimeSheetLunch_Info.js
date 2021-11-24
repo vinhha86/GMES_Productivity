@@ -30,7 +30,9 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_Info', {
     bind: {
         store: '{TimeSheetLunchStore}'
     },
-
+    plugins: {
+        gridsummaryrow: true,
+    },
     columns: [
         {
             text: 'Tổ', 
@@ -45,26 +47,34 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_Info', {
         {
             text: 'Ca 1', 
             flex: 1,
-            dataIndex: 'sumCa2',
+            dataIndex: 'sumCa1',
             align: 'center',
+            summary: 'sum',
+            summaryRenderer: 'renderSum'
         },
         {
             text: 'Ca 2', 
             flex: 1,
             dataIndex: 'sumCa2',
             align: 'center',
+            summary: 'sum',
+            summaryRenderer: 'renderSum'
         },
         {
             text: 'Ca 3', 
             flex: 1,
             dataIndex: 'sumCa3',
             align: 'center',
+            summary: 'sum',
+            summaryRenderer: 'renderSum'
         },
         {
             text: 'Ca 4', 
             flex: 1,
             dataIndex: 'sumCa4',
             align: 'center',
+            summary: 'sum',
+            summaryRenderer: 'renderSum'
         },
     ],
 });
