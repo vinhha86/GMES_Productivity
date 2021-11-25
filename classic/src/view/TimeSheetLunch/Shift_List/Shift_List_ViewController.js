@@ -29,6 +29,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.Shift_List.Shift_List_ViewController',
         var me= this.getView();
         var viewModel = this.getViewModel();
         var orgid_link = viewModel.get('orgid_link');
+        var date = viewModel.get('date');
 
         // console.log('onAfterrender');
         // console.log(orgid_link);
@@ -37,10 +38,82 @@ Ext.define('GSmartApp.view.TimeSheetLunch.Shift_List.Shift_List_ViewController',
             return;
         }
 
-        var TimesheetShiftTypeOrgStore = viewModel.getStore('TimesheetShiftTypeOrgStore');
-        TimesheetShiftTypeOrgStore.getbyorgid_link_caAn(orgid_link);
+        var action = viewModel.get('action');
+        if(action == 'confirm'){
+            var TimesheetShiftTypeOrgStore = viewModel.getStore('TimesheetShiftTypeOrgStore');
+            TimesheetShiftTypeOrgStore.getbyorgid_link_caAn_forConfirm_async(orgid_link, date);
+            TimesheetShiftTypeOrgStore.load({
+                scope: TimesheetShiftTypeOrgStore,
+                callback: function(records, operation, success) {
+                    if(!success){
+                        // this.fireEvent('logout');
+                    } else {
+                        // dựa vào thông tin response để đánh dấu checkbox
+                        var data = TimesheetShiftTypeOrgStore.getData().items;
+                        var selectionModel = me.getSelectionModel();
+                        // var select = me.getSelectionModel().getSelection();
+                        // console.log(data);
+                        var toSelected = new Array();
+                        for(var i = 0; i < data.length; i++){
+                            if(data[i].get('isConfirm') == true){
+                                // selectionModel.select(data[i]);
+                                toSelected.push(data[i]);
+                            }
+                        }
+                        selectionModel.select(toSelected);
+                    }
+                }
+            });
+        }
+        if(action == 'autoGetInfo'){
+            var TimesheetShiftTypeOrgStore = viewModel.getStore('TimesheetShiftTypeOrgStore');
+            TimesheetShiftTypeOrgStore.getbyorgid_link_caAn(orgid_link);
+        }
     },
     onSelect: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var action = viewModel.get('action');
+        if(action == 'confirm'){
+            m.onSelectConfirm();
+        }
+        if(action == 'autoGetInfo'){
+            m.onSelectAutoGetInfo();
+        }
+    },
+    onSelectConfirm: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var TimesheetShiftTypeOrgStore = viewModel.getStore('TimesheetShiftTypeOrgStore');
+        var select = me.getSelectionModel().getSelection();
+        var data = TimesheetShiftTypeOrgStore.getData().items;
+
+        // console.log(select);
+        // console.log(data);
+
+        var unselect = new Array();
+        for(var i = 0; i < data.length; i++){
+            var isSelect = false;
+            for(var j = 0; j < select.length; j++){
+                if(data[i].get('id') == select[j].get('id')){
+                    isSelect = true;
+                    break;
+                }
+            }
+            if(!isSelect){
+                unselect.push(data[i]);
+            }
+        }
+        // console.log(select);
+        // console.log(unselect);
+
+        m.fireEvent('SelectConfirm', select, unselect);
+    },
+    onSelectAutoGetInfo: function(){
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();

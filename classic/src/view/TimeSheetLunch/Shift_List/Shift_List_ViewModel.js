@@ -12,5 +12,6 @@ Ext.define('GSmartApp.view.TimeSheetLunch.Shift_List.Shift_List_ViewModel', {
     data: {
         orgid_link: null,
         date: null,
+        action: null, // autoGetInfo || confirm
     }
 })

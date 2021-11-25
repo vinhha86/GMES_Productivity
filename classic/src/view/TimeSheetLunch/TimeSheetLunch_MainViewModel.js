@@ -16,7 +16,7 @@ Ext.define('GSmartApp.view.personel.TimeSheetLunch_MainViewModel', {
     data: {
         orgtypeid_link: null,
         orgid_link: null,
-        isConfirm: null,
+        isConfirm: null, // old, ko dung
         isToday: true,
         isEditable: null,
 
@@ -32,6 +32,13 @@ Ext.define('GSmartApp.view.personel.TimeSheetLunch_MainViewModel', {
         sumCa3: 0,
         sumCa4: 0,
 
+        // cho phep danh dau check o cac cot hay khong
+        isCa1Confirm: true,
+        isCa2Confirm: true,
+        isCa3Confirm: true,
+        isCa4Confirm: true,
+
+        // filter
         personnelCodeFilterValue: null,
         personnelRegCodeFilterValue: null,
         personnelFullnameFilterValue: null,

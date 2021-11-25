@@ -216,9 +216,9 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
                 text: 'Xác nhận',
                 iconCls: 'x-fa fa-check',
                 itemId: 'btnConfirm',
-                bind: {
-                    hidden: '{isBtnConfirmHidden}'
-                }
+                // bind: {
+                //     hidden: '{isBtnConfirmHidden}'
+                // }
             },
             {
                 xtype: 'button',

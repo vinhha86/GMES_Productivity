@@ -40,52 +40,104 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
         TimeSheetLunchStore.loadStore(orgid_link, date);
 
         // check status xác nhận của ngày và của đơn vị
-        this.checkStatus(orgid_link, date);
-        
+        this.setShiftColumnConfirm();
     },
-    checkStatus: function(orgid_link, date){
+    setShiftColumnConfirm: function(){
+        var m = this;
+        var me= this.getView();
         var viewModel = this.getViewModel();
+
+        var orgid_link = viewModel.get('orgid_link');
+        var TimeSheetLunch_MainView = Ext.getCmp('TimeSheetLunch_MainView');
+        var date = TimeSheetLunch_MainView.down('#txtdatefield').getValue();
+
         var params = new Object();
         params.orgid_link = orgid_link;
         params.date = date;
 
-        GSmartApp.Ajax.post('/api/v1/timesheetlunch/isconfirm', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/timesheetshifttypeorg/getbyorgid_link_caAn_forConfirm', Ext.JSON.encode(params),
             function (success, response, options) {
-                var response = Ext.decode(response.responseText);
                 if (success) {
-                    // set hidden and disabled btnConfirm...
+                    var response = Ext.decode(response.responseText);
                     // console.log(response);
-                    var isConfirm = response.isConfirm;
-                    if(isConfirm){
-                        viewModel.set('isBtnConfirmHidden', true);
-                        viewModel.set('isBtnUnconfirmHidden', false);
-                        viewModel.set('isConfirm', isConfirm);
-                    }else{
-                        viewModel.set('isBtnConfirmHidden', false);
-                        viewModel.set('isBtnUnconfirmHidden', true);
-                        viewModel.set('isConfirm', isConfirm);
-                    }
 
-                    var isToday = viewModel.get('isToday');
-                    if(isToday){
-                        viewModel.set('isBtnUnconfirmHiddenDisabled', false);
-                    }else{
-                        viewModel.set('isBtnUnconfirmHiddenDisabled', true);
-                    }
-
-                } else {
-                    Ext.MessageBox.show({
-                        title: "Thông báo",
-                        msg: 'Lấy status thất bại',
-                        buttons: Ext.MessageBox.YES,
-                        buttonText: {
-                            yes: 'Đóng',
+                    var data = response.data;
+                    for(var i=0;i<data.length;i++){
+                        if(data[i].name == 'Ca ăn 1'){
+                            if(data[i].isConfirm == true){
+                                viewModel.set('isCa1Confirm', true);
+                            }else{
+                                viewModel.set('isCa1Confirm', false);
+                            }
                         }
-                    });
+                        if(data[i].name == 'Ca ăn 2'){
+                            if(data[i].isConfirm == true){
+                                viewModel.set('isCa2Confirm', true);
+                            }else{
+                                viewModel.set('isCa2Confirm', false);
+                            }
+                        }
+                        if(data[i].name == 'Ca ăn 3'){
+                            if(data[i].isConfirm == true){
+                                viewModel.set('isCa3Confirm', true);
+                            }else{
+                                viewModel.set('isCa3Confirm', false);
+                            }
+                        }
+                        if(data[i].name == 'Ca ăn 4'){
+                            if(data[i].isConfirm == true){
+                                viewModel.set('isCa4Confirm', true);
+                            }else{
+                                viewModel.set('isCa4Confirm', false);
+                            }
+                        }
+                    }
                 }
         })
-
     },
+    // checkStatus: function(orgid_link, date){
+    //     var viewModel = this.getViewModel();
+    //     var params = new Object();
+    //     params.orgid_link = orgid_link;
+    //     params.date = date;
+
+    //     GSmartApp.Ajax.post('/api/v1/timesheetlunch/isconfirm', Ext.JSON.encode(params),
+    //         function (success, response, options) {
+    //             var response = Ext.decode(response.responseText);
+    //             if (success) {
+    //                 // set hidden and disabled btnConfirm...
+    //                 // console.log(response);
+    //                 var isConfirm = response.isConfirm;
+    //                 if(isConfirm){
+    //                     viewModel.set('isBtnConfirmHidden', true);
+    //                     viewModel.set('isBtnUnconfirmHidden', false);
+    //                     viewModel.set('isConfirm', isConfirm);
+    //                 }else{
+    //                     viewModel.set('isBtnConfirmHidden', false);
+    //                     viewModel.set('isBtnUnconfirmHidden', true);
+    //                     viewModel.set('isConfirm', isConfirm);
+    //                 }
+
+    //                 var isToday = viewModel.get('isToday');
+    //                 if(isToday){
+    //                     viewModel.set('isBtnUnconfirmHiddenDisabled', false);
+    //                 }else{
+    //                     viewModel.set('isBtnUnconfirmHiddenDisabled', true);
+    //                 }
+
+    //             } else {
+    //                 Ext.MessageBox.show({
+    //                     title: "Thông báo",
+    //                     msg: 'Lấy status thất bại',
+    //                     buttons: Ext.MessageBox.YES,
+    //                     buttonText: {
+    //                         yes: 'Đóng',
+    //                     }
+    //                 });
+    //             }
+    //     })
+
+    // },
     onload: function () {
         var me = this.getView();
         var viewModel = this.getViewModel();
