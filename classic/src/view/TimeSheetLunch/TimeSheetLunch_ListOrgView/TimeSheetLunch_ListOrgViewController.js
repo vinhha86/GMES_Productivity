@@ -41,6 +41,13 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
 
         // check status xác nhận của ngày và của đơn vị
         this.setShiftColumnConfirm();
+
+        // set color
+        TimeSheetLunch_MainView.down('#sumCa1').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa2').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa3').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa4').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa5').setFieldStyle('background-color: white;');
     },
     setShiftColumnConfirm: function(){
         var m = this;
