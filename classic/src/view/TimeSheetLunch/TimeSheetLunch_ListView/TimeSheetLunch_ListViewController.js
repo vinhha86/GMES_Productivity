@@ -768,7 +768,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
 			// height: Ext.getBody().getViewSize().height * .95,
 			// width: Ext.getBody().getViewSize().width * .95,
             height: 300,
-            width: 300,
+            width: 400,
             bodyStyle: 'background-color: transparent',
             layout: {
                 type: 'fit', // fit screen for window
