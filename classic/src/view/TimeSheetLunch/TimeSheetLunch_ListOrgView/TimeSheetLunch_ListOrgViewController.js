@@ -91,6 +91,13 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
                                 viewModel.set('isCa4Confirm', false);
                             }
                         }
+                        if(data[i].name == 'Ca ăn 5'){
+                            if(data[i].isConfirm == true){
+                                viewModel.set('isCa5Confirm', true);
+                            }else{
+                                viewModel.set('isCa5Confirm', false);
+                            }
+                        }
                     }
                 }
         })

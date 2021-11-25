@@ -31,12 +31,14 @@ Ext.define('GSmartApp.view.personel.TimeSheetLunch_MainViewModel', {
         sumCa2: 0,
         sumCa3: 0,
         sumCa4: 0,
+        sumCa5: 0,
 
         // cho phep danh dau check o cac cot hay khong
         isCa1Confirm: true,
         isCa2Confirm: true,
         isCa3Confirm: true,
         isCa4Confirm: true,
+        isCa5Confirm: true,
 
         // filter
         personnelCodeFilterValue: null,

@@ -288,6 +288,16 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
             bind: {
                 value: '{sumCa4}'
             }
+        }, {
+            xtype: 'textfield',
+            fieldLabel: 'Ca 5',
+            margin: 3,
+            width: 100,
+            labelWidth: 50,
+            eidtable: false,
+            bind: {
+                value: '{sumCa5}'
+            }
         }]
     }]
 });

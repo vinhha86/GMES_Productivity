@@ -57,7 +57,16 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                     if (response.respcode == 200) {
                         for (var i = 0; i < response.data.length; i++) {
                             var data = response.data[i];
-                            listtitle.push(data.name.trim());
+                            console.log(data);
+                            var str = data.name.trim() + ' ';
+                            var time = '<br>';
+                            time += data.from_hour < 10 ? '0'+data.from_hour : data.from_hour;
+                            time += data.from_minute < 10 ? ':0'+data.from_minute : ':'+data.from_minute;
+                            time += ' - ';
+                            time += data.to_hour < 10 ? '0'+data.to_hour : data.to_hour;
+                            time += data.to_minute < 10 ? ':0'+data.to_minute : ':'+data.to_minute;
+                            str+=time;
+                            listtitle.push(str);
 
                         }
                         viewmodel.set('numberShift', response.data.length);
@@ -117,25 +126,31 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
     onBeforecheckchange: function (column, rowIndex, checked, record, e, eOpts) {
         var m = this;
         var viewModel = this.getViewModel();
-        if(column.text == 'Ca ăn 1' && viewModel.get('isCa1Confirm') == true){
+        if(column.text.includes('Ca ăn 1 ') && viewModel.get('isCa1Confirm') == true){
             // TimeSheetLunchStore.rejectChanges();
             // e.stopEvent();
             // record.set(column.dataIndex, !checked)
             return false;
         }
-        if(column.text == 'Ca ăn 2' && viewModel.get('isCa2Confirm') == true){
+        if(column.text.includes('Ca ăn 2 ') && viewModel.get('isCa2Confirm') == true){
             // TimeSheetLunchStore.rejectChanges();
             // e.stopEvent();
             // record.set(column.dataIndex, !checked)
             return false;
         }
-        if(column.text == 'Ca ăn 3' && viewModel.get('isCa3Confirm') == true){
+        if(column.text.includes('Ca ăn 3 ') && viewModel.get('isCa3Confirm') == true){
             // TimeSheetLunchStore.rejectChanges();
             // e.stopEvent();
             // record.set(column.dataIndex, !checked)
             return false;
         }
-        if(column.text == 'Ca ăn 4' && viewModel.get('isCa4Confirm') == true){
+        if(column.text.includes('Ca ăn 4 ') && viewModel.get('isCa4Confirm') == true){
+            // TimeSheetLunchStore.rejectChanges();
+            // e.stopEvent();
+            // record.set(column.dataIndex, !checked)
+            return false;
+        }
+        if(column.text.includes('Ca ăn 5 ') && viewModel.get('isCa5Confirm') == true){
             // TimeSheetLunchStore.rejectChanges();
             // e.stopEvent();
             // record.set(column.dataIndex, !checked)
@@ -146,30 +161,32 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
     onBeforeHeaderClick: function(column, checked, e, eOpts){
         var m = this;
         var viewModel = this.getViewModel();
-        // console.log(column);
-        // console.log(viewModel.get('isCa1Confirm'));
-        // console.log(viewModel.get('isCa2Confirm'));
-        // console.log(viewModel.get('isCa3Confirm'));
-        // console.log(viewModel.get('isCa4Confirm'));
-        if(column.text == 'Ca ăn 1' && viewModel.get('isCa1Confirm') == true){
+
+        if(column.text.includes('Ca ăn 1 ') && viewModel.get('isCa1Confirm') == true){
             // TimeSheetLunchStore.rejectChanges();
             e.stopEvent();
             // record.set(column.dataIndex, !checked)
             return false;
         }
-        if(column.text == 'Ca ăn 2' && viewModel.get('isCa2Confirm') == true){
+        if(column.text.includes('Ca ăn 2 ') && viewModel.get('isCa2Confirm') == true){
             // TimeSheetLunchStore.rejectChanges();
             e.stopEvent();
             // record.set(column.dataIndex, !checked)
             return false;
         }
-        if(column.text == 'Ca ăn 3' && viewModel.get('isCa3Confirm') == true){
+        if(column.text.includes('Ca ăn 3 ') && viewModel.get('isCa3Confirm') == true){
             // TimeSheetLunchStore.rejectChanges();
             e.stopEvent();
             // record.set(column.dataIndex, !checked)
             return false;
         }
-        if(column.text == 'Ca ăn 4' && viewModel.get('isCa4Confirm') == true){
+        if(column.text.includes('Ca ăn 4 ') && viewModel.get('isCa4Confirm') == true){
+            // TimeSheetLunchStore.rejectChanges();
+            e.stopEvent();
+            // record.set(column.dataIndex, !checked)
+            return false;
+        }
+        if(column.text.includes('Ca ăn 5 ') && viewModel.get('isCa5Confirm') == true){
             // TimeSheetLunchStore.rejectChanges();
             e.stopEvent();
             // record.set(column.dataIndex, !checked)
@@ -273,25 +290,31 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         //     return;
         // }
 
-        // if(column.text == 'Ca ăn 1' && viewModel.get('isCa1Confirm') == true){
+        // if(column.text.includes('Ca ăn 1 ') && viewModel.get('isCa1Confirm') == true){
         //     TimeSheetLunchStore.rejectChanges();
         //     // e.stopEvent();
         //     // record.set(column.dataIndex, !checked)
         //     return;
         // }
-        // if(column.text == 'Ca ăn 2' && viewModel.get('isCa2Confirm') == true){
+        // if(column.text.includes('Ca ăn 2 ') && viewModel.get('isCa2Confirm') == true){
         //     TimeSheetLunchStore.rejectChanges();
         //     // e.stopEvent();
         //     // record.set(column.dataIndex, !checked)
         //     return;
         // }
-        // if(column.text == 'Ca ăn 3' && viewModel.get('isCa3Confirm') == true){
+        // if(column.text.includes('Ca ăn 3 ') && viewModel.get('isCa3Confirm') == true){
         //     TimeSheetLunchStore.rejectChanges();
         //     // e.stopEvent();
         //     // record.set(column.dataIndex, !checked)
         //     return;
         // }
-        // if(column.text == 'Ca ăn 4' && viewModel.get('isCa4Confirm') == true){
+        // if(column.text.includes('Ca ăn 4 ') && viewModel.get('isCa4Confirm') == true){
+        //     TimeSheetLunchStore.rejectChanges();
+        //     // e.stopEvent();
+        //     // record.set(column.dataIndex, !checked)
+        //     return;
+        // }
+        // if(column.text.includes('Ca ăn 5 ') && viewModel.get('isCa5Confirm') == true){
         //     TimeSheetLunchStore.rejectChanges();
         //     // e.stopEvent();
         //     // record.set(column.dataIndex, !checked)
@@ -518,6 +541,13 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                                 viewModel.set('isCa4Confirm', false);
                             }
                         }
+                        if(data[i].name == 'Ca ăn 5'){
+                            if(data[i].isConfirm == true){
+                                viewModel.set('isCa5Confirm', true);
+                            }else{
+                                viewModel.set('isCa5Confirm', false);
+                            }
+                        }
                     }
 
                     // console.log(viewModel.get('isCa1Confirm'));
@@ -649,7 +679,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
     sumInfo: function () {
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('TimeSheetLunchStore');
-        var ca1 = 0, ca2 = 0, ca3 = 0, ca4 = 0;
+        var ca1 = 0, ca2 = 0, ca3 = 0, ca4 = 0, ca5 = 0;
         for (var i = 0; i < store.data.length; i++) {
             var rec = store.data.items[i].data;
             if (rec.lunchShift1)
@@ -660,11 +690,14 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                 ca3++;
             if (rec.lunchShift4)
                 ca4++;
+            if (rec.lunchShift5)
+                ca5++;
         }
         viewmodel.set('sumCa1', ca1);
         viewmodel.set('sumCa2', ca2);
         viewmodel.set('sumCa3', ca3);
         viewmodel.set('sumCa4', ca4);
+        viewmodel.set('sumCa5', ca5);
     },
     onSave: function () {
         var m = this;
@@ -708,6 +741,12 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                 var o = new Object();
                 o.dataIndex = 4;
                 o.lunchShift = modified.lunchShift4;
+                arr.push(o);
+            }
+            if (modified.lunchShift5 != null) {
+                var o = new Object();
+                o.dataIndex = 5;
+                o.lunchShift = modified.lunchShift5;
                 arr.push(o);
             }
 
@@ -819,6 +858,9 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                     }
                     if(listCa[j].name == 'Ca ăn 4' && viewModel.get('isCa4Confirm') != true){
                         items[i].set('lunchShift4', true);
+                    }
+                    if(listCa[j].name == 'Ca ăn 5' && viewModel.get('isCa5Confirm') != true){
+                        items[i].set('lunchShift5', true);
                     }
                 }
             }
