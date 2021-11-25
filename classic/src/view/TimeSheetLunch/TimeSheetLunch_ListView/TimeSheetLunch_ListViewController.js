@@ -57,7 +57,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                     if (response.respcode == 200) {
                         for (var i = 0; i < response.data.length; i++) {
                             var data = response.data[i];
-                            console.log(data);
+                            // console.log(data);
                             var str = data.name.trim() + ' ';
                             var time = '<br>';
                             time += data.from_hour < 10 ? '0'+data.from_hour : data.from_hour;
@@ -110,7 +110,56 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                                     beforeheadercheckchange: 'onBeforeHeaderClick',
                                     // headerclick: 'onHeaderClick',
                                     headercheckchange: 'onHeaderClick',
-                                }
+                                },
+                                // renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                                //     // console.log(metaData.column.text);
+                                //     // var val = value == 'null' ? "" : value;
+                                //     // metaData.tdAttr = 'data-qtip="' + val + '"';
+                                    
+                                //     // style
+                                //     if(metaData.column.text.includes('Ca ăn 1 ')){
+                                //         var isCa1Confirm = viewmodel.get('isCa1Confirm');
+                                //         if(isCa1Confirm == true){
+                                //             metaData.tdCls = 'greenCell';
+                                //         }else{
+                                //             metaData.tdCls = 'whiteCell';
+                                //         }
+                                //     }
+                                //     if(metaData.column.text.includes('Ca ăn 2 ')){
+                                //         var isCa2Confirm = viewmodel.get('isCa2Confirm');
+                                //         if(isCa2Confirm == true){
+                                //             metaData.tdCls = 'greenCell';
+                                //         }else{
+                                //             metaData.tdCls = 'whiteCell';
+                                //         }
+                                //     }
+                                //     if(metaData.column.text.includes('Ca ăn 3 ')){
+                                //         var isCa3Confirm = viewmodel.get('isCa3Confirm');
+                                //         if(isCa3Confirm == true){
+                                //             metaData.tdCls = 'greenCell';
+                                //         }else{
+                                //             metaData.tdCls = 'whiteCell';
+                                //         }
+                                //     }
+                                //     if(metaData.column.text.includes('Ca ăn 4 ')){
+                                //         var isCa4Confirm = viewmodel.get('isCa4Confirm');
+                                //         if(isCa4Confirm == true){
+                                //             metaData.tdCls = 'greenCell';
+                                //         }else{
+                                //             metaData.tdCls = 'whiteCell';
+                                //         }
+                                //     }
+                                //     if(metaData.column.text.includes('Ca ăn 5 ')){
+                                //         var isCa5Confirm = viewmodel.get('isCa5Confirm');
+                                //         if(isCa5Confirm == true){
+                                //             metaData.tdCls = 'greenCell';
+                                //         }else{
+                                //             metaData.tdCls = 'whiteCell';
+                                //         }
+                                //     }
+
+                                //     return "<input type='checkbox'" + (value ? "checked='checked'" : "") + ">";
+                                // },
                             })
 
                             grid.headerCt.insert(length, column);
@@ -550,10 +599,26 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                         }
                     }
 
-                    // console.log(viewModel.get('isCa1Confirm'));
-                    // console.log(viewModel.get('isCa2Confirm'));
-                    // console.log(viewModel.get('isCa3Confirm'));
-                    // console.log(viewModel.get('isCa4Confirm'));
+                    if(viewModel.get('isCa1Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa1').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa1').setFieldStyle('background-color: white;');
+                    if(viewModel.get('isCa2Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa2').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa2').setFieldStyle('background-color: white;');
+                    if(viewModel.get('isCa3Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa3').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa3').setFieldStyle('background-color: white;');
+                    if(viewModel.get('isCa4Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa4').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa4').setFieldStyle('background-color: white;');
+                    if(viewModel.get('isCa5Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa5').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa5').setFieldStyle('background-color: white;');
                 }
         })
     },

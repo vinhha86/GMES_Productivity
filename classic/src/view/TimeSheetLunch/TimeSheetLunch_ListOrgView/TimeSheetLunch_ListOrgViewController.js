@@ -99,6 +99,27 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
                             }
                         }
                     }
+                    
+                    if(viewModel.get('isCa1Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa1').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa1').setFieldStyle('background-color: white;');
+                    if(viewModel.get('isCa2Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa2').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa2').setFieldStyle('background-color: white;');
+                    if(viewModel.get('isCa3Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa3').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa3').setFieldStyle('background-color: white;');
+                    if(viewModel.get('isCa4Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa4').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa4').setFieldStyle('background-color: white;');
+                    if(viewModel.get('isCa5Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa5').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa5').setFieldStyle('background-color: white;');
                 }
         })
     },

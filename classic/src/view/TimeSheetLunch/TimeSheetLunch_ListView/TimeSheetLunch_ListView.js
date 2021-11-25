@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
     extend: 'Ext.grid.Panel',
     xtype: 'TimeSheetLunch_ListView',
     id: 'TimeSheetLunch_ListView',
+    cls: 'TimeSheetLunch_ListView',
     controller: 'TimeSheetLunch_ListViewController',
     viewConfig: {
         stripeRows: false,
@@ -250,51 +251,56 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
         layout: 'hbox',
         items: [{
             xtype: 'textfield',
+            itemId: 'sumCa1',
             fieldLabel: 'Ca 1',
             margin: 3,
-            width: 100,
+            width: 120,
             labelWidth: 50,
-            eidtable: false,
+            editable: false,
             bind: {
-                value: '{sumCa1}'
+                value: '{sumCa1}',
             }
         }, {
             xtype: 'textfield',
+            itemId: 'sumCa2',
             fieldLabel: 'Ca 2',
             margin: 3,
-            width: 100,
+            width: 120,
             labelWidth: 50,
-            eidtable: false,
+            editable: false,
             bind: {
                 value: '{sumCa2}'
             }
         }, {
             xtype: 'textfield',
+            itemId: 'sumCa3',
             fieldLabel: 'Ca 3',
             margin: 3,
-            width: 100,
+            width: 120,
             labelWidth: 50,
-            eidtable: false,
+            editable: false,
             bind: {
                 value: '{sumCa3}'
             }
         }, {
             xtype: 'textfield',
+            itemId: 'sumCa4',
             fieldLabel: 'Ca 4',
             margin: 3,
-            width: 100,
+            width: 120,
             labelWidth: 50,
-            eidtable: false,
+            editable: false,
             bind: {
                 value: '{sumCa4}'
             }
         }, {
             xtype: 'textfield',
+            itemId: 'sumCa5',
             fieldLabel: 'Ca 5',
             margin: 3,
-            width: 100,
+            width: 120,
             labelWidth: 50,
-            eidtable: false,
+            editable: false,
             bind: {
                 value: '{sumCa5}'
             }

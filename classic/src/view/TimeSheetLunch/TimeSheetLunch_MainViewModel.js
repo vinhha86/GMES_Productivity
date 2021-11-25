@@ -26,23 +26,35 @@ Ext.define('GSmartApp.view.personel.TimeSheetLunch_MainViewModel', {
         isBtnUnconfirmHidden: true,
         isBtnUnconfirmHiddenDisabled: true,
 
+        //
         numberShift: null,
         sumCa1: 0,
         sumCa2: 0,
         sumCa3: 0,
         sumCa4: 0,
         sumCa5: 0,
+        //
 
         // cho phep danh dau check o cac cot hay khong
-        isCa1Confirm: true,
-        isCa2Confirm: true,
-        isCa3Confirm: true,
-        isCa4Confirm: true,
-        isCa5Confirm: true,
+        isCa1Confirm: false,
+        isCa2Confirm: false,
+        isCa3Confirm: false,
+        isCa4Confirm: false,
+        isCa5Confirm: false,
 
         // filter
         personnelCodeFilterValue: null,
         personnelRegCodeFilterValue: null,
         personnelFullnameFilterValue: null,
+    },
+    formulas:{
+        // fieldStyle1: function (get) {
+        //     var isCa1Confirm = get('isCa1Confirm');
+        //     if(isCa1Confirm){
+        //         return 'background-color: lightblue;';
+        //     }else{
+        //         return 'background-color: white;';
+        //     }
+        // }
     }
 })
