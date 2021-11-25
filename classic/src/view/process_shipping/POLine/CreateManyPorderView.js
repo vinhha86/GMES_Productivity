@@ -81,6 +81,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.CreateManyPorderView', {
                 valueField: 'id',
                 margin: 2,
                 labelWidth: 120,
+                editable: false,
                 flex: 1,
                 fieldLabel: 'Tổ SX'
             }
