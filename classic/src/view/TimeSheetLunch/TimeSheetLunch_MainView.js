@@ -1,9 +1,9 @@
 Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_MainView', {
     extend: 'Ext.form.Panel',
     xtype: 'TimeSheetLunch_MainView',
-    id:'TimeSheetLunch_MainView',
-    viewModel:{
-        type:'TimeSheetLunch_MainViewModel'
+    id: 'TimeSheetLunch_MainView',
+    viewModel: {
+        type: 'TimeSheetLunch_MainViewModel'
     },
     controller: 'TimeSheetLunch_MainViewController',
     layout: 'border',
@@ -14,12 +14,11 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_MainView', {
         xtype: 'TimeSheetLunch_ListOrgView',
         border: true,
         margin: 1
-    
+
     }, {
         region: 'center',
         width: '70%',
-        title: 'Danh sách nhân viên',
-        xtype: 'TimeSheetLunch_ListView',
+        xtype: 'ChitietTabView',
         border: true,
         margin: 1
     }],
@@ -29,7 +28,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_MainView', {
         border: false,
         items: [
             {
-                xtype:'datefield',
+                xtype: 'datefield',
                 margin: 5,
                 fieldLabel: 'Ngày làm việc',
                 // allowBlank: true,
