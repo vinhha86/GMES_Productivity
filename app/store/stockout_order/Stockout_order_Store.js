@@ -59,11 +59,12 @@ Ext.define('GSmartApp.store.stockout_order.Stockout_order_Store', {
         });
         this.load();
     },
-    loadStore_byPage: function (stockoutorderdate_from, stockoutorderdate_to, page, limit, status) {
+    loadStore_byPage: function (stockoutorderdate_from, stockoutorderdate_to, page, limit, status, stockouttypeid_link) {
         var me = this;
         var params = new Object();
         params.stockoutorderdate_from = stockoutorderdate_from;
         params.stockoutorderdate_to = stockoutorderdate_to;
+        params.stockouttypeid_link = stockouttypeid_link;
         params.page = page;
         params.limit = limit;
         params.status = status;
@@ -102,11 +103,12 @@ Ext.define('GSmartApp.store.stockout_order.Stockout_order_Store', {
         });
     },
 
-    loadStore_byPage_async: function (stockoutorderdate_from, stockoutorderdate_to, page, limit) {
+    loadStore_byPage_async: function (stockoutorderdate_from, stockoutorderdate_to, page, limit, stockouttypeid_link) {
         var me = this;
         var params = new Object();
         params.stockoutorderdate_from = stockoutorderdate_from;
         params.stockoutorderdate_to = stockoutorderdate_to;
+        params.stockouttypeid_link = stockouttypeid_link;
         params.page = page;
         params.limit = limit;
 
