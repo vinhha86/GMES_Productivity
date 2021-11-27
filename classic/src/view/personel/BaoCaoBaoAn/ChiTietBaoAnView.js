@@ -39,6 +39,12 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         width: 70,
         summaryType: 'sum',
         summaryRenderer: 'renderSum'
+    }, {
+        dataIndex: 'ca5',
+        text: 'Ca 5',
+        width: 70,
+        summaryType: 'sum',
+        summaryRenderer: 'renderSum'
     }]
 });
 
