@@ -3,7 +3,8 @@ Ext.define('GSmartApp.view.personel.TimeSheetLunch_MainViewModel', {
     alias: 'viewmodel.TimeSheetLunch_MainViewModel',
     requires: [
         'GSmartApp.store.org.ListOrgMenuTreeStore',
-        'GSmartApp.store.TimeSheetLunch.TimeSheetLunchStore'
+        'GSmartApp.store.TimeSheetLunch.TimeSheetLunchStore',
+        'GSmartApp.store.TimeSheetLunch.TimeSheetLunchKhachStore'
     ],
     stores: {
         OrgStore: {
@@ -11,6 +12,9 @@ Ext.define('GSmartApp.view.personel.TimeSheetLunch_MainViewModel', {
         },
         TimeSheetLunchStore: {
             type: 'TimeSheetLunchStore'
+        },
+        TimeSheetLunchKhachStore: {
+            type: 'TimeSheetLunchKhachStore'
         }
     },
     data: {

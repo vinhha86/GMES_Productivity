@@ -9,7 +9,7 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
     },
     features: [{
         ftype: 'summary',
-        dock: 'bottom'
+        dock: 'top'
     }],
     columns: [{
         dataIndex: 'org_name',
