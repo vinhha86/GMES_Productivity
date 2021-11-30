@@ -3,7 +3,7 @@ Ext.define('GSmartApp.store.BaoCaoBaoAn.BaoAnStore', {
     storeId: 'BaoAnStore',
     alias: 'store.BaoAnStore',
     fields: [
-        'org_name',
+        'org_name', 'orgtypeid_link',
         {
             name: 'ca1', type: 'int'
         },
@@ -19,8 +19,8 @@ Ext.define('GSmartApp.store.BaoCaoBaoAn.BaoAnStore', {
     ],
     sorters: [
         {
-            property: 'p_sku_code',
-            direction: 'ASC'
+            property: 'orgtypeid_link',
+            direction: 'DESC'
         }
     ],
     loadStore: function (orgid_link, date) {

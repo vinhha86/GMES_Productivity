@@ -236,15 +236,12 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
                 itemId: 'btnSave',
             },
             {
-                flex: 1,
-            },
-            // {
-            //     xtype: 'button',
-            //     margin: 5,
-            //     text: 'Test',
-            //     iconCls: 'x-fa fa-save',
-            //     itemId: 'btnTest',
-            // },
+                xtype: 'button',
+                margin: 5,
+                text: 'Hủy xác nhận',
+                iconCls: 'x-fa fa-backward',
+                itemId: 'btnCancelApprove',
+            }
         ]
     }, {
         dock: 'top',

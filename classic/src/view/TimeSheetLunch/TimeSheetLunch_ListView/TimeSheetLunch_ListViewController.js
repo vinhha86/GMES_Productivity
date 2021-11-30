@@ -17,8 +17,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         '#btnSave': {
             click: 'onSave'
         },
-        '#btnTest': {
-            click: 'onTest'
+        '#btnCancelApprove': {
+            click: 'onCancel'
         },
     },
     listen: {
@@ -515,6 +515,9 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
 
         });
     },
+    onCancel: function () {
+
+    },
     setShiftColumnConfirm: function () {
         var m = this;
         var me = this.getView();
@@ -917,17 +920,5 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
 
             form.close();
         });
-    },
-    onTest: function () {
-        var m = this;
-        var me = this.getView();
-        var viewModel = this.getViewModel();
-        var TimeSheetLunchStore = viewModel.getStore('TimeSheetLunchStore');
-        var items = TimeSheetLunchStore.getData().items;
-        console.log(items);
-
-        for (var i = 0; i < items.length; i++) {
-            items[i].set('lunchShift2', true);
-        }
     }
 })

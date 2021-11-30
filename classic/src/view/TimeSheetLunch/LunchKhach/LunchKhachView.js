@@ -57,47 +57,6 @@ Ext.define('GSmartApp.view.TimeSheetLunch.LunchKhachView', {
             return '<div style="color:black; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000'); + '</div>';
         }
     }
-    ],
-    dockedItems: [{
-        dock: 'bottom',
-        layout: 'hbox',
-        border: false,
-        items: [
-            {
-                xtype: 'button',
-                margin: 5,
-                text: 'Xác nhận',
-                iconCls: 'x-fa fa-check',
-                itemId: 'btnConfirm',
-                // bind: {
-                //     hidden: '{isBtnConfirmHidden}'
-                // }
-            },
-            {
-                xtype: 'button',
-                margin: 5,
-                text: 'Tự động lấy dữ liệu',
-                iconCls: 'x-fa fa-sync',
-                itemId: 'btnAutoGetInfo',
-            },
-            {
-                xtype: 'button',
-                margin: 5,
-                text: 'Lưu',
-                iconCls: 'x-fa fa-save',
-                itemId: 'btnSave',
-            },
-            {
-                flex: 1,
-            },
-            // {
-            //     xtype: 'button',
-            //     margin: 5,
-            //     text: 'Test',
-            //     iconCls: 'x-fa fa-save',
-            //     itemId: 'btnTest',
-            // },
-        ]
-    }]
+    ]
 });
 

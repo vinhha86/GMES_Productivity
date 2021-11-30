@@ -8,9 +8,12 @@ Ext.define('GSmartApp.store.TimeSheetLunch.TimeSheetLunchKhachStore', {
         { name: 'shifttypeid_link', type: 'int' },
         'shifttype_name',
         { name: 'status', type: 'int' },
-        { name: 'amount', type: 'int' }
+        { name: 'amount', type: 'int' }, 'orgtypeid_link'
     ],
     sorters: [{
+        property: 'orgtypeid_link',
+        direction: 'DESC'
+    }, {
         property: 'shifttype_name',
         direction: 'ASC'
     }],

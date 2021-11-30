@@ -11,6 +11,15 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         ftype: 'summary',
         dock: 'top'
     }],
+    viewConfig: {
+        enableTextSelection: true,
+        stripeRows: false,
+        getRowClass: function (record, index) {
+            if (record.get('orgtypeid_link') == 166) {
+                return 'po_offer';
+            }
+        }
+    },
     columns: [{
         dataIndex: 'org_name',
         text: 'Tổ',
