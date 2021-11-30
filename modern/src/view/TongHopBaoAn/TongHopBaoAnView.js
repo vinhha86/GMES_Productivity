@@ -83,12 +83,12 @@ Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnView', {
                 },
                 '->'
                 ,
-                // {
-                //     xtype:'button',
-                //     iconCls: 'x-fa fa-refresh',
-                //     itemId:'btnTest',
-                //     ui: 'action',
-                // },
+                {
+                    xtype:'button',
+                    iconCls: 'x-fa fa-refresh',
+                    itemId:'btnTest',
+                    ui: 'action',
+                },
             ]
         }
     ]
