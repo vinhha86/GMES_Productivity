@@ -7,7 +7,12 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
     viewConfig: {
         stripeRows: false,
         columnLines: true,
-        rowLines: true
+        rowLines: true,
+        getRowClass: function (record, index) {
+            if (record.get('status') == 1) {
+                return 'po_offer';
+            }
+        }
     },
     // plugins: {
     //     cellediting: {
