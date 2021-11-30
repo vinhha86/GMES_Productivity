@@ -516,7 +516,97 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         });
     },
     onCancel: function () {
+        var viewModel = this.getViewModel();
+        var orgid_link = viewModel.get('orgid_link');
+        var date = viewModel.get('current');
 
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Xác nhận danh sách báo ăn',
+            closeAction: 'destroy',
+            // height: Ext.getBody().getViewSize().height * .95,
+            // width: Ext.getBody().getViewSize().width * .95,
+            height: 300,
+            width: 300,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Shift_List_View',
+                viewModel: {
+                    data: {
+                        orgid_link: orgid_link,
+                        date: date,
+                        action: 'confirm'
+                    }
+                }
+            }],
+        });
+        form.show();
+
+        form.down('#Shift_List_View').getController().on('Thoat', function () {
+            form.close();
+        });
+
+        form.down('#Shift_List_View').getController().on('SelectConfirm', function (select, unselect) {
+            // console.log(select);
+            // console.log(unselect);
+            // console.log(orgid_link);
+            // console.log(date);
+            var selectIds = new Array();
+            var unselectIds = new Array();
+            for (var i = 0; i < select.length; i++) {
+                selectIds.push(select[i].get('id'));
+            }
+            for (var i = 0; i < unselect.length; i++) {
+                unselectIds.push(unselect[i].get('id'));
+            }
+
+            var params = new Object();
+            params.selectIds = selectIds;
+            params.unselectIds = unselectIds;
+            params.orgid_link = orgid_link;
+            params.workingdate = date;
+
+            GSmartApp.Ajax.post('/api/v1/timesheetlunch/updateStatus', Ext.JSON.encode(params),
+                function (success, response, options) {
+                    me.setLoading(false);
+                    if (success) {
+                        var response = Ext.decode(response.responseText);
+                        if (response.respcode == 200) {
+                            Ext.MessageBox.show({
+                                title: "Thông báo",
+                                msg: 'Lưu thành công',
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
+                        }
+                        form.close();
+                        m.setShiftColumnConfirm();
+                        me.setLoading(false);
+                    } else {
+                        var response = Ext.decode(response.responseText);
+                        Ext.MessageBox.show({
+                            title: "Thông báo",
+                            msg: 'Lưu thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                        me.setLoading(false);
+                    }
+                })
+
+
+        });
     },
     setShiftColumnConfirm: function () {
         var m = this;
