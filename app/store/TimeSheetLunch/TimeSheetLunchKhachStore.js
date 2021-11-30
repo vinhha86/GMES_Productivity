@@ -11,14 +11,13 @@ Ext.define('GSmartApp.store.TimeSheetLunch.TimeSheetLunchKhachStore', {
         { name: 'amount', type: 'int' }
     ],
     sorters: [{
-        property: 'personnelCode',
+        property: 'shifttype_name',
         direction: 'ASC'
     }],
     loadStore: function (orgid_link, date) {
-        var me = this;
         var params = new Object();
         params.orgid_link = orgid_link;
-        params.date = date;
+        params.ngay = date;
         this.setProxy({
             type: 'ajax',
             actionMethods: {
@@ -27,7 +26,7 @@ Ext.define('GSmartApp.store.TimeSheetLunch.TimeSheetLunchKhachStore', {
                 update: 'POST',
                 destroy: 'POST'
             },
-            url: config.getAppBaseUrl() + '/api/v1/timesheetlunch/getForTimeSheetLunch',
+            url: config.getAppBaseUrl() + '/api/v1/timesheetlunch_khach/getby_date',
             paramsAsJson: true,
             extraParams: params,
             noCache: false,

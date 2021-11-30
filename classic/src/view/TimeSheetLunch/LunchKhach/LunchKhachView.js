@@ -12,14 +12,14 @@ Ext.define('GSmartApp.view.TimeSheetLunch.LunchKhachView', {
         ftype: 'summary',
         dock: 'top'
     }],
-    // plugins: {
-    //     cellediting: {
-    //         clicksToEdit: 1,
-    //         listeners: {
-    //             edit: 'onEditCheckBox'
-    //         } 
-    //     }
-    // },    
+    plugins: {
+        cellediting: {
+            clicksToEdit: 1,
+            listeners: {
+                edit: 'onEdit'
+            }
+        }
+    },
     bind: {
         store: '{TimeSheetLunchKhachStore}'
     },
@@ -42,6 +42,13 @@ Ext.define('GSmartApp.view.TimeSheetLunch.LunchKhachView', {
         dataIndex: 'amount',
         width: 100,
         align: 'right',
+        editor: {
+            completeOnEnter: true,
+            field: {
+                xtype: 'textfield',
+                maskRe: /[0-9]/
+            }
+        },
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             return Ext.util.Format.number(value, '0,000');
         },
