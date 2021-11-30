@@ -34,12 +34,14 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_MainView', {
                 // allowBlank: true,
                 reference: 'txtdatefield',
                 format: 'd/m/Y',
-                value: new Date(),
                 width: 300,
                 itemId: 'txtdatefield',
                 labelWidth: 100,
                 listeners: {
                     change: 'onChange'
+                },
+                bind: {
+                    value: '{current}'
                 }
             },
             {

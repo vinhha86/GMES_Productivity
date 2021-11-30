@@ -23,7 +23,8 @@ Ext.define('GSmartApp.view.personel.TimeSheetLunch_MainViewModel', {
         isConfirm: null, // old, ko dung
         isToday: true,
         isEditable: null,
-
+        isHidden_khach: true,
+        current: new Date(),
         // confirm hidden, disabled,
         isBtnConfirmHidden: true,
         isBtnConfirmHiddenDisabled: true,
@@ -51,7 +52,7 @@ Ext.define('GSmartApp.view.personel.TimeSheetLunch_MainViewModel', {
         personnelRegCodeFilterValue: null,
         personnelFullnameFilterValue: null,
     },
-    formulas:{
+    formulas: {
         // fieldStyle1: function (get) {
         //     var isCa1Confirm = get('isCa1Confirm');
         //     if(isCa1Confirm){

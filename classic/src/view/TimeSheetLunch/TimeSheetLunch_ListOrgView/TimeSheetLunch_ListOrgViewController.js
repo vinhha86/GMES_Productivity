@@ -9,14 +9,15 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
             itemclick: 'onloadDetail'
         }
     },
-    onloadDetail: function( grid, record, item, index, e, eOpts){
+    onloadDetail: function (grid, record, item, index, e, eOpts) {
         // console.log(record);
+        this.fireEvent('SelectOrg', record);
         var viewModel = this.getViewModel();
         var TimeSheetLunchStore = viewModel.getStore('TimeSheetLunchStore');
 
         var orgtypeid_link = record.get('orgtypeid_link');
         var orgid_link = record.get('id');
-        
+
         var TimeSheetLunch_MainView = Ext.getCmp('TimeSheetLunch_MainView');
         var date = TimeSheetLunch_MainView.down('#txtdatefield').getValue();
 
@@ -28,7 +29,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
         //     return;
         // }
         // console.log( record.get('id'));
-       
+
         //gọi function CreateColumns
         var controler = Ext.getCmp('TimeSheetLunch_ListView').getController();
         controler.CreateColumns(record.get('id'));
@@ -49,9 +50,9 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
         TimeSheetLunch_MainView.down('#sumCa4').setFieldStyle('background-color: white;');
         TimeSheetLunch_MainView.down('#sumCa5').setFieldStyle('background-color: white;');
     },
-    setShiftColumnConfirm: function(){
+    setShiftColumnConfirm: function () {
         var m = this;
-        var me= this.getView();
+        var me = this.getView();
         var viewModel = this.getViewModel();
 
         var orgid_link = viewModel.get('orgid_link');
@@ -69,66 +70,66 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
                     // console.log(response);
 
                     var data = response.data;
-                    for(var i=0;i<data.length;i++){
-                        if(data[i].name == 'Ca ăn 1'){
-                            if(data[i].isConfirm == true){
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].name == 'Ca ăn 1') {
+                            if (data[i].isConfirm == true) {
                                 viewModel.set('isCa1Confirm', true);
-                            }else{
+                            } else {
                                 viewModel.set('isCa1Confirm', false);
                             }
                         }
-                        if(data[i].name == 'Ca ăn 2'){
-                            if(data[i].isConfirm == true){
+                        if (data[i].name == 'Ca ăn 2') {
+                            if (data[i].isConfirm == true) {
                                 viewModel.set('isCa2Confirm', true);
-                            }else{
+                            } else {
                                 viewModel.set('isCa2Confirm', false);
                             }
                         }
-                        if(data[i].name == 'Ca ăn 3'){
-                            if(data[i].isConfirm == true){
+                        if (data[i].name == 'Ca ăn 3') {
+                            if (data[i].isConfirm == true) {
                                 viewModel.set('isCa3Confirm', true);
-                            }else{
+                            } else {
                                 viewModel.set('isCa3Confirm', false);
                             }
                         }
-                        if(data[i].name == 'Ca ăn 4'){
-                            if(data[i].isConfirm == true){
+                        if (data[i].name == 'Ca ăn 4') {
+                            if (data[i].isConfirm == true) {
                                 viewModel.set('isCa4Confirm', true);
-                            }else{
+                            } else {
                                 viewModel.set('isCa4Confirm', false);
                             }
                         }
-                        if(data[i].name == 'Ca ăn 5'){
-                            if(data[i].isConfirm == true){
+                        if (data[i].name == 'Ca ăn 5') {
+                            if (data[i].isConfirm == true) {
                                 viewModel.set('isCa5Confirm', true);
-                            }else{
+                            } else {
                                 viewModel.set('isCa5Confirm', false);
                             }
                         }
                     }
-                    
-                    if(viewModel.get('isCa1Confirm') == true)
+
+                    if (viewModel.get('isCa1Confirm') == true)
                         TimeSheetLunch_MainView.down('#sumCa1').setFieldStyle('background-color: lightblue;');
                     else
                         TimeSheetLunch_MainView.down('#sumCa1').setFieldStyle('background-color: white;');
-                    if(viewModel.get('isCa2Confirm') == true)
+                    if (viewModel.get('isCa2Confirm') == true)
                         TimeSheetLunch_MainView.down('#sumCa2').setFieldStyle('background-color: lightblue;');
                     else
                         TimeSheetLunch_MainView.down('#sumCa2').setFieldStyle('background-color: white;');
-                    if(viewModel.get('isCa3Confirm') == true)
+                    if (viewModel.get('isCa3Confirm') == true)
                         TimeSheetLunch_MainView.down('#sumCa3').setFieldStyle('background-color: lightblue;');
                     else
                         TimeSheetLunch_MainView.down('#sumCa3').setFieldStyle('background-color: white;');
-                    if(viewModel.get('isCa4Confirm') == true)
+                    if (viewModel.get('isCa4Confirm') == true)
                         TimeSheetLunch_MainView.down('#sumCa4').setFieldStyle('background-color: lightblue;');
                     else
                         TimeSheetLunch_MainView.down('#sumCa4').setFieldStyle('background-color: white;');
-                    if(viewModel.get('isCa5Confirm') == true)
+                    if (viewModel.get('isCa5Confirm') == true)
                         TimeSheetLunch_MainView.down('#sumCa5').setFieldStyle('background-color: lightblue;');
                     else
                         TimeSheetLunch_MainView.down('#sumCa5').setFieldStyle('background-color: white;');
                 }
-        })
+            })
     },
     // checkStatus: function(orgid_link, date){
     //     var viewModel = this.getViewModel();
@@ -185,7 +186,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
             value: 1
         });
         OrgStore.getFilters().add(this.activeOnlyFilter);
-        
+
         OrgStore.getSorters().add('orgtypeid_link');
         OrgStore.getSorters().add('is_manufacturer');
         OrgStore.getSorters().add('id');
