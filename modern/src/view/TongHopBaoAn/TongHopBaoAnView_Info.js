@@ -6,7 +6,8 @@ Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnView_Info', {
     cls: 'TongHopBaoAnView_Info',
     reference: 'TongHopBaoAnView_Info',
     requires: [
-        'Ext.grid.plugin.CellEditing'
+        'Ext.grid.plugin.CellEditing',
+        'Ext.grid.plugin.Summary'
     ],
     // height: '100%',
     // width: '100%',
