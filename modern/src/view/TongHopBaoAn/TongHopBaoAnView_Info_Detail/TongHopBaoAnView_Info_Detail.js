@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnView_Info_Detail', {
+Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnView_InfoDetail.TongHopBaoAnView_Info_Detail', {
     extend: 'Ext.form.Panel',
     xtype: 'TongHopBaoAnView_Info_Detail',
     itemId: 'TongHopBaoAnView_Info_Detail',

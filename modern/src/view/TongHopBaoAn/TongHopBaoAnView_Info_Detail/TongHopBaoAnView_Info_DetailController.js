@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnView_Info_DetailController', {
+Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnView_InfoDetail.TongHopBaoAnView_Info_DetailController', {
 	extend: 'Ext.app.ViewController',
 	alias: 'controller.TongHopBaoAnView_Info_DetailController',
 	init: function () {
@@ -60,11 +60,21 @@ Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnView_Info_DetailController',
                 me.setMasked(false);
                 if (success) {
                     var response = Ext.decode(response.responseText);
-                    // console.log(response);
+                    // console.log(response.data);
+                    for(var i=0;i<response.data.length;i++) {
+                        if(response.data[i].orgType == 166){
+                            response.data[i].onTop = true;
+                        }else{
+                            response.data[i].onTop = false;
+                        }
+                    }
                     TimeSheetLunchStore.removeAll();
                     TimeSheetLunchStore.insert(0,response.data);
 
                     TimeSheetLunchStore.getSorters().add({
+                        property: 'onTop',
+                        direction: 'DESC'
+                    },{
                         property: 'orgType',
                         direction: 'ASC'
                     },{

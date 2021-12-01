@@ -1,4 +1,4 @@
-Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnView_Info_DetailList', {
+Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnView_InfoDetail.TongHopBaoAnView_Info_DetailList', {
     extend: 'Ext.grid.Grid',
     xtype: 'TongHopBaoAnView_Info_DetailList',
     itemId: 'TongHopBaoAnView_Info_DetailList',
@@ -40,9 +40,14 @@ Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnView_Info_DetailList', {
             // width: 90,
             dataIndex: 'orgCode',
             align: 'center',
-            // renderer: function(value, record, dataIndex, cell, column) {
-            //     return value.toUpperCase();
-            // },
+            renderer: function(value, record, dataIndex, cell, column) {
+                if(record.get('orgType') == 166){
+                    cell.setStyle('background: lightblue;');
+                }else{
+                    cell.setStyle('background: white;');
+                }
+                return value;
+            },
         },
         {
             text: 'Đăng ký', 
@@ -50,7 +55,15 @@ Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnView_Info_DetailList', {
             dataIndex: 'soDangKy',
             align: 'center',
             summary: 'sum',
-            summaryRenderer: 'renderSum'
+            summaryRenderer: 'renderSum',
+            renderer: function(value, record, dataIndex, cell, column) {
+                if(record.get('orgType') == 166){
+                    cell.setStyle('background: lightblue;');
+                }else{
+                    cell.setStyle('background: white;');
+                }
+                return value;
+            },
         },
         {
             text: 'Thêm', 
@@ -58,7 +71,15 @@ Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnView_Info_DetailList', {
             dataIndex: 'soThem',
             align: 'center',
             summary: 'sum',
-            summaryRenderer: 'renderSum'
+            summaryRenderer: 'renderSum',
+            renderer: function(value, record, dataIndex, cell, column) {
+                if(record.get('orgType') == 166){
+                    cell.setStyle('background: lightblue;');
+                }else{
+                    cell.setStyle('background: white;');
+                }
+                return value;
+            },
         },
         
         {
@@ -67,7 +88,15 @@ Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnView_Info_DetailList', {
             dataIndex: 'soTong',
             align: 'center',
             summary: 'sum',
-            summaryRenderer: 'renderSum'
+            summaryRenderer: 'renderSum',
+            renderer: function(value, record, dataIndex, cell, column) {
+                if(record.get('orgType') == 166){
+                    cell.setStyle('background: lightblue;');
+                }else{
+                    cell.setStyle('background: white;');
+                }
+                return value;
+            },
         },
     ],
 });
