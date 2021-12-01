@@ -19,14 +19,14 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
     //     },
     // ],
     bind:{
-        store: '{SKUBalanceStore}',
+        store: '{Stockout_order_Store}',
     },
     columns: [
 		{
 			text: 'Mã lệnh cấp vải', 
 			// width: 120,
 			flex: 1,
-			// dataIndex: 'mat_sku_code',
+			dataIndex: 'stockout_order_code',
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				var val = value == 'null' ? "" : value;
 				metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -47,7 +47,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 		},
 		{
 			text: 'Mã SP(Buyer)', 
-			// dataIndex: 'mat_sku_color_name',
+			dataIndex: 'porder_product_buyercode',
 			// width: 85,
 			flex: 1,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -57,7 +57,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 		},
 		{
 			text: 'Mã NPL', 
-			// dataIndex: 'mat_sku_color_name',
+			dataIndex: 'skuCode',
 			// width: 85,
 			flex: 1,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -67,7 +67,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 		},
 		{
 			text: 'Tên NPL', 
-			// dataIndex: 'mat_sku_color_name',
+			dataIndex: 'skuName',
 			// width: 85,
 			flex: 1,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -77,7 +77,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 		},
 		{
 			text: 'Mô tả', 
-			// dataIndex: 'mat_sku_color_name',
+			dataIndex: 'skuDescription',
 			// width: 85,
 			flex: 1,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -87,7 +87,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 		},
 		{
 			text: 'Màu', 
-			// dataIndex: 'mat_sku_color_name',
+			dataIndex: 'skuColor',
 			// width: 85,
 			flex: 1,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -97,7 +97,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 		},
 		{
 			text: 'Cỡ/khổ', 
-			// dataIndex: 'mat_sku_color_name',
+			dataIndex: 'skuSize',
 			// width: 85,
 			flex: 1,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {

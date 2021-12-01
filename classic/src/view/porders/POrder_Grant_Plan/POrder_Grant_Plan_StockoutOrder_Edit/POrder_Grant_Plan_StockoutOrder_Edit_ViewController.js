@@ -47,6 +47,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         var m = this;
         var me = this.getView();
         var viewModel = m.getViewModel();
+        var eventRecord = viewModel.get('eventRecord');
+        var pordergrantid_link = viewModel.get('pordergrantid_link');
 
         var Stockout_order_d_store = viewModel.getStore('Stockout_order_d_store');
         var Stockout_order_d_store_items = Stockout_order_d_store.getData().items;
@@ -75,8 +77,11 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 
         var params = new Object();
         params.data = Stockout_order_list;
+        params.pordergrantid_link = pordergrantid_link;
 
-        console.log(Stockout_order_list);
+        // console.log(eventRecord);
+        // console.log(Stockout_order_list);
+        // console.log(pordergrantid_link);
         // return;
 
         GSmartApp.Ajax.post('/api/v1/stockoutorder/create_YeuCauXuat', Ext.JSON.encode(params),

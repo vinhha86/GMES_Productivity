@@ -18,6 +18,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         }
     },
     data: {
+        eventRecord: null,
+
         id: null,
         date_list: null,
         pordergrantid_link: null,
