@@ -96,7 +96,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 		},
 		{
 			xtype: 'numbercolumn',
-			format:'0,000',
+			format:'0,000.00',
 			text: 'Met Y/C', 
 			align:'right',
 			dataIndex: 'totalmet',

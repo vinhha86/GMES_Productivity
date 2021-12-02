@@ -23,6 +23,21 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
     },
     columns: [
 		{
+			xtype: 'actioncolumn',
+			width: 28,
+			menuDisabled: true,
+			sortable: false,
+			align: 'center',
+			items: [
+				{
+                    // text:  'Tạo lệnh cấp vải',
+					tooltip: 'Chi tiết lệnh cấp vải',
+					iconCls: 'x-fa fas fa-edit',
+					handler: 'onChiTietLenhCapVai'
+				},
+			]
+		},
+		{
 			text: 'Mã lệnh cấp vải', 
 			// width: 120,
 			flex: 1,
@@ -107,16 +122,16 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 		},
 		{ 
             xtype: 'datecolumn',
-            format: 'd/m/Y',
+            format: 'd/m/y',
             header: 'Ngày tở', 
-            // dataIndex: 'date', 
+            dataIndex: 'date_to_vai_yc', 
             flex: 1,
         },
 		{ 
             xtype: 'datecolumn',
-            format: 'd/m/Y',
+            format: 'd/m/y',
             header: 'Ngày xuất', 
-            // dataIndex: 'date', 
+            dataIndex: 'date_xuat_yc', 
             flex: 1,
         },
 		{
@@ -124,7 +139,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			format:'0,000',
 			text: 'Cây Y/C', 
 			align:'right',
-			// dataIndex: 'mat_sku_demand',
+			dataIndex: 'cayYc',
 			// summaryType: 'sum',
 			// summaryRenderer: 'renderSum',
 			// width: 70,
@@ -135,7 +150,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			format:'0,000.00',
 			text: 'Met Y/C', 
 			align:'right',
-			// dataIndex: 'mat_sku_demand',
+			dataIndex: 'metYc',
 			// summaryType: 'sum',
 			// summaryRenderer: 'renderSum',
 			// width: 70,
