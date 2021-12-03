@@ -276,6 +276,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_Controlle
 		})
         form.down('#POrder_Grant_Plan_StockoutOrder_Edit_View').getController().on('createStockoutOrder', function () {
 			// code here: reload store ...
+            var Stockout_order_Store = viewModel.getStore('Stockout_order_Store');
+            Stockout_order_Store.load();
             form.close();
 		})
     },

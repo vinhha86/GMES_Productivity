@@ -98,16 +98,31 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
                     xtype:'button',
                     text:  'Tạo lệnh cấp vải',
                     iconCls: 'x-fa fa-check',
-                    itemId: 'btnCreate'
+                    itemId: 'btnCreate',
+                    hidden: true,
+                    bind:{
+                        hidden: '{isBtnCreateHidden}'
+                    }
                 },
                 {
                     margin: 3,
                     xtype:'button',
-                    text:  'Test',
-                    iconCls: 'x-fa fa-plus',
-                    itemId: 'btnTest',
-                    hidden: false,
+                    text:  'Lưu',
+                    iconCls: 'x-fa fa-check',
+                    itemId: 'btnSave',
+                    hidden: true,
+                    bind:{
+                        hidden: '{isBtnSaveHidden}'
+                    }
                 },
+                // {
+                //     margin: 3,
+                //     xtype:'button',
+                //     text:  'Test',
+                //     iconCls: 'x-fa fa-plus',
+                //     itemId: 'btnTest',
+                //     hidden: false,
+                // },
             ]
         }
     ],

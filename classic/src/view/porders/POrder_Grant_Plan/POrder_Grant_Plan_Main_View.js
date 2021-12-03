@@ -37,21 +37,21 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_Main_View
                     iconCls: 'x-fa fa-window-close',
                     itemId: 'btnThoat'
                 },
-                {
-                    margin: 3,
-                    xtype:'button',
-                    text:  'In hướng dẫn nhặt vải',
-                    iconCls: 'x-fa fa-print',
-                    itemId: 'btnInHuongDanNhatVai'
-                },
-                {
-                    margin: 3,
-                    xtype:'button',
-                    text:  'Test',
-                    iconCls: 'x-fa fa-plus',
-                    itemId: 'btnTest',
-                    hidden: false,
-                },
+                // {
+                //     margin: 3,
+                //     xtype:'button',
+                //     text:  'In hướng dẫn nhặt vải',
+                //     iconCls: 'x-fa fa-print',
+                //     itemId: 'btnInHuongDanNhatVai'
+                // },
+                // {
+                //     margin: 3,
+                //     xtype:'button',
+                //     text:  'Test',
+                //     iconCls: 'x-fa fa-plus',
+                //     itemId: 'btnTest',
+                //     hidden: false,
+                // },
             ]
         }
     ],

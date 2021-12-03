@@ -14,6 +14,9 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         '#btnCreate': {
             click: 'onCreate',
         },
+        '#btnSave': {
+            click: 'onSave',
+        },
         '#btnAdd': {
             click: 'onAddWarehouse',
         },
@@ -109,6 +112,47 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
                 }
             })
     },
+    onSave: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = m.getViewModel();
+
+        var stockout_order = viewModel.get('stockout_order');
+        var stockout_order_d = stockout_order.stockout_order_d;
+        stockout_order.date_to_vai_yc = stockout_order_d[0].date_to_vai_yc;
+        stockout_order.date_xuat_yc = stockout_order_d[0].date_xuat_yc;
+        // console.log(stockout_order);
+
+        var Stockout_order_list = new Array();
+        Stockout_order_list.push(stockout_order);
+        var params = new Object();
+        params.data = Stockout_order_list;
+
+        GSmartApp.Ajax.post('/api/v1/stockoutorder/save_YeuCauXuat', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    Ext.Msg.show({
+                        title: "Thông báo",
+                        msg: "Lưu thành công",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                    m.fireEvent('saveStockoutOrder');
+                } else {
+                    Ext.Msg.show({
+                        title: "Thông báo",
+                        msg: "Lưu thất bại",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
+    },
     onAfterrender: function(){
         var m = this;
         var me = this.getView();
@@ -119,51 +163,52 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         var date_list = viewModel.get('date_list');
         var pordergrantid_link = viewModel.get('pordergrantid_link');
 
-        if(id != null && id != 0){
-            // console.log(id);
-            // console.log(pordergrantid_link);
-            // console.log(eventRecord);
-            m.loadInfo();
-        }
+        // if(id != null && id != 0){
+        //     // console.log(id);
+        //     // console.log(pordergrantid_link);
+        //     // console.log(eventRecord);
+        //     m.loadInfo();
+        // }
     },
-    loadInfo: function(){
-        var m = this;
-        var me = this.getView();
-        var viewModel = m.getViewModel();
+    // loadInfo: function(){
+    //     var m = this;
+    //     var me = this.getView();
+    //     var viewModel = m.getViewModel();
 
-        var id = viewModel.get('id');
-        var eventRecord = viewModel.get('eventRecord');
-        var pordergrantid_link = viewModel.get('pordergrantid_link');
+    //     var id = viewModel.get('id');
+    //     var eventRecord = viewModel.get('eventRecord');
+    //     var pordergrantid_link = viewModel.get('pordergrantid_link');
 
-        var params = new Object();
-        params.id = id;
+    //     var params = new Object();
+    //     params.id = id;
 
-        GSmartApp.Ajax.post('/api/v1/stockoutorder/getby_id', Ext.JSON.encode(params),
-            function (success, response, options) {
-                if (success) {
-                    var response = Ext.decode(response.responseText);
-                    console.log(response);
-                    // Ext.Msg.show({
-                    //     title: "Thông báo",
-                    //     msg: "Lưu thành công",
-                    //     buttons: Ext.MessageBox.YES,
-                    //     buttonText: {
-                    //         yes: 'Đóng',
-                    //     }
-                    // });
-                    // m.fireEvent('createStockoutOrder');
-                } else {
-                    Ext.Msg.show({
-                        title: "Thông báo",
-                        msg: "Lấy thông tin thất bại",
-                        buttons: Ext.MessageBox.YES,
-                        buttonText: {
-                            yes: 'Đóng',
-                        }
-                    });
-                }
-            })
-    },
+    //     GSmartApp.Ajax.post('/api/v1/stockoutorder/getby_id', Ext.JSON.encode(params),
+    //         function (success, response, options) {
+    //             if (success) {
+    //                 var response = Ext.decode(response.responseText);
+    //                 console.log(response);
+    //                 // console.log(response.data);
+    //                 // Ext.Msg.show({
+    //                 //     title: "Thông báo",
+    //                 //     msg: "Lưu thành công",
+    //                 //     buttons: Ext.MessageBox.YES,
+    //                 //     buttonText: {
+    //                 //         yes: 'Đóng',
+    //                 //     }
+    //                 // });
+    //                 // m.fireEvent('createStockoutOrder');
+    //             } else {
+    //                 Ext.Msg.show({
+    //                     title: "Thông báo",
+    //                     msg: "Lấy thông tin thất bại",
+    //                     buttons: Ext.MessageBox.YES,
+    //                     buttonText: {
+    //                         yes: 'Đóng',
+    //                     }
+    //                 });
+    //             }
+    //         })
+    // },
     onAddWarehouse: function(){
         var m = this;
         var me = this.getView();
@@ -240,7 +285,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         // var warehouse_selection = Warehouse_View.getSelectionModel().getSelection();
         // console.log(warehouse_selection);
         var pkl_selection = Pkl_View.getSelectionModel().getSelection();
-        console.log(pkl_selection);
+        // console.log(pkl_selection);
 
         // add vao danh sach pkl, remove o danh sach warehouse
         

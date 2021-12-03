@@ -49,7 +49,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                        console.log(response);
+                        // console.log(response);
                         var responseData = response.data;
                         m.setStoreData(responseData);
                     }
@@ -95,7 +95,60 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         Stockout_order_d_store.insert(0, storeData);
         Stockout_order_d_store.commitChanges();
     },
-    loadInfo: function(){},
+    loadInfo: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = m.getViewModel();
+
+        var id = viewModel.get('id');
+        var eventRecord = viewModel.get('eventRecord');
+        var pordergrantid_link = viewModel.get('pordergrantid_link');
+
+        var params = new Object();
+        params.id = id;
+
+        GSmartApp.Ajax.postJitin('/api/v1/stockoutorder/getById', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    // console.log(response);
+                    viewModel.set('stockout_order', response.data);
+                    m.setLoadedData();
+                } else {
+                    Ext.Msg.show({
+                        title: "Thông báo",
+                        msg: "Lấy thông tin thất bại",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
+    },
+    setLoadedData: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = m.getViewModel();
+        var stockout_order = viewModel.get('stockout_order');
+        var stockout_order_d = stockout_order.stockout_order_d;
+
+        for(var i=0; i< stockout_order_d.length; i++){
+            var dateXuat = new Date(stockout_order.date_xuat_yc);
+            var dateTo = new Date(stockout_order.date_to_vai_yc);
+            // stockout_order_d[i].date_xuat_yc = stockout_order.date_xuat_yc;
+            // stockout_order_d[i].date_to_vai_yc = stockout_order.date_to_vai_yc;
+            stockout_order_d[i].date_xuat_yc = dateXuat;
+            stockout_order_d[i].date_to_vai_yc = dateTo;
+        }
+
+        var Stockout_order_d_store = viewModel.getStore('Stockout_order_d_store');
+        Stockout_order_d_store.removeAll();
+        Stockout_order_d_store.insert(0, stockout_order_d);
+        Stockout_order_d_store.commitChanges();
+
+        // console.log(stockout_order);
+    },
     onEdit: function(editor, context, e){
         var m = this;
         var me = this.getView();
@@ -128,42 +181,82 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         var m = this;
         var me = this.getView();
         var viewModel = m.getViewModel();
+        var id = viewModel.get('id');
 
-        var pordergrantid_link = viewModel.get('pordergrantid_link');
-        var skuid_link = record.get('material_skuid_link');
-        var stockoutorderid_link = record.get('stockoutorderid_link');
-
-        // console.log(record);
-        var Stockout_order_pkl_Store = viewModel.getStore('Stockout_order_pkl_Store');
-        Stockout_order_pkl_Store.removeAll();
-        var stockout_order_pkl = record.get('stockout_order_pkl');
-        if(stockout_order_pkl != null){
-            Stockout_order_pkl_Store.insert(0, stockout_order_pkl);
-            Stockout_order_pkl_Store.commitChanges();
+        if(id == null || id == 0){
+            var pordergrantid_link = viewModel.get('pordergrantid_link');
+            var skuid_link = record.get('material_skuid_link');
+            var stockoutorderid_link = record.get('stockoutorderid_link');
+    
+            // console.log(record);
+            var Stockout_order_pkl_Store = viewModel.getStore('Stockout_order_pkl_Store');
+            Stockout_order_pkl_Store.removeAll();
+            var stockout_order_pkl = record.get('stockout_order_pkl');
+            if(stockout_order_pkl != null){
+                Stockout_order_pkl_Store.insert(0, stockout_order_pkl);
+                Stockout_order_pkl_Store.commitChanges();
+            }else{
+                stockout_order_pkl = new Array();
+            }
+            var listSelectedEpc = new Array();
+            for(var i = 0; i < stockout_order_pkl.length; i++){
+                listSelectedEpc.push(stockout_order_pkl[i].epc);
+            }
+    
+            //
+            var WarehouseStore = viewModel.getStore('WarehouseStore');
+            WarehouseStore.loadBySku_pordergrant_stockoutorder(stockoutorderid_link, skuid_link, pordergrantid_link, listSelectedEpc);
+            // WarehouseStore.loadBySku_pordergrant_stockoutorder_async(stockoutorderid_link, skuid_link, pordergrantid_link);
+            // WarehouseStore.load({
+            //     scope: this,
+            //     callback: function(records, operation, success) {
+            //         if(!success){
+            //             // this.fireEvent('logout');
+            //         } else {
+                        
+            //         }
+            //     }
+            // });
+    
+            // set viewModel stockout_order_d dang chon
+            viewModel.set('stockout_order_d_selected_record', record);
         }else{
-            stockout_order_pkl = new Array();
+            var pordergrantid_link = viewModel.get('pordergrantid_link');
+            var skuid_link = record.get('material_skuid_link');
+            var stockoutorderid_link = record.get('stockoutorderid_link');
+    
+            // console.log(record);
+            var Stockout_order_pkl_Store = viewModel.getStore('Stockout_order_pkl_Store');
+            Stockout_order_pkl_Store.removeAll();
+            var stockout_order_pkl = record.get('stockout_order_pkl');
+            if(stockout_order_pkl != null){
+                Stockout_order_pkl_Store.insert(0, stockout_order_pkl);
+                Stockout_order_pkl_Store.commitChanges();
+            }else{
+                stockout_order_pkl = new Array();
+            }
+            var listSelectedEpc = new Array();
+            for(var i = 0; i < stockout_order_pkl.length; i++){
+                listSelectedEpc.push(stockout_order_pkl[i].epc);
+            }
+    
+            //
+            var WarehouseStore = viewModel.getStore('WarehouseStore');
+            WarehouseStore.loadBySku_pordergrant_stockoutorder(stockoutorderid_link, skuid_link, pordergrantid_link, listSelectedEpc);
+            // WarehouseStore.loadBySku_pordergrant_stockoutorder_async(stockoutorderid_link, skuid_link, pordergrantid_link);
+            // WarehouseStore.load({
+            //     scope: this,
+            //     callback: function(records, operation, success) {
+            //         if(!success){
+            //             // this.fireEvent('logout');
+            //         } else {
+                        
+            //         }
+            //     }
+            // });
+    
+            // set viewModel stockout_order_d dang chon
+            viewModel.set('stockout_order_d_selected_record', record);
         }
-        var listSelectedEpc = new Array();
-        for(var i = 0; i < stockout_order_pkl.length; i++){
-            listSelectedEpc.push(stockout_order_pkl[i].epc);
-        }
-
-        //
-        var WarehouseStore = viewModel.getStore('WarehouseStore');
-        WarehouseStore.loadBySku_pordergrant_stockoutorder(stockoutorderid_link, skuid_link, pordergrantid_link, listSelectedEpc);
-        // WarehouseStore.loadBySku_pordergrant_stockoutorder_async(stockoutorderid_link, skuid_link, pordergrantid_link);
-        // WarehouseStore.load({
-        //     scope: this,
-        //     callback: function(records, operation, success) {
-        //         if(!success){
-        //             // this.fireEvent('logout');
-        //         } else {
-                    
-        //         }
-        //     }
-        // });
-
-        // set viewModel stockout_order_d dang chon
-        viewModel.set('stockout_order_d_selected_record', record);
     }
 })
