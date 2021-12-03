@@ -10,7 +10,10 @@ Ext.define('GSmartApp.view.personnel.TimeSheetLunch.ChitietTabView', {
         },
         {
             title: 'Khách',
-            xtype: 'LunchKhachView'
+            xtype: 'LunchKhachView',
+            bind: {
+                disabled: '{isHidden_khach}'
+            }
         },
     ],
 })

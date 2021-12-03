@@ -47,6 +47,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         var m = this;
         var me = this.getView();
         var viewModel = m.getViewModel();
+        var eventRecord = viewModel.get('eventRecord');
+        var pordergrantid_link = viewModel.get('pordergrantid_link');
 
         var Stockout_order_d_store = viewModel.getStore('Stockout_order_d_store');
         var Stockout_order_d_store_items = Stockout_order_d_store.getData().items;
@@ -75,8 +77,11 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 
         var params = new Object();
         params.data = Stockout_order_list;
+        params.pordergrantid_link = pordergrantid_link;
 
-        console.log(Stockout_order_list);
+        // console.log(eventRecord);
+        // console.log(Stockout_order_list);
+        // console.log(pordergrantid_link);
         // return;
 
         GSmartApp.Ajax.post('/api/v1/stockoutorder/create_YeuCauXuat', Ext.JSON.encode(params),
@@ -109,8 +114,55 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         var me = this.getView();
         var viewModel = m.getViewModel();
 
+        var id = viewModel.get('id');
+        var eventRecord = viewModel.get('eventRecord');
         var date_list = viewModel.get('date_list');
         var pordergrantid_link = viewModel.get('pordergrantid_link');
+
+        if(id != null && id != 0){
+            // console.log(id);
+            // console.log(pordergrantid_link);
+            // console.log(eventRecord);
+            m.loadInfo();
+        }
+    },
+    loadInfo: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = m.getViewModel();
+
+        var id = viewModel.get('id');
+        var eventRecord = viewModel.get('eventRecord');
+        var pordergrantid_link = viewModel.get('pordergrantid_link');
+
+        var params = new Object();
+        params.id = id;
+
+        GSmartApp.Ajax.post('/api/v1/stockoutorder/getby_id', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    console.log(response);
+                    // Ext.Msg.show({
+                    //     title: "Thông báo",
+                    //     msg: "Lưu thành công",
+                    //     buttons: Ext.MessageBox.YES,
+                    //     buttonText: {
+                    //         yes: 'Đóng',
+                    //     }
+                    // });
+                    // m.fireEvent('createStockoutOrder');
+                } else {
+                    Ext.Msg.show({
+                        title: "Thông báo",
+                        msg: "Lấy thông tin thất bại",
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
     },
     onAddWarehouse: function(){
         var m = this;
@@ -149,6 +201,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
             newPkl.width_met_check = 0;
             newPkl.width_yds = warehouse_obj.get('width_yds');
             newPkl.width_yds_check = 0;
+            newPkl.met = warehouse_obj.get('met');
             newPkl.metorigin = warehouse_obj.get('met');
             newPkl.metcheck = 0;
             newPkl.ydsorigin = warehouse_obj.get('yds');

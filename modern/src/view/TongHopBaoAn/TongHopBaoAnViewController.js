@@ -19,6 +19,9 @@ Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnViewController', {
         },
         '#tonghop_baoan': {
             painted: 'onPainted'
+        },
+        '#TongHopBaoAnView_Info': {
+            childtap: 'onChildtap'
         }
     },
     onBtnBackTap: function(){
@@ -52,7 +55,7 @@ Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnViewController', {
         });
     },
     onPainted: function(sender, element, eOpts){
-        console.log('painted');
+        // console.log('painted');
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
@@ -98,6 +101,8 @@ Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnViewController', {
         params.orgid_link = orgid_link;
         params.date = date;
 
+        // return;
+
         GSmartApp.Ajax.post('/api/v1/timesheetlunch/getForTimeSheetLunch_Mobile', Ext.JSON.encode(params),
             function (success, response, options) {
                 me.setMasked(false);
@@ -105,15 +110,118 @@ Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnViewController', {
                     var response = Ext.decode(response.responseText);
                     // console.log(response);
                     TimeSheetLunchStore.removeAll();
-                    TimeSheetLunchStore.insert(0,response.data)
+                    TimeSheetLunchStore.insert(0,response.data);
                 } else {
                     // Ext.toast('Lấy thông tin thất bại', 3000);
                     TimeSheetLunchStore.fireEvent('logout');
                 }
             })
     },
+    // loadTongHopBaoAnView_Info: function(){
+    //     var m = this;
+    //     var me = this.getView();
+    //     var viewModel = this.getViewModel();
+    //     var TimeSheetLunchStore = viewModel.getStore('TimeSheetLunchStore');
+
+    //     var orgid_link = viewModel.get('orgId');
+    //     var date = me.down('#date').getValue();
+    //     // viewModel.set('date', date);
+
+    //     // console.log(orgid_link);
+    //     // console.log(date);
+
+    //     me.setMasked(true);
+
+    //     var params = new Object();
+    //     params.orgid_link = orgid_link;
+    //     params.date = date;
+
+    //     // return;
+
+    //     GSmartApp.Ajax.post('/api/v1/timesheetlunch/getForTimeSheetLunch_Mobile', Ext.JSON.encode(params),
+    //         function (success, response, options) {
+    //             me.setMasked(false);
+    //             if (success) {
+    //                 var response = Ext.decode(response.responseText);
+    //                 // console.log(response);
+    //                 TimeSheetLunchStore.removeAll();
+    //                 TimeSheetLunchStore.insert(0,response.data)
+    //             } else {
+    //                 // Ext.toast('Lấy thông tin thất bại', 3000);
+    //                 TimeSheetLunchStore.fireEvent('logout');
+    //             }
+    //         })
+    // },
     renderSum: function(value ){
         if (null == value) value = 0;
         return Ext.util.Format.number(value, '0,000');    
+    },
+
+    //
+    onChildtap: function(grid, location, eOpts){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var orgid_link = viewModel.get('orgId');
+        var date = me.down('#date').getValue();
+
+        // console.log(orgid_link);
+        // console.log(date);
+        // console.log(location);
+
+        var dialog = Ext.create({
+            xtype: 'dialog',
+            id: 'TongHopBaoAnView_Info_Detail_window',
+            itemId: 'TongHopBaoAnView_Info_Detail_window',
+            // title: 'DS cây vải',
+            width: '100%',
+            height: '100%',
+            zIndex: 1,
+            // maxWidth: 300,
+            // maxHeight: 600,
+            border: false,
+            header: false,
+            closable: true,
+            closeAction: 'destroy',
+            maximizable: false,
+            maskTapHandler: function(){
+                if(dialog){
+                    dialog.close();
+                    me.setMasked(false);
+                }
+            },
+            bodyPadding: '1',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                border: false,
+                xtype: 'TongHopBaoAnView_Info_Detail',
+                viewModel: {
+                    data: {
+                        orgid_link: orgid_link,
+                        date: date,
+                        location: location,
+                    }
+                }
+            }],
+        });
+        dialog.show();
+
+        dialog.down('#TongHopBaoAnView_Info_Detail').getController().on('close', function () {
+            if(dialog){
+                dialog.close();
+                me.setMasked(false);
+            }
+        });
+        dialog.down('#TongHopBaoAnView_Info_Detail').getController().on('close-gohome', function () {
+            if(dialog){
+                dialog.close();
+                me.setMasked(false);
+                m.redirectTo("mobilemenu");
+            }
+        });
     },
 })

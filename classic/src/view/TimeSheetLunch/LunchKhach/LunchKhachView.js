@@ -12,14 +12,14 @@ Ext.define('GSmartApp.view.TimeSheetLunch.LunchKhachView', {
         ftype: 'summary',
         dock: 'top'
     }],
-    // plugins: {
-    //     cellediting: {
-    //         clicksToEdit: 1,
-    //         listeners: {
-    //             edit: 'onEditCheckBox'
-    //         } 
-    //     }
-    // },    
+    plugins: {
+        cellediting: {
+            clicksToEdit: 1,
+            listeners: {
+                edit: 'onEdit'
+            }
+        }
+    },
     bind: {
         store: '{TimeSheetLunchKhachStore}'
     },
@@ -42,6 +42,13 @@ Ext.define('GSmartApp.view.TimeSheetLunch.LunchKhachView', {
         dataIndex: 'amount',
         width: 100,
         align: 'right',
+        editor: {
+            completeOnEnter: true,
+            field: {
+                xtype: 'textfield',
+                maskRe: /[0-9]/
+            }
+        },
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             return Ext.util.Format.number(value, '0,000');
         },
@@ -50,47 +57,6 @@ Ext.define('GSmartApp.view.TimeSheetLunch.LunchKhachView', {
             return '<div style="color:black; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000'); + '</div>';
         }
     }
-    ],
-    dockedItems: [{
-        dock: 'bottom',
-        layout: 'hbox',
-        border: false,
-        items: [
-            {
-                xtype: 'button',
-                margin: 5,
-                text: 'Xác nhận',
-                iconCls: 'x-fa fa-check',
-                itemId: 'btnConfirm',
-                // bind: {
-                //     hidden: '{isBtnConfirmHidden}'
-                // }
-            },
-            {
-                xtype: 'button',
-                margin: 5,
-                text: 'Tự động lấy dữ liệu',
-                iconCls: 'x-fa fa-sync',
-                itemId: 'btnAutoGetInfo',
-            },
-            {
-                xtype: 'button',
-                margin: 5,
-                text: 'Lưu',
-                iconCls: 'x-fa fa-save',
-                itemId: 'btnSave',
-            },
-            {
-                flex: 1,
-            },
-            // {
-            //     xtype: 'button',
-            //     margin: 5,
-            //     text: 'Test',
-            //     iconCls: 'x-fa fa-save',
-            //     itemId: 'btnTest',
-            // },
-        ]
-    }]
+    ]
 });
 

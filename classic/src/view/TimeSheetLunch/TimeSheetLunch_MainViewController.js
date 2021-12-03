@@ -4,10 +4,10 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_MainViewController', {
     init: function () {
 
     },
-    onChange: function( datefield, newValue, oldValue, eOpts){
+    onChange: function (datefield, newValue, oldValue, eOpts) {
         // console.log(newValue);
         var viewModel = this.getViewModel();
-        
+
         var orgtypeid_link = viewModel.get('orgtypeid_link');
         var orgid_link = viewModel.get('orgid_link');
         // if(orgtypeid_link == 1 || orgtypeid_link == 13){
@@ -19,19 +19,19 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_MainViewController', {
         TimeSheetLunchStore.loadStore(orgid_link, newValue);
 
         var today = new Date();
-        if(newValue.toDateString() == today.toDateString() || newValue > today ){
+        if (newValue.toDateString() == today.toDateString() || newValue > today) {
             viewModel.set('isToday', true);
-        }else{
+        } else {
             viewModel.set('isToday', false);
         }
 
         // console.log(newValue);
         // console.log(today);
         // console.log(newValue > today);
-
-        this.checkStatus(orgid_link, newValue);
+        if (orgid_link != null)
+            this.checkStatus(orgid_link, newValue);
     },
-    checkStatus: function(orgid_link, date){
+    checkStatus: function (orgid_link, date) {
         var viewModel = this.getViewModel();
         var params = new Object();
         params.orgid_link = orgid_link;
@@ -45,18 +45,18 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_MainViewController', {
                     // console.log(response);
                     var isConfirm = response.isConfirm;
                     viewModel.set('isConfirm', isConfirm);
-                    if(isConfirm){
+                    if (isConfirm) {
                         viewModel.set('isBtnConfirmHidden', true);
                         viewModel.set('isBtnUnconfirmHidden', false);
-                    }else{
+                    } else {
                         viewModel.set('isBtnConfirmHidden', false);
                         viewModel.set('isBtnUnconfirmHidden', true);
                     }
 
                     var isToday = viewModel.get('isToday');
-                    if(isToday){
+                    if (isToday) {
                         viewModel.set('isBtnUnconfirmHiddenDisabled', false);
-                    }else{
+                    } else {
                         viewModel.set('isBtnUnconfirmHiddenDisabled', true);
                     }
 
@@ -70,7 +70,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_MainViewController', {
                         }
                     });
                 }
-        })
+            })
 
     },
 })

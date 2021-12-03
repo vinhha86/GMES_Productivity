@@ -7,7 +7,12 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
     viewConfig: {
         stripeRows: false,
         columnLines: true,
-        rowLines: true
+        rowLines: true,
+        getRowClass: function (record, index) {
+            if (record.get('status') == 1) {
+                return 'po_offer';
+            }
+        }
     },
     // plugins: {
     //     cellediting: {
@@ -236,15 +241,12 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
                 itemId: 'btnSave',
             },
             {
-                flex: 1,
-            },
-            // {
-            //     xtype: 'button',
-            //     margin: 5,
-            //     text: 'Test',
-            //     iconCls: 'x-fa fa-save',
-            //     itemId: 'btnTest',
-            // },
+                xtype: 'button',
+                margin: 5,
+                text: 'Hủy xác nhận',
+                iconCls: 'x-fa fa-backward',
+                itemId: 'btnCancelApprove',
+            }
         ]
     }, {
         dock: 'top',

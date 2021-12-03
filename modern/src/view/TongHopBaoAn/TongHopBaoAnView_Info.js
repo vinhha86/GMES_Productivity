@@ -6,7 +6,8 @@ Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnView_Info', {
     cls: 'TongHopBaoAnView_Info',
     reference: 'TongHopBaoAnView_Info',
     requires: [
-        'Ext.grid.plugin.CellEditing'
+        'Ext.grid.plugin.CellEditing',
+        'Ext.grid.plugin.Summary'
     ],
     // height: '100%',
     // width: '100%',
@@ -35,51 +36,44 @@ Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnView_Info', {
     },
     columns: [
         {
-            text: 'Tổ', 
+            text: 'Ca', 
             flex: 1,
             // width: 90,
-            dataIndex: 'orgCode',
+            dataIndex: 'caName',
             align: 'center',
             // renderer: function(value, record, dataIndex, cell, column) {
             //     return value.toUpperCase();
             // },
         },
         {
-            text: 'Ca 1', 
+            text: 'Đăng ký', 
             flex: 1,
-            dataIndex: 'sumCa1',
+            dataIndex: 'soDangKy',
             align: 'center',
             summary: 'sum',
             summaryRenderer: 'renderSum'
         },
         {
-            text: 'Ca 2', 
+            text: 'Thêm', 
             flex: 1,
-            dataIndex: 'sumCa2',
+            dataIndex: 'soThem',
+            align: 'center',
+            summary: 'sum',
+            summaryRenderer: 'renderSum'
+        },
+        
+        {
+            text: 'Khách', 
+            flex: 1,
+            dataIndex: 'soKhach',
             align: 'center',
             summary: 'sum',
             summaryRenderer: 'renderSum'
         },
         {
-            text: 'Ca 3', 
+            text: 'Tổng', 
             flex: 1,
-            dataIndex: 'sumCa3',
-            align: 'center',
-            summary: 'sum',
-            summaryRenderer: 'renderSum'
-        },
-        {
-            text: 'Ca 4', 
-            flex: 1,
-            dataIndex: 'sumCa4',
-            align: 'center',
-            summary: 'sum',
-            summaryRenderer: 'renderSum'
-        },
-        {
-            text: 'Ca 5', 
-            flex: 1,
-            dataIndex: 'sumCa5',
+            dataIndex: 'soTong',
             align: 'center',
             summary: 'sum',
             summaryRenderer: 'renderSum'
