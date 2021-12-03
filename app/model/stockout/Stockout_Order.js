@@ -40,7 +40,16 @@ Ext.define('GSmartApp.model.stockout.Stockout_Order', {
                     return "YCX Nguyên liệu";
                 return "YCX Phụ liệu";
             }
-        }
+        },
+        'buyername',
+        'vendorname',
+        'po_code',
+        'productbuyercode',
+        'po_quantity',
+        'totalpair',
+        'po_quantity_sp',
+        'org_from_name',
+        'org_to_name'
     ],
     hasMany : {model: 'Stockout_order_d', name: 'stockout_order_d'}
 });

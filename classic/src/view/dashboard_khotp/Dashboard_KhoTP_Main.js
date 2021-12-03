@@ -15,7 +15,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_Main', {
         },
         {
             title: 'Lệnh xuất kho',
-            // xtype: 'Dashboard_KhoTP_POLine_Main',
+            xtype: 'Stockout_P_Order_Main',
             margin: 1,
         }, 
     ], 

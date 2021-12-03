@@ -129,6 +129,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
             items: [
                 {
                     xtype: 'button',
+                    itemId:'btnStockoutOrder_Create',
                     text: 'Tạo Lệnh xuất kho'
                 },
             ]

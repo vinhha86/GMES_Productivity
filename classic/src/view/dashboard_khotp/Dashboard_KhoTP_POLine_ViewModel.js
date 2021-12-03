@@ -10,7 +10,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_ViewModel', {
         },
     },
     data: {
-        shipdate_to: Ext.Date.add(new Date(), Ext.Date.DAY, 1),
-        shipdate_from: Ext.Date.add(new Date(), Ext.Date.DAY, -30),
+        shipdate_to: Ext.Date.add(new Date(), Ext.Date.DAY, 7),
+        shipdate_from: Ext.Date.add(new Date(), Ext.Date.DAY, -10),
     },
 })

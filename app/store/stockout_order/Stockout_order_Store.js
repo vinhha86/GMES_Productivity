@@ -123,7 +123,7 @@ Ext.define('GSmartApp.store.stockout_order.Stockout_order_Store', {
                 destroy: 'POST'
             },
             // url: config.getAppBaseUrl_Jitin()+'/api/v1/invoice/getlist_bypage',
-            url: config.getAppBaseUrl_Jitin() + '/api/v1/stockoutorder/getStockoutorder',
+            url: config.getAppBaseUrl() + '/api/v1/stockoutorder/getStockoutorder',
             paramsAsJson: true,
             extraParams: params,
             noCache: false,
