@@ -19,7 +19,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
     },
     features: [{
         ftype: 'summary',
-        dock: 'bottom'
+        dock: 'top'
     }],
     columns: [{
         xtype: 'actioncolumn',
@@ -81,20 +81,33 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
         }
     }, 
     {
-        text: 'Đóng gói',
-        width: 150,
-        dataIndex: 'packing_method'
-    },
-    {
         text: 'PT vận chuyển',
+        dataIndex: 'shipmodeid_link',
         flex: 1,
-        dataIndex: 'shipmode_name'
+        hideable: false,
+        editor: {
+            completeOnEnter: true,
+            field: {
+                xtype: 'combo',
+                typeAhead: true,
+                triggerAction: 'all',
+                selectOnFocus: false,
+                bind: {
+                    store: '{ShipModeStore}',
+                    value: '{shipmodeid_link}'
+                },
+                displayField: 'name',
+                valueField: 'id',
+                queryMode: 'local'
+            }
+        },
+        renderer: 'renderShipping'
     },
-    {
-        text: 'Cảng xếp hàng',
-        width: 100,
-        dataIndex: 'portFrom'
-    },
+    // {
+    //     text: 'Cảng xếp hàng',
+    //     width: 100,
+    //     dataIndex: 'portFrom'
+    // },
     {
         text: 'ĐVT',
         dataIndex: 'totalpair',
@@ -112,10 +125,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         },
         summaryType: 'sum',
-        summaryRenderer: function (value, meta, record) {
-            if (null == value) value = 0;
-            return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
-        }
+        summaryRenderer: 'renderSum'
     }
     ],
     dockedItems: [{

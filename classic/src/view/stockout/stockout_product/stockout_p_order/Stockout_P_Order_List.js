@@ -14,7 +14,7 @@ Ext.define('GSmartApp.view.stockout_product.stockout_p_order.Stockout_P_Order_Li
     features: [
         {
             ftype: 'summary',
-            dock: 'bottom'
+            dock: 'top'
         }
     ],
     columns: [
@@ -56,14 +56,12 @@ Ext.define('GSmartApp.view.stockout_product.stockout_p_order.Stockout_P_Order_Li
             align: 'right',
             dataIndex: 'po_quantity',
             width: 80,
-            summaryType: 'sum',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
             },
-            summaryRenderer: function (value, summaryData, dataIndex) {
-                return '<div style="color:red; font-size:9px; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
-            }
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
         }, 
         {
             text: 'ĐVT',
@@ -78,14 +76,12 @@ Ext.define('GSmartApp.view.stockout_product.stockout_p_order.Stockout_P_Order_Li
             align: 'right',
             dataIndex: 'po_quantity_sp',
             width: 80,
-            summaryType: 'sum',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
             },
-            summaryRenderer: function (value, summaryData, dataIndex) {
-                return '<div style="color:red; font-size:9px; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
-            }
+            summaryType: 'sum',
+			summaryRenderer: 'renderSum',
         }, 
         {
             text: 'Ngày lập lệnh',

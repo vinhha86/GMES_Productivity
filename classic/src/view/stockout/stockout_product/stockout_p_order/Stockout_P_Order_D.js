@@ -7,7 +7,7 @@ Ext.define('GSmartApp.view.stockout_product.stockout_p_order.Stockout_P_Order_D'
 	border: true,
 	features: [{
 		ftype: 'summary',
-		dock: 'bottom'
+		dock: 'top'
 	}],
     selModel: {
         selType: 'checkboxmodel',

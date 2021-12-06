@@ -8,6 +8,12 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_ViewModel', {
         PContractSKUStore: {
             type: 'PContractSKUStore'
         },
+        ShipModeStore: {
+            type: 'ShipModeStore'
+        },
+        POLine_Orgs_Store: {
+            type: 'Stockout_order_Store'
+        }
     },
     data: {
         shipdate_to: Ext.Date.add(new Date(), Ext.Date.DAY, 7),

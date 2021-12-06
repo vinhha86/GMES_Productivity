@@ -101,7 +101,8 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUView', {
         //     return '<div style="color:red; font-weight: bold; align: right">'+ Ext.util.Format.number(value, '0,000') ;
         // },
         summaryRenderer: 'renderSum'
-    }, {
+    }, 
+    {
         text: 'SL SX',
         dataIndex: 'pquantity_production',
         width: 62,

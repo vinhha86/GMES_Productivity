@@ -220,4 +220,32 @@ Ext.define('GSmartApp.store.stockout_order.Stockout_order_Store', {
             }
         });
     },
+
+    loadStore_Preview_ByPO: function (pcontract_poid_link) {
+        var params = new Object();
+        params.po_id = pcontract_poid_link;
+        this.setProxy({
+            type: 'ajax',
+            actionMethods: {
+                create: 'POST',
+                read: 'POST',
+                update: 'POST',
+                destroy: 'POST'
+            },
+            url: config.getAppBaseUrl() + '/api/v1/stockoutorder/preview_bypo',
+            paramsAsJson: true,
+            extraParams: params,
+            noCache: false,
+            headers: {
+                'Accept': "application/json",
+                'Content-Type': "application/json"
+            },
+            reader: {
+                type: 'json',
+                rootProperty: 'data',
+                totalProperty: 'totalCount'
+            }
+        });
+        this.load();
+    },
 });

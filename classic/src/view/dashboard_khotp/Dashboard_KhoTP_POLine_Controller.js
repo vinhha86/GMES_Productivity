@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Dashboard_KhoTP_POLine_Controller',
     init: function () {
+        this.loadShipmode();
         this.loadPO_HavetoShip();
     },
     control: {
@@ -10,6 +11,14 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
         },
         '#btnStockoutOrder_Create': {
             click: 'onStockoutOrder_Create'
+        }
+    },
+    loadShipmode: function(){
+        var viewmodel = this.getViewModel();
+        var ShipModeStore = viewmodel.getStore('ShipModeStore');
+        if (null != ShipModeStore) {
+            ShipModeStore.loadStore();
+            ShipModeStore.getSorters().add('name');
         }
     },
     loadPO_HavetoShip: function () {
@@ -21,8 +30,10 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
         var viewmodel = this.getViewModel();
         var storeSku = viewmodel.getStore('PContractSKUStore');
         var pcontract_poid_link = record.data.id;
-        // console.log(record);
         storeSku.load_by_pcontract_po(pcontract_poid_link);
+
+        var storePo_Orgs = viewmodel.getStore('POLine_Orgs_Store');
+        storePo_Orgs.loadStore_Preview_ByPO(pcontract_poid_link);
     },
     onStockoutOrder_Create: function(){
         //Lấy danh sách các PO Line được chọn --> Gửi lên để tạo Stockout_order
@@ -89,5 +100,21 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
                 }
                 me.setLoading(false);
             })
-    }
+    },
+    renderShipping: function (val, metaData, record, rindex, cindex, store) {
+        metaData.tdCls = 'po_linekh';
+        if (null != val) {
+            var viewmodel = this.getViewModel();
+            var ShipModeStore = viewmodel.getStore('ShipModeStore');
+            if (null != ShipModeStore) {
+                var objUnit = ShipModeStore.data.find('id', val);
+                // console.log(objUnit.data);
+                return objUnit.data.name;
+            }
+        }
+    },
+    renderSum: function (value) {
+		if (null == value) value = 0;
+		return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
+    },
 });
