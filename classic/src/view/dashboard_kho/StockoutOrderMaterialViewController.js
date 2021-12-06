@@ -1,11 +1,11 @@
-Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutOrder_View_Controller', {
+Ext.define('GSmartApp.view.dashboard_kho.StockoutOrderMaterialViewController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.POrder_Grant_Plan_StockoutOrder_View_Controller',
+    alias: 'controller.StockoutOrderMaterialViewController',
     init: function () {
         
     },
     control: {
-        '#POrder_Grant_Plan_StockoutOrder_View': {
+        '#StockoutOrderMaterialView': {
             afterrender: 'onAfterrender',
             itemdblclick: 'onItemdblclick',
         },
@@ -22,14 +22,16 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         });
     },
     onItemdblclick: function(grid, record, item, index, e, eOpts){
+        // return;
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
-        var eventRecord = viewModel.get('eventRecord');
-        var porder_grantid_link = viewModel.get('porder_grantid_link');
+        // var eventRecord = viewModel.get('eventRecord');
+        // var porder_grantid_link = viewModel.get('porder_grantid_link');
 
         // console.log(record);
         var id = record.get('id');
+        var porder_grantid_link = rec.get('porder_grantid_link');
         // console.log(rec);
         // return;
 
@@ -41,7 +43,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			resizable: false,
 			modal: true,
 			border: false,
-			title: 'Lệnh cấp vải',
+			title: 'Yêu cầu xuất',
 			closeAction: 'destroy',
 			bodyStyle: 'background-color: transparent',
 			layout: {
@@ -55,7 +57,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
                         id: id, // stockout_order id
                         // date_list: date_list,
                         pordergrantid_link: porder_grantid_link,
-                        eventRecord: eventRecord
+                        // eventRecord: eventRecord
                     }
                 }
 			}]
@@ -74,6 +76,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         return;
     },
     onChiTietLenhCapVai: function (grid, rowIndex, colIndex) {
+        // return;
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
@@ -83,6 +86,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         var Stockout_order_Store = viewModel.getStore('Stockout_order_Store');
         var rec = Stockout_order_Store.getAt(rowIndex);
         var id = rec.get('id');
+        var porder_grantid_link = rec.get('porder_grantid_link');
         // console.log(rec);
         // return;
 
@@ -94,7 +98,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			resizable: false,
 			modal: true,
 			border: false,
-			title: 'Lệnh cấp vải',
+			title: 'Yêu cầu xuất',
 			closeAction: 'destroy',
 			bodyStyle: 'background-color: transparent',
 			layout: {
@@ -108,7 +112,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
                         id: id, // stockout_order id
                         // date_list: date_list,
                         pordergrantid_link: porder_grantid_link,
-                        eventRecord: eventRecord
+                        // eventRecord: eventRecord
                     }
                 }
 			}]
