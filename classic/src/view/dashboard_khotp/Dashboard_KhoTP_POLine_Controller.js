@@ -11,6 +11,9 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
         },
         '#btnStockoutOrder_Create': {
             click: 'onStockoutOrder_Create'
+        },
+        '#btnTimKiem': {
+            click: 'loadPO_HavetoShip'
         }
     },
     loadShipmode: function(){
