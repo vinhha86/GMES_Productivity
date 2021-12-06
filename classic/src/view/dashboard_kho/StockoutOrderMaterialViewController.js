@@ -31,7 +31,7 @@ Ext.define('GSmartApp.view.dashboard_kho.StockoutOrderMaterialViewController', {
 
         // console.log(record);
         var id = record.get('id');
-        var porder_grantid_link = rec.get('porder_grantid_link');
+        var porder_grantid_link = record.get('porder_grantid_link');
         // console.log(rec);
         // return;
 
