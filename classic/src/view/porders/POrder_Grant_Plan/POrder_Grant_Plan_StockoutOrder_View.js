@@ -42,6 +42,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			// width: 120,
 			flex: 1,
 			dataIndex: 'stockout_order_code',
+            sortable: false,
+            menuDisabled: true,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				var val = value == 'null' ? "" : value;
 				metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -65,6 +67,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			dataIndex: 'porder_product_buyercode',
 			// width: 85,
 			flex: 1,
+            sortable: false,
+            menuDisabled: true,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
@@ -75,6 +79,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			dataIndex: 'skuCode',
 			// width: 85,
 			flex: 1,
+            sortable: false,
+            menuDisabled: true,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
@@ -85,6 +91,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			dataIndex: 'skuName',
 			// width: 85,
 			flex: 1,
+            sortable: false,
+            menuDisabled: true,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
@@ -95,6 +103,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			dataIndex: 'skuDescription',
 			// width: 85,
 			flex: 1,
+            sortable: false,
+            menuDisabled: true,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
@@ -105,6 +115,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			dataIndex: 'skuColor',
 			// width: 85,
 			flex: 1,
+            sortable: false,
+            menuDisabled: true,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
@@ -115,6 +127,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			dataIndex: 'skuSize',
 			// width: 85,
 			flex: 1,
+            sortable: false,
+            menuDisabled: true,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
@@ -126,6 +140,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
             header: 'Ngày tở', 
             dataIndex: 'date_to_vai_yc', 
             flex: 1,
+            sortable: false,
+            menuDisabled: true,
         },
 		{ 
             xtype: 'datecolumn',
@@ -133,6 +149,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
             header: 'Ngày xuất', 
             dataIndex: 'date_xuat_yc', 
             flex: 1,
+            sortable: false,
+            menuDisabled: true,
         },
 		{
 			xtype: 'numbercolumn',
@@ -144,6 +162,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			// summaryRenderer: 'renderSum',
 			// width: 70,
             flex: 1,
+            sortable: false,
+            menuDisabled: true,
 		},
 		{
 			xtype: 'numbercolumn',
@@ -155,6 +175,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			// summaryRenderer: 'renderSum',
 			// width: 70,
             flex: 1,
+            sortable: false,
+            menuDisabled: true,
 		},
 		{
 			xtype: 'numbercolumn',
@@ -166,6 +188,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			// summaryRenderer: 'renderSum',
 			// width: 70,
             flex: 1,
+            sortable: false,
+            menuDisabled: true,
 		},
 		{
 			xtype: 'numbercolumn',
@@ -177,6 +201,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			// summaryRenderer: 'renderSum',
 			// width: 70,
             flex: 1,
+            sortable: false,
+            menuDisabled: true,
 		},
 		{
 			xtype: 'numbercolumn',
@@ -188,6 +214,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			// summaryRenderer: 'renderSum',
 			// width: 70,
             flex: 1,
+            sortable: false,
+            menuDisabled: true,
 		},
 		{
 			xtype: 'numbercolumn',
@@ -199,6 +227,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			// summaryRenderer: 'renderSum',
 			// width: 70,
             flex: 1,
+            sortable: false,
+            menuDisabled: true,
 		},
 	],
 });
