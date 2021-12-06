@@ -128,24 +128,67 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
         summaryRenderer: 'renderSum'
     }
     ],
+    // dockedItems: [{
+    //     dock: 'top',
+    //     layout: 'vbox',
+    //     items: [{
+    //         layout: 'hbox',
+    //         xtype: 'toolbar',
+    //         padding: 5,
+    //         height: 40,
+    //         items: [
+    //             {
+    //                 xtype: 'button',
+    //                 itemId:'btnStockoutOrder_Create',
+    //                 text: 'Tạo Lệnh xuất kho'
+    //             },
+    //         ]
+    //     }
+    //     ]
+    // },
+    // ]
     dockedItems: [{
-        dock: 'top',
-        layout: 'vbox',
-        items: [{
-            layout: 'hbox',
-            xtype: 'toolbar',
-            padding: 5,
-            height: 40,
-            items: [
-                {
-                    xtype: 'button',
-                    itemId:'btnStockoutOrder_Create',
-                    text: 'Tạo Lệnh xuất kho'
-                },
-            ]
-        }
-        ]
-    },
+		dock: 'top',
+		xtype:'toolbar',
+		items: [{
+			xtype:'datefield',
+			labelWidth: 0,
+			emptyText: 'Từ ngày',
+			itemId: 'shipdate_from',
+			editable: false,
+			margin: '5 5 5 5',
+            bind: {
+                value: '{shipdate_from}'
+            },
+			width: 110,
+            format:'d/m/y'
+		},{
+			xtype:'datefield',
+			labelWidth: 0,
+			emptyText: 'Đến ngày',
+			itemId: 'shipdate_to',
+			editable: false,
+			margin: '5 5 5 0',
+			width: 110,
+            bind: {
+                value: '{shipdate_to}'
+            },
+            format:'d/m/y'
+		},
+		{
+            xtype: 'button',
+            margin: 5,
+            iconCls: 'x-fa fa-search',
+            itemId: 'btnTimKiem'
+        },
+        '->',
+        {
+            xtype: 'button',
+            margin: '5 5 5 0',
+            itemId:'btnStockoutOrder_Create',
+            text: 'Tạo Lệnh xuất kho'
+        },
     ]
+	}]
 });
 

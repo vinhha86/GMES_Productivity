@@ -19,10 +19,12 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Main', {
             items:[
                 {
                     region: 'center',
+                    border: true,
                     xtype: 'Dashboard_KhoTP_POLine_D'
                 },
                 {
                     region: 'south',
+                    border: true,
                     height: '30%',
                     xtype: 'Dashboard_KhoTP_POLine_Orgs'
                 }
