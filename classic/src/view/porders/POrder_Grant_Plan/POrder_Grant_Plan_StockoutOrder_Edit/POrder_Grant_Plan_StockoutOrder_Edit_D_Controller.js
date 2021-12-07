@@ -15,6 +15,12 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         var me = this.getView();
         var viewModel = m.getViewModel();
 
+        var Stockout_order_d_store = viewModel.getStore('Stockout_order_d_store');
+        Stockout_order_d_store.getSorters().add({
+            property: 'skucode',
+            direction: 'ASC'
+        });
+
         var date_list = viewModel.get('date_list');
         var pordergrantid_link = viewModel.get('pordergrantid_link');
         var id = viewModel.get('id');
