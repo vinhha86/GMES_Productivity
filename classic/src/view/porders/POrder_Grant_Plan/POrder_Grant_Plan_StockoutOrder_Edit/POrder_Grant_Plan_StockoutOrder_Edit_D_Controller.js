@@ -69,8 +69,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         var viewModel = m.getViewModel();
 
         var date = m.getEarliestDate();
-        var dateXuat = new Date().setDate(date.getDate()-3);
-        var dateTo = new Date().setDate(date.getDate()-2);
+        var dateXuat = new Date().setDate(date.getDate()-2);
+        var dateTo = new Date().setDate(date.getDate()-3);
         dateXuat = new Date(dateXuat);
         dateTo = new Date(dateTo);
 
