@@ -376,8 +376,10 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         var pcontractid_link = viewmodel.get('pcontractid_link');
         var productid_link = viewmodel.get('productid_link');
         var npl = viewmodel.get('npl');
+        var loaiphoi = rec.get('name');
 
         var store = viewmodel.getStore('CutPlanRowStore');
-        store.loadStore_bycolor(colorid_link, porderid_link, npl.id, productid_link, pcontractid_link);
+        store.loadStore_byloaiphoi(colorid_link, porderid_link, npl.id, productid_link,
+            pcontractid_link, loaiphoi);
     }
 })
