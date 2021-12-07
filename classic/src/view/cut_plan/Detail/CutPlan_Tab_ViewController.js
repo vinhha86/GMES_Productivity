@@ -63,7 +63,6 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_Tab_ViewController', {
         var productid_link = viewmodel.get('productid_link');
 
         viewmodel.set('colorid_link_active', colorid_link);
-
         var productStore = viewmodel.getStore('ProductStore');
         productStore.load_by_type_and_pcontract_product(20, pcontractid_link, productid_link, colorid_link);
         productStore.setGroupField('producttype_name');

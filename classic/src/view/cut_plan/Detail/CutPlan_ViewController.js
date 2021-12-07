@@ -15,6 +15,9 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         },
         '#CutPlan_View': {
             itemclick: 'onSelectRow'
+        },
+        '#cmbLoaiPhoi': {
+            select: 'onSelectLoaiPhoi'
         }
     },
     onSelectRow: function (grid, record, item, index, e, eOpts) {
@@ -366,4 +369,15 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                 }
             })
     },
+    onSelectLoaiPhoi: function (cmb, rec, e) {
+        var viewmodel = this.getViewModel();
+        var colorid_link = viewmodel.get('colorid_link_active');
+        var porderid_link = 0;
+        var pcontractid_link = viewmodel.get('pcontractid_link');
+        var productid_link = viewmodel.get('productid_link');
+        var npl = viewmodel.get('npl');
+
+        var store = viewmodel.getStore('CutPlanRowStore');
+        store.loadStore_bycolor(colorid_link, porderid_link, npl.id, productid_link, pcontractid_link);
+    }
 })

@@ -188,7 +188,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         layout: 'hbox',
         xtype: 'toolbar',
         padding: '0 0 10 5',
-        height: 35,
+        height: 38,
         items: [{
             xtype: 'button',
             itemId: 'btnAdd_CutPlan',
@@ -203,6 +203,22 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
             text: 'Thêm sơ đồ',
             itemId: 'btnThemSoDo',
             iconCls: 'x-fa fa-plus'
+        }, {
+            xtype: 'button',
+            margin: 2,
+            ui: 'header',
+            text: 'Thêm loại phối',
+            itemId: 'btnThemLoaiPhoi',
+            iconCls: 'x-fa fa-plus'
+        }, {
+            xtype: 'combo',
+            bind: {
+                store: '{LoaiPhoiStore}'
+            },
+            valueField: 'name',
+            displayField: 'name',
+            margin: 2,
+            itemId: 'cmbLoaiPhoi'
         }]
     }]
 });

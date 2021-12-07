@@ -14,6 +14,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_DetailView', {
         width: 400
     }, {
         xtype: 'CutPlan_View',
+        // xtype: 'CutPlan_LoaiPhoi_TabView',
         border: true,
         region: 'center'
     }]
