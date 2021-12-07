@@ -152,36 +152,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return parseInt(value) == 0 ? '' : Ext.util.Format.number(value, '0,000');
         }
-    },
-        // {
-        //     text: 'Số cây giữ',
-        //     dataIndex: 'so_cay_giu',
-        //     width: 120,
-        //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-        //         metaData.tdAttr = 'data-qtip="' + value + '"';
-        //         return parseInt(value) == 0 ? '' : Ext.util.Format.number(value, '0,000');
-        //     }
-        // }, 
-        // {
-        //     text: 'Ngày',
-        //     dataIndex: 'ngay',
-        //     width: 80,
-        //     getEditor: function (record) {
-        //         if (record.get('type') == 0) {
-        //             return Ext.create('Ext.grid.CellEditor', {
-        //                 field: {
-        //                     xtype: 'datefield',
-        //                     format: 'd/m/y'
-        //                 }
-        //             })
-        //         }
-        //     },
-        //     renderer: Ext.util.Format.dateRenderer('d/m/y'),
-        //     // renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-        //     //     metaData.tdAttr = 'data-qtip="' + Ext.Date.format(value, 'd/m/Y') + '"';
-        //     //     return value;
-        //     // }
-        // }
+    }
     ],
     dockedItems: [{
         dock: 'top',
@@ -213,11 +184,13 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         }, {
             xtype: 'combo',
             bind: {
-                store: '{LoaiPhoiStore}'
+                store: '{LoaiPhoiStore}',
+                value: '{loaiphoimau}'
             },
             valueField: 'name',
             displayField: 'name',
             margin: 2,
+            editable: false,
             itemId: 'cmbLoaiPhoi'
         }]
     }]
