@@ -17,6 +17,9 @@ Ext.define('GSmartApp.view.dashboard_kho.StockoutOrderMaterialViewController', {
 
         var Stockout_order_Store = viewModel.getStore('Stockout_order_Store');
         Stockout_order_Store.getSorters().add({
+            property: 'skuCode',
+            direction: 'ASC'
+        },{
             property: 'stockout_order_code',
             direction: 'ASC'
         });

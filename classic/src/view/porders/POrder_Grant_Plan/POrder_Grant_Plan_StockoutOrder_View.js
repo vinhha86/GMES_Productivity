@@ -228,7 +228,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			// width: 70,
             flex: 1,
             sortable: false,
-            menuDisabled: true,
+            menuDisabled: true,	
 		},
 	],
 });
