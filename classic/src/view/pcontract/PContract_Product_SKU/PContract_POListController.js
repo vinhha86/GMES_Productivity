@@ -692,7 +692,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                             me.onUpload(record, rowIndex, "CM");
                         }
                     },
-                    hidden: type == 1 ? false : true
+                    // hidden: type == 1 ? false : true
                 },
                 {
                     text: 'Upload File PO Line FOB(Excel)',
@@ -715,7 +715,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                             me.onUpload(record, rowIndex, "FOB");
                         }
                     },
-                    hidden: type == 2 ? false : true
+                    hidden: true
                 },
                 {
                     text: 'Xóa PO Line',

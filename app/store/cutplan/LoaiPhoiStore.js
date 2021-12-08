@@ -32,6 +32,11 @@ Ext.define('GSmartApp.store.cutplan.LoaiPhoiStore', {
                 rootProperty: 'data'
             }
         });
-        this.load();
+        this.load({
+            callback: function (records, operation, success) {
+                if (success)
+                    this.fireEvent("LoadDone", records.length > 0 ? records[0] : null);
+            }
+        });
     }
 });

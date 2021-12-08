@@ -20,6 +20,21 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
             select: 'onSelectLoaiPhoi'
         }
     },
+    listen: {
+        store: {
+            'LoaiPhoiStore': {
+                "LoadDone": 'onLoadLoaiPhoiDone'
+            }
+        }
+    },
+    onLoadLoaiPhoiDone: function (record) {
+        console.log(record);
+        if (record != null) {
+            var viewmodel = this.getViewModel();
+            viewmodel.set('loaiphoimau', record.get('name'));
+            this.onSelectLoaiPhoi(null, record, null);
+        }
+    },
     onSelectRow: function (grid, record, item, index, e, eOpts) {
         var viewmodel = this.getViewModel();
         if (record.get('type') == 0) {
@@ -84,8 +99,8 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                                     yes: 'Đóng',
                                 },
                                 fn: function () {
-                                    var store = viewmodel.getStore('CutPlanRowStore');
-                                    store.load();
+                                    var LoaiPhoiStore = viewmodel.getStore('LoaiPhoiStore');
+                                    LoaiPhoiStore.loadStore(params.pcontractid_link, params.productid_link, npl.id);
                                 }
                             });
                         }
@@ -267,6 +282,18 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
             return;
         }
 
+        if (viewmodel.get('loaiphoimau') == "" || viewmodel.get('loaiphoimau') == null) {
+            Ext.Msg.alert({
+                title: "Thông báo",
+                msg: 'Bạn chưa chọn loại phối màu',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng'
+                }
+            });
+            return;
+        }
+
         var params = new Object();
         var porder = viewmodel.get('porder');
         params.porderid_link = 0;
@@ -274,6 +301,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         params.productid_link = viewmodel.get('productid_link');
         params.pcontractid_link = viewmodel.get('pcontractid_link');
         params.colorid_link = viewmodel.get('colorid_link_active');
+        params.loaiphoi = viewmodel.get('loaiphoimau');
 
         GSmartApp.Ajax.post('/api/v1/cutplan/add_row', Ext.JSON.encode(params),
             function (success, response, options) {
