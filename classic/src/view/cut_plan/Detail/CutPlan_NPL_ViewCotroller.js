@@ -49,10 +49,12 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_NPL_ViewCotroller', {
         var productid_link = viewmodel.get('productid_link');
         var npl = viewmodel.get('npl');
 
-
-
         //load combo loai phoi
         var LoaiPhoiStore = viewmodel.getStore('LoaiPhoiStore');
         LoaiPhoiStore.loadStore(pcontractid_link, productid_link, npl.id);
+
+        //load dinh muc
+        var storeBom = viewmodel.getStore('POrderBom2Store');
+        storeBom.getbom_by_porder_mat(null, pcontractid_link, productid_link, npl.id);
     }
 })
