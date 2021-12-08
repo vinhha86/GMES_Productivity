@@ -1,7 +1,8 @@
 Ext.define('GSmartApp.view.Detail.CutPlan_Main_ViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.CutPlan_Main_ViewModel',
-    requires: ['GSmartApp.store.Sku', 'GSmartApp.store.cutplan.CutPlanRowStore', 'GSmartApp.store.warehouse.WarehouseStore'],
+    requires: ['GSmartApp.store.Sku', 'GSmartApp.store.cutplan.CutPlanRowStore',
+        'GSmartApp.store.warehouse.WarehouseStore', 'GSmartApp.store.cutplan.LoaiPhoiStore'],
     stores: {
         ProductStore: {
             type: 'sku'
@@ -14,6 +15,9 @@ Ext.define('GSmartApp.view.Detail.CutPlan_Main_ViewModel', {
         },
         WarehouseCutplanStore: {
             type: 'WarehouseStore'
+        },
+        LoaiPhoiStore: {
+            type: 'LoaiPhoiStore'
         }
     },
     data: {

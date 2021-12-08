@@ -152,43 +152,14 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return parseInt(value) == 0 ? '' : Ext.util.Format.number(value, '0,000');
         }
-    },
-        // {
-        //     text: 'Số cây giữ',
-        //     dataIndex: 'so_cay_giu',
-        //     width: 120,
-        //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-        //         metaData.tdAttr = 'data-qtip="' + value + '"';
-        //         return parseInt(value) == 0 ? '' : Ext.util.Format.number(value, '0,000');
-        //     }
-        // }, 
-        // {
-        //     text: 'Ngày',
-        //     dataIndex: 'ngay',
-        //     width: 80,
-        //     getEditor: function (record) {
-        //         if (record.get('type') == 0) {
-        //             return Ext.create('Ext.grid.CellEditor', {
-        //                 field: {
-        //                     xtype: 'datefield',
-        //                     format: 'd/m/y'
-        //                 }
-        //             })
-        //         }
-        //     },
-        //     renderer: Ext.util.Format.dateRenderer('d/m/y'),
-        //     // renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-        //     //     metaData.tdAttr = 'data-qtip="' + Ext.Date.format(value, 'd/m/Y') + '"';
-        //     //     return value;
-        //     // }
-        // }
+    }
     ],
     dockedItems: [{
         dock: 'top',
         layout: 'hbox',
         xtype: 'toolbar',
         padding: '0 0 10 5',
-        height: 35,
+        height: 38,
         items: [{
             xtype: 'button',
             itemId: 'btnAdd_CutPlan',
@@ -203,6 +174,24 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
             text: 'Thêm sơ đồ',
             itemId: 'btnThemSoDo',
             iconCls: 'x-fa fa-plus'
+        }, {
+            xtype: 'button',
+            margin: 2,
+            ui: 'header',
+            text: 'Thêm loại phối',
+            itemId: 'btnThemLoaiPhoi',
+            iconCls: 'x-fa fa-plus'
+        }, {
+            xtype: 'combo',
+            bind: {
+                store: '{LoaiPhoiStore}',
+                value: '{loaiphoimau}'
+            },
+            valueField: 'name',
+            displayField: 'name',
+            margin: 2,
+            editable: false,
+            itemId: 'cmbLoaiPhoi'
         }]
     }]
 });

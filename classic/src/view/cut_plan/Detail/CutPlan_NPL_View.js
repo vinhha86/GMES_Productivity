@@ -82,7 +82,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_NPL_View', {
         dock: 'top',
         xtype: 'toolbar',
         padding: '0 0 10 5',
-        height: 35,
+        height: 38,
         items: [{
             xtype: 'displayfield',
             fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
