@@ -218,7 +218,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		}
 
 		var stockoutorderid_link = viewModel.get('stockoutorderid_link');
+		// console.log(stockoutorderid_link);
 		if(stockoutorderid_link != null){
+			// console.log('here yet');
 			m.loadStockoutOrderData();
 		}
 	},
@@ -233,14 +235,14 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		params.id = stockoutorderid_link;
 
 		me.setLoading("Đang tải dữ liệu");
-		GSmartApp.Ajax.postJitin('/api/v1/stockoutorder/stockoutorder_getbyid',Ext.JSON.encode(params),
+		GSmartApp.Ajax.postJitin('/api/v1/stockoutorder/getById', Ext.JSON.encode(params),
+		// GSmartApp.Ajax.postJitin('/api/v1/stockoutorder/stockoutorder_getbyid',Ext.JSON.encode(params),
 		function(success,response,options ) {
 			me.setLoading(false);
 				if (success) {
 					var response = Ext.decode(response.responseText);
 					if (response.respcode == 200) {
-						console.log(response);
-						// đang làm đến đây
+						// console.log(response);
 						var stockout_order = response.data;
 						m.setStockoutOrderData(stockout_order);
 					}
@@ -267,6 +269,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		viewModel.set('stockout.stockout_order_code', stockout_order.stockout_order_code);
 		viewModel.set('stockout.porderid_link', stockout_order.porderid_link);
 		viewModel.set('stockout.pcontractid_link', stockout_order.pcontractid_link);
+		viewModel.set('stockout.pcontract_productid_link', stockout_order.pcontract_productid_link);
+		viewModel.set('stockout.productid_link', stockout_order.porder_Product_id);
+		viewModel.set('stockout.product_buyercode', stockout_order.porder_product_buyercode);
 		// viewModel.set('stockout.invoice_date', stockout_order.timecreate);
 		viewModel.set('stockout.stockoutorderid_link', stockout_order.id);
 		viewModel.set('stockout.stockout_d', null);
@@ -281,6 +286,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 
 		for (var i = 0; i < stockout_order_ds.length; i++) {
 			var stockout_order_d = stockout_order_ds[i];
+			var stockout_order_pkl = stockout_order_d.stockout_order_pkl;
+			// console.log(stockout_order_d);
+			// console.log(stockout_order_pkl);
 			// var found = stockout_d.some(item => item.skuid_link === npl.get('id'));
 			var found = false;
 			if (!found) {
@@ -294,6 +302,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 				stockout_dObj.colorid_link = stockout_order_d.colorid_link;
 				stockout_dObj.size_name = stockout_order_d.coKho;
 				stockout_dObj.unitprice = stockout_order_d.unitprice;
+				stockout_dObj.stockout_packinglist = [];
 
 				stockout_dObj.sku_product_color = stockout_order_d.sku_product_color;
 				stockout_dObj.sku_product_desc = stockout_order_d.sku_product_desc;
@@ -315,6 +324,45 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 						stockout_dObj.totalydsorigin = stockout_order_d.totalmet == null ? 0 : stockout_order_d.totalmet * 1.09361;
 						stockout_dObj.totalydscheck = 0;
 					}
+				}
+
+				if(stockout_order_pkl != null){
+					var totalydscheck = 0;
+					var totalmet_check = 0;
+					var totalpackagecheck = 0;
+
+					for(var j = 0; j < stockout_order_pkl.length; j++){
+						var stockout_order_pklObj = stockout_order_pkl[j];
+						var stockout_packinglistObj = new Object();
+						stockout_packinglistObj.skuid_link = stockout_order_pklObj.skuid_link;
+						stockout_packinglistObj.lotnumber = stockout_order_pklObj.lotnumber;
+						stockout_packinglistObj.packageid = stockout_order_pklObj.packageid;
+						stockout_packinglistObj.ydsorigin = stockout_order_pklObj.ydsorigin;
+						stockout_packinglistObj.ydscheck = stockout_order_pklObj.ydsorigin;
+						stockout_packinglistObj.met_origin = stockout_order_pklObj.metorigin;
+						stockout_packinglistObj.met_check = stockout_order_pklObj.metorigin;
+						stockout_packinglistObj.colorid_link = stockout_order_pklObj.colorid_link;
+						stockout_packinglistObj.warehousestatus = stockout_order_pklObj.warehousestatus;
+						stockout_packinglistObj.spaceString = stockout_order_pklObj.spaceString;
+						stockout_packinglistObj.stockinProductString = stockout_order.porder_product_buyercode;
+						stockout_packinglistObj.unitid_link = 1;
+						stockout_packinglistObj.widthorigin = stockout_order_pklObj.width_met;
+						stockout_packinglistObj.widthcheck = stockout_order_pklObj.width_met;
+						stockout_packinglistObj.grossweight = stockout_order_pklObj.grossweight;
+						stockout_packinglistObj.netweight = stockout_order_pklObj.netweight;
+						stockout_packinglistObj.epc = stockout_order_pklObj.epc;
+						stockout_packinglistObj.status = 0;
+						stockout_packinglistObj.rssi = 1;
+
+						totalpackagecheck++;
+						totalmet_check+=stockout_packinglistObj.met_check==null?0:stockout_packinglistObj.met_check;
+						totalydscheck+=stockout_packinglistObj.ydscheck==null?0:stockout_packinglistObj.ydscheck;
+
+						stockout_dObj.stockout_packinglist.push(stockout_packinglistObj);
+					}
+					stockout_dObj.totalpackagecheck = totalpackagecheck;
+					stockout_dObj.totalmet_check = totalmet_check;
+					stockout_dObj.totalydscheck = totalydscheck;
 				}
 
 				stockout_d.push(stockout_dObj);

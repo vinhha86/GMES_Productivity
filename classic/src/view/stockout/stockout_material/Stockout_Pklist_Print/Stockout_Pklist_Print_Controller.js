@@ -40,12 +40,12 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
         if(stockout.stockout_d == null) stockout.stockout_d = new Array();
         var stockout_d = stockout.stockout_d;
         for(var i = 0; i<stockout_d.length; i++) {
-            var stockout_packinglist = stockout_d[i].stockout_packinglist;
+            var stockout_packinglist = stockout_d[i].stockout_packinglist == null ? [] : stockout_d[i].stockout_packinglist;
             // console.log(stockout_d[i]);
             for(var j = 0; j<stockout_packinglist.length; j++){
                 stockout_packinglist[j].skucode = stockout_d[i].skucode;
                 stockout_packinglist[j].skuname = stockout_d[i].skuname;
-                if(stockout_packinglist[j].warehousestatus == 0){
+                if(stockout_packinglist[j].warehousestatus == 0 || stockout_packinglist[j].warehousestatus == null){
                     stockout_packinglist[j].warehousestatusString = 'Chưa tở';
                 }else{
                     stockout_packinglist[j].warehousestatusString = 'Đã tở';

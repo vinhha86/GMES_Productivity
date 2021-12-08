@@ -24,7 +24,7 @@ Ext.define('GSmartApp.view.dashboard_kho.StockoutOrderMaterialView', {
     columns: [
 		{
 			xtype: 'actioncolumn',
-			width: 28,
+			width: 50,
 			menuDisabled: true,
 			sortable: false,
 			align: 'center',
@@ -35,33 +35,39 @@ Ext.define('GSmartApp.view.dashboard_kho.StockoutOrderMaterialView', {
 					iconCls: 'x-fa fas fa-edit',
 					handler: 'onChiTietLenhCapVai'
 				},
+				{
+                    // text:  'Tạo lệnh cấp vải',
+					tooltip: 'Tạo phiếu xuất vải',
+					iconCls: 'x-fa fas fa-plus',
+					handler: 'onTaoPhieuXuatVai'
+				},
 			]
 		},
-		{
-			text: 'Mã lệnh cấp vải', 
-			// width: 120,
-			flex: 1,
-			dataIndex: 'stockout_order_code',
-            sortable: false,
-            menuDisabled: true,
-			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-				var val = value == 'null' ? "" : value;
-				metaData.tdAttr = 'data-qtip="' + val + '"';
-				return val;
-			},
-			// items: {
-			// 	xtype: 'textfield',
-			// 	fieldStyle: "",
-			// 	margin: 1,
-			// 	reference: 'ValueFilterFieldMaNPL',
-			// 	width: '99%',
-			// 	enableKeyEvents: true,
-			// 	listeners: {
-			// 		keyup: 'onFilterValueMaNPLKeyup',
-			// 		buffer: 500
-			// 	}
-			// }
-		},
+		// {
+		// 	text: 'Mã lệnh cấp vải', 
+		// 	// width: 120,
+		// 	flex: 1,
+		// 	dataIndex: 'stockout_order_code',
+        //     sortable: false,
+        //     menuDisabled: true,
+		// 	renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+		// 		var val = value == 'null' ? "" : value;
+		// 		metaData.tdAttr = 'data-qtip="' + val + '"';
+		// 		return val;
+		// 	},
+		// 	// items: {
+		// 	// 	xtype: 'textfield',
+		// 	// 	fieldStyle: "",
+		// 	// 	margin: 1,
+		// 	// 	reference: 'ValueFilterFieldMaNPL',
+		// 	// 	width: '99%',
+		// 	// 	enableKeyEvents: true,
+		// 	// 	listeners: {
+		// 	// 		keyup: 'onFilterValueMaNPLKeyup',
+		// 	// 		buffer: 500
+		// 	// 	}
+		// 	// }
+		// },
 		{
 			text: 'Mã SP(Buyer)', 
 			dataIndex: 'porder_product_buyercode',
@@ -125,8 +131,8 @@ Ext.define('GSmartApp.view.dashboard_kho.StockoutOrderMaterialView', {
 		{
 			text: 'Cỡ/khổ', 
 			dataIndex: 'skuSize',
-			// width: 85,
-			flex: 1,
+			width: 80,
+			// flex: 1,
             sortable: false,
             menuDisabled: true,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -139,7 +145,8 @@ Ext.define('GSmartApp.view.dashboard_kho.StockoutOrderMaterialView', {
             format: 'd/m/y',
             header: 'Ngày tở', 
             dataIndex: 'date_to_vai_yc', 
-            flex: 1,
+			width: 80,
+			// flex: 1,
             sortable: false,
             menuDisabled: true,
         },
@@ -148,7 +155,8 @@ Ext.define('GSmartApp.view.dashboard_kho.StockoutOrderMaterialView', {
             format: 'd/m/y',
             header: 'Ngày xuất', 
             dataIndex: 'date_xuat_yc', 
-            flex: 1,
+			width: 80,
+			// flex: 1,
             sortable: false,
             menuDisabled: true,
         },
@@ -160,8 +168,8 @@ Ext.define('GSmartApp.view.dashboard_kho.StockoutOrderMaterialView', {
 			dataIndex: 'cayYc',
 			// summaryType: 'sum',
 			// summaryRenderer: 'renderSum',
-			// width: 70,
-            flex: 1,
+			width: 65,
+            // flex: 1,
             sortable: false,
             menuDisabled: true,
 		},
@@ -173,8 +181,8 @@ Ext.define('GSmartApp.view.dashboard_kho.StockoutOrderMaterialView', {
 			dataIndex: 'metYc',
 			// summaryType: 'sum',
 			// summaryRenderer: 'renderSum',
-			// width: 70,
-            flex: 1,
+			width: 70,
+            // flex: 1,
             sortable: false,
             menuDisabled: true,
 		},
@@ -186,8 +194,8 @@ Ext.define('GSmartApp.view.dashboard_kho.StockoutOrderMaterialView', {
 			// dataIndex: 'mat_sku_demand',
 			// summaryType: 'sum',
 			// summaryRenderer: 'renderSum',
-			// width: 70,
-            flex: 1,
+			width: 65,
+            // flex: 1,
             sortable: false,
             menuDisabled: true,
 		},
@@ -199,8 +207,8 @@ Ext.define('GSmartApp.view.dashboard_kho.StockoutOrderMaterialView', {
 			// dataIndex: 'mat_sku_demand',
 			// summaryType: 'sum',
 			// summaryRenderer: 'renderSum',
-			// width: 70,
-            flex: 1,
+			width: 70,
+            // flex: 1,
             sortable: false,
             menuDisabled: true,
 		},
@@ -212,8 +220,8 @@ Ext.define('GSmartApp.view.dashboard_kho.StockoutOrderMaterialView', {
 			// dataIndex: 'mat_sku_demand',
 			// summaryType: 'sum',
 			// summaryRenderer: 'renderSum',
-			// width: 70,
-            flex: 1,
+			width: 65,
+            // flex: 1,
             sortable: false,
             menuDisabled: true,
 		},
@@ -225,8 +233,8 @@ Ext.define('GSmartApp.view.dashboard_kho.StockoutOrderMaterialView', {
 			// dataIndex: 'mat_sku_demand',
 			// summaryType: 'sum',
 			// summaryRenderer: 'renderSum',
-			// width: 70,
-            flex: 1,
+			width: 70,
+            // flex: 1,
             sortable: false,
             menuDisabled: true,
 		},

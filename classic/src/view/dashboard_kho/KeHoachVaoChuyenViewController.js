@@ -31,10 +31,10 @@ Ext.define('GSmartApp.view.dashboard_kho.KeHoachVaoChuyenViewController', {
 
         var date = new Date();
         var stockoutorderdate_from = new Date(
-            date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0
+            date.getFullYear(), date.getMonth(), date.getDate() -5, 0, 0, 0, 0
             );
         var stockoutorderdate_to = new Date(
-            date.getFullYear(), date.getMonth(), date.getDate() + 7, 0, 0, 0, 0
+            date.getFullYear(), date.getMonth(), date.getDate() +5, 0, 0, 0, 0
             );
         // console.log(stockoutorderdate_from);
         // console.log(stockoutorderdate_to);

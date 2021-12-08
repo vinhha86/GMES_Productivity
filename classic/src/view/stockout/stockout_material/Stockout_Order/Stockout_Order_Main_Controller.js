@@ -61,8 +61,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order_Main_Controller', {
         var fromDate = me.down('#stockoutorderdate_from').getValue();
         var toDate = me.down('#stockoutorderdate_to').getValue();
         var status = 0;
+        var stockouttypeid_link = 1;
 
-        store.loadStore_byPage(fromDate, toDate, null, null, status);
+        store.loadStore_byPage(fromDate, toDate, null, null, status, stockouttypeid_link);
         var storeDetail = viewModel.getStore('Stockout_order_d_Store');
         if(storeDetail) storeDetail.removeAll();
     },

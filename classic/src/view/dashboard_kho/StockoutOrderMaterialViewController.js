@@ -17,6 +17,9 @@ Ext.define('GSmartApp.view.dashboard_kho.StockoutOrderMaterialViewController', {
 
         var Stockout_order_Store = viewModel.getStore('Stockout_order_Store');
         Stockout_order_Store.getSorters().add({
+            property: 'porder_product_buyercode',
+            direction: 'ASC'
+        },{
             property: 'skuCode',
             direction: 'ASC'
         },{
@@ -131,5 +134,49 @@ Ext.define('GSmartApp.view.dashboard_kho.StockoutOrderMaterialViewController', {
             Stockout_order_Store.load();
             // form.close();
 		})
+    },
+    onTaoPhieuXuatVai: function(grid, rowIndex, colIndex){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var Stockout_order_Store = viewModel.getStore('Stockout_order_Store');
+        var rec = Stockout_order_Store.getAt(rowIndex);
+        var id = rec.get('id');
+        var porder_grantid_link = rec.get('porder_grantid_link');
+        // console.log(rec);
+        // return;
+
+        // xuat to cat
+        var stockoutorderidObj = new Object();
+        stockoutorderidObj.id = id;
+        GSmartApp.util.State.set('stockoutorderidObj', stockoutorderidObj);
+        m.redirectTo('stockout_m/1/create');
+
+        // var params = new Object();
+        // params.id = id;
+
+        // me.setLoading(true);
+
+        // GSmartApp.Ajax.postJitin('/api/v1/stockoutorder/getById', Ext.JSON.encode(params),
+        //     function (success, response, options) {
+        //         me.setLoading(false);
+        //         if (success) {
+        //             var response = Ext.decode(response.responseText);
+        //             // console.log(response);
+        //             var stockout_order = response.data;
+        //             GSmartApp.util.State.set('stockout_order_tempObj', stockout_order);
+        //             m.redirectTo('stockout_m/1/create');
+        //         } else {
+        //             Ext.Msg.show({
+        //                 title: "Thông báo",
+        //                 msg: "Lấy thông tin thất bại",
+        //                 buttons: Ext.MessageBox.YES,
+        //                 buttonText: {
+        //                     yes: 'Đóng',
+        //                 }
+        //             });
+        //         }
+        //     })
     },
 })

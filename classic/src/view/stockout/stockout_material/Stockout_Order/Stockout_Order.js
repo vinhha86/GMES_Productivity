@@ -128,7 +128,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_Order', {
             },
         },
         { 
-            header: 'Ngày xuất', dataIndex: 'orderdate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 90,
+            header: 'Ngày xuất', dataIndex: 'date_xuat_yc', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 90,
         },
         { 
             header: 'Nơi xuất', dataIndex: 'org_from_name', width: 150, 
