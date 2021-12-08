@@ -7,12 +7,15 @@ Ext.define('GSmartApp.view.cut_plan.Detail.ThemLoaiPhoiViewController', {
         '#btnThoat': {
             click: 'onThoat'
         },
-        '#CutPlan_NPL_View': {
-            itemclick: 'onSelectNPL'
+        '#btnLuu': {
+            click: 'onChon'
         }
     },
     onThoat: function () {
         this.getView().up('window').close();
+    },
+    onChon: function () {
+        var loaiphoi = this.getViewModel().get('loaiphoi');
+        this.fireEvent('ThemLoaiPhoi', loaiphoi);
     }
-
 })

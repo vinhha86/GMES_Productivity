@@ -68,44 +68,70 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
             });
         }
         else {
-            var params = new Object();
-            params.material_skuid_link = npl.id;
-            params.porderid_link = null;
-            params.productid_link = viewmodel.get('productid_link');
-            params.pcontractid_link = viewmodel.get('pcontractid_link');
-            params.colorid_link = viewmodel.get('colorid_link_active');
+            var form = Ext.create('Ext.window.Window', {
+                height: 200,
+                width: 300,
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: "Thêm loại phối màu",
+                closeAction: 'destroy',
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'ThemLoaiPhoiView'
+                }]
+            });
+            form.show();
 
-            GSmartApp.Ajax.post('/api/v1/cutplan/create', Ext.JSON.encode(params),
-                function (success, response, options) {
-                    if (success) {
-                        var response = Ext.decode(response.responseText);
-                        if (response.respcode != 200) {
-                            Ext.Msg.show({
-                                title: "Thông báo",
-                                msg: 'Lưu thất bại',
-                                buttons: Ext.MessageBox.YES,
-                                buttonText: {
-                                    yes: 'Đóng',
-                                }
-                            });
+            form.down('#ThemLoaiPhoiView').getController().on('ThemLoaiPhoi', function (loaiphoi) {
+                form.close();
+                var params = new Object();
+                params.material_skuid_link = npl.id;
+                params.porderid_link = null;
+                params.productid_link = viewmodel.get('productid_link');
+                params.pcontractid_link = viewmodel.get('pcontractid_link');
+                params.colorid_link = viewmodel.get('colorid_link_active');
+                params.loaiphoi = loaiphoi;
+
+                GSmartApp.Ajax.post('/api/v1/cutplan/create', Ext.JSON.encode(params),
+                    function (success, response, options) {
+                        if (success) {
+                            var response = Ext.decode(response.responseText);
+                            if (response.respcode != 200) {
+                                Ext.Msg.show({
+                                    title: "Thông báo",
+                                    msg: 'Lưu thất bại',
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
+                            }
+                            else {
+                                //Thanh cong thi commit de bo dau do trong grid
+                                Ext.Msg.show({
+                                    title: "Thông báo",
+                                    msg: 'Tạo thành công',
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    },
+                                    fn: function () {
+                                        var LoaiPhoiStore = viewmodel.getStore('LoaiPhoiStore');
+                                        LoaiPhoiStore.loadStore(params.pcontractid_link, params.productid_link, npl.id);
+                                    }
+                                });
+                            }
                         }
-                        else {
-                            //Thanh cong thi commit de bo dau do trong grid
-                            Ext.Msg.show({
-                                title: "Thông báo",
-                                msg: 'Tạo thành công',
-                                buttons: Ext.MessageBox.YES,
-                                buttonText: {
-                                    yes: 'Đóng',
-                                },
-                                fn: function () {
-                                    var LoaiPhoiStore = viewmodel.getStore('LoaiPhoiStore');
-                                    LoaiPhoiStore.loadStore(params.pcontractid_link, params.productid_link, npl.id);
-                                }
-                            });
-                        }
-                    }
-                })
+                    })
+            })
+
+
         }
     },
     onShowNPL: function () {
@@ -191,6 +217,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
 
             params.data.ngay = ngay;
         }
+        params.data.loaiphoimau = viewmodel.get('loaiphoimau');
 
 
         GSmartApp.Ajax.post('/api/v1/cutplan/update_row', Ext.JSON.encode(params),
@@ -237,6 +264,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         params.amount = parseInt(context.value);
         params.cutplanrowid_link = context.record.get('id');
         params.amount_old = parseInt(context.originalValue);
+        params.loaiphoi = viewmodel.get('loaiphoimau');
 
         GSmartApp.Ajax.post('/api/v1/cutplan/update_size_amount', Ext.JSON.encode(params),
             function (success, response, options) {

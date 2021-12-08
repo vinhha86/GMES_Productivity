@@ -15,9 +15,16 @@ Ext.define('GSmartApp.view.cut_plan.CutPlan_MainView', {
         region: 'north'
     }, {
         region: 'center',
-        xtype: 'Cutplan_Warehouse_MainView',
+        xtype: 'tabpanel',
         margin: 1,
-        border: true
+        border: true,
+        items: [{
+            title: 'Định mức',
+            xtype: 'DinhMucKyThuatView'
+        }, {
+            title: 'Giữ cây vải',
+            xtype: 'Cutplan_Warehouse_MainView'
+        }]
     }],
     dockedItems: [{
         dock: 'bottom',

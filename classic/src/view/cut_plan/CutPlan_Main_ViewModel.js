@@ -2,7 +2,8 @@ Ext.define('GSmartApp.view.Detail.CutPlan_Main_ViewModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.CutPlan_Main_ViewModel',
     requires: ['GSmartApp.store.Sku', 'GSmartApp.store.cutplan.CutPlanRowStore',
-        'GSmartApp.store.warehouse.WarehouseStore', 'GSmartApp.store.cutplan.LoaiPhoiStore'],
+        'GSmartApp.store.warehouse.WarehouseStore', 'GSmartApp.store.cutplan.LoaiPhoiStore',
+        'GSmartApp.store.pcontract.POrderBomColorStore'],
     stores: {
         ProductStore: {
             type: 'sku'
@@ -18,6 +19,9 @@ Ext.define('GSmartApp.view.Detail.CutPlan_Main_ViewModel', {
         },
         LoaiPhoiStore: {
             type: 'LoaiPhoiStore'
+        },
+        POrderBom2Store: {
+            type: 'POrderBomColorStore'
         }
     },
     data: {

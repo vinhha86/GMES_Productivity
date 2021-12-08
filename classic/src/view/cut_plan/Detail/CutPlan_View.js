@@ -178,6 +178,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
             xtype: 'button',
             margin: 2,
             ui: 'header',
+            hidden: true,
             text: 'Thêm loại phối',
             itemId: 'btnThemLoaiPhoi',
             iconCls: 'x-fa fa-plus'

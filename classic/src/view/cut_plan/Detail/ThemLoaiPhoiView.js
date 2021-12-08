@@ -6,7 +6,10 @@ Ext.define('GSmartApp.view.cut_plan.Detail.ThemLoaiPhoiView', {
     items: [{
         xtype: 'textfield',
         fieldLabel: 'Loại phối màu',
-        margin: 5
+        margin: 5,
+        bind: {
+            value: '{loaiphoi}'
+        }
     }],
     dockedItems: [{
         layout: 'hbox',

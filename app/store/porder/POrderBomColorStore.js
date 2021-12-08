@@ -116,5 +116,37 @@ Ext.define('GSmartApp.store.pcontract.POrderBomColorStore', {
 			}
 		});
 		this.load();
+	},
+	getbom_by_porder_mat: function (porderid_link, pcontractid_link, productid_link, material_skuid_link) {
+		var me = this;
+		var params = new Object();
+		params.porderid_link = porderid_link;
+		params.pcontractid_link = pcontractid_link;
+		params.productid_link = productid_link;
+		params.material_skuid_link = material_skuid_link;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl() + '/api/v1/porderbom/getbom_by_porder_material',
+			paramsAsJson: true,
+			extraParams: params,
+			noCache: false,
+			timeout: 60000,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.load();
 	}
 });
