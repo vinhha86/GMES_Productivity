@@ -173,7 +173,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                             bind: {
                                 value: '{stockout.stockout_order_code}'
                             },
-                            fieldLabel: 'Số yêu cầu',					
+                            fieldLabel: 'Lệnh cấp vải',
                             labelWidth: 80,
                             width: 343,
                             enableKeyEvents : true,
@@ -190,6 +190,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                         // },
                         {
                             xtype:'button',
+                            tooltip: 'Tìm lệnh cấp vải',
                             margin: '0 0 0 2',
                             itemId:'btnStockoutOrder_Search',
                             iconCls: 'x-fa fa-search',

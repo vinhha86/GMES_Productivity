@@ -10,6 +10,9 @@ Ext.define('GSmartApp.view.stockout.StockoutOrderPickup_ViewModel', {
         },
         Stockout_order_Store: {
             type: 'Stockout_order_Store'
+        },
+        Stockout_order_d_store: {
+            type: 'Stockout_order_d_store'
         }
     },
 	data: {

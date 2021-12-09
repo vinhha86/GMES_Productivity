@@ -9,16 +9,16 @@ Ext.define('GSmartApp.view.stockout.StockoutOrderPickup_D', {
 		ftype: 'summary',
 		dock: 'bottom'
 	}],
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'MULTI'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'MULTI'
+    // },
     viewConfig: {
         enableTextSelection: true,
         stripeRows: false               
     },
 	bind:{
-		store: '{stockout_order.stockout_order_d}'
+		store: '{Stockout_order_d_store}'
 	},
 	columns: [
 		// {
@@ -64,62 +64,6 @@ Ext.define('GSmartApp.view.stockout.StockoutOrderPickup_D', {
 			flex: 1
 			// width: 70
 		},
-		// {
-		// 	xtype: 'numbercolumn',
-		// 	format:'0,000.00',
-		// 	text: 'N.W', 
-		// 	align:'right',
-		// 	dataIndex: 'netweight',
-		// 	summaryType: 'sum',
-		// 	summaryRenderer: 'renderSum',
-		// 	width: 70
-		// },{
-		// 	xtype: 'numbercolumn',
-		// 	format:'0,000.00',
-		// 	text: 'G.W', 
-		// 	align:'right',
-		// 	dataIndex: 'grossweight',
-		// 	summaryType: 'sum',
-		// 	summaryRenderer: 'renderSum',
-		// 	width: 70
-		// },{
-		// 	xtype: 'numbercolumn',
-		// 	format:'0,000.00',
-		// 	text: 'M3', 
-		// 	align:'right',
-		// 	dataIndex: 'm3',
-		// 	summaryType: 'sum',
-		// 	summaryRenderer: 'renderSum',
-		// 	width: 70
-		// },
-		// {
-		// 	xtype: 'numbercolumn',
-		// 	format:'0,000',
-		// 	text: 'Đơn giá', 
-		// 	align:'right',
-		// 	dataIndex: 'unitprice',
-		// 	editor:{
-		// 		xtype:'textfield',
-		// 		maskRe: /[0-9.]/
-		// 	}
-		// },{
-		// 	xtype: 'numbercolumn',
-		// 	format:'0,000',
-		// 	text: 'Thành tiền', 
-		// 	align:'right',
-		// 	dataIndex: 'totalamount',
-		// 	summaryType: 'sum',
-		// 	summaryRenderer: 'renderSum',
-		// 	width: 120
-		// },
-		// { 
-		// 	xtype: 'actioncolumn',
-		// 	reference: 'stockin_contextmenu',
-		// 	width: 40,
-		// 	iconCls: 'x-fa fas fa-bars violetIcon',
-		// 	tooltip:'PackingList',
-		// 	handler: 'onViewPackingList'
-		// }   	
 	],
     fbar: [
 		{
