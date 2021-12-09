@@ -226,7 +226,8 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         store.load();
-                        console.log(12345);
+                        var storeBom = viewmodel.getStore('POrderBom2Store');
+                        storeBom.load();
                         me.fireEvent('ReloadBOM');
                     }
                     else {
