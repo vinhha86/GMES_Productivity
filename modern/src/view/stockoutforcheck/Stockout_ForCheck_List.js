@@ -9,10 +9,10 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_List', {
             '<div class="content">' +
 
                 '<div class="content1">' +
-                    '<div class="content1-sub1"><b>Y/cầu xuất:</b></div>'+
+                    '<div class="content1-sub1"><b>Lệnh cấp:</b></div>'+
                     '<div class="content1-sub1">{stockout_order_code}</div>' +
-                    '<div class="content1-sub1"><b>Ngày:</b></div>'+
-                    '<div class="content1-sub1">{timecreate:date("d/m/y")}</div>' +
+                    '<div class="content1-sub1"><b>Ngày y/cầu:</b></div>'+
+                    '<div class="content1-sub1">{date_xuat_yc:date("d/m/y")}</div>' +
                 '</div>' +
 
                 '<div class="content1">' +
@@ -30,6 +30,11 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_List', {
                 '<div class="content2">'+
                     '<div class="content2-sub1"><b>S/phẩm:</b></div>'+
                     '<div class="content2-sub2">{porder_product_buyercode}</div>' +
+                '</div>' +
+
+                '<div class="content2">'+
+                    '<div class="content2-sub1"><b>Mã vải:</b></div>'+
+                    '<div class="content2-sub2">{skuCode}</div>' +
                 '</div>' +
 
                 // '<div class="content2">'+

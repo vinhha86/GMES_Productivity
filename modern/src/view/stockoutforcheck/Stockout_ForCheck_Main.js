@@ -105,6 +105,12 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Main', {
                 },
                 '->'
                 ,
+                // {
+                //     xtype:'button',
+                //     iconCls: 'x-fa fa-check',
+                //     itemId:'btnTest',
+                //     ui: 'action',
+                // },
             ]            
         }
     ]

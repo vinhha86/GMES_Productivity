@@ -24,7 +24,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
     columns: [
 		{
 			xtype: 'actioncolumn',
-			width: 28,
+			width: 50,
 			menuDisabled: true,
 			sortable: false,
 			align: 'center',

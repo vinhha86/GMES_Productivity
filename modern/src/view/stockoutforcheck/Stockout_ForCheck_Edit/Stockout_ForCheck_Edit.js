@@ -34,33 +34,37 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit', {
                             defaults: {
                                 margin: 1
                             },
-                            items: [{
-                                xtype: 'textfield',
-                                label: 'Nơi nhận:',
-                                labelWidth: 85,
-                                flex: 1,
-                                textAlign: 'left',
-                                editable: false,
-                                readOnly: true,
-                                clearable: false,
-                                cls: 'notEditable',
-                                bind: {
-                                    value: '{stockout_order.org_to_name}'
-                                }
-                            },{
-                                xtype: 'textfield',
-                                label: 'Đ/vị dài:',
-                                labelWidth: 85,
-                                flex: 1,
-                                textAlign: 'left',
-                                editable: false,
-                                readOnly: true,
-                                clearable: false,
-                                cls: 'notEditable',
-                                bind: {
-                                    value: '{stockout_order.unitName}'
-                                }
-                            }]
+                            items: [
+                                // {
+                                //     xtype: 'textfield',
+                                //     label: 'Nơi nhận:',
+                                //     labelWidth: 85,
+                                //     flex: 1,
+                                //     textAlign: 'left',
+                                //     editable: false,
+                                //     readOnly: true,
+                                //     clearable: false,
+                                //     cls: 'notEditable',
+                                //     bind: {
+                                //         value: '{stockout_order.org_to_name}'
+                                //     }
+                                // },
+                                {
+                                    xtype: 'textfield',
+                                    label: 'Đ/vị dài:',
+                                    labelWidth: 85,
+                                    flex: 1,
+                                    textAlign: 'left',
+                                    editable: false,
+                                    readOnly: true,
+                                    clearable: false,
+                                    cls: 'notEditable',
+                                    bind: {
+                                        value: '{stockout_order.unitName}'
+                                    }
+                                },
+                                {flex: 1},
+                            ]
                         },
                     ]
                 }

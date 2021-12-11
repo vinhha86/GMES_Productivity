@@ -74,10 +74,11 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai', {
     {
         text: 'Kiểm dài(M)', 
         flex: 1,
-        dataIndex: 'met_check',
+        dataIndex: 'warehouse_check_met_check',
         align: 'center',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
+            var warehouse_check_met_check = record.get('warehouse_check_met_check') == null ? 0 : record.get('warehouse_check_met_check');
             var met_check = record.get('met_check') == null ? 0 : record.get('met_check');
             var met_origin = record.get('met_origin') == null ? 0 : record.get('met_origin');
             // if (metorigin == metcheck) {
@@ -89,47 +90,49 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai', {
             // }
             
             // return metorigin + ' / ' + metcheck;
+            warehouse_check_met_check = Ext.util.Format.number(warehouse_check_met_check, '0.00');
             met_check = Ext.util.Format.number(met_check, '0.00');
             met_origin = Ext.util.Format.number(met_origin, '0.00');
-            return met_check;
+            return warehouse_check_met_check;
         },
-        bind: {
-            hidden: '{isMetColumnHidden}',
-        }
+        // bind: {
+        //     hidden: '{isMetColumnHidden}',
+        // }
     },
-    {
-        text: 'Kiểm dài(Y)', 
-        flex: 1,
-        dataIndex: 'ydscheck',
-        align: 'center',
-        renderer: function(value, record, dataIndex, cell, column) {
-            if(value == null) value = 0;
-            var yds_check = record.get('yds_check') == null ? 0 : record.get('yds_check');
-            var yds_origin = record.get('yds_origin') == null ? 0 : record.get('yds_origin');
-            // if (ydsorigin == ydscheck) {
-            //     cell.setCls('cellGreen');
-            // } else if (ydsorigin < ydscheck) {
-            //     cell.setCls('cellYellow');
-            // } else{
-            //     cell.setCls('cellRed');
-            // }
+    // {
+    //     text: 'Kiểm dài(Y)', 
+    //     flex: 1,
+    //     dataIndex: 'ydscheck',
+    //     align: 'center',
+    //     renderer: function(value, record, dataIndex, cell, column) {
+    //         if(value == null) value = 0;
+    //         var yds_check = record.get('yds_check') == null ? 0 : record.get('yds_check');
+    //         var yds_origin = record.get('yds_origin') == null ? 0 : record.get('yds_origin');
+    //         // if (ydsorigin == ydscheck) {
+    //         //     cell.setCls('cellGreen');
+    //         // } else if (ydsorigin < ydscheck) {
+    //         //     cell.setCls('cellYellow');
+    //         // } else{
+    //         //     cell.setCls('cellRed');
+    //         // }
             
-            // return ydsorigin + ' / ' + ydscheck;
-            yds_check = Ext.util.Format.number(yds_check, '0.00');
-            yds_origin = Ext.util.Format.number(yds_origin, '0.00');
-            return yds_check;
-        },
-        bind: {
-            hidden: '{isYdsColumnHidden}',
-        }
-    },
+    //         // return ydsorigin + ' / ' + ydscheck;
+    //         yds_check = Ext.util.Format.number(yds_check, '0.00');
+    //         yds_origin = Ext.util.Format.number(yds_origin, '0.00');
+    //         return yds_check;
+    //     },
+    //     bind: {
+    //         hidden: '{isYdsColumnHidden}',
+    //     }
+    // },
     {
         text: 'Kiểm khổ(cm)', 
         flex: 1,
-        dataIndex: 'width_check',
+        dataIndex: 'warehouse_check_width_check',
         align: 'center',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
+            var warehouse_check_width_check = record.get('warehouse_check_width_check') == null ? 0 : record.get('warehouse_check_width_check');
             var width_check = record.get('width_check') == null ? 0 : record.get('width_check');
             var width_met = record.get('width_met') == null ? 0 : record.get('width_met');
             // if (width_met == width_met_check) {
@@ -141,7 +144,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai', {
             // }
             
             // return width_met + ' / ' + width_met_check;
-            return width_check * 100;
+            return warehouse_check_width_check * 100;
         },
         bind: {
             // hidden: '{isMetColumnHidden}',

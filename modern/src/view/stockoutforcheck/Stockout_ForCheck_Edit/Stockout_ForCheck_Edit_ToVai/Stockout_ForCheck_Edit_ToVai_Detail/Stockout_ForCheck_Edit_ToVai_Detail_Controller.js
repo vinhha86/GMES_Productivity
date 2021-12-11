@@ -174,10 +174,16 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
         var viewModel = this.getViewModel();
         var record = viewModel.get('selectedPklRecord');
 
+        console.log(record);
+        // return;
         setTimeout(function(){
             var newObjData = JSON.parse(JSON.stringify(record.data));
-            newObjData.width_check = newObjData.width_check * 100;
-            newObjData.width_origin = newObjData.width_origin * 100;
+            // newObjData.width_check = newObjData.width_check * 100;
+            // newObjData.width_origin = newObjData.width_origin * 100;
+            newObjData.width_met = newObjData.width_met * 100;
+            if(newObjData.warehouse_check_width_check != null){
+                newObjData.warehouse_check_width_check = newObjData.warehouse_check_width_check * 100;
+            }
             viewModel.set('objPkl', newObjData);
             me.setMasked(false);
         }, 100);
@@ -197,6 +203,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
         var selectedDRecord = viewModel.get('selectedDRecord');
         var selectedPklRecord = viewModel.get('selectedPklRecord');
         var objPkl = viewModel.get('objPkl');
+        objPkl.width_met = objPkl.width_met / 100;
 
         // console.log(objPkl);
         // if(objPkl.id == null){
@@ -292,7 +299,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
         })
 
         var params = new Object();
-        params.warehouse_check = objPklReq;
+        params.stockout_order_pkl = objPklReq;
+        // params.warehouse_check = objPklReq;
         params.stockoutorderid_link = stockoutorderid_link;
         params.stockoutorderdid_link = stockoutorderdid_link;
 
@@ -396,7 +404,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
                                 viewModel.set('objPkl', null);
                                 viewModel.set('objPkl.lotnumber', lotnumber);
                                 viewModel.set('objPkl.packageid', packageid);
-
+                                me.down('packageidTxt').focus();
                             }else{
                                 // tìm thấy cây vải, set thông tin cho các trường
                                 // var responseObj = response.data[0];

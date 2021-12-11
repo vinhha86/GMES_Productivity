@@ -21,6 +21,9 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         '#btnThemMoiPklToVai': {
             tap: 'onbtnThemMoiPklToVai'
         },
+        '#btnTestReload': {
+            tap: 'ontestReload'
+        },
         '#btnTest': {
             tap: 'ontest'
         },
@@ -165,7 +168,11 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         }
         // console.log("Version " + Ext.os.version);
     },
-
+    ontestReload: function(){
+        var viewModel = this.getViewModel();
+        var WarehouseCheckStore = viewModel.getStore('WarehouseCheckStore');
+        WarehouseCheckStore.load();
+    },
     ontest: function(){
         var viewModel = this.getViewModel();
         var WarehouseCheckStore = viewModel.getStore('WarehouseCheckStore');
@@ -177,7 +184,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         var pkl_stockout_order_dId = viewModel.get('pkl_stockout_order_dId');
         if(newValue != null && newValue != ''){
             var WarehouseCheckStore = viewModel.getStore('WarehouseCheckStore');
-            WarehouseCheckStore.loadstore_ByStockoutOrderD(newValue);
+            // WarehouseCheckStore.loadstore_ByStockoutOrderD(newValue);
+            WarehouseCheckStore.loadstore_ByStockoutOrderD_ToVai(newValue);
             if(cbbox.getSelection() != null){
                 viewModel.set('selectedDRecord', cbbox.getSelection());
             }
@@ -759,7 +767,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         var selectedPklRecord = viewModel.get('selectedPklRecord');
 
         var WarehouseCheckStore = viewModel.getStore('WarehouseCheckStore');
-        WarehouseCheckStore.loadstore_ByStockoutOrderD_async(pkl_stockout_order_dId);
+        WarehouseCheckStore.loadstore_ByStockoutOrderD_ToVai_async(pkl_stockout_order_dId);
         WarehouseCheckStore.load({
             scope: this,
             callback: function(records, operation, success) {

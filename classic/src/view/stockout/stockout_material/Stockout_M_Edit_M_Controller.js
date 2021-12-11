@@ -339,6 +339,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
                             stockout_packinglistObj.grossweight = stockout_order_pklObj.grossweight;
                             stockout_packinglistObj.netweight = stockout_order_pklObj.netweight;
                             stockout_packinglistObj.epc = stockout_order_pklObj.epc;
+                            stockout_packinglistObj.warehousestatus = stockout_order_pklObj.warehouseStatus;
+                            stockout_packinglistObj.warehousestatusString = stockout_order_pklObj.warehouseStatusString;
                             stockout_packinglistObj.status = 0;
                             stockout_packinglistObj.rssi = 1;
     

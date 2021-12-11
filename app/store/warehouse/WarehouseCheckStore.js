@@ -7,7 +7,68 @@ Ext.define('GSmartApp.store.warehouse.WarehouseCheckStore', {
 	// 	direction: 'ASC',
 	// 	property: 'material_product_code'
 	// },
-	loadstore_ByStockoutOrderD: function (stockoutorderdid_link) {
+
+	// loadstore_ByStockoutOrderD: function (stockoutorderdid_link) {
+	// 	var params = new Object();
+	// 	params.stockoutorderdid_link = stockoutorderdid_link;
+
+	// 	this.setProxy({
+	// 		type: 'ajax',
+	// 		actionMethods: {
+	// 			create: 'POST',
+	// 			read: 'POST',
+	// 			update: 'POST',
+	// 			destroy: 'POST'
+	// 		},
+	// 		url: config.getAppBaseUrl_Jitin() + '/api/v1/warehouse/getWarehouseCheckByStockoutOrderD',
+	// 		paramsAsJson: true,
+	// 		noCache: false,
+	// 		extraParams: params,
+	// 		headers: {
+	// 			'Accept': "application/json",
+	// 			'Content-Type': "application/json"
+	// 		},
+	// 		reader: {
+	// 			type: 'json',
+	// 			rootProperty: 'data'
+	// 		}
+	// 	});
+	// 	this.load({
+	// 		scope: this,
+	// 		callback: function (records, operation, success) {
+	// 			if (!success) {
+	// 				// this.fireEvent('logout');
+	// 			}
+	// 		}
+	// 	});
+	// },
+	// loadstore_ByStockoutOrderD_async: function (stockoutorderdid_link) {
+	// 	var params = new Object();
+	// 	params.stockoutorderdid_link = stockoutorderdid_link;
+
+	// 	this.setProxy({
+	// 		type: 'ajax',
+	// 		actionMethods: {
+	// 			create: 'POST',
+	// 			read: 'POST',
+	// 			update: 'POST',
+	// 			destroy: 'POST'
+	// 		},
+	// 		url: config.getAppBaseUrl_Jitin() + '/api/v1/warehouse/getWarehouseCheckByStockoutOrderD',
+	// 		paramsAsJson: true,
+	// 		noCache: false,
+	// 		extraParams: params,
+	// 		headers: {
+	// 			'Accept': "application/json",
+	// 			'Content-Type': "application/json"
+	// 		},
+	// 		reader: {
+	// 			type: 'json',
+	// 			rootProperty: 'data'
+	// 		}
+	// 	});
+	// },
+	loadstore_ByStockoutOrderD_ToVai: function (stockoutorderdid_link) {
 		var params = new Object();
 		params.stockoutorderdid_link = stockoutorderdid_link;
 
@@ -19,7 +80,7 @@ Ext.define('GSmartApp.store.warehouse.WarehouseCheckStore', {
 				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl_Jitin() + '/api/v1/warehouse/getWarehouseCheckByStockoutOrderD',
+			url: config.getAppBaseUrl_Jitin() + '/api/v1/stockoutorder_pkl/getByStockoutOrderDId_ToVai',
 			paramsAsJson: true,
 			noCache: false,
 			extraParams: params,
@@ -32,6 +93,7 @@ Ext.define('GSmartApp.store.warehouse.WarehouseCheckStore', {
 				rootProperty: 'data'
 			}
 		});
+		
 		this.load({
 			scope: this,
 			callback: function (records, operation, success) {
@@ -41,7 +103,7 @@ Ext.define('GSmartApp.store.warehouse.WarehouseCheckStore', {
 			}
 		});
 	},
-	loadstore_ByStockoutOrderD_async: function (stockoutorderdid_link) {
+	loadstore_ByStockoutOrderD_ToVai_async: function (stockoutorderdid_link) {
 		var params = new Object();
 		params.stockoutorderdid_link = stockoutorderdid_link;
 
@@ -53,7 +115,7 @@ Ext.define('GSmartApp.store.warehouse.WarehouseCheckStore', {
 				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl_Jitin() + '/api/v1/warehouse/getWarehouseCheckByStockoutOrderD',
+			url: config.getAppBaseUrl_Jitin() + '/api/v1/stockoutorder_pkl/getByStockoutOrderDId_ToVai',
 			paramsAsJson: true,
 			noCache: false,
 			extraParams: params,

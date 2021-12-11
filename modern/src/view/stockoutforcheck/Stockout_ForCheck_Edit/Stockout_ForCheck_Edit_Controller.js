@@ -87,7 +87,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
                 if(pkl_stockout_order_dId != null){
                     var selectedPklRecord = viewModel.get('selectedPklRecord');
                     var WarehouseCheckStore = viewModel.getStore('WarehouseCheckStore');
-                    WarehouseCheckStore.loadstore_ByStockoutOrderD_async(pkl_stockout_order_dId);
+                    WarehouseCheckStore.loadstore_ByStockoutOrderD_ToVai_async(pkl_stockout_order_dId);
                     WarehouseCheckStore.load({
                         scope: this,
                         callback: function(records, operation, success) {

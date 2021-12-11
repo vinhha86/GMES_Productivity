@@ -134,7 +134,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
                             // clearable: false,
                             cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.met_origin}',
+                                // value: '{objPkl.met_origin}',
+                                value: '{objPkl.metorigin}',
                                 hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -162,7 +163,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
                             // clearable: false,
                             cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.yds_origin}',
+                                // value: '{objPkl.yds_origin}',
+                                value: '{objPkl.ydsorigin}',
                                 hidden: '{isYdsColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -189,7 +191,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
                             // clearable: false,
                             cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.width_origin}',
+                                // value: '{objPkl.width_origin}',
+                                value: '{objPkl.width_met}',
                                 // hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -235,7 +238,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.met_check}',
+                                value: '{objPkl.warehouse_check_met_check}',
                                 hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -290,7 +293,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.width_check}',
+                                value: '{objPkl.warehouse_check_width_check}',
                                 // hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -336,7 +339,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.met_err}',
+                                value: '{objPkl.warehouse_check_met_err}',
                                 // hidden: '{isYdsColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -388,7 +391,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
                             // clearable: false,
                             cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.met_origin}',
+                                // value: '{objPkl.met_origin}',
+                                value: '{objPkl.metorigin}',
                                 hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -415,7 +419,8 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
                             // clearable: false,
                             cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.yds_origin}',
+                                // value: '{objPkl.yds_origin}',
+                                value: '{objPkl.ydsorigin}',
                                 hidden: '{isYdsColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -486,7 +491,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.met_check}',
+                                value: '{objPkl.warehouse_check_met_check}',
                                 hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -539,7 +544,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.width_check}',
+                                value: '{objPkl.warehouse_check_width_check}',
                                 // hidden: '{isMetColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -584,7 +589,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
                             // clearable: false,
                             // cls: 'notEditable',
                             bind: {
-                                value: '{objPkl.met_err}',
+                                value: '{objPkl.warehouse_check_met_err}',
                                 // hidden: '{isYdsColumnHidden}',
                             },
                             stepValue: 0.1,
@@ -628,20 +633,20 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
                         {
                             flex: 1,
                         },
-                        {
-                            xtype:'button',
-                            text: 'Xoá',
-                            margin: 5,
-                            width: 100,
-                            iconCls: 'x-fa fa-trash',
-                            itemId:'btnDeletePklToVai',
-                            ui: 'action',
-                            focusable: false,
-                            bind: {
-                                disabled: '{isBtnDeletePklHidden}',
-                            },
-                            // style: 'visibility: hidden;'
-                        },
+                        // {
+                        //     xtype:'button',
+                        //     text: 'Xoá',
+                        //     margin: 5,
+                        //     width: 100,
+                        //     iconCls: 'x-fa fa-trash',
+                        //     itemId:'btnDeletePklToVai',
+                        //     ui: 'action',
+                        //     focusable: false,
+                        //     bind: {
+                        //         disabled: '{isBtnDeletePklHidden}',
+                        //     },
+                        //     // style: 'visibility: hidden;'
+                        // },
                     ]
                 },
             ],
