@@ -15,6 +15,12 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
         '#btnThoat': {
             click: 'onThoat',
         },
+        // '#slTong': {
+        //     afterrender: 'onAfterrenderSltong',
+        // },
+        // '#lineinfo': {
+        //     afterrender: 'onAfterrenderLineinfo',
+        // },
     },
     listen: {
         store: {
@@ -41,11 +47,33 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
         var endDate = eventRecord.get('EndDate');
 
         console.log(eventRecord);
+        viewModel.set('lineinfo', eventRecord.get('lineinfo'));
 
         var POrderGrant_SKU_PlanStore = viewModel.getStore('POrderGrant_SKU_PlanStore');
         if(sourceView == 'SchedulePlan'){
             me.setLoading(true);
-            POrderGrant_SKU_PlanStore.loadStore_byPorderGrant(porder_grantid_link, startDate, endDate);
+            // POrderGrant_SKU_PlanStore.loadStore_byPorderGrant(porder_grantid_link, startDate, endDate);
+            POrderGrant_SKU_PlanStore.loadStore_byPorderGrant_async(porder_grantid_link, startDate, endDate);
+            POrderGrant_SKU_PlanStore.load({
+                scope: this,
+                callback: function (records, operation, success) {
+                    if (success) {
+                        var items = POrderGrant_SKU_PlanStore.getData().items;
+                        console.log(items);
+                        var porder_grant_skuid_link_arr = new Array();
+                        var total_porderGrant_SKU_grantamount = 0;
+                        for(var i=0; i<items.length; i++){
+                            var porder_grant_skuid_link = items[i].get('porder_grant_skuid_link');
+                            if(!porder_grant_skuid_link_arr.includes(porder_grant_skuid_link)){
+                                porder_grant_skuid_link_arr.push(porder_grant_skuid_link);
+                                total_porderGrant_SKU_grantamount += items[i].get('porderGrant_SKU_grantamount');
+                            }
+                        }
+                        viewModel.set('total_porderGrant_SKU_grantamount', total_porderGrant_SKU_grantamount);
+                    }
+                    POrderGrant_SKU_PlanStore.fireEvent('loadStore_byPorderGrant_Done');
+                }
+            });
         }
 
         // console.log(sourceView);
@@ -161,6 +189,12 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
         if(porder_grant_skuid_link != null){
             // CODE HERE
         }
-    }
+    },
 
+    onAfterrenderSltong: function(component){
+
+    },
+    onAfterrenderLineinfo: function(component){
+
+    },
 })

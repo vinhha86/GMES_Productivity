@@ -153,5 +153,77 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
         pivotupdate: 'onPivotUpdate',
         // pivotitemclick: 'onPivotItemClick'
     },
+
+    dockedItems:[{
+        layout:'hbox',
+        border: false,
+        dock:'top',
+        items:[{
+            xtype:'textfield',
+            itemId: 'slTong',
+            vtype: 'dollar',
+            margin: 2,
+            fieldLabel: 'SL Tổng',
+            reference: 'slTong',
+            allowBlank: true,
+            editable: false,
+            readOnly: true,
+            // maskRe: /[0-9.]/,
+            bind:{
+                value :'{total_porderGrant_SKU_grantamount}'
+            },
+            fieldStyle:{
+                'text-align':'right'
+            },
+            width: 160,
+            // flex: 1,
+            labelWidth: 60,
+            // listeners:{
+            //     render: function(c) {
+            //         console.log(c); 
+            //         Ext.QuickTips.register({
+            //             target: c.getEl(),
+            //             text: c.value,
+            //             enabled: true,
+            //             showDelay: 20,
+            //             trackMouse: true,
+            //             autoShow: true,
+            //         });
+            //     }
+            // }
+        },{
+            xtype:'textfield',
+            itemId: 'lineinfo',
+            margin: 2,
+            fieldLabel: 'Lines',
+            reference: 'lineinfo',
+            allowBlank: true,
+            editable: false,
+            readOnly: true,
+            // maskRe: /[0-9.]/,
+            bind:{
+                value :'{lineinfo}'
+            },
+            fieldStyle:{
+                // 'text-align':'right'
+            },
+            // width: 200,
+            flex: 1,
+            labelWidth: 40,
+            // listeners:{
+            //     render: function(c) {
+            //         // console.log(c); 
+            //         Ext.QuickTips.register({
+            //             target: c.getEl(),
+            //             text: c.getValue(),
+            //             enabled: true,
+            //             showDelay: 20,
+            //             trackMouse: true,
+            //             autoShow: true
+            //         });
+            //     }
+            // }
+        }]
+    }]
 });
 

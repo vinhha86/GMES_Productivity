@@ -132,6 +132,16 @@ Ext.define('GSmartApp.store.SKUBalanceStore', {
 			}
 		});
 		// this.load();
-		this.load();
+		this.load({
+			scope: this,
+			callback: function(records, operation, success) {
+				if(!success){
+					 // this.fireEvent('logout');
+				} else {
+					// console.log(records);
+				}
+				this.fireEvent('loadStore_SKUBalanceStore_Done');
+			}
+		});
 	}
 });
