@@ -50,6 +50,12 @@ Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnView_Info', {
             flex: 1,
             dataIndex: 'soDangKy',
             align: 'center',
+            renderer: function(value, record, dataIndex, cell, column) {
+                if(value == 0 || value == null){
+                    value = '';
+                }
+                return value;
+            },
             summary: 'sum',
             summaryRenderer: 'renderSum'
         },
@@ -58,6 +64,12 @@ Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnView_Info', {
             flex: 1,
             dataIndex: 'soThem',
             align: 'center',
+            renderer: function(value, record, dataIndex, cell, column) {
+                if(value == 0 || value == null){
+                    value = '';
+                }
+                return value;
+            },
             summary: 'sum',
             summaryRenderer: 'renderSum'
         },
@@ -67,6 +79,12 @@ Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnView_Info', {
             flex: 1,
             dataIndex: 'soKhach',
             align: 'center',
+            renderer: function(value, record, dataIndex, cell, column) {
+                if(value == 0 || value == null){
+                    value = '';
+                }
+                return value;
+            },
             summary: 'sum',
             summaryRenderer: 'renderSum'
         },
@@ -75,6 +93,12 @@ Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnView_Info', {
             flex: 1,
             dataIndex: 'soTong',
             align: 'center',
+            renderer: function(value, record, dataIndex, cell, column) {
+                if(value == 0 || value == null){
+                    value = '';
+                }
+                return value;
+            },
             summary: 'sum',
             summaryRenderer: 'renderSum'
         },

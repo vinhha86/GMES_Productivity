@@ -63,6 +63,9 @@ Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnView_InfoDetail.TongHopBaoAn
                 }else{
                     cell.setStyle('background: white;');
                 }
+                if(value == 0 || value == null){
+                    value = '';
+                }
                 return value;
             },
         },
@@ -78,6 +81,9 @@ Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnView_InfoDetail.TongHopBaoAn
                     cell.setStyle('background: lightblue;');
                 }else{
                     cell.setStyle('background: white;');
+                }
+                if(value == 0 || value == null){
+                    value = '';
                 }
                 return value;
             },
@@ -95,6 +101,9 @@ Ext.define('GSmartApp.view.TongHopBaoAn.TongHopBaoAnView_InfoDetail.TongHopBaoAn
                     cell.setStyle('background: lightblue;');
                 }else{
                     cell.setStyle('background: white;');
+                }
+                if(value == 0 || value == null){
+                    value = '';
                 }
                 return value;
             },
