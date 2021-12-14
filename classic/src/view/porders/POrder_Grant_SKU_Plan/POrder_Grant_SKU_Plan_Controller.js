@@ -47,6 +47,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
         var endDate = eventRecord.get('EndDate');
 
         console.log(eventRecord);
+        console.log(porder_grantid_link);
         viewModel.set('lineinfo', eventRecord.get('lineinfo'));
 
         var POrderGrant_SKU_PlanStore = viewModel.getStore('POrderGrant_SKU_PlanStore');
@@ -59,7 +60,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
                 callback: function (records, operation, success) {
                     if (success) {
                         var items = POrderGrant_SKU_PlanStore.getData().items;
-                        console.log(items);
+                        // console.log(items);
                         var porder_grant_skuid_link_arr = new Array();
                         var total_porderGrant_SKU_grantamount = 0;
                         for(var i=0; i<items.length; i++){

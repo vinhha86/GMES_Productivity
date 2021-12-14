@@ -185,7 +185,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			format:'0,000',
 			text: 'Cây tở', 
 			align:'right',
-			// dataIndex: 'mat_sku_demand',
+			dataIndex: 'cayTo',
 			// summaryType: 'sum',
 			// summaryRenderer: 'renderSum',
 			width: 65,
@@ -198,7 +198,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			format:'0,000.00',
 			text: 'Met tở', 
 			align:'right',
-			// dataIndex: 'mat_sku_demand',
+			dataIndex: 'metTo',
 			// summaryType: 'sum',
 			// summaryRenderer: 'renderSum',
 			width: 70,
@@ -211,7 +211,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			format:'0,000',
 			text: 'Cây xuất', 
 			align:'right',
-			// dataIndex: 'mat_sku_demand',
+			dataIndex: 'cayXuat',
 			// summaryType: 'sum',
 			// summaryRenderer: 'renderSum',
 			width: 65,
@@ -224,7 +224,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			format:'0,000.00',
 			text: 'Met xuất', 
 			align:'right',
-			// dataIndex: 'mat_sku_demand',
+			dataIndex: 'metXuat',
 			// summaryType: 'sum',
 			// summaryRenderer: 'renderSum',
 			width: 70,
@@ -233,5 +233,21 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
             menuDisabled: true,	
 		},
 	],
+	dockedItems: [
+        {
+            dock: 'bottom',
+            layout: 'hbox',
+            border: false,
+            items: [
+                {
+                    margin: 3,
+                    xtype:'button',
+                    text:  'Tạo lệnh cấp vải',
+                    iconCls: 'x-fa fa-refresh',
+                    itemId: 'btnTaoLenhCapVai'
+                }
+            ]
+        }
+    ],
 });
 

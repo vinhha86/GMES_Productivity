@@ -23,7 +23,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_M
             xtype: 'tabpanel',
             items: [
                 {
-                    title: 'Lệnh cấp vải'
+                    title: 'Lệnh cấp vải',
+                    xtype: 'POrder_Grant_Plan_StockoutOrder_View'
                 },
                 {
                     title: 'Cân đối',

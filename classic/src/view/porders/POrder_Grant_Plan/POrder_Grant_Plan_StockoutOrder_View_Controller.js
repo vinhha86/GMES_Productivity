@@ -9,6 +9,9 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
             afterrender: 'onAfterrender',
             itemdblclick: 'onItemdblclick',
         },
+        '#btnTaoLenhCapVai': {
+            click: 'onBtnTaoLenhCapVai',
+        },
     },
     onAfterrender: function(){
         var m = this;
@@ -26,6 +29,31 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
             property: 'stockout_order_code',
             direction: 'ASC'
         });
+
+        // load store
+        m.loadStore();
+    },
+    loadStore: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var sourceView = viewModel.get('sourceView');
+        var eventRecord = viewModel.get('eventRecord');
+        var porder_grantid_link = viewModel.get('porder_grantid_link');
+
+        // var porder_grantid_link = record.get('id');
+        var stockouttypeid_link = 1;
+        var page = 1;
+        var limit = 500;
+        var stockoutorderdate_from = new Date(2010, 0, 1, 0, 0, 0, 0);
+        var stockoutorderdate_to = new Date(2040, 0, 1, 0, 0, 0, 0);
+
+        var Stockout_order_Store = viewModel.getStore('Stockout_order_Store');
+        Stockout_order_Store.loadStore_byPage_KeHoachSanXuat(
+            stockoutorderdate_from, stockoutorderdate_to, 
+            page, limit, null, 
+            stockouttypeid_link, porder_grantid_link);
     },
     onItemdblclick: function(grid, record, item, index, e, eOpts){
         var m = this;
@@ -130,5 +158,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
             Stockout_order_Store.load();
             // form.close();
 		})
+    },
+    onBtnTaoLenhCapVai: function(){
+        
     },
 })

@@ -4,7 +4,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
     requires: [
         'GSmartApp.store.porder.POrderGrant_SKU_PlanStore',
         'GSmartApp.store.porder.POrderGrant_SKU_Plan_MaterialStore',
-        'GSmartApp.store.SKUBalanceStore'
+        'GSmartApp.store.SKUBalanceStore',
+        'GSmartApp.store.stockout_order.Stockout_order_Store'
     ],
     stores: {
         POrderGrant_SKU_PlanStore: {
@@ -15,6 +16,9 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
         },
         SKUBalanceStore: {
             type: 'SKUBalanceStore'
+        },
+        Stockout_order_Store: {
+            type: 'Stockout_order_Store'
         }
     },
     data: {
