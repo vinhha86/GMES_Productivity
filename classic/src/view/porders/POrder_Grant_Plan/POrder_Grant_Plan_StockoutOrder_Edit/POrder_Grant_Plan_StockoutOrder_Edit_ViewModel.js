@@ -15,7 +15,10 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         },
         WarehouseStore: {
             type: 'WarehouseStore'
-        }
+        },
+        DateStore:{
+			// type: 'DateStore'
+		},
     },
     data: {
         eventRecord: null,

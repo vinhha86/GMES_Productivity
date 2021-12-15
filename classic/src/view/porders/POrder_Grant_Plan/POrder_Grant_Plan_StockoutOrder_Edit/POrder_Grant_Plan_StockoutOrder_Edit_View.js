@@ -10,6 +10,14 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
     layout: 'border',
     items: [
         {
+            region: 'west',
+            border: true,
+            margin: 1,
+            width: 300,
+            title: 'Ngày vào chuyền kế hoạch',
+            xtype: 'POrder_Grant_Plan_StockoutOrder_Edit_Date'
+        },
+        {
             region: 'center',
             border: true,
             margin: 1,

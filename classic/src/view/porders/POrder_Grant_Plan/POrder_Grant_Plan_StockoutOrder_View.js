@@ -31,7 +31,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			items: [
 				{
                     // text:  'Tạo lệnh cấp vải',
-					tooltip: 'Chi tiết lệnh cấp vải',
+					tooltip: 'Chi tiết lệnh xuất vải',
 					iconCls: 'x-fa fas fa-edit',
 					handler: 'onChiTietLenhCapVai'
 				},
@@ -239,11 +239,18 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
             layout: 'hbox',
             border: false,
             items: [
+				{
+					margin: 3,
+					xtype:'button',
+					text:  'Thoát',
+					iconCls: 'x-fa fa-window-close',
+					itemId: 'btnThoat'
+				},
                 {
                     margin: 3,
                     xtype:'button',
-                    text:  'Tạo lệnh cấp vải',
-                    iconCls: 'x-fa fa-refresh',
+                    text:  'Tạo lệnh xuất vải',
+                    iconCls: 'x-fa fa-plus',
                     itemId: 'btnTaoLenhCapVai'
                 }
             ]

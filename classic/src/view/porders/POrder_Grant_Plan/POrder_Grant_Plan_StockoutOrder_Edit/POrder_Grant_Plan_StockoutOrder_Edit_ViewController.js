@@ -93,7 +93,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
                     var response = Ext.decode(response.responseText);
                     Ext.Msg.show({
                         title: "Thông báo",
-                        msg: "Lưu thành công",
+                        msg: "Tạo lệnh xuất thành công",
                         buttons: Ext.MessageBox.YES,
                         buttonText: {
                             yes: 'Đóng',
@@ -103,7 +103,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
                 } else {
                     Ext.Msg.show({
                         title: "Thông báo",
-                        msg: "Lưu thất bại",
+                        msg: "Tạo lệnh xuất thất bại",
                         buttons: Ext.MessageBox.YES,
                         buttonText: {
                             yes: 'Đóng',
@@ -134,7 +134,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
                     var response = Ext.decode(response.responseText);
                     Ext.Msg.show({
                         title: "Thông báo",
-                        msg: "Lưu thành công",
+                        msg: "Lưu lệnh xuất thành công",
                         buttons: Ext.MessageBox.YES,
                         buttonText: {
                             yes: 'Đóng',
@@ -144,7 +144,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
                 } else {
                     Ext.Msg.show({
                         title: "Thông báo",
-                        msg: "Lưu thất bại",
+                        msg: "Lưu lệnh xuất thất bại",
                         buttons: Ext.MessageBox.YES,
                         buttonText: {
                             yes: 'Đóng',

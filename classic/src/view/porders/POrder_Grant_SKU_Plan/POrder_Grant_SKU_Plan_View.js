@@ -224,6 +224,19 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
             //     }
             // }
         }]
+    },{
+        dock: 'bottom',
+        layout: 'hbox',
+        border: false,
+        items: [
+            {
+                margin: 3,
+                xtype:'button',
+                text:  'Thoát',
+                iconCls: 'x-fa fa-window-close',
+                itemId: 'btnThoat'
+            },
+        ]
     }]
 });
 

@@ -8,6 +8,9 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_M
         '#btnCanDoi': {
             click: 'onCanDoi',
         },
+        '#btnThoat': {
+            click: 'onThoat',
+        },
     },
     listen: {
         store: {
@@ -15,6 +18,10 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_M
                 'loadStore_SKUBalanceStore_Done': 'onloadStore_SKUBalanceStore_Done'
             }
         }
+    },
+
+    onThoat: function(){
+        this.getView().up('window').close();
     },
     onCanDoi: function(){
         var m = this;

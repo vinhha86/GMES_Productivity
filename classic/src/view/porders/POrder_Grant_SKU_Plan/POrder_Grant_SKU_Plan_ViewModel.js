@@ -19,7 +19,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
         },
         Stockout_order_Store: {
             type: 'Stockout_order_Store'
-        }
+        },
     },
     data: {
         sourceView: null,

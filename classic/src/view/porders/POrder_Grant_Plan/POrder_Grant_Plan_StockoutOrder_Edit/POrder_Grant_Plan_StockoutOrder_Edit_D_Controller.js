@@ -27,7 +27,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 
         // 
         if(id == null){ // create new stockout_order
-            m.loadNewInfo();
+            // m.loadNewInfo();
         }else{ // old stockout_order detail
             m.loadInfo();
         }
@@ -39,9 +39,12 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         var me = this.getView();
         var viewModel = m.getViewModel();
 
-        var date_list = viewModel.get('date_list');
+        // var date_list = viewModel.get('date_list');
+        var date_list = new Array();
+        var date = new Date(2000, 0, 1, 0, 0, 0, 0);
+        date_list.push(date);
         var pordergrantid_link = viewModel.get('pordergrantid_link');
-        var id = viewModel.get('id');
+        // var id = viewModel.get('id');
 
         me.setLoading(true);
         var params = new Object();
