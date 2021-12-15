@@ -24,23 +24,27 @@ Ext.define('GSmartApp.view.dashboard_kho.StockoutOrderMaterialView', {
     columns: [
 		{
 			xtype: 'actioncolumn',
-			width: 50,
+			width: 30,
 			menuDisabled: true,
 			sortable: false,
 			align: 'center',
 			items: [
 				{
-                    // text:  'Tạo lệnh cấp vải',
-					tooltip: 'Chi tiết lệnh cấp vải',
-					iconCls: 'x-fa fas fa-edit',
-					handler: 'onChiTietLenhCapVai'
+					iconCls: 'x-fa fas fa-bars violetIcon',
+					handler: 'onMenu_StockoutOrderList'
 				},
-				{
-                    // text:  'Tạo lệnh cấp vải',
-					tooltip: 'Tạo phiếu xuất vải',
-					iconCls: 'x-fa fas fa-plus',
-					handler: 'onTaoPhieuXuatVai'
-				},
+				// {
+                //     // text:  'Tạo lệnh cấp vải',
+				// 	tooltip: 'Chi tiết lệnh cấp vải',
+				// 	iconCls: 'x-fa fas fa-edit',
+				// 	handler: 'onChiTietLenhCapVai'
+				// },
+				// {
+                //     // text:  'Tạo lệnh cấp vải',
+				// 	tooltip: 'Tạo phiếu xuất vải',
+				// 	iconCls: 'x-fa fas fa-plus',
+				// 	handler: 'onTaoPhieuXuatVai'
+				// },
 			]
 		},
 		// {

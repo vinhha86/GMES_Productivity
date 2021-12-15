@@ -199,10 +199,35 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         var eventRecord = viewModel.get('eventRecord');
         var porder_grantid_link = viewModel.get('pordergrantid_link');
         // console.log(eventRecord);
-        var startDate = eventRecord.get('StartDate');
-        var endDate = eventRecord.get('EndDate');
+        if(eventRecord != null){
+            var startDate = eventRecord.get('StartDate');
+            var endDate = eventRecord.get('EndDate');
+            m.loadDateList(porder_grantid_link, startDate, endDate);
+        }else{
+            me.setLoading(true);
+            var params = new Object();
+            params.idPorderGrant = porder_grantid_link;
+            GSmartApp.Ajax.post('/api/v1/porder_grant/findone', Ext.JSON.encode(params),
+            function (success, response, options) {
+                me.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        console.log(response);
+                        var start_date_plan = response.data.start_date_plan;
+                        var finish_date_plan = response.data.finish_date_plan;
+                        m.loadDateList(porder_grantid_link, start_date_plan, finish_date_plan);
+                    }
+                }
+            })
+        }
 
-        // porder_grantid_link
+    },
+    loadDateList: function(porder_grantid_link, startDate, endDate){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
         me.setLoading(true);
         var params = new Object();
         params.porder_grantid_link = porder_grantid_link;

@@ -179,4 +179,49 @@ Ext.define('GSmartApp.view.dashboard_kho.StockoutOrderMaterialViewController', {
         //         }
         //     })
     },
+
+    onMenu_StockoutOrderList: function (grid, rowIndex, colIndex, item, e, record) {
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var menu_grid = new Ext.menu.Menu({
+            xtype: 'menu',
+            anchor: true,
+            //padding: 10,
+            minWidth: 150,
+            viewModel: {},
+            items: [
+                {
+                    text: 'Chi tiết lệnh xuất vải',
+                    itemId: 'btnChiTietLenhXuatVai',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-edit',
+                    // iconCls: 'x-fa fas fa-edit brownIcon',
+                    handler: function () {
+                        // var record = this.parentMenu.record;
+                        m.onChiTietLenhCapVai(grid, rowIndex, colIndex);
+                    },
+                },
+                {
+                    text: 'Tạo phiếu xuất vải',
+                    itemId: 'btnTaoPhieuXuatVai',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-plus',
+                    // iconCls: 'x-fa fas fa-trash redIcon',
+                    handler: function () {
+                        // var record = this.parentMenu.record;
+                        m.onTaoPhieuXuatVai(grid, rowIndex, colIndex);
+                    }
+                },
+            ]
+        });
+        // HERE IS THE MAIN CHANGE
+        var position = [e.getX() - 10, e.getY() - 10];
+        e.stopEvent();
+        menu_grid.record = record;
+        menu_grid.showAt(position);
+        // common.Check_Menu_Permission(menu_grid);
+    },
 })
