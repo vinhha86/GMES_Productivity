@@ -191,15 +191,49 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatViewContro
                                     }
                                 }, {
                                     text: 'KT',
-                                    dataIndex: listid[i] + "_KT",
-                                    cls: 'titleRed',
-                                    width: 65,
-                                    format: '0.0000',
-                                    align: 'right',
-                                    renderer: function (value, metaData, record) {
-                                        if (value == 0) return "";
-                                        return Ext.util.Format.number(value, '0.0000')
-                                    }
+                                    columns: [{
+                                        text: 'Viền',
+                                        dataIndex: listid[i] + "_Vien",
+                                        cls: 'titleRed',
+                                        width: 65,
+                                        format: '0.0000',
+                                        align: 'right',
+                                        renderer: function (value, metaData, record) {
+                                            if (value == 0) return "";
+                                            return Ext.util.Format.number(value, '0.0000')
+                                        },
+                                        getEditor: function (record) {
+                                            return Ext.create('Ext.grid.CellEditor', {
+                                                field: {
+                                                    xtype: 'textfield',
+                                                    selectOnFocus: true,
+                                                    maskRe: /[0-9.]/
+                                                }
+                                            })
+                                        },
+                                    }, {
+                                        text: 'SĐ',
+                                        dataIndex: listid[i] + "_KT",
+                                        cls: 'titleRed',
+                                        width: 65,
+                                        format: '0.0000',
+                                        align: 'right',
+                                        renderer: function (value, metaData, record) {
+                                            if (value == 0) return "";
+                                            return Ext.util.Format.number(value, '0.0000')
+                                        }
+                                    }, {
+                                        text: 'Tổng',
+                                        dataIndex: listid[i] + "_Tong",
+                                        cls: 'titleRed',
+                                        width: 70,
+                                        format: '0.0000',
+                                        align: 'right',
+                                        renderer: function (value, metaData, record) {
+                                            if (value == 0) return "";
+                                            return Ext.util.Format.number(value, '0.0000')
+                                        }
+                                    }]
                                 }, {
                                     text: 'SX',
                                     dataIndex: listid[i] + "_SX",
@@ -239,6 +273,47 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatViewContro
         }
 
 
+    },
+    onEdit: function (editor, context, e) {
+        var viewmodel = this.getViewModel();
+        originalValue = context.originalValue == null ? "" : context.originalValue;
+        var store = viewmodel.get('POrderBom2Store');
+        if (context.value == originalValue) {
+            store.rejectChanges();
+            return;
+        }
+
+        var pcontractid_link = viewmodel.get('PContract.id');
+        var productid_link = viewmodel.get('IdProduct');
+        var record = context.record;
+        var field = context.field;
+        var params = new Object();
+        params.sizeid_link = field.split('_')[0];
+        params.pcontractid_link = pcontractid_link;
+        params.productid_link = productid_link;
+        params.colorid_link = record.get('colorid_link');
+        params.material_skuid_link = record.get('materialid_link');
+        params.amount = context.value;
+
+        GSmartApp.Ajax.post('/api/v1/porderbom/update_dinhmucvien', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode != 200) {
+                        Ext.Msg.show({
+                            title: "Thông báo",
+                            msg: 'Lưu thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+                    else {
+                        store.getbom_by_porder(null, pcontractid_link, productid_link);
+                    }
+                }
+            })
     },
     onFilterValueKeyup: function () {
         var viewmodel = this.getViewModel();
