@@ -327,14 +327,14 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                     me.porderGrantSkuPlan(eventRecord);
                 }
             },
-            {
-                text: 'Lệnh cấp vải',
-                itemId: 'Schedule_LenhCapVai',
-                iconCls: 'x-fa fa-calendar-minus',
-                handler: function () {
-                    me.createStockoutOrder(eventRecord);
-                }
-            }
+            // {
+            //     text: 'Lệnh cấp vải',
+            //     itemId: 'Schedule_LenhCapVai',
+            //     iconCls: 'x-fa fa-calendar-minus',
+            //     handler: function () {
+            //         me.createStockoutOrder(eventRecord);
+            //     }
+            // }
             ]
         })
         e.stopEvent();
