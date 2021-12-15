@@ -228,6 +228,11 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         var me = this.getView();
         var viewModel = this.getViewModel();
 
+        if(startDate == null || endDate == null){
+            console.log('startDate || endDate == null');
+            return;
+        }
+
         me.setLoading(true);
         var params = new Object();
         params.porder_grantid_link = porder_grantid_link;
