@@ -122,6 +122,31 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 				return value;
 			}
 		},
+		{
+			text: 'Trạng thái', 
+			dataIndex: 'warehouseStatusString',
+			// width: 85,
+			flex: 1,
+            sortable: false,
+            menuDisabled: true,
+			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+			// 	metaData.tdAttr = 'data-qtip="' + value + '"';
+			// 	return value;
+			// }
+		},
+		{
+			text: 'Ngày tở',
+			xtype: 'datecolumn',
+			format: 'd/m/Y',
+			dataIndex: 'date_check',
+            flex: 1,
+            sortable: false,
+            menuDisabled: true,
+			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+			// 	metaData.tdAttr = 'data-qtip="' + value + '"';
+			// 	return value;
+			// }
+		},
 	],
 });
 

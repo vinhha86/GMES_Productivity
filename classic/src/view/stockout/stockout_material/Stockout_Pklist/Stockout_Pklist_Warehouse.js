@@ -119,6 +119,33 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
 			summaryRenderer: 'renderSum',
         },
         { 
+            header: 'Trạng thái', 
+            dataIndex: 'warehouseStatusString',
+            flex: 1,
+            // renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+			// 	metaData.tdAttr = 'data-qtip="' + value + '"';
+            //     if(value == 'Chưa tở'){
+            //         metaData.tdCls = 'redField';
+            //     }else if(value == 'Đã tở'){
+            //         metaData.tdCls = 'whiteField';
+            //     }
+			// 	return value;
+			// },
+        },
+        {
+			text: 'Ngày tở',
+			xtype: 'datecolumn',
+			format: 'd/m/Y',
+			dataIndex: 'date_check',
+            flex: 1,
+            sortable: false,
+            menuDisabled: true,
+			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+			// 	metaData.tdAttr = 'data-qtip="' + value + '"';
+			// 	return value;
+			// }
+		},
+        { 
             header: 'Mã SP', 
             dataIndex: 'stockinProductString', 
             sortable: false,
@@ -142,30 +169,5 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
 			},
         },
     ],
-    // dockedItems:[{
-    //     layout:'hbox',
-    //     border: false,
-    //     dock:'bottom',
-    //     items:[
-    //         // {
-    //         //     xtype:'button',
-    //         //     text: 'Thoát',
-    //         //     margin: 3,
-    //         //     itemId:'btnThoat',
-    //         //     iconCls: 'x-fa fa-window-close'
-    //         // },
-    //         {
-    //             flex:1,
-    //             border: false
-    //         },
-    //         {
-    //             xtype:'button',
-    //             text: 'Thêm NPL',
-    //             margin: 3,
-    //             itemId:'btnSelect',
-    //             iconCls: 'x-fa fa-plus'
-    //         },
-    //     ]
-    // }]
 });
 

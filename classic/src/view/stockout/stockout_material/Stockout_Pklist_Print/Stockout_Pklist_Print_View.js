@@ -172,6 +172,19 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
 				return value;
 			},
         },
+        {
+			text: 'Ngày tở',
+			xtype: 'datecolumn',
+			format: 'd/m/Y',
+			dataIndex: 'date_check',
+            flex: 1,
+            sortable: false,
+            menuDisabled: true,
+			// renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+			// 	metaData.tdAttr = 'data-qtip="' + value + '"';
+			// 	return value;
+			// }
+		},
         { 
             header: 'Mã SP', 
             dataIndex: 'stockinProductString', 
