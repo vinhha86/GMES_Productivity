@@ -255,6 +255,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
             newPkl.grossweight = warehouse_obj.get('grossweight');
             newPkl.spaceepc_link = warehouse_obj.get('spaceepc_link');
             newPkl.status = 1;
+            newPkl.warehouseStatusString = warehouse_obj.get('warehouseStatusString');
+            newPkl.date_check = warehouse_obj.get('date_check');
             newPkl_list.push(newPkl);
         }
         WarehouseStore.remove(warehouse_selection);
@@ -314,6 +316,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
             newWarehouse.netweight = pkl_obj.get('netweight');
             newWarehouse.grossweight = pkl_obj.get('grossweight');
             newWarehouse.spaceepc_link = pkl_obj.get('spaceepc_link');
+            newWarehouse.warehouseStatusString = pkl_obj.get('warehouseStatusString');
+            newWarehouse.date_check = pkl_obj.get('date_check');
             newWarehouse.status = 1;
             newWarehouse_list.push(newWarehouse);
         }
