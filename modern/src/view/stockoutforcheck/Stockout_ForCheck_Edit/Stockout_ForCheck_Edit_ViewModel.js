@@ -1,6 +1,9 @@
 Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ViewModel', {
     extend: 'Ext.app.ViewModel',
 	alias: 'viewmodel.Stockout_ForCheck_Edit_ViewModel',
+    requires: [
+
+    ],
 	stores:{
 		Stockout_order_d_store:{
 			type :'Stockout_order_d_store'
@@ -10,6 +13,9 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ViewModel', {
 		},
         WarehouseCheckStore:{
 			type :'WarehouseCheckStore'
+		},
+		StockinLotStore: {
+			type: 'StockinLotStore'
 		},
 	},
 	data: {
@@ -26,6 +32,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ViewModel', {
 		// Stockout_ForCheck_Edit_ToVai
         selectedPklRecord: null, // pkl đang chọn (warehouse check)
 		pkl_stockout_order_dId: null, // combobox value, hidden
+        cbbox_lotnumber_value: null,
 		maPklFilter: '', // filter field pkl
 		objPkl: null, // obj chứa các trường thông tin,
         isPklTextfieldFocus: false,

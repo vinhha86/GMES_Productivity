@@ -24,7 +24,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
         if(selectedPklRecord != null){
             m.onSetFormData();
         }else{
-            me.down('#lotnumberTxt').focus();
+            me.down('#packageidTxt').focus();
         }
     },
     onFocus: function(textfield, e, eOpts){
@@ -203,7 +203,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
         var selectedDRecord = viewModel.get('selectedDRecord');
         var selectedPklRecord = viewModel.get('selectedPklRecord');
         var objPkl = viewModel.get('objPkl');
-        objPkl.width_met = objPkl.width_met / 100;
+        // objPkl.width_met = objPkl.width_met / 100;
 
         // console.log(objPkl);
         // if(objPkl.id == null){
@@ -293,14 +293,17 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
         var stockoutorderid_link = stockout_order.id;
         var stockoutorderdid_link = selectedDRecord.get('id');
 
+        // console.log(objPklReq);
+        // return;
+
         me.setMasked({
             xtype: 'loadmask',
             message: 'Đang lưu'
         })
 
         var params = new Object();
-        params.stockout_order_pkl = objPklReq;
-        // params.warehouse_check = objPklReq;
+        // params.stockout_order_pkl = objPklReq;
+        params.warehouse_check = objPklReq;
         params.stockoutorderid_link = stockoutorderid_link;
         params.stockoutorderdid_link = stockoutorderdid_link;
 
@@ -412,7 +415,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
                                 // viewModel.set('objPkl', objPkl);
 
                                 var responseObjs = response.data;
-                                if(responseObjs.length == 1){ // tim dc 1 cay vai duy nhat
+                                if(responseObjs.length >= 1){ // tim dc 1 cay vai duy nhat
                                     var responseObj = response.data[0];
                                     var objPkl = m.setDataObjPkl(responseObj);
                                     viewModel.set('objPkl', objPkl);
@@ -422,10 +425,18 @@ Ext.define('GSmartApp.view.stockoutforcheck.stockout_forcheck_edit_tovai_detail.
                             }
                         }else{
                             Ext.toast('Lỗi khi tìm cây vải: ' + response.message, 2000);
+                            viewModel.set('objPkl', null);
+                            viewModel.set('objPkl.lotnumber', lotnumber);
+                            viewModel.set('objPkl.packageid', packageid);
+                            me.down('packageidTxt').focus();
                         }
                     } else {
                         var response = Ext.decode(response.responseText);
                         Ext.toast('Lỗi khi tìm cây vải: ' + response.message, 2000);
+                        viewModel.set('objPkl', null);
+                        viewModel.set('objPkl.lotnumber', lotnumber);
+                        viewModel.set('objPkl.packageid', packageid);
+                        me.down('packageidTxt').focus();
                     }
             })        
         }

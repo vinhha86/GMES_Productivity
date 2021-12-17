@@ -12,11 +12,15 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
             tap: 'onCheck'
         },
         '#Stockout_ForCheck_Edit_ToVai':{
-            // childtap: 'onItemPklTap',
-            childtap: 'onItemPklTapDetail'
+            //// childtap: 'onItemPklTap',
+            // childtap: 'onItemPklTapDetail'
         },
         '#cbbox_pkl_stockout_order_dId':{
             change: 'oncbbox_pkl_stockout_order_dId_change'
+        },
+        '#cbbox_lotnumber':{
+            // change: 'oncbbox_lotnumber_change',
+            select: 'oncbbox_lotnumber_change',
         },
         '#btnThemMoiPklToVai': {
             tap: 'onbtnThemMoiPklToVai'
@@ -179,16 +183,64 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         var data = WarehouseCheckStore.getData().items;
         console.log(data);
     },
+    // oncbbox_pkl_stockout_order_dId_change: function(cbbox, newValue, oldValue, eOpts){
+    //     var viewModel = this.getViewModel();
+    //     var pkl_stockout_order_dId = viewModel.get('pkl_stockout_order_dId');
+    //     if(newValue != null && newValue != ''){
+    //         var WarehouseCheckStore = viewModel.getStore('WarehouseCheckStore');
+    //         // WarehouseCheckStore.loadstore_ByStockoutOrderD(newValue);
+    //         WarehouseCheckStore.loadstore_ByStockoutOrderD_ToVai(newValue);
+    //         if(cbbox.getSelection() != null){
+    //             viewModel.set('selectedDRecord', cbbox.getSelection());
+    //         }
+    //     }
+    // },
     oncbbox_pkl_stockout_order_dId_change: function(cbbox, newValue, oldValue, eOpts){
+        var me = this.getView();
         var viewModel = this.getViewModel();
-        var pkl_stockout_order_dId = viewModel.get('pkl_stockout_order_dId');
+        
         if(newValue != null && newValue != ''){
             var WarehouseCheckStore = viewModel.getStore('WarehouseCheckStore');
-            // WarehouseCheckStore.loadstore_ByStockoutOrderD(newValue);
-            WarehouseCheckStore.loadstore_ByStockoutOrderD_ToVai(newValue);
+            // StockinPklRecheckStore.loadStore_byStockinDIdAndEqualStatus(newValue, 2);
+
+            WarehouseCheckStore.removeAll();
+            viewModel.set('cbbox_lotnumber_value', null);
+            me.down('#cbbox_lotnumber').setValue(null);
+
+            // Ext.Viewport.setMasked({ xtype: 'loadmask' });
+            var StockinLotStore = viewModel.getStore('StockinLotStore');
+            StockinLotStore.loadStore_getLotNumber_ByStockout_order_d(newValue);
+            // StockinLotStore.loadStore_byStockinDId(newValue);
+
             if(cbbox.getSelection() != null){
                 viewModel.set('selectedDRecord', cbbox.getSelection());
             }
+            
+            // // bỏ selectedRecord
+            // viewModel.set('selectedLotRecord', null);
+            // viewModel.set('selectedPklRecord', null);
+            // viewModel.set('selectedPklRecheckRecord', null);
+        }
+    },
+    oncbbox_lotnumber_change: function(cbbox, newValue, oldValue, eOpts){
+        var viewModel = this.getViewModel();
+        newValue = newValue.get('lotnumber');
+
+        if(newValue != null && newValue != ''){ // console.log(newValue);
+            var pkl_stockout_order_dId = viewModel.get('pkl_stockout_order_dId');
+            // var selection = cbbox.getSelection();
+            // var lotnumber = selection.get('lotnumber');
+            var lotnumber = newValue;
+
+            var WarehouseCheckStore = viewModel.getStore('WarehouseCheckStore');
+            WarehouseCheckStore.loadStore_byStockinDId_lotnumber(pkl_stockout_order_dId, lotnumber);
+
+            viewModel.set('cbbox_lotnumber_value', lotnumber);
+
+            // // bỏ selectedRecord
+            // viewModel.set('selectedLotRecord', null);
+            // viewModel.set('selectedPklRecord', null);
+            // viewModel.set('selectedPklRecheckRecord', null);
         }
     },
     onbtnThemMoiPklToVai: function(){
@@ -198,15 +250,20 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
 
         var stockout_order = viewModel.get('stockout_order');
         var pkl_stockout_order_dId = viewModel.get('pkl_stockout_order_dId');
+        var cbbox_lotnumber_value = viewModel.get('cbbox_lotnumber_value');
         var selectedDRecord = viewModel.get('selectedDRecord');
 
         if(pkl_stockout_order_dId == null){
             Ext.toast('Bạn chưa chọn loại NPL', 2000);
             return;
         }
+        if(cbbox_lotnumber_value == null){
+            Ext.toast('Bạn chưa chọn số Lot', 2000);
+            return;
+        }
         
         var objPkl = new Object();
-        // objPkl.lotnumberTxt = cbbox_lotnumber_value;
+        objPkl.lotnumber = cbbox_lotnumber_value;
 
         var dialog = Ext.create({
             xtype: 'dialog',
@@ -485,21 +542,10 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         objPkl.yds_origin = parseFloat(objPkl.yds_origin);
         objPkl.width_check = parseFloat(objPkl.width_check / 100);
         objPkl.width_origin = parseFloat(objPkl.width_origin / 100);
-
         var stockoutorderid_link = stockout_order.id;
         var stockoutorderdid_link = selectedDRecord.get('id');
 
-        // set lại giá trị các trường của warehouse
-        // objPkl.met = objPkl.metcheck;
-        // objPkl.yds = objPkl.ydscheck;
-        // if(objPkl.unitid_link == 1 || objPkl.unitid_link == null){ // trường unitid_link của warehouse
-        //     objPkl.width = objPkl.width_met_check;
-        // }
-        // if(objPkl.unitid_link == 3){ // trường unitid_link của warehouse
-        //     objPkl.width = objPkl.width_yds_check;
-        // }
-        //
-
+        
         me.setMasked({
             xtype: 'loadmask',
             message: 'Đang lưu'
@@ -573,11 +619,6 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         viewModel.set('isPklTextfieldFocus', false);
         var lotnumber = viewModel.get('objPkl.lotnumber');
         var packageid = viewModel.get('objPkl.packageid');
-
-        // nếu đang chọn 1 record thì edit, ko tìm trên db, return
-        // if(selectedPklRecord != null){
-        //     return;
-        // }
 
         if( // nếu chưa đủ thông tin hoặc chưa chọn loại vải, return
             lotnumber == '' || packageid == '' ||
@@ -767,27 +808,28 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai_MainCon
         var selectedPklRecord = viewModel.get('selectedPklRecord');
 
         var WarehouseCheckStore = viewModel.getStore('WarehouseCheckStore');
-        WarehouseCheckStore.loadstore_ByStockoutOrderD_ToVai_async(pkl_stockout_order_dId);
-        WarehouseCheckStore.load({
-            scope: this,
-            callback: function(records, operation, success) {
-                if(!success){
-                    // this.fireEvent('logout');
-                } else {
-                    if(selectedPklRecord != null){
-                        var id = selectedPklRecord.get('id');
-                        var storeItems = WarehouseCheckStore.getData().items;
-                        for(var i=0; i<storeItems.length; i++){
-                            var item = storeItems[i];
-                            if(item.get('id') == id){
-                                var grid = m.getView().down('#Stockout_ForCheck_Edit_ToVai');
-                                grid.getSelectable().select(item);
-                                viewModel.set('selectedPklRecord', item);
-                            }
-                        }
-                    }
-                }
-            }
-        });
+        WarehouseCheckStore.load();
+        // WarehouseCheckStore.loadstore_ByStockoutOrderD_ToVai_async(pkl_stockout_order_dId);
+        // WarehouseCheckStore.load({
+        //     scope: this,
+        //     callback: function(records, operation, success) {
+        //         if(!success){
+        //             // this.fireEvent('logout');
+        //         } else {
+        //             if(selectedPklRecord != null){
+        //                 var id = selectedPklRecord.get('id');
+        //                 var storeItems = WarehouseCheckStore.getData().items;
+        //                 for(var i=0; i<storeItems.length; i++){
+        //                     var item = storeItems[i];
+        //                     if(item.get('id') == id){
+        //                         var grid = m.getView().down('#Stockout_ForCheck_Edit_ToVai');
+        //                         grid.getSelectable().select(item);
+        //                         viewModel.set('selectedPklRecord', item);
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // });
     }
 })

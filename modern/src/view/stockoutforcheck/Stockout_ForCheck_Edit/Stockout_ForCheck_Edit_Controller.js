@@ -52,6 +52,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
     },
     onTabViewActiveItemchange: function(sender, value, oldValue, eOpts){
         var m = this;
+        var me = this.getView();
         var viewModel = this.getViewModel();
         var stockoutorderid_link = viewModel.get('stockout_order.id');
         var pkl_stockout_order_dId = viewModel.get('pkl_stockout_order_dId');
@@ -85,35 +86,71 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_Controller', 
                 break;
             case 'Tở vải':
                 if(pkl_stockout_order_dId != null){
-                    var selectedPklRecord = viewModel.get('selectedPklRecord');
-                    var WarehouseCheckStore = viewModel.getStore('WarehouseCheckStore');
-                    WarehouseCheckStore.loadstore_ByStockoutOrderD_ToVai_async(pkl_stockout_order_dId);
-                    WarehouseCheckStore.load({
-                        scope: this,
-                        callback: function(records, operation, success) {
-                            if(!success){
-                                // this.fireEvent('logout');
-                            } else {
-                                if(selectedPklRecord != null){
-                                    var id = selectedPklRecord.get('id');
-                                    var storeItems = WarehouseCheckStore.getData().items;
-                                    for(var i=0; i<storeItems.length; i++){
-                                        var item = storeItems[i]; console.log(item.get('id'));
-                                        if(item.get('id') == id){
-                                            var grid = m.getView().down('#Stockout_ForCheck_Edit_ToVai');
-                                            grid.getSelectable().select(item);
-                                            viewModel.set('selectedPklRecord', item);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    });
-
-                    var cbbox_pkl_stockout_order_dId = m.getView().down('#cbbox_pkl_stockout_order_dId');
-                    cbbox_pkl_stockout_order_dId.setValue(pkl_stockout_order_dId);
+                    me.down('#cbbox_pkl_stockout_order_dId').setValue(pkl_stockout_order_dId);
                 }
+                // if(pkl_stockout_order_dId != null && cbbox_lotnumber_value != null){
+                //     var selectedPklRecord = viewModel.get('selectedPklRecord');
+                //     var WarehouseCheckStore = viewModel.getStore('WarehouseCheckStore');
+                //     // WarehouseCheckStore.loadSmth();
+                //     // WarehouseCheckStore.loadStore_byStockinDIdAndEqualStatus_async(pklRecheck_stockindId, cbbox_lotnumber_value, 2);
+                //     WarehouseCheckStore.load({
+                //         scope: this,
+                //         callback: function(records, operation, success) {
+                //             if(!success){
+                //                 // this.fireEvent('logout');
+                //             } else {
+                //                 if(selectedPklRecord != null){
+                //                     var selectedId = selectedPklRecord.get('id');
+                //                     var storeItems = WarehouseCheckStore.getData().items;
+                //                     for(var i=0; i<storeItems.length; i++){
+                //                         var item = storeItems[i];
+                //                         if(item.get('id') == selectedId){
+                //                             var grid = m.getView().down('#Stockout_ForCheck_Edit_ToVai');
+                //                             grid.getSelectable().select(item);
+                //                             viewModel.set('selectedPklRecord', item);
+                //                         }
+                //                     }
+                //                 }
+                //             }
+                //         }
+                //     });
+                    
+                //     if(cbbox_lotnumber_value != null){
+                //         me.down('#cbbox_lotnumber').setValue(cbbox_lotnumber_value);
+                //     }
+                // }
                 break;
+            // case 'Tở vải':
+            //     if(pkl_stockout_order_dId != null){
+            //         var selectedPklRecord = viewModel.get('selectedPklRecord');
+            //         var WarehouseCheckStore = viewModel.getStore('WarehouseCheckStore');
+            //         WarehouseCheckStore.loadstore_ByStockoutOrderD_ToVai_async(pkl_stockout_order_dId);
+            //         WarehouseCheckStore.load({
+            //             scope: this,
+            //             callback: function(records, operation, success) {
+            //                 if(!success){
+            //                     // this.fireEvent('logout');
+            //                 } else {
+            //                     if(selectedPklRecord != null){
+            //                         var id = selectedPklRecord.get('id');
+            //                         var storeItems = WarehouseCheckStore.getData().items;
+            //                         for(var i=0; i<storeItems.length; i++){
+            //                             var item = storeItems[i]; console.log(item.get('id'));
+            //                             if(item.get('id') == id){
+            //                                 var grid = m.getView().down('#Stockout_ForCheck_Edit_ToVai');
+            //                                 grid.getSelectable().select(item);
+            //                                 viewModel.set('selectedPklRecord', item);
+            //                             }
+            //                         }
+            //                     }
+            //                 }
+            //             }
+            //         });
+
+            //         var cbbox_pkl_stockout_order_dId = m.getView().down('#cbbox_pkl_stockout_order_dId');
+            //         cbbox_pkl_stockout_order_dId.setValue(pkl_stockout_order_dId);
+            //     }
+            //     break;
             default: 
                 console.log('tab title không tồn tại');
                 break;

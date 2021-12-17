@@ -74,7 +74,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai', {
     {
         text: 'Kiểm dài(M)', 
         flex: 1,
-        dataIndex: 'warehouse_check_met_check',
+        dataIndex: 'met_check',
         align: 'center',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
@@ -93,7 +93,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai', {
             warehouse_check_met_check = Ext.util.Format.number(warehouse_check_met_check, '0.00');
             met_check = Ext.util.Format.number(met_check, '0.00');
             met_origin = Ext.util.Format.number(met_origin, '0.00');
-            return warehouse_check_met_check;
+            return met_check;
         },
         // bind: {
         //     hidden: '{isMetColumnHidden}',
@@ -128,7 +128,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai', {
     {
         text: 'Kiểm khổ(cm)', 
         flex: 1,
-        dataIndex: 'warehouse_check_width_check',
+        dataIndex: 'width_check',
         align: 'center',
         renderer: function(value, record, dataIndex, cell, column) {
             if(value == null) value = 0;
@@ -144,7 +144,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ToVai', {
             // }
             
             // return width_met + ' / ' + width_met_check;
-            return warehouse_check_width_check * 100;
+            return width_check * 100;
         },
         bind: {
             // hidden: '{isMetColumnHidden}',
