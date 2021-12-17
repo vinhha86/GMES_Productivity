@@ -58,15 +58,51 @@ Ext.define('GSmartApp.view.cut_plan.DinhMucKyThuatViewController', {
                                     }
                                 }, {
                                     text: 'KT',
-                                    dataIndex: listid[i] + "_KT",
-                                    cls: 'titleRed',
-                                    width: 65,
-                                    format: '0.0000',
-                                    align: 'right',
-                                    renderer: function (value, metaData, record) {
-                                        if (value == 0) return "";
-                                        return Ext.util.Format.number(value, '0.0000')
-                                    }
+                                    columns: [{
+                                        text: 'Viền',
+                                        dataIndex: listid[i] + "_Vien",
+                                        cls: 'titleRed',
+                                        width: 65,
+                                        format: '0.0000',
+                                        align: 'right',
+                                        renderer: function (value, metaData, record) {
+                                            if (value == 0) return "";
+                                            return Ext.util.Format.number(value, '0.0000')
+                                        },
+                                        getEditor: function (record) {
+                                            if (record.get('type') == 0) {
+                                                return Ext.create('Ext.grid.CellEditor', {
+                                                    field: {
+                                                        xtype: 'textfield',
+                                                        selectOnFocus: true,
+                                                        maskRe: /[0-9]/
+                                                    }
+                                                })
+                                            }
+                                        },
+                                    }, {
+                                        text: 'SĐ',
+                                        dataIndex: listid[i] + "_KT",
+                                        cls: 'titleRed',
+                                        width: 65,
+                                        format: '0.0000',
+                                        align: 'right',
+                                        renderer: function (value, metaData, record) {
+                                            if (value == 0) return "";
+                                            return Ext.util.Format.number(value, '0.0000')
+                                        }
+                                    }, {
+                                        text: 'Tổng',
+                                        dataIndex: listid[i] + "_Tong",
+                                        cls: 'titleRed',
+                                        width: 70,
+                                        format: '0.0000',
+                                        align: 'right',
+                                        renderer: function (value, metaData, record) {
+                                            if (value == 0) return "";
+                                            return Ext.util.Format.number(value, '0.0000')
+                                        }
+                                    }]
                                 }, {
                                     text: 'SX',
                                     dataIndex: listid[i] + "_SX",

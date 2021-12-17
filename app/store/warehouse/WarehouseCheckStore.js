@@ -129,4 +129,67 @@ Ext.define('GSmartApp.store.warehouse.WarehouseCheckStore', {
 			}
 		});
 	},
+	loadStore_byStockinDId_lotnumber: function (stockoutorderdid_link, lotnumber) {
+		var params = new Object();
+		params.stockoutorderdid_link = stockoutorderdid_link;
+		params.lotnumber = lotnumber;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl_Jitin() + '/api/v1/warehouse/getByStockoutOrderDId_lotnumber',
+			paramsAsJson: true,
+			noCache: false,
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		
+		this.load({
+			scope: this,
+			callback: function (records, operation, success) {
+				if (!success) {
+					// this.fireEvent('logout');
+				}
+			}
+		});
+	},
+	loadStore_byStockinDId_lotnumber_async: function (stockoutorderdid_link, lotnumber) {
+		var params = new Object();
+		params.stockoutorderdid_link = stockoutorderdid_link;
+		params.lotnumber = lotnumber;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl_Jitin() + '/api/v1/warehouse/getByStockoutOrderDId_lotnumber',
+			paramsAsJson: true,
+			noCache: false,
+			extraParams: params,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+	},
 });
