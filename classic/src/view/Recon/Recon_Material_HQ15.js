@@ -1,10 +1,7 @@
-Ext.define('GSmartApp.view.Recon.Recon_D_Pcontract', {
+Ext.define('GSmartApp.view.Recon.Recon_Material_HQ15', {
 	extend: 'Ext.grid.Panel',
-	xtype: 'Recon_D_Pcontract',
-	id: 'Recon_D_Pcontract',
-	requires: [
-		'Ext.grid.plugin.CellEditing'
-	],
+	xtype: 'Recon_Material_HQ15',
+	id: 'Recon_Material_HQ15',
 	columnLines: true,
 	rowLines: true,
 	border: true,
@@ -22,9 +19,15 @@ Ext.define('GSmartApp.view.Recon.Recon_D_Pcontract', {
 	//     selType: 'checkboxmodel',
 	// },
 	bind: {
-		store: '{SKUReconStore}'
+		store: '{ReconMaterial_Store}'
 	},
 	columns: [
+		{
+			text: 'STT',
+			width: 40,
+			xtype: 'rownumberer',
+			align: 'center'
+		},
 		{
 			text: 'Mã NPL',
 			width: 150,
@@ -45,20 +48,23 @@ Ext.define('GSmartApp.view.Recon.Recon_D_Pcontract', {
 					buffer: 500
 				}
 			},
-			locked: true
+		},
+		{
+			text: 'Tên NPL',
+			flex: 1,
+			dataIndex: 'mat_sku_name',
 		},
 		{
 			text: 'Màu NPL',
 			dataIndex: 'mat_sku_color_name',
-			// width: 150,
-			flex: 1,
+			width: 100,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value == 'ALL' ? "" : value;
 			}
 		},
 		{
-			text: 'Thành phần vải',
+			text: 'TP vải',
 			dataIndex: 'mat_sku_desc',
 			width: 150,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -69,7 +75,7 @@ Ext.define('GSmartApp.view.Recon.Recon_D_Pcontract', {
 		{
 			text: 'Cỡ khổ',
 			dataIndex: 'mat_sku_size_name',
-			width: 100,
+			width: 85,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value == 'ALL' ? "" : value;
@@ -78,48 +84,37 @@ Ext.define('GSmartApp.view.Recon.Recon_D_Pcontract', {
 		{
 			text: 'ĐVT',
 			dataIndex: 'mat_sku_unit_name',
-			width: 70
+			width: 60
 		},
 		{
-			text: 'Định mức',
-			dataIndex: 'mat_sku_bom_amount',
-			width: 70,
-			xtype: 'numbercolumn',
-			format: '0.0000',
-			renderer: function (value, metaData, record) {
-				if (value == 0) return "";
-				return Ext.util.Format.number(value, '0.0000')
-			}
-		},
-		{
-			text: '%TH',
-			dataIndex: 'mat_sku_bom_lostratio',
-			width: 55,
-			xtype: 'numbercolumn',
-			format: '0.00',
-			// renderer: function (value, metaData, record) {
-			// 	return value+" %";
-			// }
-		}, 
-		{//NPL can phai co de sx theo dinh muc can doi
 			xtype: 'numbercolumn',
 			format: '0,000',
-			text: 'Nhu cầu ĐH',
+			text: 'SL Y/C',
+			align: 'right',
+			dataIndex: 'mat_sku_demand',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 85
+		},
+		{
+			xtype: 'numbercolumn',
+			format: '0,000',
+			text: 'Tồn đầu kỳ',
 			align: 'right',
 			dataIndex: 'mat_sku_demand_dh',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			width: 80
+			width: 85
 		},
 		{//NPL da nhap ve kho
 			xtype: 'numbercolumn',
 			format: '0,000.00',
-			text: 'Nhập SX',
+			text: 'Nhập trong kỳ',
 			align: 'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'mat_sku_stockin',
-			width: 80
+			width: 85
 		},
 		{//NPL da xuat sang sx
 			xtype: 'numbercolumn',
@@ -129,27 +124,27 @@ Ext.define('GSmartApp.view.Recon.Recon_D_Pcontract', {
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'mat_sku_stockout',
-			width: 80
+			width: 85
 		},
 		{//NPL xuat theo san pham xuat kho
 			xtype: 'numbercolumn',
 			format: '0,000.00',
-			text: 'Xuất thành phẩm',
+			text: 'Xuất khác',
 			align: 'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'mat_sku_byproduct_stockout',
-			width: 90
+			width: 85
 		},
 		{//NPL con ton trong kho
 			xtype: 'numbercolumn',
 			format: '0,000',
-			text: 'Tồn',
+			text: 'Tồn cuối kỳ',
 			align: 'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'in_stock',
-			width: 80
+			width: 85
 		},
 	],
 });

@@ -12,13 +12,13 @@ Ext.define('GSmartApp.view.Recon.Recon_Main_Pcontract', {
     },
     items: [
         {
-            region: 'west',
-            width: 300,
-            xtype: 'Recon_ProductTree'
+            region: 'north',
+            height: '50%',
+            xtype: 'Recon_Product_HQ15a'
         },
         {
             region: 'center',
-            xtype: 'Recon_D_Pcontract'
+            xtype: 'Recon_Material_HQ15'
         }
     ]
 });

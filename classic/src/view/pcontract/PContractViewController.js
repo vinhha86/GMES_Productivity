@@ -121,6 +121,11 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
                         store.getbom_by_porder(porderid_link, pcontractid_link, productid_link);
                     }
                 }
+                else if (newCard.xtype == 'Recon_Main_Pcontract') {
+                    viewmodel.set('isHidden_btnLuu', true);
+                    var tab = Ext.getCmp('Recon_Main_Pcontract');
+                    tab.getController().setPcontractID(viewmodel.get('PContract.id'));
+                }
                 else {
                     var storeproductlist = viewmodel.getStore('PContractProductStore');
                     storeproductlist.load();
