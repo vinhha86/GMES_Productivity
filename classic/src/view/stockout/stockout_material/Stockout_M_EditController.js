@@ -260,6 +260,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		})	
 	},
 	setStockoutOrderData: function(stockout_order){
+		// console.log(stockout_order);
 		var me = this.getView();
 		var m = this;
 		var viewModel = this.getViewModel();
@@ -333,6 +334,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 
 					for(var j = 0; j < stockout_order_pkl.length; j++){
 						var stockout_order_pklObj = stockout_order_pkl[j];
+
+						// chỉ thêm cây vải đã tở và nằm trong kho
+						if(stockout_order_pklObj.warehouseStatus < 1 || !stockout_order_pklObj.isInStock){
+							continue;
+						}
+
 						var stockout_packinglistObj = new Object();
 						stockout_packinglistObj.skuid_link = stockout_order_pklObj.skuid_link;
 						stockout_packinglistObj.lotnumber = stockout_order_pklObj.lotnumber;
