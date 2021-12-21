@@ -59,6 +59,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
 		},
 	},
 	data: {
+        sourceView: null, 
         searchObj: {
 			stockoutdate_from: new Date(),
 			stockoutdate_to: new Date(),

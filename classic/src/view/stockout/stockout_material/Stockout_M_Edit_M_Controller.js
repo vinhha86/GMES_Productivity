@@ -2,30 +2,33 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockout_M_Edit_M_Controller',
     init: function () {
-        var viewModel = this.getViewModel();
-        var orgstore = viewModel.getStore('OrgStore');
-        orgstore.loadStore(5);
-        var userStore = viewModel.getStore('UserStore');
-        userStore.loadStore();
+        // var viewModel = this.getViewModel();
+        // var orgstore = viewModel.getStore('OrgStore');
+        // if(orgstore) orgstore.loadStore(5);
+        // var userStore = viewModel.getStore('UserStore');
+        // if(userStore) userStore.loadStore();
 
-        // var listidtype = "4,8,9,11,12";
-        var listidtype = "3";
-        var orgfromstore = viewModel.getStore('OrgFromStore');
-        // orgfromstore.loadStore_allchildren_byorg(listidtype);
-        // orgfromstore.loadStore(3, false);
-        orgfromstore.getOrgFromForStockoutMaterial();
-        // var orgtostore = viewModel.getStore('OrgToStore');
-        // orgtostore.loadStore_byRoot(listidtype);
+        // // var listidtype = "4,8,9,11,12";
+        // var listidtype = "3";
+        // var orgfromstore = viewModel.getStore('OrgFromStore');
+        // // orgfromstore.loadStore_allchildren_byorg(listidtype);
+        // // orgfromstore.loadStore(3, false);
+        // if(orgfromstore) orgfromstore.getOrgFromForStockoutMaterial();
+        // // var orgtostore = viewModel.getStore('OrgToStore');
+        // // orgtostore.loadStore_byRoot(listidtype);
 
-        var currencyStore = viewModel.getStore('CurrencyStore');
-        currencyStore.loadStore();
-        var vattypeStore = viewModel.getStore('VatTypeStore');
-        vattypeStore.loadStore();
-        var StockoutType = viewModel.getStore('StockoutTypeStore');
-        StockoutType.loadStore();
+        // var currencyStore = viewModel.getStore('CurrencyStore');
+        // if(currencyStore) currencyStore.loadStore();
+        // var vattypeStore = viewModel.getStore('VatTypeStore');
+        // if(vattypeStore) vattypeStore.loadStore();
+        // var StockoutType = viewModel.getStore('StockoutTypeStore');
+        // if(StockoutType) StockoutType.loadStore();
         
     },
     control: {
+        '#Stockout_M_Edit_M': {
+			afterrender: 'onAfterrender'
+		},
         '#loaitien': {
             select: 'onSelectCurency'
         },
@@ -36,6 +39,29 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
             beforeQuery: 'Product_AutoComplete_beforeQuery',
             select: 'onProduct_AutoCompleteSelect'
         },
+    },
+    onAfterrender: function(){
+        var viewModel = this.getViewModel();
+        var orgstore = viewModel.getStore('OrgStore');
+        if(orgstore) orgstore.loadStore(5);
+        var userStore = viewModel.getStore('UserStore');
+        if(userStore) userStore.loadStore();
+
+        // var listidtype = "4,8,9,11,12";
+        var listidtype = "3";
+        var orgfromstore = viewModel.getStore('OrgFromStore');
+        // orgfromstore.loadStore_allchildren_byorg(listidtype);
+        // orgfromstore.loadStore(3, false);
+        if(orgfromstore) orgfromstore.getOrgFromForStockoutMaterial();
+        // var orgtostore = viewModel.getStore('OrgToStore');
+        // orgtostore.loadStore_byRoot(listidtype);
+
+        var currencyStore = viewModel.getStore('CurrencyStore');
+        if(currencyStore) currencyStore.loadStore();
+        var vattypeStore = viewModel.getStore('VatTypeStore');
+        if(vattypeStore) vattypeStore.loadStore();
+        var StockoutType = viewModel.getStore('StockoutTypeStore');
+        if(StockoutType) StockoutType.loadStore();
     },
     Product_AutoComplete_beforeQuery: function(){
         var viewModel = this.getViewModel();

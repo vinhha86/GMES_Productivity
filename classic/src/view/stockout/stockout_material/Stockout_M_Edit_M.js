@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
     extend: 'Ext.container.Container',
     xtype: 'Stockout_M_Edit_M',
+    itemId: 'Stockout_M_Edit_M',
     controller: 'Stockout_M_Edit_M_Controller',
     cls: 'Stockout_M_Edit_M',
     layout: {

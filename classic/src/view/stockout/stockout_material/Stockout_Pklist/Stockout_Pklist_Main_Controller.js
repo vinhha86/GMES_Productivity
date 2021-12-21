@@ -74,17 +74,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
                     // console.log(response);
                     var data = response.data;
                     var storeData = new Array();
-                    // storeData = m.setStoreData(data);
                     storeData = data;
 
                     viewModel.set('storeData', storeData);
-
-                    // var StockStore = viewModel.getStore('StockStore');
-                    // StockStore.insert(0, storeData);
-                    // StockStore.getSorters().add({
-                    //     property: 'spaceString',
-                    //     direction: 'ASC'
-                    // });
 
                     var WarehouseStore = viewModel.getStore('WarehouseStore');
                     WarehouseStore.insert(0, storeData);
@@ -99,8 +91,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
                         property: 'packageid',
                         direction: 'ASC'
                     });
-                    
-                    // console.log(storeData);
+                    //
+                    m.removeSelectedEpc();
                 }
             })
         }
@@ -124,13 +116,6 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
 
                     viewModel.set('storeData', storeData);
 
-                    // var StockStore = viewModel.getStore('StockStore');
-                    // StockStore.insert(0, storeData);
-                    // StockStore.getSorters().add({
-                    //     property: 'spaceString',
-                    //     direction: 'ASC'
-                    // });
-
                     var WarehouseStore = viewModel.getStore('WarehouseStore');
                     WarehouseStore.insert(0, storeData);
                     WarehouseStore.setGroupField('nhomCayVai');
@@ -144,11 +129,52 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
                         property: 'packageid',
                         direction: 'ASC'
                     });
-                    
-                    // console.log(storeData);
+                    //
+                    m.removeSelectedEpc();
                 }
             })
         }
+
+        // filter
+        
+        
+    },
+    removeSelectedEpc: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var skuid_link = viewModel.get('skuid_link');
+        var stockout = viewModel.get('stockout');
+        var stockoutDRec = viewModel.get('stockoutDRec');
+
+        // console.log(stockout);
+        var listSelectedEpc = new Array();
+        var stockout_d = stockout.stockout_d;
+        for(var i=0; i<stockout_d.length; i++){
+            var stockout_packinglist = stockout_d[i].stockout_packinglist;
+            for(var j=0; j<stockout_packinglist.length; j++){
+                stockout_packinglist_obj = stockout_packinglist[j];
+                var epc = stockout_packinglist_obj.epc;
+                if(epc != null && epc != ''){
+                    listSelectedEpc.push(epc);
+                }
+            }
+        }
+
+        var WarehouseStore = viewModel.getStore('WarehouseStore');
+        var items = WarehouseStore.getData().items;
+        var listToRemoved = new Array();
+        // console.log(items);
+        // console.log(listSelectedEpc);
+        for(var i=0; i<items.length; i++){
+            for(var j=0; j<listSelectedEpc.length; j++){
+                if(items[i].get('epc') == listSelectedEpc[j]){
+                    listToRemoved.push(items[i]);
+                }
+            }
+        }
+        WarehouseStore.remove(listToRemoved);
+        WarehouseStore.commitChanges();
     },
     
     // onAfterrender: function(){

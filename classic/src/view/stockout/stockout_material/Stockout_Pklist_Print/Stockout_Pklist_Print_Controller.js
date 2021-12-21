@@ -37,6 +37,8 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
         var stockout = viewModel.get('stockout');
         var storeData = new Array();
 
+        // console.log(stockout);
+
         if(stockout.stockout_d == null) stockout.stockout_d = new Array();
         var stockout_d = stockout.stockout_d;
         for(var i = 0; i<stockout_d.length; i++) {

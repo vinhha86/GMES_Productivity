@@ -151,33 +151,36 @@ Ext.define('GSmartApp.view.dashboard_kho.StockoutOrderMaterialViewController', {
         var stockoutorderidObj = new Object();
         stockoutorderidObj.id = id;
         GSmartApp.util.State.set('stockoutorderidObj', stockoutorderidObj);
-        m.redirectTo('stockout_m/1/create');
+        // m.redirectTo('stockout_m/1/create');
 
-        // var params = new Object();
-        // params.id = id;
+        var form = Ext.create('Ext.window.Window', {
+			height: '90%',
+            width: '95%',
+			closable: true,
+			resizable: false,
+			modal: true,
+			border: false,
+			title: 'Tạo phiếu xuất vải',
+			closeAction: 'destroy',
+			bodyStyle: 'background-color: transparent',
+			layout: {
+				type: 'fit', // fit screen for window
+				padding: 5
+			},
+			items: [{
+				xtype: 'Stockout_M_Edit',
+                viewModel:{
+                    data: {
+                        sourceView: 'StockoutOrderMaterialView',
+                    }
+                }
+			}]
+		});
+		form.show();
 
-        // me.setLoading(true);
-
-        // GSmartApp.Ajax.postJitin('/api/v1/stockoutorder/getById', Ext.JSON.encode(params),
-        //     function (success, response, options) {
-        //         me.setLoading(false);
-        //         if (success) {
-        //             var response = Ext.decode(response.responseText);
-        //             // console.log(response);
-        //             var stockout_order = response.data;
-        //             GSmartApp.util.State.set('stockout_order_tempObj', stockout_order);
-        //             m.redirectTo('stockout_m/1/create');
-        //         } else {
-        //             Ext.Msg.show({
-        //                 title: "Thông báo",
-        //                 msg: "Lấy thông tin thất bại",
-        //                 buttons: Ext.MessageBox.YES,
-        //                 buttonText: {
-        //                     yes: 'Đóng',
-        //                 }
-        //             });
-        //         }
-        //     })
+		form.down('#Stockout_M_Edit').getController().on('Thoat', function () {
+			form.close();
+		})
     },
 
     onMenu_StockoutOrderList: function (grid, rowIndex, colIndex, item, e, record) {
