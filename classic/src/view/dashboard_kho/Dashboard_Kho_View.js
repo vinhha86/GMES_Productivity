@@ -12,7 +12,7 @@ Ext.define('GSmartApp.view.dashboard_kho.Dashboard_Kho_View', {
         xtype: 'KeHoachVaoChuyenView'
     }, {
         region: 'center',
-        title: 'Lệnh cấp vải',
+        title: 'Lệnh xuất vải',
         xtype: 'StockoutOrderMaterialView'
     }]
 });
