@@ -26,7 +26,7 @@ Ext.define('GSmartApp.view.Recon.Recon_Main_Pcontract_Controller', {
         params.pcontractid_link = viewmodel.get('pcontractid_link');
 
         me.setLoading("Đang tính quyết toán");
-        GSmartApp.Ajax.post('/api/v1/recon/cal_recon_bycontract', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post_longtimeout('/api/v1/recon/cal_recon_bycontract', Ext.JSON.encode(params),
         function (success, response, options) {
             me.setLoading(false);
             if (success) {

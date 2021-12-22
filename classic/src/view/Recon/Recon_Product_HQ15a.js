@@ -52,7 +52,7 @@ Ext.define('GSmartApp.view.Recon.Recon_Product_HQ15a', {
 			dataIndex: 'unitname',
 		},
 		{
-			text: 'Nhu cầu',
+			text: 'SL Y/C',
 			align: 'right',
 			width: 90,
 			dataIndex: 'pquantity_porder',
