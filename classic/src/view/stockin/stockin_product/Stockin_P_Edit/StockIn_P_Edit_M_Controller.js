@@ -23,6 +23,12 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 		'#comboTypeStockin': {
 			select: 'onSelect_comboTypeStockin'
 		},
+		'#productSearchStringField': {
+			keypress: 'onEnterProductSearchStringField'
+		},
+		'#btnTimSanPham': {
+			click: 'onBtnTimSanPham'
+		},
 		// '#cbo_POrder_ListStore': {
 		// 	select: 'on_cbo_POrder_ListStore_select'
 		// },
@@ -193,6 +199,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 		form.down('#Stockin_POLINE_Main').on('Chon', function (select, poData) {
 			// console.log(select);
 			// console.log(poData);
+			// return;
 			viewModel.set('stockin.pcontract_poid_link', poData.id);
 			viewModel.set('stockin.contract_number', poData.po_buyer);
 
@@ -237,7 +244,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 				stockind_new.totalpackage = 0;
 				stockind_new.colorid_link = data.color_id;
 				stockind_new.skuid_link = data.skuid_link;
-				stockind_new.sizeid_link = data.sku.size_id;
+				stockind_new.sizeid_link = data.sizeid_link;
 				stockind_new.totalpackage = data.so_luong_yeu_cau == null ? 0 : data.so_luong_yeu_cau;
 
 				list.push(stockind_new);
@@ -365,4 +372,71 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 				}
 			})
 	},
+	onEnterProductSearchStringField: function (field, e) {
+		var m = this;
+		if (e.getKey() == e.ENTER) {
+			m.onTimSanPham();
+		}
+	},
+	onBtnTimSanPham: function(){
+		var m = this;
+		m.onTimSanPham();
+	},
+	onTimSanPham: function () {
+		var m = this;
+		var me = this.getView();
+		var viewModel = this.getViewModel();
+		var productSearchString = viewModel.get('productSearchString');
+
+		if(productSearchString == null || productSearchString == ''){
+			Ext.Msg.show({
+				title: 'Thông báo',
+				msg: 'Sản phẩm không được bỏ trống',
+				buttons: Ext.MessageBox.YES,
+				buttonText: {
+					yes: 'Đóng',
+				},
+				fn: function () {
+					// this.fireEvent('logout');
+				}
+			});
+			return;
+		}
+
+		var stockin = viewModel.get('stockin');
+		var grid = this.getView();
+		var form = Ext.create('Ext.window.Window', {
+			height: '90%',
+			width: '90%',
+			closable: true,
+			resizable: false,
+			modal: true,
+			border: false,
+			title: 'Danh sách sản phẩm',
+			closeAction: 'destroy',
+			bodyStyle: 'background-color: transparent',
+			layout: {
+				type: 'fit', // fit screen for window
+				padding: 5
+			},
+			items: [{
+				xtype: 'Stockin_P_Edit_Product_Main_View',
+				viewModel: {
+					data: {
+						productSearchString: productSearchString,
+					}
+				}
+			}]
+		});
+		form.show();
+
+		form.down('#Stockin_P_Edit_Product_Main_View').on('Thoat', function () {
+			form.close();
+		})
+
+		// form.down('#Stockin_POLINE_Main').on('Chon', function (select, poData) {
+			
+		// 	form.close();
+		// })
+	},	
 })

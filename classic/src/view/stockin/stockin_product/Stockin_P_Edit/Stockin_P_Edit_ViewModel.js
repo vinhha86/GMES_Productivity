@@ -74,7 +74,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_ViewModel', {
 		isBarcodeHidden: true,
 		isManualHidden: false,
 		deviceid_link: 0,
-		device: null
+		device: null,
+		////////////////////////////////
+		productSearchString: null,
 	},
 	formulas: {
 		isEdit: function (get) {

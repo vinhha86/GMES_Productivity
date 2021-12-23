@@ -40,15 +40,15 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List_Main_Controller', {
             itemdblclick: 'onCapNhatdbl',
             afterrender: 'onSearch'
         },
-        '#btnThemMoi_ByPOLine':{
-            click: 'onStockinNew_ByPOLine'
+        // '#btnTaoPhieuNhap': {
+        //     click: 'onBtnTaoPhieuNhap'
+        // },
+        '#btnTaoPhieuNhapMoi': {
+            click: 'onBtnTaoPhieuNhapMoi'
         },
-        '#btnThemMoi_Move':{
-            click: 'onStockinNew_Move'
+        '#btnTaoPhieuNhapDieuChuyen': {
+            click: 'onBtnTaoPhieuNhapDieuChuyen'
         },
-        '#btnTaoPhieuNhap': {
-            click: 'onBtnTaoPhieuNhap'
-        }
     },
     onCapNhatdbl: function(m, record, item, index, e, eOpts){
         // console.log(record);
@@ -83,10 +83,10 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List_Main_Controller', {
     onBtnTaoPhieuNhap: function(){
         this.redirectTo("stockin_p_main/0/create");
     },
-    onStockinNew_ByPOLine: function(){
+    onBtnTaoPhieuNhapMoi: function(){
         this.redirectTo("stockin_p_main/21/create");
     },
-    onStockinNew_Move: function(){
+    onBtnTaoPhieuNhapDieuChuyen: function(){
         this.redirectTo("stockin_p_main/22/create");
     },
     onDelete: function(grid, rowIndex){

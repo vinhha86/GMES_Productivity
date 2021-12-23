@@ -285,25 +285,35 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M', {
 				labelWidth: 85,
 				fieldLabel: 'Lệnh SX'
 			},
-			// {
-			// 	xtype: 'combo',
-			// 	itemId: 'cbo_POrder_ListGrantStore',
-			// 	valueField: 'id',
-			// 	displayField: 'granttoorgname',
-			// 	bind: {
-			// 		value: '{stockin.porder_grantid_link}',
-			// 		store: '{POrder_ListGrantStore}',
-			// 		disabled: '{isEdit}',
-			// 		hideTrigger: '{isEdit}',
-			// 		hidden: '{isPOLineHidden}'
-			// 	},
-			// 	queryMode: 'local',
-			// 	anyMatch: true,
-			// 	margin: '0 5 0 5',
-			// 	flex: 1,
-			// 	labelWidth: 85,
-			// 	fieldLabel: 'Tổ chuyền'
-			// },
+			{
+				margin: '0 0 0 5',
+				xtype: 'textfield',
+				itemId: 'productSearchStringField',
+				bind: {
+					value: '{productSearchString}'
+				},
+				fieldLabel: 'Sản phẩm',
+				// editable: false,
+				// readOnly: true,
+				// cls: 'notEditable',
+				flex: 1,
+				labelWidth: 85,
+				enableKeyEvents : true,
+			},
+			{
+				xtype: 'button',
+				tooltip: 'Tìm sản phẩm',
+				margin: '0 5 0 3',
+				itemId: 'btnTimSanPham',
+				//text: 'Thêm thẻ vải',
+				iconCls: 'x-fa fa-search',
+				weight: 30,			
+				// bind:{
+				// 	disabled: '{isEdit}',
+				// 	hidden: '{isPOLineHidden}'
+				// }
+				// handler: 'onSkuSearchTap'
+			},
 		]
 	},
 	]

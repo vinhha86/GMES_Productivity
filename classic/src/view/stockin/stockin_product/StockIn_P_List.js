@@ -51,33 +51,32 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List', {
         xtype: 'toolbar',
         border: false,
         items: [
-            // {
-            //     xtype: 'button',
-            //     margin: 3,
-            //     text: 'Lập phiếu mới',
-            //     iconCls: 'x-fa fa-bars',
-            //     menu: [
-            //         {
-            //             itemId: 'btnThemMoi_ByPOLine', // id:1
-            //             // iconCls: 'fa fa-file-pdf-o greenIcon',
-            //             text: 'Nhập từ sản xuất',
-            //         },
-            //         {
-            //             itemId: 'btnThemMoi_Move', // id:3
-            //             // iconCls: 'fa fa-file-pdf-o greenIcon',
-            //             text: 'Nhập điều chuyển',
-            //         },
-            //     ],
-            // },
-
             {
-                // width: 100,
                 xtype: 'button',
                 margin: 3,
-                text: 'Tạo phiếu nhập',
-                iconCls: 'x-fa fa-plus',
-                itemId: 'btnTaoPhieuNhap'
+                text: 'Lập phiếu mới',
+                iconCls: 'x-fa fa-bars',
+                menu: [
+                    {
+                        itemId: 'btnTaoPhieuNhapMoi', // id:21 // nhap tu san xuat, mua moi
+                        // iconCls: 'fa fa-file-pdf-o greenIcon',
+                        text: 'Nhập từ sản xuất',
+                    },
+                    {
+                        itemId: 'btnTaoPhieuNhapDieuChuyen', // id:22 // nhap dieu chuyen
+                        // iconCls: 'fa fa-file-pdf-o greenIcon',
+                        text: 'Nhập điều chuyển',
+                    },
+                ],
             },
+            // {
+            //     // width: 100,
+            //     xtype: 'button',
+            //     margin: 3,
+            //     text: 'Tạo phiếu nhập',
+            //     iconCls: 'x-fa fa-plus',
+            //     itemId: 'btnTaoPhieuNhap'
+            // },
             {
                 margin: 3,
                 itemId: 'stockindate_from',
