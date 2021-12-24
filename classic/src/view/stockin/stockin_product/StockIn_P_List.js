@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List', {
     extend: 'Ext.grid.Panel',
     xtype: 'StockIn_P_List',
     itemId: 'StockIn_P_List',
+    cls: 'StockIn_P_List',
     reference: 'StockIn_P_List',
     viewConfig: {
         stripeRows: true,
@@ -37,7 +38,24 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List', {
                 }
             ]
         },
-        {header: 'Số phiếu', dataIndex: 'stockincode', width: 150},
+        {
+            header: 'Số phiếu', dataIndex: 'stockincode', width: 120,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                var status = record.get('status');
+                if(status == -1){
+                    metaData.tdCls =  'rowYellow';
+                }
+                if(status == 0){
+                    metaData.tdCls =  'rowWhite';
+                }
+                if(status == 1){
+                    metaData.tdCls =  'rowGreen';
+                }
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
+        },
         {header: 'Loại phiếu', dataIndex: 'stockintype_name', width: 150},    
         {header: 'Ngày nhập', dataIndex: 'stockindate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 90 },
         {header: 'Nơi xuất', dataIndex: 'orgfrom_name', flex: 1},    

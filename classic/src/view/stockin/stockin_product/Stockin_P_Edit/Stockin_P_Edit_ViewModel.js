@@ -88,6 +88,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_ViewModel', {
 			}
 		},
 		iseditSL: function (get) {
+			if (get('stockin.status') >= 1) {
+				return false;
+			}
 			if (get('groupstockin') == 1) return true;
 			return false;
 		},
@@ -97,13 +100,24 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_ViewModel', {
 				return false;
 			}
 			if (get('stockin.stockintypeid_link') == 21) {
-				if (get('stockin.id') == null || get('stockin.id') == 0) {
-					return true;
+				// if (get('stockin.id') == null || get('stockin.id') == 0) {
+				// 	return true;
+				// }
+				// return false;
+				if (get('stockin.status') >= 1) {
+					return false;
 				}
-				return false;
+				return true;
 			}
 			if (get('stockin.stockintypeid_link') == 22) {
-				return false;
+				// if (get('stockin.id') == null || get('stockin.id') == 0) {
+				// 	return true;
+				// }
+				// return false;
+				if (get('stockin.status') >= 1) {
+					return false;
+				}
+				return true;
 			}
 			
 			return true;

@@ -84,20 +84,23 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                         OrgFromStore.loadStore(9, false);
 
                         var OrgToStore = viewModel.getStore('OrgToStore');
-                        OrgToStore.loadStore(8, false);
+                        // OrgToStore.loadStore(8, false);
+                        OrgToStore.loadOrgByTypeAndUser([8]);
                         // var listidtype_to = "8";
                         // var OrgToStore = viewModel.getStore('OrgToStore');
                         // OrgToStore.loadStore_byRoot(listidtype_to);
                     }
                     if (id == 22) { // Nhap dieu chuyen
                         var OrgFromStore = viewModel.getStore('OrgFromStore');
-						var listidtypefrom = "8,4";
-						// OrgToStore.loadStore_allchildren_byorg(listidtypefrom);
-						OrgFromStore.loadStoreByOrgTypeString(listidtypefrom);
+                        OrgFromStore.loadStore(8, false);
+						// var listidtypefrom = "8,4";
+						// // OrgToStore.loadStore_allchildren_byorg(listidtypefrom);
+						// OrgFromStore.loadStoreByOrgTypeString(listidtypefrom);
 
                         var OrgToStore = viewModel.getStore('OrgToStore');
-						var listidtypeto = "8,4";
-						OrgToStore.loadStore_allchildren_byorg(listidtypeto);
+                        OrgToStore.loadOrgByTypeAndUser([8]);
+						// var listidtypeto = "8,4";
+						// OrgToStore.loadStore_allchildren_byorg(listidtypeto);
 						// OrgToStore.loadStoreByOrgTypeString(listidtypeto);
                     }
                 }
@@ -155,7 +158,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                         OrgFromStore.loadStore(9, false);
 
                         var OrgToStore = viewModel.getStore('OrgToStore');
-                        OrgToStore.loadStore(8, false);
+                        // OrgToStore.loadStore(8, false);
+                        OrgToStore.loadOrgByTypeAndUser([8]);
 
                         var POrder_ListStore = viewModel.getStore('POrder_ListStore');
                         POrder_ListStore.POrderPOLine_loadby_po(response.data.pcontract_poid_link);
@@ -164,12 +168,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                     }
                     if (response.data.stockintypeid_link == 22) { // Nhap dieu chuyen
                         var OrgFromStore = viewModel.getStore('OrgFromStore');
-                        var listidtypefrom = "8,4";
-						// OrgFromStore.loadStore_allchildren_byorg(listidtypefrom);
-                        OrgFromStore.loadStoreByOrgTypeString(listidtypefrom);
+                        OrgFromStore.loadStore(8, false);
+                        // var listidtypefrom = "8,4";
+						// // OrgFromStore.loadStore_allchildren_byorg(listidtypefrom);
+                        // OrgFromStore.loadStoreByOrgTypeString(listidtypefrom);
                         var OrgToStore = viewModel.getStore('OrgToStore');
-						var listidtypeto = "8,4";
-						OrgToStore.loadStore_allchildren_byorg(listidtypeto);
+                        OrgToStore.loadOrgByTypeAndUser([8]);
+						// var listidtypeto = "8,4";
+						// OrgToStore.loadStore_allchildren_byorg(listidtypeto);
 						// OrgToStore.loadStoreByOrgTypeString(listidtypeto);
                     }
 
