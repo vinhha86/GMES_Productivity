@@ -32,7 +32,7 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit_Product..Stock
     columns:[
         { 
             header: 'Mã SP(Buyer)', 
-            dataIndex: '111111111111', 
+            dataIndex: 'buyercode', 
             sortable: false,
             menuDisabled: true,
             flex: 1,
@@ -55,31 +55,31 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit_Product..Stock
 			// summaryType: 'count',
 			// summaryRenderer: 'renderCount',
         },
-        // { 
-        //     header: 'Đơn hàng', 
-        //     dataIndex: '111111111111', 
-        //     sortable: false,
-        //     menuDisabled: true,
-        //     flex: 1,
-		// 	// items: {
-		// 	// 	xtype: 'textfield',
-		// 	// 	fieldStyle: "",
-		// 	// 	margin: 1,
-		// 	// 	reference: 'ValueFilterFieldKhoang',
-		// 	// 	width: '99%',
-		// 	// 	enableKeyEvents: true,
-		// 	// 	listeners: {
-		// 	// 		keyup: 'onFilterValueKhoangKeyup',
-		// 	// 		buffer: 500
-		// 	// 	}
-		// 	// },
-        //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-		// 		metaData.tdAttr = 'data-qtip="' + value + '"';
-		// 		return value;
-		// 	},
-		// 	// summaryType: 'count',
-		// 	// summaryRenderer: 'renderCount',
-        // },
+        { 
+            header: 'Tên SP', 
+            dataIndex: 'buyername', 
+            sortable: false,
+            menuDisabled: true,
+            flex: 1,
+			// items: {
+			// 	xtype: 'textfield',
+			// 	fieldStyle: "",
+			// 	margin: 1,
+			// 	reference: 'ValueFilterFieldKhoang',
+			// 	width: '99%',
+			// 	enableKeyEvents: true,
+			// 	listeners: {
+			// 		keyup: 'onFilterValueKhoangKeyup',
+			// 		buffer: 500
+			// 	}
+			// },
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			},
+			// summaryType: 'count',
+			// summaryRenderer: 'renderCount',
+        },
         // { 
         //     header: 'PO', 
         //     dataIndex: '111111111111', 

@@ -64,7 +64,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 			]
 		},
 		{
-			text: 'Mã vạch',
+			text: 'SKU',
+			// text: 'Mã vạch',
 			dataIndex: 'skuCode',
 			width: 120,
 			summaryRenderer: function (grid, context) {

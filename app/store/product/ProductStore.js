@@ -596,7 +596,7 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 				update: 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl() + '/api/v1/product/loadStore_forStockinProductSearch',
+			url: config.getAppBaseUrl() + '/api/v1/product/get_forStockinProductSearch',
 			paramsAsJson: true,
 			extraParams: params,
 			noCache: false,
@@ -612,8 +612,9 @@ Ext.define('GSmartApp.store.product.ProductStore', {
 		this.loadPage(1, {
 			scope: this,
 			callback: function (records, operation, success) {
+				this.fireEvent('ProductStore_load_Done');
 				if (!success) {
-					this.fireEvent('ProductStore_load_Done');
+					
 				}
 			}
 		});

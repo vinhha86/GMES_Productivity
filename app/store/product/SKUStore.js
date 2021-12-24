@@ -46,6 +46,7 @@ Ext.define('GSmartApp.store.product.SKUStore', {
 		this.loadPage(1,{
 			scope: this,
 			callback: function(records, operation, success) {
+				this.fireEvent('SKUStore_load_Done');
 				if(!success){
 					 // this.fireEvent('logout');
 				}

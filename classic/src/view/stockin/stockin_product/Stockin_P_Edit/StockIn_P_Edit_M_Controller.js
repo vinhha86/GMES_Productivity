@@ -430,13 +430,69 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 		});
 		form.show();
 
-		form.down('#Stockin_P_Edit_Product_Main_View').on('Thoat', function () {
+		form.down('#Stockin_P_Edit_Product_Main_View').getController().on('Thoat', function () {
 			form.close();
 		})
 
-		// form.down('#Stockin_POLINE_Main').on('Chon', function (select, poData) {
-			
-		// 	form.close();
-		// })
+		form.down('#Stockin_P_Edit_Product_Main_View').getController().on('ThemSanPham', function (select) {
+			console.log(select);
+
+			for(var i = 0; i < select.length; i++){
+				var selectedRecord = select[i];
+				var isExist = m.checkSkuInDList(selectedRecord);
+				if (isExist) { // không thêm
+
+				} else { // thêm
+					m.addSkuToDList(selectedRecord.data);
+				}
+			}
+			form.close();
+		})
 	},	
+
+	checkSkuInDList: function (selectedRecord) {
+		var m = this;
+		var me = this.getView();
+		var viewModel = this.getViewModel();
+		// var stockin = viewModel.get('stockin');
+		var stockin_d = viewModel.get('stockin.stockin_d');
+
+		if (null != stockin_d) {
+			var skuid_link = selectedRecord.get('id');
+			for (var i = 0; i < stockin_d.length; i++) {
+				if (stockin_d[i].skuid_link == skuid_link) {
+					return true;
+				}
+			}
+		} else {
+			viewModel.set('stockin.stockin_d', []);
+		}
+		return false;
+	},
+	addSkuToDList: function (data) {
+		var m = this;
+		var me = this.getView();
+		var viewModel = this.getViewModel();
+		var stockin = viewModel.get('stockin');
+		var stockin_d = viewModel.get('stockin.stockin_d');
+		var store = viewModel.getStore('StockinD_Store');
+
+		var stockin_dObj = new Object();
+		stockin_dObj.skuid_link = data.id;
+		stockin_dObj.skucode = data.code;
+		stockin_dObj.skuCode = data.code;
+		stockin_dObj.skuname = data.product_name;
+		stockin_dObj.sku_product_code = data.product_code;
+		stockin_dObj.colorid_link = data.color_id;
+		stockin_dObj.color_name = data.mauSanPham;
+		stockin_dObj.size_name = data.coSanPham;
+		stockin_dObj.totalpackage = null;
+		stockin_dObj.totalpackagecheck = null;
+		stockin_dObj.stockin_packinglist = [];
+
+		stockin_d.push(stockin_dObj);
+		store.setData([]);
+		store.insert(0, stockin_d);
+		store.commitChanges();
+	},
 })

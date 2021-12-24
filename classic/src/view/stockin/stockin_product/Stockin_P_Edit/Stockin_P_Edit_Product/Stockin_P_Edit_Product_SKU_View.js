@@ -13,10 +13,10 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit_Product..Stock
     //     columnLines: true,
     //     rowLines: true,
     // },
-    // selModel: {
-    //     selType: 'checkboxmodel',
-    //     mode: 'MULTI'
-    // },
+    selModel: {
+        selType: 'checkboxmodel',
+        mode: 'MULTI'
+    },
     // features: [
     //     {
     //         id: 'group',
@@ -30,47 +30,22 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit_Product..Stock
         store:'{SKUStore}'
     },
     columns:[
-        {
-            xtype: 'checkcolumn',
-            dataIndex: 'isChecked',
-            width: 50,
-            headerCheckbox: true,
-            sortable: false,
-            menuDisabled: true,
-            // text: 'MyCheck',
-            listeners: {
-                checkchange: 'onCheckcolumnCheckChange',
-                headercheckchange: 'onHeaderCheckChange'
-            }
-        },
+        // {
+        //     xtype: 'checkcolumn',
+        //     dataIndex: 'isChecked',
+        //     width: 50,
+        //     headerCheckbox: true,
+        //     sortable: false,
+        //     menuDisabled: true,
+        //     // text: 'MyCheck',
+        //     listeners: {
+        //         checkchange: 'onCheckcolumnCheckChange',
+        //         headercheckchange: 'onHeaderCheckChange'
+        //     }
+        // },
         { 
             header: 'Mã SP', 
-            // dataIndex: 'spaceString', 
-            sortable: false,
-            menuDisabled: true,
-            flex: 1,
-			// items: {
-			// 	xtype: 'textfield',
-			// 	fieldStyle: "",
-			// 	margin: 1,
-			// 	reference: 'ValueFilterFieldKhoang',
-			// 	width: '99%',
-			// 	enableKeyEvents: true,
-			// 	listeners: {
-			// 		keyup: 'onFilterValueKhoangKeyup',
-			// 		buffer: 500
-			// 	}
-			// },
-            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-				metaData.tdAttr = 'data-qtip="' + value + '"';
-				return value;
-			},
-			// summaryType: 'count',
-			// summaryRenderer: 'renderCount',
-        },
-        { 
-            header: 'Tên SP', 
-            // dataIndex: 'spaceString', 
+            dataIndex: 'code', 
             sortable: false,
             menuDisabled: true,
             flex: 1,
@@ -95,7 +70,7 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit_Product..Stock
         },
         { 
             header: 'Màu', 
-            // dataIndex: 'spaceString', 
+            dataIndex: 'mauSanPham', 
             sortable: false,
             menuDisabled: true,
             flex: 1,
@@ -120,7 +95,7 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit_Product..Stock
         },
         { 
             header: 'Cỡ', 
-            // dataIndex: 'spaceString', 
+            dataIndex: 'coSanPham', 
             sortable: false,
             menuDisabled: true,
             flex: 1,
