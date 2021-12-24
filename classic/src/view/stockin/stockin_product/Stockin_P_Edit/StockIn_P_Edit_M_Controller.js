@@ -11,6 +11,9 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 		StockinTypeStore.loadStore(21, 30);
 	},
 	control:{
+		'#StockIn_P_Edit_M': {
+			afterrender: 'onAfterrender'
+		},
 		'#linegiaohang': {
 			keypress: 'onEnterLinegiaohang'
 		},
@@ -36,6 +39,25 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 		// 	select: 'on_cbo_POrder_ListGrantStore_select'
 		// }
     },
+	onAfterrender: function(){
+		var m = this;
+		var me = this.getView();
+		var viewModel = this.getViewModel();
+
+		var OrgFromStore = viewModel.getStore('OrgFromStore');
+		OrgFromStore.getSorters().removeAll();
+		OrgFromStore.getSorters().add({
+			property: 'name_andParent',
+            direction: 'ASC'
+		});
+
+		var OrgToStore = viewModel.getStore('OrgToStore');
+		OrgToStore.getSorters().removeAll();
+		OrgToStore.getSorters().add({
+			property: 'name_andParent',
+            direction: 'ASC'
+		});
+	},
 	onSelect_comboTypeStockin: function(cbbox, newValue, oldValue, eOpts){
 		var viewModel = this.getViewModel();
 		var stockin = viewModel.get('stockin');
@@ -482,6 +504,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M_Controller', {
 		stockin_dObj.skucode = data.code;
 		stockin_dObj.skuCode = data.code;
 		stockin_dObj.skuname = data.product_name;
+		stockin_dObj.sku_product_name = data.product_name;
 		stockin_dObj.sku_product_code = data.product_code;
 		stockin_dObj.colorid_link = data.color_id;
 		stockin_dObj.color_name = data.mauSanPham;

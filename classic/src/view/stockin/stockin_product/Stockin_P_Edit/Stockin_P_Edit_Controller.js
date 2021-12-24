@@ -144,12 +144,18 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                     store.commitChanges();
 
                     if (response.data.stockintypeid_link == 21) { // Nhap tu san xuat
+                        // var OrgFromStore = viewModel.getStore('OrgFromStore');
+                        // OrgFromStore.loadStore(9, false);
+                        // var OrgToStore = viewModel.getStore('OrgToStore');
+						// var listidtype = "8,4";
+						// OrgToStore.loadStore_allchildren_byorg(listidtype);
+						// // OrgToStore.loadStoreByOrgTypeString(listidtype);
+
                         var OrgFromStore = viewModel.getStore('OrgFromStore');
                         OrgFromStore.loadStore(9, false);
+
                         var OrgToStore = viewModel.getStore('OrgToStore');
-						var listidtype = "8,4";
-						OrgToStore.loadStore_allchildren_byorg(listidtype);
-						// OrgToStore.loadStoreByOrgTypeString(listidtype);
+                        OrgToStore.loadStore(8, false);
 
                         var POrder_ListStore = viewModel.getStore('POrder_ListStore');
                         POrder_ListStore.POrderPOLine_loadby_po(response.data.pcontract_poid_link);
@@ -168,7 +174,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                     }
 
                     // set gia tri sl nhap mac dinh = sl yeu cau
-                    m.setSlNhap();
+                    // m.setSlNhap();
 
                     // nếu là Duyệt
                     if (isConfirm == true) {
@@ -202,13 +208,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
         var stockin = this.getViewModel().get('stockin');
         // console.log(stockin);
         if (stockin.stockintypeid_link == null) {
-            mes = "Bạn chưa chọn loại phiếu";
+            mes = "Không được bỏ trống loại phiếu";
         }
         else if (stockin.orgid_from_link == null) {
-            mes = "Bạn chưa chọn nơi giao";
+            mes = "Không được bỏ trống nơi giao";
         }
         else if (stockin.orgid_to_link == null) {
-            mes = "Bạn chưa chọn nơi nhập";
+            mes = "Không được bỏ trống nơi nhập";
         }
         else if (stockin.stockin_d.length == 0) {
             mes = "Phiếu chưa có danh sách sản phẩm";
@@ -216,11 +222,12 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
         return mes;
     },
     onSave: function (isConfirm) {
-        var me = this;
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
 
         var mes = this.CheckValidate();
         if (mes == "") {
-            var viewModel = this.getViewModel();
 
             var stockin = viewModel.get('stockin');
             var stockin_d = stockin.stockin_d;
@@ -256,6 +263,28 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                 });
                 return;
             }
+            if (stockin.orgid_from_link == null || stockin.orgid_from_link == '' || isNaN(stockin.orgid_from_link)) {
+                Ext.MessageBox.show({
+                    title: "Thông báo",
+                    msg: 'Không được bỏ trống nơi giao',
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });
+                return;
+            }
+            if (stockin.orgid_to_link == null || stockin.orgid_to_link == '' || isNaN(stockin.orgid_to_link)) {
+                Ext.MessageBox.show({
+                    title: "Thông báo",
+                    msg: 'Không được bỏ trống nơi nhận',
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });
+                return;
+            }
 
             var params = new Object();
             params.data = [];
@@ -284,10 +313,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
                             var StockinD_Store = viewModel.get('StockinD_Store');
                             StockinD_Store.commitChanges();
 
-                            me.redirectTo("stockin_p_main/" + response.id + "/edit");
-                            me.fireEvent('loaddata', response.id);
-                            // me.getInfo(response.id, isConfirm);
-                            // this.redirectTo("stockin_p_main/" + response.id + "/edit");
+                            // me.redirectTo("stockin_p_main/" + response.id + "/edit");
+                            // me.fireEvent('loaddata', response.id);
+                            
+                            var str = Ext.getWin().dom.location.href;
+                            var hash = str.split('#')[1];
+                            if(hash == "stockin_p_main/" + response.id + "/edit"){
+                                m.getInfo(response.id);
+                            }else{
+                                m.redirectTo("stockin_p_main/" + response.id + "/edit");
+                            }
                         }
                     } else {
                         var response = Ext.decode(response.responseText);
@@ -314,7 +349,6 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
         }
     },
     onBtnConfirm: function () {
-        // this.onSave(true);
         this.onConfirm();
     },
     onConfirm: function () {

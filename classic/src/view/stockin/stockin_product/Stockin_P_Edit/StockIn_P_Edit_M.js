@@ -109,7 +109,8 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M', {
 			xtype: 'combo',
 			itemId: 'combo_OrgFromStore',
 			valueField: 'id',
-			displayField: 'name',
+			displayField: 'name_andParent',
+			// displayField: 'name',
 			bind: {
 				value: '{stockin.orgid_from_link}',
 				store: '{OrgFromStore}'
@@ -123,7 +124,8 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M', {
 		},{
 			xtype: 'combo',
 			valueField: 'id',
-			displayField: 'name',
+			displayField: 'name_andParent',
+			// displayField: 'name',
 			bind: {
 				value: '{stockin.orgid_to_link}',
 				store: '{OrgToStore}'

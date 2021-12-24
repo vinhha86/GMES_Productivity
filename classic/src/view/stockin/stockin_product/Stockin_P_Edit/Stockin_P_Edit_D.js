@@ -77,7 +77,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 			width: 120,
 		}, {
 			text: 'Tên sản phẩm',
-			dataIndex: 'skuname',
+			dataIndex: 'sku_product_name',
 			flex: 1
 		}, {
 			text: 'Màu',
