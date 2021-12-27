@@ -3,7 +3,9 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
     xtype: 'stockout_p_edit',
     id: 'stockout_p_edit',
     controller: 'Stockout_P_EditController',
-    viewModel: 'Stockout_P_EditModel',
+    viewModel: {
+        type: 'Stockout_P_EditModel'
+    },
 	layout: {
         type: 'vbox',
         pack: 'start',

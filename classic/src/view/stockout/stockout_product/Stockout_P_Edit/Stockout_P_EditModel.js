@@ -67,7 +67,10 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		// is popup window tien do giao hang
 		isWindow: null,
 		stockouttypeid_link: null,
-		rec: null
+		rec: null,
+
+		//
+		lenhXuatKhoSearch: null,
 	},
 	formulas: {
 		isEdit: function (get) {

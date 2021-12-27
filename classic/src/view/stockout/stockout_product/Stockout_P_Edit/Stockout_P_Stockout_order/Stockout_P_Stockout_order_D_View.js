@@ -1,9 +1,9 @@
-Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit_Product.Stockin_P_Edit_Product_SKU_View', {
+Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_Stockout_order_D_View', {
     extend: 'Ext.grid.Panel',
-    xtype: 'Stockin_P_Edit_Product_SKU_View',
-    itemId: 'Stockin_P_Edit_Product_SKU_View',
-    reference: 'Stockin_P_Edit_Product_SKU_View',
-    controller: 'Stockin_P_Edit_Product_SKU_ViewController',
+    xtype: 'Stockout_P_Stockout_order_D_View',
+    itemId: 'Stockout_P_Stockout_order_D_View',
+    reference: 'Stockout_P_Stockout_order_D_View',
+    controller: 'Stockout_P_Stockout_order_D_ViewController',
     // viewModel:{
     //     type:'Stockout_Pcontract_ViewModel'
     // },
@@ -27,7 +27,7 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit_Product.Stocki
     //     },
     // ],
     bind:{
-        store:'{SKUStore}'
+        store:'{Stockout_order_d_store}'
     },
     columns:[
         // {

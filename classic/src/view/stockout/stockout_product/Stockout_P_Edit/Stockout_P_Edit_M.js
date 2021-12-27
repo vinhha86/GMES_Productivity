@@ -179,6 +179,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                         hidden: '{isPOLineHidden}'
                     },
                     enableKeyEvents : true,
+                    hidden: true
                 },
                 {
                     xtype: 'button',
@@ -190,56 +191,32 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                     weight: 30,			
                     bind:{
                         disabled: '{isEdit}'
-                    }
+                    },
                     // handler: 'onSkuSearchTap'
-                }                 
-                // {
-                //     xtype: 'textfield',
-                //     reference: 'stockout_contract_number',
-                //     width: 370,
-                //     labelWidth: 95,
-                //     fieldLabel: 'Line giao hàng:',
-                //     hideLabel: false,
-                //     bind: {value:'{stockout.contract_number}'}
-                // },
-                // {
-                //     xtype: 'textfield',
-                //     margin: '0 0 0 5',
-                //     reference: 'stockout_invoice_number',
-                //     width: 225,
-                //     labelWidth: 75,
-                //     fieldLabel: 'Số Invoice:',
-                //     hideLabel: false,
-                //     bind: {value:'{stockout.invoice_number}'}
-                // },
-                // {
-                //     xtype: 'datefield',
-                //     margin: '0 5 0 5',
-                //     width: 220,
-                //     labelWidth: 85,
-                //     fieldLabel: 'Ngày Invoice:',
-                //     format:'d/m/Y',
-			    //     altFormats: "Y-m-d\\TH:i:s.uO",
-                //     editable: false,
-                //     bind: {
-                //         value: '{stockout.invoice_date}'
-                //     }
-                // },
-                // {
-                //     xtype: 'combobox',
-                //     reference: 'stockout_vat_typeid_link',
-                //     margin: '0 5 0 0',
-                //     flex: 1,
-                //     labelWidth: 85,
-                //     fieldLabel: 'Loại HĐ:',
-                //     editable: false,
-                //     bind:{
-                //         store: '{VatTypeStore}',
-                //         value: '{stockout.vat_typeid_link}'
-                //     },
-                //     displayField: 'name',
-                //     valueField: 'id'
-                // }
+                    hidden: true
+                },               
+                {
+                    xtype: 'textfield',
+                    margin: '0 0 0 0',
+                    itemId:'lenhXuatKhoSearch',
+                    fieldLabel: 'Lệnh xuất kho',
+                    width: 335,
+                    labelWidth: 95,
+                    hideLabel: false,			
+                    bind:{
+                        value: '{lenhXuatKhoSearch}',
+                    },
+                    enableKeyEvents : true,
+                },
+                {
+                    xtype: 'button',
+                    tooltip: 'Tìm Lệnh xuất kho',
+                    margin: '0 0 0 2',
+                    itemId: 'btnTimLenhXuatKho',
+                    //text: 'Thêm thẻ vải',
+                    iconCls: 'x-fa fa-search',
+                    weight: 30,
+                }     
             ]
         },
         // {

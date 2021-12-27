@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit_Product.Stockin_P_Edit_Product_ViewController', {
+Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_Stockout_order_ViewController.js', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Stockin_P_Edit_Product_ViewController',
+    alias: 'controller.Stockout_P_Stockout_order_ViewController.js',
     init: function () {
         
     },
@@ -8,16 +8,16 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit_Product.Stocki
 
     },
     control: {
-        '#Stockin_P_Edit_Product_View': {
-            afterrender: 'onAfterrender',
-            itemclick: 'onItemclick'
-        },
-        // '#btnThoat': {
-        //     click: 'onThoat'
+        // '#Stockout_P_Stockout_order_View': {
+        //     afterrender: 'onAfterrender',
+        //     itemclick: 'onItemclick'
         // },
-        // '#btnSelect': {
-        //     click: 'onSelect'
-        // },
+        // // '#btnThoat': {
+        // //     click: 'onThoat'
+        // // },
+        // // '#btnSelect': {
+        // //     click: 'onSelect'
+        // // },
     },
     onThoat: function(){
         this.fireEvent('Thoat');
@@ -47,9 +47,9 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit_Product.Stocki
         var me = this.getView();
         var viewModel = this.getViewModel();
 
-        var ProductStore = viewModel.getStore('ProductStore');
-        ProductStore.getSorters().removeAll();
-        ProductStore.getSorters().add({
+        var Stockout_order_Store = viewModel.getStore('Stockout_order_Store');
+        Stockout_order_Store.getSorters().removeAll();
+        Stockout_order_Store.getSorters().add({
             property: 'buyercode',
             direction: 'ASC'
         },{
@@ -63,10 +63,10 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit_Product.Stocki
         var me = this.getView();
         var viewModel = this.getViewModel();
 
-        var mainView = me.up('window').down('#Stockin_P_Edit_Product_Main_View');
+        var mainView = me.up('window').down('#Stockout_P_Stockout_order_Main_View');
         if(mainView) mainView.setLoading(true);
-        var SKUStore = viewModel.getStore('SKUStore');
-        SKUStore.loadStore(record.get('id'));
+        var Stockout_order_d_store = viewModel.getStore('Stockout_order_d_store');
+        Stockout_order_d_store.loadStore(record.get('id'));
     },
 
     onFilterValueKhoangKeyup: function () {

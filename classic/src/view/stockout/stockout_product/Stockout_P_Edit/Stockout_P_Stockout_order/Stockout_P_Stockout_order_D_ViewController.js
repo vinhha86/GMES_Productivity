@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit_Product.Stockin_P_Edit_Product_SKU_ViewController', {
+Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_Stockout_order_D_ViewController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Stockin_P_Edit_Product_SKU_ViewController',
+    alias: 'controller.Stockout_P_Stockout_order_D_ViewController',
     init: function () {
         
     },
@@ -8,16 +8,16 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit_Product.Stocki
 
     },
     control: {
-        '#Stockin_P_Edit_Product_SKU_View': {
-            afterrender: 'onAfterrender',
-            // itemclick: 'onItemclick'
-        },
-        // '#btnThoat': {
-        //     click: 'onThoat'
+        // '#Stockout_P_Stockout_order_D_View': {
+        //     afterrender: 'onAfterrender',
+        //     // itemclick: 'onItemclick'
         // },
-        // '#btnSelect': {
-        //     click: 'onSelect'
-        // },
+        // // '#btnThoat': {
+        // //     click: 'onThoat'
+        // // },
+        // // '#btnSelect': {
+        // //     click: 'onSelect'
+        // // },
     },
     onThoat: function(){
         this.fireEvent('Thoat');
@@ -47,9 +47,9 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit_Product.Stocki
         var me = this.getView();
         var viewModel = this.getViewModel();
 
-        var SKUStore = viewModel.getStore('SKUStore');
-        SKUStore.getSorters().removeAll();
-        SKUStore.getSorters().add({
+        var Stockout_order_d_store = viewModel.getStore('Stockout_order_d_store');
+        Stockout_order_d_store.getSorters().removeAll();
+        Stockout_order_d_store.getSorters().add({
             property: 'code',
             direction: 'ASC'
         },{
