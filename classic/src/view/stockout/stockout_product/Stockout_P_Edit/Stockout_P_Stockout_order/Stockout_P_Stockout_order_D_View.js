@@ -17,6 +17,10 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
         selType: 'checkboxmodel',
         mode: 'MULTI'
     },
+    features: [{
+		ftype: 'summary',
+		dock: 'top'
+	}],
     // features: [
     //     {
     //         id: 'group',
@@ -27,97 +31,35 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
     //     },
     // ],
     bind:{
-        store:'{Stockout_order_d_store}'
+        store: '{stockout_order.stockout_order_d}'
     },
     columns:[
-        // {
-        //     xtype: 'checkcolumn',
-        //     dataIndex: 'isChecked',
-        //     width: 50,
-        //     headerCheckbox: true,
-        //     sortable: false,
-        //     menuDisabled: true,
-        //     // text: 'MyCheck',
-        //     listeners: {
-        //         checkchange: 'onCheckcolumnCheckChange',
-        //         headercheckchange: 'onHeaderCheckChange'
-        //     }
-        // },
-        { 
-            header: 'Mã SP', 
-            dataIndex: 'code', 
-            sortable: false,
-            menuDisabled: true,
-            flex: 1,
-			// items: {
-			// 	xtype: 'textfield',
-			// 	fieldStyle: "",
-			// 	margin: 1,
-			// 	reference: 'ValueFilterFieldKhoang',
-			// 	width: '99%',
-			// 	enableKeyEvents: true,
-			// 	listeners: {
-			// 		keyup: 'onFilterValueKhoangKeyup',
-			// 		buffer: 500
-			// 	}
-			// },
-            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-				metaData.tdAttr = 'data-qtip="' + value + '"';
-				return value;
-			},
-			// summaryType: 'count',
-			// summaryRenderer: 'renderCount',
-        },
-        { 
-            header: 'Màu', 
-            dataIndex: 'mauSanPham', 
-            sortable: false,
-            menuDisabled: true,
-            flex: 1,
-			// items: {
-			// 	xtype: 'textfield',
-			// 	fieldStyle: "",
-			// 	margin: 1,
-			// 	reference: 'ValueFilterFieldKhoang',
-			// 	width: '99%',
-			// 	enableKeyEvents: true,
-			// 	listeners: {
-			// 		keyup: 'onFilterValueKhoangKeyup',
-			// 		buffer: 500
-			// 	}
-			// },
-            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-				metaData.tdAttr = 'data-qtip="' + value + '"';
-				return value;
-			},
-			// summaryType: 'count',
-			// summaryRenderer: 'renderCount',
-        },
-        { 
-            header: 'Cỡ', 
-            dataIndex: 'coSanPham', 
-            sortable: false,
-            menuDisabled: true,
-            flex: 1,
-			// items: {
-			// 	xtype: 'textfield',
-			// 	fieldStyle: "",
-			// 	margin: 1,
-			// 	reference: 'ValueFilterFieldKhoang',
-			// 	width: '99%',
-			// 	enableKeyEvents: true,
-			// 	listeners: {
-			// 		keyup: 'onFilterValueKhoangKeyup',
-			// 		buffer: 500
-			// 	}
-			// },
-            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-				metaData.tdAttr = 'data-qtip="' + value + '"';
-				return value;
-			},
-			// summaryType: 'count',
-			// summaryRenderer: 'renderCount',
-        },
+        {
+			text: 'SKU', 
+			flex: 1,
+			// width: 120,	
+			dataIndex: 'skucode_p'
+		},
+		{
+			text: 'Màu', 
+			dataIndex: 'color_name_p',
+			flex: 1
+		},
+		{
+			text: 'Cỡ', 
+			dataIndex: 'size_name_p',
+			flex: 1
+			// width: 70
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000',
+			text: 'SL xuất', 
+			align:'right',
+			summaryType: 'sum',
+			summaryRenderer: 'renderCount',
+			dataIndex: 'totalpackage'
+		},
     ],
 });
 

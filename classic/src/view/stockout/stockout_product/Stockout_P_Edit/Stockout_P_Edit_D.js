@@ -108,7 +108,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
             align:'right',
             xtype: 'numbercolumn',
             format: '0,000',
-            summaryType: 'sum', summaryRenderer: 'renderSum',
+            summaryType: 'sum', summaryRenderer: 'renderCount',
             editor:{
                 xtype:'textfield',
                 maskRe: /[0-9.]/,
@@ -124,7 +124,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
         {
             header: 'SL xuất', dataIndex: 'totalpackagecheck', width: 90,
             align:'right',
-            summaryType: 'sum', summaryRenderer: 'renderSum',
+            summaryType: 'sum', summaryRenderer: 'renderCount',
             // xtype: 'numbercolumn',
             // format: '0,000',
             editor:{

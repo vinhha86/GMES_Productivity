@@ -1,6 +1,6 @@
-Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_Stockout_order_ViewController.js', {
+Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_Stockout_order_ViewController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Stockout_P_Stockout_order_ViewController.js',
+    alias: 'controller.Stockout_P_Stockout_order_ViewController',
     init: function () {
         
     },
@@ -8,40 +8,61 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 
     },
     control: {
-        // '#Stockout_P_Stockout_order_View': {
-        //     afterrender: 'onAfterrender',
-        //     itemclick: 'onItemclick'
+        '#Stockout_P_Stockout_order_View': {
+            afterrender: 'onAfterrender',
+            itemclick: 'onStockoutOrderClick'
+        },
+        // '#btnThoat': {
+        //     click: 'onThoat'
         // },
-        // // '#btnThoat': {
-        // //     click: 'onThoat'
-        // // },
-        // // '#btnSelect': {
-        // //     click: 'onSelect'
-        // // },
+        '#btnTimKiem': {
+            click: 'onSearch'
+        },
     },
     onThoat: function(){
         this.fireEvent('Thoat');
     },
-    onSelect: function(){
+    onSearch: function() {
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
-        // var ListEndBuyer = viewModel.getStore('ListEndBuyer');
-        var select = me.getSelectionModel().getSelection();
-        if (select.length == 0) {
-            Ext.Msg.show({
-                title: "Thông báo",
-                msg: "Phải chọn một đơn hàng",
-                buttons: Ext.MessageBox.YES,
-                buttonText: {
-                    yes: 'Đóng',
+        var Stockout_order_Store = viewModel.getStore('Stockout_order_Store');
+        var stockoutorderdate_from = me.down('#stockoutorderdate_from').getValue();
+		var stockoutorderdate_to = me.down('#stockoutorderdate_to').getValue();
+
+        Stockout_order_Store.loadStore_byPage_async(stockoutorderdate_from, stockoutorderdate_to, 1, 1000, 21);
+        Stockout_order_Store.load({
+            scope: this,
+            callback: function (records, operation, success) {
+                if (!success) {
+                    // this.fireEvent('logout');
+                } 
+                else {
+                    // console.log(records);
                 }
-            });
-            return;
-        }
-        this.fireEvent("ThemDonHang", select);
-        // this.onThoat();
+            }
+        });
     },
+    // onSelect: function(){
+    //     var m = this;
+    //     var me = this.getView();
+    //     var viewModel = this.getViewModel();
+    //     // var ListEndBuyer = viewModel.getStore('ListEndBuyer');
+    //     var select = me.getSelectionModel().getSelection();
+    //     if (select.length == 0) {
+    //         Ext.Msg.show({
+    //             title: "Thông báo",
+    //             msg: "Phải chọn một đơn hàng",
+    //             buttons: Ext.MessageBox.YES,
+    //             buttonText: {
+    //                 yes: 'Đóng',
+    //             }
+    //         });
+    //         return;
+    //     }
+    //     this.fireEvent("ThemDonHang", select);
+    //     // this.onThoat();
+    // },
     onAfterrender: function(){
         var m = this;
         var me = this.getView();
@@ -50,93 +71,53 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
         var Stockout_order_Store = viewModel.getStore('Stockout_order_Store');
         Stockout_order_Store.getSorters().removeAll();
         Stockout_order_Store.getSorters().add({
-            property: 'buyercode',
-            direction: 'ASC'
-        },{
-            property: 'buyername',
+            property: 'productbuyercode',
             direction: 'ASC'
         });
     },
-    onItemclick: function(thisView, record, item, index, e, eOpts){
-        // console.log(record);
-        var m = this;
-        var me = this.getView();
+    // onItemclick: function(thisView, record, item, index, e, eOpts){
+    //     // console.log(record);
+    //     var m = this;
+    //     var me = this.getView();
+    //     var viewModel = this.getViewModel();
+
+    //     var mainView = me.up('window').down('#Stockout_P_Stockout_order_Main_View');
+    //     if(mainView) mainView.setLoading(true);
+    //     var Stockout_order_d_store = viewModel.getStore('Stockout_order_d_store');
+    //     Stockout_order_d_store.loadStore(record.get('id'));
+    // },
+
+    onProductStringFilterKeyup: function () {
         var viewModel = this.getViewModel();
+        var store = viewModel.get('Stockout_order_Store');
+        var productStringFilterValue_order = viewModel.get('productStringFilterValue_order');
+        var filters = store.getFilters();
 
-        var mainView = me.up('window').down('#Stockout_P_Stockout_order_Main_View');
-        if(mainView) mainView.setLoading(true);
-        var Stockout_order_d_store = viewModel.getStore('Stockout_order_d_store');
-        Stockout_order_d_store.loadStore(record.get('id'));
-    },
-
-    onFilterValueKhoangKeyup: function () {
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.get('WarehouseStore');
-        var filterField = this.lookupReference('ValueFilterFieldKhoang'),
-            filters = store.getFilters();
-
-        if (filterField.value) {
-            this.ValueFilterFieldKhoang = filters.add({
-                id: 'ValueFilterFieldKhoang',
-                property: 'spaceString',
-                value: filterField.value,
+        if (productStringFilterValue_order) {
+            this.productStringFilterValue_order = filters.add({
+                id: 'productStringFilterValue_order',
+                property: 'productbuyercode',
+                value: productStringFilterValue_order,
                 anyMatch: true,
                 caseSensitive: false
             });
         }
-        else if (this.ValueFilterFieldKhoang) {
-            filters.remove(this.ValueFilterFieldKhoang);
-            this.ValueFilterFieldKhoang = null;
+        else if (this.productStringFilterValue_order) {
+            filters.remove(this.productStringFilterValue_order);
+            this.productStringFilterValue_order = null;
         }
     },
-    onFilterValueLotKeyup: function () {
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.get('WarehouseStore');
-        var filterField = this.lookupReference('ValueFilterFieldLot'),
-            filters = store.getFilters();
-
-        if (filterField.value) {
-            this.ValueFilterFieldLot = filters.add({
-                id: 'ValueFilterFieldLot',
-                property: 'lotnumber',
-                value: filterField.value,
-                anyMatch: true,
-                // exactMatch: true,
-                caseSensitive: false
-            });
-        }
-        else if (this.ValueFilterFieldLot) {
-            filters.remove(this.ValueFilterFieldLot);
-            this.ValueFilterFieldLot = null;
-        }
-    },
-    onFilterValueMaSPKeyup: function () {
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.get('WarehouseStore');
-        var filterField = this.lookupReference('ValueFilterFieldMaSP'),
-            filters = store.getFilters();
-
-        if (filterField.value) {
-            this.ValueFilterFieldMaSP = filters.add({
-                id: 'ValueFilterFieldMaSP',
-                property: 'stockinProductString',
-                value: filterField.value,
-                anyMatch: true,
-                // exactMatch: true,
-                caseSensitive: false
-            });
-        }
-        else if (this.ValueFilterFieldMaSP) {
-            filters.remove(this.ValueFilterFieldMaSP);
-            this.ValueFilterFieldMaSP = null;
-        }
-    },
-    renderSum: function(value, summaryData, dataIndex) {
-        if (null == value) value = 0;
-        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000.00') + '</div>';    
-    },
-    renderCount: function(value, summaryData, dataIndex) {
-        if (null == value) value = 0;
-        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
-    },
+    onStockoutOrderClick: function(view, record, item, index, e, eOpts){
+        var viewModel = this.getViewModel();
+        var stockout_order = record.data;
+        viewModel.set('stockout_order', stockout_order);
+    }
+    // renderSum: function(value, summaryData, dataIndex) {
+    //     if (null == value) value = 0;
+    //     return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000.00') + '</div>';    
+    // },
+    // renderCount: function(value, summaryData, dataIndex) {
+    //     if (null == value) value = 0;
+    //     return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+    // },
 })

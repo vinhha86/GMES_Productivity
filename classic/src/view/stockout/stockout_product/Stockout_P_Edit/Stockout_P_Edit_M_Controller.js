@@ -163,9 +163,9 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		var viewModel = this.getViewModel();
 		var stockout = viewModel.get('stockout');
 		var lenhXuatKhoSearch = viewModel.get('lenhXuatKhoSearch');
-		console.log(stockout);
-		console.log(lenhXuatKhoSearch);
-		return;
+		// console.log(stockout);
+		// console.log(lenhXuatKhoSearch);
+		// return;
 		var grid = this.getView();
 		var form = Ext.create('Ext.window.Window', {
 			height: '90%',
@@ -192,49 +192,49 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			}]
 		});
 		form.show();
+		form.down('#Stockout_P_Stockout_order_Main_View').getController().on('Thoat', function () {
+			form.close();
+		});
+		form.down('#Stockout_P_Stockout_order_Main_View').getController().on('ThemSanPham', function (select, stockout_order) {
+			// console.log(select);
+			// console.log(stockout_order);
+			// return;
+			viewModel.set('stockout.stockoutorderid_link', stockout_order.id);
 
-		// form.down('#Stockin_POLINE_Main').on('Chon', function (select, poData) {
-		// 	// console.log(select);
-		// 	// console.log(poData);
-		// 	viewModel.set('stockout.pcontract_poid_link', poData.id);
-		// 	viewModel.set('stockout.contract_number', poData.po_buyer);
+			var StockoutD_Store = viewModel.getStore('StockoutD_Store');
+			StockoutD_Store.removeAll();
+			viewModel.set('stockout.stockout_d', []);
+			// viewModel.set('stockout.porderid_link', null);
 
-		// 	// me.onLoadPOLineData(data);
+			var list = [];
+			for(var i=0; i<select.length; i++){
+				var data = select[i].data;
+				var stockoutd_new = new Object();
+				stockoutd_new.id = null;
+				stockoutd_new.skucode = data.skucode_p;
+				stockoutd_new.skuname = data.skuname_p;
+				stockoutd_new.sku_product_code = data.product_code_p;
+				stockoutd_new.product_name = data.product_code_p;
+				stockoutd_new.p_skuid_link = data.p_skuid_link;
+				stockoutd_new.color_name = data.color_name_p;
+				stockoutd_new.size_name = data.size_name_p;
+				stockoutd_new.colorid_link = data.colorid_link;
+				stockoutd_new.skuid_link = data.p_skuid_link;
+				// stockoutd_new.sizeid_link = data.sku.size_id;
+				stockoutd_new.totalpackage = data.totalpackage == null ? 0 : data.totalpackage;
+				stockoutd_new.totalpackagecheck = data.totalpackagecheck == null ? 0 : 0;
+				list.push(stockoutd_new);
+			}
 
-		// 	var StockoutD_Store = viewModel.getStore('StockoutD_Store');
-		// 	StockoutD_Store.removeAll();
-		// 	viewModel.set('stockout.stockout_d', []);
-		// 	// viewModel.set('stockout.porderid_link', null);
+			viewModel.set('stockout.stockout_d', list);
+			var store = viewModel.getStore('StockoutD_Store');
+			store.removeAll();
+			// store.setData(list);
+			store.insert(0, list);
+			store.commitChanges();
 
-		// 	var list = [];
-		// 	for(var i=0; i<select.length; i++){
-		// 		var data = select[i].data;
-		// 		var stockoutd_new = new Object();
-		// 		stockoutd_new.id = null;
-		// 		stockoutd_new.skucode = data.skuCode;
-		// 		stockoutd_new.skuname = data.skuName;
-		// 		stockoutd_new.sku_product_code = data.productcode;
-		// 		stockoutd_new.product_name = data.productname;
-		// 		stockoutd_new.p_skuid_link = data.productid_link;
-		// 		stockoutd_new.color_name = data.mauSanPham;
-		// 		stockoutd_new.size_name = data.coSanPham;
-		// 		stockoutd_new.colorid_link = data.color_id;
-		// 		stockoutd_new.skuid_link = data.skuid_link;
-		// 		stockoutd_new.sizeid_link = data.sku.size_id;
-		// 		stockoutd_new.totalpackage = data.so_luong_yeu_cau == null ? 0 : data.so_luong_yeu_cau;
-		// 		stockoutd_new.totalpackagecheck = data.so_luong_yeu_cau == null ? 0 : 0;
-		// 		list.push(stockoutd_new);
-		// 	}
-
-		// 	viewModel.set('stockout.stockout_d', list);
-		// 	var store = viewModel.getStore('StockoutD_Store');
-		// 	store.removeAll();
-		// 	// store.setData(list);
-		// 	store.insert(0, list);
-		// 	store.commitChanges();
-
-		// 	form.close();
-		// 	// console.log(stockout);
-		// })
+			form.close();
+			// console.log(stockout);
+		})
 	}
 })

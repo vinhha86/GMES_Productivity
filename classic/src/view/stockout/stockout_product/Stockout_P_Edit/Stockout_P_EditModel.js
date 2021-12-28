@@ -96,10 +96,12 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			if (get('isWindow')) {
                 return true;
             }else
+			if (get('stockout.id') == null || stockout.id == 0) {
+                return true;
+            } else
             if (get('stockout.status') < 1) {
-                return false
-            }
-            else {
+                return false;
+            } else {
                 return true;
             }
         },

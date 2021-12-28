@@ -12,15 +12,16 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
     },
     items: [
         {
-            region: 'west',
+            region: 'center',
             xtype: 'Stockout_P_Stockout_order_View',
-            width: '30%',
+            // width: '30%',
             margin: 1
         },
         {
-            region: 'center',
+            region: 'south',
             xtype: 'Stockout_P_Stockout_order_D_View',
-            margin: 1
+            margin: 1,
+            height: '50%',
         }
     ],
     dockedItems: [

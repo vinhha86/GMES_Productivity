@@ -15,15 +15,15 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
         }
     },
     control: {
-        // '#Stockout_P_Stockout_order_Main_View': {
-        //     afterrender: 'onAfterrender',
-        // },
-        // '#btnThoat': {
-        //     click: 'onThoat'
-        // },
-        // '#btnSelect': {
-        //     click: 'onSelect',
-        // },
+        '#Stockout_P_Stockout_order_Main_View': {
+            afterrender: 'onAfterrender',
+        },
+        '#btnThoat': {
+            click: 'onThoat'
+        },
+        '#btnSelect': {
+            click: 'onSelect',
+        },
     },
     onThoat: function(){
         this.fireEvent('Thoat');
@@ -33,14 +33,37 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
-        var productSearchString = viewModel.get('productSearchString') == null ? null : viewModel.get('productSearchString').trim();
-        if(productSearchString == null || productSearchString == ''){
-            return;
-        }
+        var lenhXuatKhoSearch = viewModel.get('lenhXuatKhoSearch');
+        var productSearchString = lenhXuatKhoSearch == null ? null : lenhXuatKhoSearch.trim();
+        viewModel.set('productSearchString', productSearchString);
+        viewModel.set('productStringFilterValue_order', productSearchString);
 
-        me.setLoading(true);
+        var today = new Date();
+		var fromDate_Default = new Date().setDate(today.getDate()-10);
+		me.down('#stockoutorderdate_from').setValue(new Date(fromDate_Default));
+        var toDate_Default = new Date().setDate(today.getDate()+10);
+		me.down('#stockoutorderdate_to').setValue(new Date(toDate_Default));
+
+        var stockoutorderdate_from = me.down('#stockoutorderdate_from').getValue();
+		var stockoutorderdate_to = me.down('#stockoutorderdate_to').getValue();
+
+        // me.setLoading(true);
         var Stockout_order_Store = viewModel.getStore('Stockout_order_Store');
-        Stockout_order_Store.loadStore_forStockinProductSearch(productSearchString);
+        Stockout_order_Store.loadStore_byPage_async(stockoutorderdate_from, stockoutorderdate_to, 1, 1000, 21);
+        Stockout_order_Store.load({
+            scope: this,
+            callback: function (records, operation, success) {
+                if (!success) {
+                    // this.fireEvent('logout');
+                } 
+                else {
+                    Stockout_order_Store.fireEvent('Stockout_order_Store_load_Done');
+                    // filter method here //
+                    me.down('#Stockout_P_Stockout_order_View').getController().onProductStringFilterKeyup();
+                    // console.log(records);
+                }
+            }
+        });
     },
 
     onStockout_order_Store_load_Done: function(){
@@ -58,8 +81,9 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
+        var stockout_order = viewModel.get('stockout_order');
 
-        var select = me.down('#Stockin_P_Edit_Product_SKU_View').getSelectionModel().getSelection();
+        var select = me.down('#Stockout_P_Stockout_order_D_View').getSelectionModel().getSelection();
         if (select.length == 0) {
             Ext.Msg.show({
                 title: "Thông báo",
@@ -71,7 +95,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
             });
             return;
         }
-        this.fireEvent("ThemSanPham", select);
+        this.fireEvent("ThemSanPham", select, stockout_order);
     },
 
 })

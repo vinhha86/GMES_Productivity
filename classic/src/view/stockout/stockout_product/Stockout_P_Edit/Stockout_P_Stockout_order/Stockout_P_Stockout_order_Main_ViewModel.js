@@ -14,8 +14,14 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		},
     },
     data: {
-        stockout: null,
+        stockout_order: {
+            id: null,
+            timecreate: '',
+            stockout_order_d: []
+        },
         lenhXuatKhoSearch: null,
+        productSearchString: null,
+        productStringFilterValue_order: null,
     },
     formulas:{
         // isBtnSelectHidden: function (get) {
