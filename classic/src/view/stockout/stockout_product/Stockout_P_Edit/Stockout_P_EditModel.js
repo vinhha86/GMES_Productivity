@@ -96,7 +96,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			if (get('isWindow')) {
                 return true;
             }else
-			if (get('stockout.id') == null || stockout.id == 0) {
+			if (get('stockout.id') == null || get('stockout.id') == 0) {
                 return true;
             } else
             if (get('stockout.status') < 1) {
@@ -123,11 +123,13 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 				}
 			return false;
 		},
-		// isPOLineHidden: function(get){
-		// 	if(get('stockouts.stockintypeid_link') == 22) 
-		// 		return false;
-		// 	else
-		// 		return true;
-		// },
+		isBtnLuuHidden: function (get) {
+			if (get('stockout.status') > 0) {
+				return true
+			}
+			else {
+				return false;
+			}
+		}
     }
 });

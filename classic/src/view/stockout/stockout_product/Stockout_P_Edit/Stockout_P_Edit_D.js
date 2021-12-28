@@ -78,7 +78,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
             ]
         },
         {
-			header: 'Mã vạch', 
+			header: 'SKU', 
 			dataIndex: 'skucode',
 			width: 120,	
 			summaryRenderer:function (grid, context) {
@@ -262,17 +262,17 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                 },
             },
             '->',
-            {
-                tooltip: 'Tồn kho',
-                text: 'Tồn kho',
-                margin: '0 5 0 5',
-                itemId: 'btnTonKhoPOLine',
-                // iconCls: 'x-fa fa-house',
-                weight: 30,
-                bind:{
-                    hidden: '{isBtnTonKhoHidden}',
-                },
-            },
+            // {
+            //     tooltip: 'Tồn kho',
+            //     text: 'Tồn kho',
+            //     margin: '0 5 0 5',
+            //     itemId: 'btnTonKhoPOLine',
+            //     // iconCls: 'x-fa fa-house',
+            //     weight: 30,
+            //     bind:{
+            //         hidden: '{isBtnTonKhoHidden}',
+            //     },
+            // },
             // {
             //     tooltip: 'Tồn kho',
             //     text: 'Tồn kho',

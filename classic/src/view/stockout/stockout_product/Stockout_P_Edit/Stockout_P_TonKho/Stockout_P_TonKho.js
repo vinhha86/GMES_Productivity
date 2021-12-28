@@ -3,7 +3,9 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
     xtype: 'Stockout_P_TonKho',
     itemId: 'Stockout_P_TonKho',
     controller: 'Stockout_P_TonKho_Controller',
-    viewModel: 'Stockout_P_TonKho_ViewModel',
+    viewModel: {
+        type: 'Stockout_P_TonKho_ViewModel'
+    },
     border: true,
     bind:{
         store: '{StockoutD_Store}'

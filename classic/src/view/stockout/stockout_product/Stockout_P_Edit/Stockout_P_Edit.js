@@ -60,7 +60,8 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                     iconCls: 'x-fa fa-floppy-o',
                     itemId: 'btnLuu',
                     bind:{
-                        disabled: '{isStart}'
+                        disabled: '{isStart}',
+                        hidden: '{isBtnLuuHidden}'
                     }
                 }
             ]
@@ -91,6 +92,9 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                     text:  'Lưu',
                     iconCls: 'x-fa fa-floppy-o',
                     itemId: 'btnLuuWindow',
+                    bind:{
+                        hidden: '{isBtnLuuHidden}'
+                    }
                 }
             ]
         }

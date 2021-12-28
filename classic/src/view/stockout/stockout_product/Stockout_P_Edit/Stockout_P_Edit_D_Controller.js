@@ -6,12 +6,15 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 
 	},
 	control: {
+		'#stockout_p_edit_d': {
+			afterrender: 'onAfterrender'
+		},
 		'#btnTonKho': {
 			click: 'onBtnTonKho'
 		},
-		'#btnTonKhoPOLine': {
-			click: 'onBtnTonKhoPOLine'
-		},
+		// '#btnTonKhoPOLine': {
+		// 	click: 'onBtnTonKhoPOLine'
+		// },
 		'#btnThuGon': {
 			click: 'onhiddenMaster'
 		},
@@ -37,6 +40,16 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		'#btnThemSP': {
 			click: 'onBtnThemSP'
 		},
+	},
+	onAfterrender: function(){
+		var viewModel = this.getViewModel();
+		var StockoutD_Store = viewModel.getStore('StockoutD_Store');
+
+		StockoutD_Store.getSorters().removeAll();
+		StockoutD_Store.getSorters().add({
+			property: 'skucode',
+            direction: 'ASC'
+		});
 	},
 	onTimSP: function () {
 		var me = this;
@@ -333,18 +346,18 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			return;
 		}
 
-		var pcontract_poid_link = viewModel.get('stockout.pcontract_poid_link');
-		if (pcontract_poid_link == 0 || pcontract_poid_link == null || isNaN(pcontract_poid_link)) {
-			Ext.MessageBox.show({
-				title: "Thông báo",
-				msg: "Bạn cần chọn PO Line",
-				buttons: Ext.MessageBox.YES,
-				buttonText: {
-					yes: 'Đóng',
-				}
-			});
-			return;
-		}
+		// var pcontract_poid_link = viewModel.get('stockout.pcontract_poid_link');
+		// if (pcontract_poid_link == 0 || pcontract_poid_link == null || isNaN(pcontract_poid_link)) {
+		// 	Ext.MessageBox.show({
+		// 		title: "Thông báo",
+		// 		msg: "Bạn cần chọn PO Line",
+		// 		buttons: Ext.MessageBox.YES,
+		// 		buttonText: {
+		// 			yes: 'Đóng',
+		// 		}
+		// 	});
+		// 	return;
+		// }
 
 		var form = Ext.create('Ext.window.Window', {
 			height: 600,
@@ -363,7 +376,6 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			items: [{
 				xtype: 'Stockout_P_TonKho',
 				viewModel: {
-					type: 'Stockout_P_TonKho_ViewModel',
 					data: {
 						stockid_link: stockid_link,
 						pcontract_poid_link: pcontract_poid_link

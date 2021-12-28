@@ -269,26 +269,19 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 
 							var isWindow = viewModel.get('isWindow');
 							if(!isWindow){
-								me.redirectTo("stockout_p_main/" + response.id + "/edit");
-								me.fireEvent('loaddata', response.id);
+								var str = Ext.getWin().dom.location.href;
+								var hash = str.split('#')[1];
+								if(hash == "stockout_p_main/" + response.id + "/edit"){
+									me.getInfo(response.id);
+								}else{
+									me.redirectTo("stockout_p_main/" + response.id + "/edit");
+								}
 							}else{
 								me.fireEvent('loaddata', response.id);
-								// me.getInfo(response.id, isConfirm);
 							}
-							// if(stockout.id ==null)
-							// 	this.redirectTo("stockout_p_main/" + response.id + "/edit");
-							// else {
-							// 	var store = viewModel.getStore('StockoutD_Store');
-							// 	store.commitChanges();
-							// }
 						}
 					} else {
 						var response = Ext.decode(response.responseText);
-						// if (null!=response.epc_err){
-						// 	response.epc_err.forEach(function(record, recordIdx){
-						// 		console.log(record.epc);
-						// 	}, this);
-						// }
 						Ext.MessageBox.show({
 							title: "Thông báo",
 							msg: 'Lỗi lập phiếu: ' + response.message,
