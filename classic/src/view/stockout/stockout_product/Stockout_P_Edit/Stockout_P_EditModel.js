@@ -130,6 +130,22 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			else {
 				return false;
 			}
-		}
+		},
+		islenhXuatKhoSearchHidden: function (get) {
+			if (get('stockout.stockouttypeid_link') == 21) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		},
+		isTimSanPhamHidden: function (get) {
+			if (get('stockout.stockouttypeid_link') == 22) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		},
     }
 });

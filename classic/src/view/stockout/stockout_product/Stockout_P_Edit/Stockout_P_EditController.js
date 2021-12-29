@@ -107,21 +107,12 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 					store.commitChanges();
 
 					if(response.data.stockouttypeid_link == 21) { // xuat theo don cho Vendor
-						var OrgFromStore = viewModel.getStore('OrgFromStore');
-						OrgFromStore.loadStore(8, false);
 						var OrgToStore = viewModel.getStore('OrgToStore');
 						OrgToStore.loadStore(11, false);
 					}
 					if(response.data.stockouttypeid_link == 22) { // xuat dieu chuyen den px khac
-						var OrgFromStore = viewModel.getStore('OrgFromStore');
-						var listidtypefrom = "8,4";
-						OrgFromStore.loadStore_allchildren_byorg(listidtypefrom);
-						// OrgFromStore.loadStoreByOrgTypeString(listidtypefrom);
-
 						var OrgToStore = viewModel.getStore('OrgToStore');
-						var listidtypeto = "8,4";
-						// OrgToStore.loadStore_allchildren_byorg(listidtype);
-						OrgToStore.loadStoreByOrgTypeString(listidtypeto);
+						OrgToStore.loadStoreByOrgTypeString('8');
 					}
 
 					if(isConfirm == true){
@@ -171,22 +162,12 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                         viewModel.set('stockout.orgid_from_link', records[0].data.orgid_link)
                     }
                     if(id == 21) { // xuat theo don cho Vendor
-						var OrgFromStore = viewModel.getStore('OrgFromStore');
-						OrgFromStore.loadStore(8, false);
 						var OrgToStore = viewModel.getStore('OrgToStore');
 						OrgToStore.loadStore(11, false);
 					}
 					if(id == 22) { // xuat dieu chuyen den kho khac
-						var OrgFromStore = viewModel.getStore('OrgFromStore');
-						var listidtypefrom = "8,4";
-						// OrgFromStore.loadStore(8, false);
-						OrgFromStore.loadStore_allchildren_byorg(listidtypefrom);
-						// OrgFromStore.loadStoreByOrgTypeString(listidtypefrom);
 						var OrgToStore = viewModel.getStore('OrgToStore');
-						// OrgToStore.loadStore(8, false);
-						var listidtypeto = "8,4";
-						// OrgToStore.loadStore_allchildren_byorg(listidtypeto);
-						OrgToStore.loadStoreByOrgTypeString(listidtypeto);
+						OrgToStore.loadStoreByOrgTypeString('8');
 					}
 				}
 			}

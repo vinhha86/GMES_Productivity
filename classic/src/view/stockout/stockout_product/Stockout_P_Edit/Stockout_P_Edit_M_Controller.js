@@ -2,14 +2,17 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockout_P_Edit_M_Controller',
 	init: function() {
-		var viewModel = this.getViewModel();
+		// var viewModel = this.getViewModel();
 
-		var UserStore = viewModel.getStore('UserStore');
-		if(UserStore) UserStore.loadStore();
-		var StockoutTypeStore = viewModel.getStore('StockoutTypeStore');
-		if(StockoutTypeStore) StockoutTypeStore.loadStore();
+		// var UserStore = viewModel.getStore('UserStore');
+		// if(UserStore) UserStore.loadStore();
+		// var StockoutTypeStore = viewModel.getStore('StockoutTypeStore');
+		// if(StockoutTypeStore) StockoutTypeStore.loadStore();
 	},
 	control:{
+		'#stockout_p_edit_m':{
+			afterrender: 'onAfterrender'
+		},
 		'#linegiaohang': {
 			keypress: 'onEnterLinegiaohang'
 		},
@@ -22,8 +25,37 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		'#btnTimLenhXuatKho': {
 			click: 'onTimLenhXuatKho'
 		},
+		'#productSearchStringField': {
+			keypress: 'onEnterProductSearchStringField'
+		},
+		'#btnTimSanPham': {
+			click: 'onBtnTimSanPham'
+		},
     },
+	onAfterrender: function(){
+		var viewModel = this.getViewModel();
 
+		var UserStore = viewModel.getStore('UserStore');
+		if(UserStore) UserStore.loadStore();
+		var StockoutTypeStore = viewModel.getStore('StockoutTypeStore');
+		if(StockoutTypeStore) StockoutTypeStore.loadStore();
+
+        var orgfromstore = viewModel.getStore('OrgFromStore');
+        if(orgfromstore) orgfromstore.getOrgFromForStockoutProduct();
+		orgfromstore.getSorters().removeAll();
+		orgfromstore.getSorters().add({
+			property: 'name_andParent',
+			direction: 'ASC'
+		});
+
+		var orgtostore = viewModel.getStore('OrgToStore');
+		orgtostore.getSorters().removeAll();
+		orgtostore.getSorters().add({
+			property: 'name_andParent',
+			direction: 'ASC'
+		});
+
+	},
 	onEnterLinegiaohang: function (field, e) {
 		var me = this;
 		if (e.getKey() == e.ENTER) {
@@ -236,5 +268,129 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			form.close();
 			// console.log(stockout);
 		})
-	}
+	},
+	onEnterProductSearchStringField: function (field, e) {
+		var m = this;
+		if (e.getKey() == e.ENTER) {
+			m.onTimSanPham();
+		}
+	},
+	onBtnTimSanPham: function(){
+		var m = this;
+		m.onTimSanPham();
+	},
+	onTimSanPham: function () {
+		var m = this;
+		var me = this.getView();
+		var viewModel = this.getViewModel();
+		var productSearchString = viewModel.get('productSearchString');
+
+		if(productSearchString == null || productSearchString == ''){
+			Ext.Msg.show({
+				title: 'Thông báo',
+				msg: 'Sản phẩm không được bỏ trống',
+				buttons: Ext.MessageBox.YES,
+				buttonText: {
+					yes: 'Đóng',
+				},
+				fn: function () {
+					// this.fireEvent('logout');
+				}
+			});
+			return;
+		}
+
+		var stockin = viewModel.get('stockin');
+		var grid = this.getView();
+		var form = Ext.create('Ext.window.Window', {
+			height: '90%',
+			width: '90%',
+			closable: true,
+			resizable: false,
+			modal: true,
+			border: false,
+			title: 'Danh sách sản phẩm',
+			closeAction: 'destroy',
+			bodyStyle: 'background-color: transparent',
+			layout: {
+				type: 'fit', // fit screen for window
+				padding: 5
+			},
+			items: [{
+				xtype: 'Stockin_P_Edit_Product_Main_View',
+				viewModel: {
+					data: {
+						productSearchString: productSearchString,
+					}
+				}
+			}]
+		});
+		form.show();
+
+		form.down('#Stockin_P_Edit_Product_Main_View').getController().on('Thoat', function () {
+			form.close();
+		})
+
+		form.down('#Stockin_P_Edit_Product_Main_View').getController().on('ThemSanPham', function (select) {
+			console.log(select);
+
+			for(var i = 0; i < select.length; i++){
+				var selectedRecord = select[i];
+				var isExist = m.checkSkuInDList(selectedRecord);
+				if (isExist) { // không thêm
+
+				} else { // thêm
+					m.addSkuToDList(selectedRecord.data);
+				}
+			}
+			form.close();
+		})
+	},	
+
+	checkSkuInDList: function (selectedRecord) {
+		var m = this;
+		var me = this.getView();
+		var viewModel = this.getViewModel();
+		// var stockin = viewModel.get('stockin');
+		var stockout_d = viewModel.get('stockout.stockout_d');
+
+		if (null != stockout_d) {
+			var skuid_link = selectedRecord.get('id');
+			for (var i = 0; i < stockout_d.length; i++) {
+				if (stockout_d[i].skuid_link == skuid_link) {
+					return true;
+				}
+			}
+		} else {
+			viewModel.set('stockout_d.stockout_d', []);
+		}
+		return false;
+	},
+	addSkuToDList: function (data) {
+		var m = this;
+		var me = this.getView();
+		var viewModel = this.getViewModel();
+		var stockout = viewModel.get('stockout');
+		var stockout_d = viewModel.get('stockout.stockout_d');
+		var store = viewModel.getStore('StockoutD_Store');
+
+		var stockout_dObj = new Object();
+		stockout_dObj.skuid_link = data.id;
+		stockout_dObj.skucode = data.code;
+		stockout_dObj.skuCode = data.code;
+		stockout_dObj.skuname = data.product_name;
+		stockout_dObj.sku_product_name = data.product_name;
+		stockout_dObj.sku_product_code = data.product_code;
+		stockout_dObj.colorid_link = data.color_id;
+		stockout_dObj.color_name = data.mauSanPham;
+		stockout_dObj.size_name = data.coSanPham;
+		stockout_dObj.totalpackage = null;
+		stockout_dObj.totalpackagecheck = null;
+		stockout_dObj.stockin_packinglist = [];
+
+		stockout_d.push(stockout_dObj);
+		store.setData([]);
+		store.insert(0, stockout_d);
+		store.commitChanges();
+	},
 })

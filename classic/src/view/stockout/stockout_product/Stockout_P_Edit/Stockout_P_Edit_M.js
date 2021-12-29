@@ -202,9 +202,11 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                     fieldLabel: 'Lệnh xuất kho',
                     width: 335,
                     labelWidth: 95,
-                    hideLabel: false,			
+                    hideLabel: false,
+                    hidden: true,
                     bind:{
                         value: '{lenhXuatKhoSearch}',
+                        hidden: '{islenhXuatKhoSearchHidden}'
                     },
                     enableKeyEvents : true,
                 },
@@ -216,85 +218,42 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                     //text: 'Thêm thẻ vải',
                     iconCls: 'x-fa fa-search',
                     weight: 30,
-                }     
+                    hidden: true,
+                    bind:{
+                        hidden: '{islenhXuatKhoSearchHidden}'
+                    },
+                },
+                {
+                    margin: '0 0 0 0',
+                    xtype: 'textfield',
+                    itemId: 'productSearchStringField',
+                    hidden: true,
+                    bind: {
+                        value: '{productSearchString}',
+                        hidden: '{isTimSanPhamHidden}'
+                    },
+                    fieldLabel: 'Sản phẩm',
+                    // editable: false,
+                    // readOnly: true,
+                    // cls: 'notEditable',
+                    width: 335,
+                    labelWidth: 95,
+                    enableKeyEvents : true,
+                },
+                {
+                    xtype: 'button',
+                    tooltip: 'Tìm sản phẩm',
+                    margin: '0 0 0 2',
+                    itemId: 'btnTimSanPham',
+                    //text: 'Thêm thẻ vải',
+                    iconCls: 'x-fa fa-search',
+                    weight: 30,
+                    hidden: true,
+                    bind:{
+                        hidden: '{isTimSanPhamHidden}'
+                    }
+                },
             ]
         },
-        // {
-        //     xtype: 'container',
-        //     layout: 'hbox',
-        //     items: [
-        //         {
-        //             xtype: 'textfield',
-        //             reference: 'stockout_vat_sample',
-        //             width: 185,
-        //             labelWidth: 80,
-        //             fieldLabel: 'Mẫu HĐ:',
-        //             hideLabel: false,
-        //             bind: {value:'{stockout.vat_sample}'}
-        //         },
-        //         {
-        //             xtype: 'textfield',
-        //             margin: '0 0 0 5',
-        //             reference: 'stockout_vat_symbol',
-        //             width: 180,
-        //             labelWidth: 75,
-        //             fieldLabel: 'Ký hiệu HĐ:',
-        //             hideLabel: false,
-        //             bind: {value:'{stockout.vat_symbol}'}
-        //         },
-        //         {
-        //             xtype: 'textfield',
-        //             margin: '0 0 0 5',
-        //             reference: 'stockout_vat_number',
-        //             width: 225,
-        //             labelWidth: 75,
-        //             fieldLabel: 'Số HĐ:',
-        //             hideLabel: false,
-        //             bind: {value:'{stockout.vat_number}'}
-        //         },
-        //         {
-        //             xtype: 'datefield',
-        //             margin: '0 0 0 5',
-        //             reference: 'txtstockout_vatdate',
-        //             width: 220,
-        //             labelWidth: 85,
-        //             fieldLabel: 'Ngày HĐ:',
-        //             format: 'd/m/Y',
-        //             editable: false,
-        //             bind: {
-        //                 value: '{stockout.vat_date}'
-        //             }
-        //         },
-        //         {
-        //             xtype: 'combobox',
-        //             margin: '0 0 0 5',
-        //             reference: 'stockout_vat_currencyid_link',
-        //             width: 170,
-        //             labelWidth: 85,
-        //             fieldLabel: 'Loại tiền:',
-        //             editable: false,
-        //             itemId: 'loaitien',
-        //             bind:{
-        //                 store: '{CurrencyStore}',
-        //                 value: '{stockout.vat_currencyid_link}'
-        //             },
-        //             displayField: 'code',
-        //             valueField: 'id'
-        //         },
-        //         {
-        //             xtype: 'textfield',
-        //             margin: '0 5 0 5',
-        //             reference: 'stockout_vat_exchangerate',
-        //             flex: 1,
-        //             labelWidth: 45,
-        //             fieldLabel: 'Tỷ giá:',
-        //             readOnly: true,
-        //             hideLabel: false,
-        //             bind: {
-        //                 value:'{stockout.vat_exchangerate}'
-        //             }
-        //         }
-        //     ]
-        // }
     ]
 });

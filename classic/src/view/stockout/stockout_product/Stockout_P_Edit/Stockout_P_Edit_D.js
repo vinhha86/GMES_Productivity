@@ -118,7 +118,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                 }
             },
             bind: {
-                hidden: '{is_SLYC_hidden}'
+                // hidden: '{is_SLYC_hidden}'
             }
         },
         {
