@@ -286,17 +286,6 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		}
 	},
 	
-	onEPCDetail: function (grid, rowIndex, colIndex) {
-		var record = grid.store.getAt(rowIndex);
-		var form = Ext.create({
-			xtype: 'Stockout_EPC_Window',
-			reference: 'Stockout_EPC_Window'
-		});
-		var viewModel = form.getViewModel();
-		viewModel.set('stockout_d', record);
-
-		form.show();
-	},
 	onSelectGroupStockout: function (combo, record, eOpts) {
 		var viewModel = this.getViewModel();
 		if (record.get('id') == 1) {

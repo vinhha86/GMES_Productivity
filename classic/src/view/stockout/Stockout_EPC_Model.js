@@ -1,9 +1,16 @@
 Ext.define('GSmartApp.view.stockout.Stockout_EPC_Model', {
     extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.stockoutepc',
+    alias: 'viewmodel.Stockout_EPC_Model',
+    stores: {
+        TPGroupStore: {
+            type: 'TPGroupStore'
+        }
+    },
 	data: {
+        stockout: null, 
         stockout_d: null,
-        isAutoChecked: false
+        isAutoChecked: false,
+        TPGroupStoreValue: null,
     },
     formulas: {
 		isEpcTxtfieldHidden: function (get) {

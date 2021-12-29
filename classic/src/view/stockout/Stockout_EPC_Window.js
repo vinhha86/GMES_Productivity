@@ -1,59 +1,89 @@
 Ext.define('GSmartApp.view.stockout.Stockout_EPC_Window', {
-    extend: 'Ext.window.Window',
+    extend: 'Ext.grid.Panel',
     xtype: 'Stockout_EPC_Window',
-    cls: 'Stockout_EPC_Window',
-    requires: [
-        'Ext.grid.Panel'
-    ],
-    modal: true,
-    controller: 'stockoutepc',
-    viewModel: 'stockoutepc',
-    title: 'Danh sách chíp',
-    width: 500,
-    height: 500,
-    margin:10,
-    layout: 'fit',
-    items:[
+    itemId: 'Stockout_EPC_Window',
+    controller: 'Stockout_EPC_Controller',
+    viewModel: {
+        type: 'Stockout_EPC_Model'
+    },
+    viewConfig: {
+        enableTextSelection: true,
+        columnLines: true,
+        rowLines: true,
+        stripeRows: false,
+    },
+	// plugins: {
+    //     cellediting: {
+    //         clicksToEdit: 1,
+	// 		listeners: {
+    //             edit: 'onItemSkuEdit',
+    //         }    
+    //     }
+    // },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'MULTI',
+    //     checkOnly: true
+    // },
+    bind: {
+        store: '{stockout_d.stockout_packinglist}'
+    },
+    columns: [
         {
-            xtype: 'grid',
-            bind: '{stockout_d.stockout_packinglist}',
-            columnLines: true,
-            viewConfig: {
-                enableTextSelection: true,
-                stripeRows: false,
-                // getRowClass: function(record, index) {
-                //     var c = record.get('status');
-                //     if (c == -2)
-                //         return "epc-notinstock";
-                //     else if (c == -1)
-                //         return "epc-error";
-                //     else 
-                //         return "epc-ok";
-                // }                
+            text: 'STT',
+            width: 40,
+            xtype: 'rownumberer',
+            align: 'center'
+        },
+        {
+            text: 'Mã chíp',
+            dataIndex: 'epc',
+            // flex: 1,
+            width: 250,
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            }
+        },
+        {
+            text: 'Ghi chú',
+            dataIndex: 'extrainfo',
+            flex: 1,
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            }
+        },
+    ],
+
+    dockedItems: [{
+        dock: 'top',
+        xtype: 'container',
+        layout: 'hbox',
+        border: true,
+        style: "background-color : white;",
+        items: [{
+            labelWidth: 120,
+            margin:'3',
+            xtype: 'combobox',
+            editable: false,
+            fieldLabel: 'Loại thành phẩm',
+            bind: {
+                store: '{TPGroupStore}',
+                value: '{TPGroupStoreValue}'
             },
-            
-            columns: [
-                {
-                    text: 'STT',
-                    width: 50,
-                    xtype: 'rownumberer',
-                    align: 'center'
-                },
-                { header: 'Mã chíp', dataIndex: 'epc', width: 210, 
-                    renderer: function (value, metaData, record){
-                        var c = record.get('status');
-                        if (c == -2)
-                            metaData.tdCls =  "epc-notinstock";
-                        else if (c == -1)
-                            metaData.tdCls =  "epc-error";
-                        else 
-                            metaData.tdCls =  "epc-ok";
-                        return value;
-                    }
-                },
-                // { header: 'Trạng thái', dataIndex: 'status', width: 100},
-                { header: 'Ghi chú', dataIndex: 'extrainfo', flex: 1}
-            ]
-        }
-    ]
-});    
+            width: 270,
+            displayField: 'name',
+            valueField: 'value',
+            itemId: 'TPGroupStoreCbbox'
+        }, {
+            xtype: 'button',
+            itemId: 'btnLuu',
+            tooltip: 'Lưu',
+            text:  'Lưu',
+            iconCls: 'x-fa fa-floppy-o',
+            margin:'3',
+        }]
+    }]
+});
+

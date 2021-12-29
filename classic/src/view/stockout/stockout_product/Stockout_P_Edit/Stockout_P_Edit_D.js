@@ -50,20 +50,6 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
         }                     
     },
     columns: [
-        // {
-        //     xtype: 'actioncolumn',
-        //     reference: 'stockout_contextmenu',
-		// 	width: 25,
-		// 	menuDisabled: true,
-		// 	sortable: false,
-		// 	items: [
-        //         {
-        //             iconCls: 'x-fa fas fa-bars violetIcon',
-        //             tooltip:'Chi tiết chíp',
-        //             handler: 'onEPCDetail'
-        //         }
-        //     ]
-        // },
         {
             xtype: 'actioncolumn',
             width: 28,

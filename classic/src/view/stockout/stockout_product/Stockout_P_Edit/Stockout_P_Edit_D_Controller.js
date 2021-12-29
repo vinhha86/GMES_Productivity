@@ -518,15 +518,53 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		menu_grid.record = record;
 		menu_grid.showAt(position);
 	},
+	// onEPCDetail: function (grid, rowIndex, colIndex) {
+	// 	var m = this;
+	// 	var me = this.getView();
+	// 	var viewModel = this.getViewModel();
+	// 	var record = grid.store.getAt(rowIndex);
+	// 	var stockout = viewModel.get('stockout');
+	// 	var form = Ext.create({
+	// 		xtype: 'Stockout_EPC_Window',
+	// 		reference: 'Stockout_EPC_Window'
+	// 	});
+	// 	var formViewModel = form.getViewModel();
+	// 	formViewModel.set('stockout_d', record);
+	// 	formViewModel.set('isAutoChecked', true);
+	// 	form.show();
+	// },
 	onEPCDetail: function (grid, rowIndex, colIndex) {
+		var m = this;
+		var me = this.getView();
+		var viewModel = this.getViewModel();
 		var record = grid.store.getAt(rowIndex);
-		var form = Ext.create({
-			xtype: 'Stockout_EPC_Window',
-			reference: 'Stockout_EPC_Window'
+		var stockout = viewModel.get('stockout');
+
+		var form = Ext.create('Ext.window.Window', {
+			height: 600,
+			width: 600,
+			closable: true,
+			resizable: false,
+			modal: true,
+			border: false,
+			title: 'Danh sách thành phẩm',
+			closeAction: 'destroy',
+			bodyStyle: 'background-color: transparent',
+			layout: {
+				type: 'fit', // fit screen for window
+				padding: 5
+			},
+			items: [{
+				xtype: 'Stockout_EPC_Window',
+				viewModel: {
+					data: {
+						stockout: stockout,
+						stockout_d: record,
+						isAutoChecked: true,
+					}
+				}
+			}]
 		});
-		var viewModel = form.getViewModel();
-		viewModel.set('stockout_d', record);
-		viewModel.set('isAutoChecked', true);
 		form.show();
 	},
 	onDeleteStockoutD: function (grid, rowIndex) {
