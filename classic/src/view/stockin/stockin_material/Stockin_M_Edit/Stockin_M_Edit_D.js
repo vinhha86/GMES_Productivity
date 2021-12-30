@@ -1,7 +1,7 @@
 Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edit_D', {
 	extend: 'Ext.grid.Panel',
 	xtype: 'Stockin_M_Edit_D',
-	id: 'Stockin_M_Edit_D',
+	itemId: 'Stockin_M_Edit_D',
 	requires: [
 		'Ext.grid.plugin.CellEditing'
 	],
@@ -41,26 +41,19 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 			){
 				return 'epc-ok';
 			}
-			if(totalmet_check >= totalmet_origin && totalmet_check > 0 && (unitid_link == null || unitid_link == 1)){
+			if(totalmet_check >= totalmet_origin && totalmet_check >= 0 && (unitid_link == null || unitid_link == 1)){
 				return 'epc-ok';
 			}
-			if(totalydscheck >= totalydsorigin && totalydscheck > 0 && unitid_link == 3){
+			if(totalydscheck >= totalydsorigin && totalydscheck >= 0 && unitid_link == 3){
 				return 'epc-ok';
 			}
-			if(netweight >= grossweight && netweight > 0 && unitid_link == 4){
+			if(netweight >= grossweight && netweight >= 0 && unitid_link == 4){
 				return 'epc-ok';
 			}
-			if(netweight_lbs >= grossweight_lbs && netweight_lbs > 0 && unitid_link == 5){
+			if(netweight_lbs >= grossweight_lbs && netweight_lbs >= 0 && unitid_link == 5){
 				return 'epc-ok';
 			}
 			return 'epc-error';
-
-            // if (c == -1) {
-            //     return 'epc-error';
-            // }
-            // else {
-            //     return 'epc-ok';
-            // }
         }                     
     },
 	plugins: {

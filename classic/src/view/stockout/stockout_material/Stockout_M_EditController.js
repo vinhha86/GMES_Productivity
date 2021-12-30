@@ -771,17 +771,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
             form.show();
 
 			form.down('#Stockout_Pklist_Main').getController().on('Thoat', function () {
-
 				form.close();
 			})
 
 			form.down('#Stockout_Pklist_Main').getController().on('ThemCayVai', function (listCayVaiThem, totalcay, totaldai) {
-
-				// console.log(listCayVaiThem);
-				// console.log(totalcay);
-				// console.log(totaldai);
-				// console.log(stockout);
-
 				var stockout_d = stockout.stockout_d;
 				for(var i=0; i < stockout_d.length; i++){
 					if(stockout_d[i].skuid_link == data.get('skuid_link')){
@@ -1749,6 +1742,18 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		if(context.field == 'totalydscheck'){
             stockoutD_data.totalydscheck = parseFloat(stockoutD_data.totalydscheck);
         }
+		if (context.field == 'netweight') {
+			stockoutD_data.netweight = parseFloat(stockoutD_data.netweight);
+		}
+		if (context.field == 'grossweight') {
+			stockoutD_data.grossweight = parseFloat(stockoutD_data.grossweight);
+		}
+		if (context.field == 'netweight_lbs') {
+			stockoutD_data.netweight = parseFloat(stockoutD_data.netweight);
+		}
+		if (context.field == 'grossweight_lbs') {
+			stockoutD_data.grossweight = parseFloat(stockoutD_data.grossweight);
+		}
 
         if(stockout.unitid_link == 1){
             if(context.field == 'met' && (stockoutD_data.unitprice != null || stockoutD_data.unitprice != "")){
@@ -1778,7 +1783,15 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 			if(context.field == 'totalydsorigin'){
 				stockoutD_data.totalmet_origin = Ext.Number.roundToPrecision(stockoutD_data.totalydsorigin * 0.9144,2);
 			}
-        }
+        } else if (stockout.unitid_link == 4) { // kg
+			if (context.field == 'grossweight') {
+				stockoutD_data.grossweight_lbs = Ext.Number.roundToPrecision(stockoutD_data.grossweight * 2.20462, 2);
+			}
+		} else if (stockout.unitid_link == 5) { // pound
+			if (context.field == 'grossweight_lbs') {
+				stockoutD_data.grossweight = Ext.Number.roundToPrecision(stockoutD_data.grossweight_lbs / 2.20462, 2);
+			}
+		} 
 
         store.commitChanges();
     },
@@ -1833,11 +1846,4 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 			// form.close();
 		})
 	},
-	// onBtnTestRedirect:function(){
-	// 	console.log('click redirect');
-	// 	var m = this;
-    //     var me = this.getView();
-    //     var viewModel = this.getViewModel();
-	// 	m.redirectTo("stockout_m/" + '210' + "/edit");
-	// }
 });

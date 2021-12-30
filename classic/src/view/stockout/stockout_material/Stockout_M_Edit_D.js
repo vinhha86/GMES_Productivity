@@ -1,10 +1,11 @@
 Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
     extend: 'Ext.grid.Panel',
     xtype: 'Stockout_M_Edit_D',
-    id: 'Stockout_M_Edit_D',
+    itemId: 'Stockout_M_Edit_D',
     requires: [
 		'Ext.grid.plugin.CellEditing'
 	],
+	// controller: 'Stockout_M_Edit_D_Controller',
     border: true,
     bind:{
         store: '{StockoutD_Store}'
@@ -19,15 +20,42 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
         stripeRows: false,
         getRowClass: function(record, index) {
             var c = record.get('status');
+			var unitid_link = record.get('unitid_link');
+
 			var totalmet_origin = record.get('totalmet_origin') == null ? 0 : record.get('totalmet_origin');
 			var totalmet_check = record.get('totalmet_check') == null ? 0 : record.get('totalmet_check');
-            // if (c == -1) {
-			if(totalmet_origin > totalmet_check){
-                return 'epc-error';
-            }
-            else {
-                return 'epc-ok';
-            }
+            var totalydsorigin = record.get('totalydsorigin') == null ? 0 : record.get('totalydsorigin');
+			var totalydscheck = record.get('totalydscheck') == null ? 0 : record.get('totalydscheck');
+			var grossweight = record.get('grossweight') == null ? 0 : record.get('grossweight');
+			var netweight = record.get('netweight') == null ? 0 : record.get('netweight');
+			var grossweight_lbs = record.get('grossweight_lbs') == null ? 0 : record.get('grossweight_lbs');
+			var netweight_lbs = record.get('netweight_lbs') == null ? 0 : record.get('netweight_lbs');
+
+			if(
+				totalmet_origin == 0
+				&& totalmet_check == 0
+				&& grossweight == 0
+				&& netweight == 0
+				&& totalydsorigin == 0
+				&& totalydscheck == 0
+				&& grossweight_lbs == 0
+				&& netweight_lbs == 0
+			){
+				return 'epc-ok';
+			}
+			if(totalmet_check >= totalmet_origin && totalmet_check >= 0 && (unitid_link == null || unitid_link == 1)){
+				return 'epc-ok';
+			}
+			if(totalydscheck >= totalydsorigin && totalydscheck >= 0 && unitid_link == 3){
+				return 'epc-ok';
+			}
+			if(netweight >= grossweight && netweight >= 0 && unitid_link == 4){
+				return 'epc-ok';
+			}
+			if(netweight_lbs >= grossweight_lbs && netweight_lbs >= 0 && unitid_link == 5){
+				return 'epc-ok';
+			}
+			return 'epc-error';
         }                     
     },
 	plugins: {

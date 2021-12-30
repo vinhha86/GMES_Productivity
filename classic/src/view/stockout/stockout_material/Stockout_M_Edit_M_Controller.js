@@ -488,24 +488,36 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
     },
 
     onUnitStoreComboSelect: function (combo, record, eOpts) {
-        var viewmodel = this.getViewModel();
-        var stockout = viewmodel.get('stockout'); // stockout_d // stockout_packinglist
+        var viewModel = this.getViewModel();
+        var stockout = viewModel.get('stockout'); // stockout_d // stockout_packinglist
         var stockout_d = viewModel.get('stockout.stockout_d');
         var unitid_link = record.get('id');
-        
-        if (stockout_d != null) {
-            for (var i = 0; i < stockout_d.length; i++) {
-                var stockoutD_data = stockout_d[i];
-                stockout_d[i].unitid_link = unitid_link;
 
-                if (stockout.unitid_link == 1) {
-                    stockoutD_data.totalamount = Ext.Number.roundToPrecision(stockoutD_data.met * stockoutD_data.unitprice, 2);
-                } else if (stockout.unitid_link == 3) {
-                    stockoutD_data.totalamount = Ext.Number.roundToPrecision(stockoutD_data.yds * stockoutD_data.unitprice, 2);
-                }
-
+        if(stockout_d != null){
+            for(var i = 0; i < stockout_d.length; i++){
+                stockout_d[i].unitid_link = stockout.unitid_link;
+            }
+            var StockoutD_Store = viewModel.getStore('StockoutD_Store');
+		    if (StockoutD_Store) {
+                StockoutD_Store.removeAll();
+                StockoutD_Store.insert(0, stockout_d);
+                StockoutD_Store.commitChanges();
             }
         }
-        viewmodel.set('stockout', stockout);
+
+        // if (stockout_d != null) {
+        //     for (var i = 0; i < stockout_d.length; i++) {
+        //         var stockoutD_data = stockout_d[i];
+        //         stockout_d[i].unitid_link = unitid_link;
+
+        //         if (stockout.unitid_link == 1) {
+        //             stockoutD_data.totalamount = Ext.Number.roundToPrecision(stockoutD_data.met * stockoutD_data.unitprice, 2);
+        //         } else if (stockout.unitid_link == 3) {
+        //             stockoutD_data.totalamount = Ext.Number.roundToPrecision(stockoutD_data.yds * stockoutD_data.unitprice, 2);
+        //         }
+
+        //     }
+        // }
+        // viewmodel.set('stockout', stockout);
     }
 })
