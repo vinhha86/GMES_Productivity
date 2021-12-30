@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edit_M', {
 	extend: 'Ext.container.Container',
 	xtype: 'Stockin_M_Edit_M',
+	itemId: 'Stockin_M_Edit_M',
 	cls: 'Stockin_M_Edit_M',
 	controller: 'Stockin_M_Edit_M_Controller',
 	requires: ['Ext.form.field.Hidden', 'Ext.form.field.Date'],
@@ -297,7 +298,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 			{
 				xtype:'combo',
 				itemId: 'UnitStoreCombo',
-				fieldLabel: 'Đ/vị dài',
+				fieldLabel: 'Đ/vị nhập',
 				bind:{
 					store: '{UnitStore}',
 					value: '{stockin.unitid_link}'

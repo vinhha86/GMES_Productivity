@@ -214,7 +214,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                 // },
                 {
                     xtype:'combo',
-                    fieldLabel: 'Đ/vị dài',
+                    itemId: 'UnitStoreCombo',
+                    fieldLabel: 'Đ/vị xuất',
                     bind:{
                         store: '{UnitStore}',
                         value: '{stockout.unitid_link}'
@@ -226,9 +227,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M', {
                     width: 235,
                     queryMode: 'local',
                     anyMatch: true,
-                    listeners: {
-                        select: 'onSelectUnit'
-                    },
+                    editable: false
                 },
                 {
                     margin: '0 5 0 5',

@@ -2,35 +2,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockin_M_Edit_M_Controller',
 	init: function() {
-        var viewModel = this.getViewModel();
-        var orgstore = viewModel.getStore('OrgStore');
-        if (null!=orgstore) orgstore.loadStore(5);
-
-		var userStore = viewModel.getStore('UserStore');
-		userStore.loadStore();
-
-		// var listidtype = "13,3";
-        // var listidtype = "4,8,9,11,12";
-		// var orgfromstore = this.getViewModel().getStore('OrgFromStore');
-		// orgfromstore.loadStore_byRoot(listidtype);
-
-		// var orgtostore = viewModel.getStore('OrgToStore');
-		// orgtostore.loadStore_allchildren_byorg(listidtype);
-
-		var stockintype = viewModel.getStore('StockinTypeStore');
-		stockintype.loadStore(1, 10);
-
-        var UnitStore = viewModel.getStore('UnitStore');
-		UnitStore.loadStore();
-        this.filterUnitStore();
-        this.sortUnitStore();
-
-        var UnitWidthStore = viewModel.getStore('UnitWidthStore');
-		UnitWidthStore.loadStore();
-        this.filterUnitWidthStore();
-        this.sortUnitWidthStore();
+        
 	},
 	control:{
+        '#Stockin_M_Edit_M':{
+            afterrender: 'onAfterrender'
+		},
 		'#loaitien':{
             select: 'onSelectCurency'
 		},
@@ -44,10 +21,33 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             select: 'onUnitStoreComboSelect'
         },
     },
-    onUnitStoreComboSelect: function(cbbox, newValue, eOpts){
+    onAfterrender: function(){
+        var viewModel = this.getViewModel();
+        var orgstore = viewModel.getStore('OrgStore');
+        if (null!=orgstore) orgstore.loadStore(5);
+
+		var userStore = viewModel.getStore('UserStore');
+		userStore.loadStore();
+
+		var stockintype = viewModel.getStore('StockinTypeStore');
+		stockintype.loadStore(1, 10);
+
+        var UnitStore = viewModel.getStore('UnitStore');
+		UnitStore.loadStore();
+        this.filterUnitStore();
+        this.sortUnitStore();
+
+        var UnitWidthStore = viewModel.getStore('UnitWidthStore');
+		UnitWidthStore.loadStore();
+        this.filterUnitWidthStore();
+        this.sortUnitWidthStore();
+    },
+    onUnitStoreComboSelect: function(cbbox, record, eOpts){
         var viewModel = this.getViewModel();
         var stockin = viewModel.get('stockin');
         var stockin_d = viewModel.get('stockin.stockin_d');
+        var unitid_link = record.get('id');
+
         if(stockin_d != null){
             for(var i = 0; i < stockin_d.length; i++){
                 stockin_d[i].unitid_link = stockin.unitid_link;

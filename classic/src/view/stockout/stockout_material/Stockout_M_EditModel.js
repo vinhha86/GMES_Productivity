@@ -169,5 +169,25 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
             }
             return true;
         },
+        isKgColumnHidden: function (get) {
+            var unitid_link = get('stockout.unitid_link');
+            if(unitid_link == null){
+                return true;
+            }else 
+            if(unitid_link == 4){
+                return false;
+            }
+            return true;
+        },
+		isLbsColumnHidden: function (get) {
+            var unitid_link = get('stockout.unitid_link');
+            if(unitid_link == null){
+                return true;
+            }else 
+            if(unitid_link == 5){
+                return false;
+            }
+            return true;
+        },
     }
 });

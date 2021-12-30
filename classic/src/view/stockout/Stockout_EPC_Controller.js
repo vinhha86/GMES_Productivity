@@ -25,5 +25,61 @@ Ext.define('GSmartApp.view.stockout.Stockout_EPC_Controller', {
 
         console.log(stockout);
         console.log(stockout_d);
+        //////
+        var TPGroupStoreValue = viewModel.get('TPGroupStoreValue');
+        if(TPGroupStoreValue == null || TPGroupStoreValue == ''){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn cần chọn một loại thành phẩm',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                },
+            });
+            return;
+        }
+
+        //////
+        var params = new Object();
+        params.stockoutdid_link = stockout_d.get('id');
+
+        GSmartApp.Ajax.postJitin('/api/v1/stockout/save_loai_thanh_pham', Ext.JSON.encode(params),
+        function (success, response, options) {
+            if(mainView) mainView.setLoading(false);
+            if (success) {
+                var response = Ext.decode(response.responseText);
+                // console.log(response);
+                if (response.respcode == 200) {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Lưu thành công',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+                else {
+                    Ext.Msg.show({
+                        title: 'Lưu thất bại',
+                        msg: response.message,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+
+            } else {
+                Ext.Msg.show({
+                    title: 'Lưu thất bại',
+                    msg: "Bạn hãy kiểm tra lại kết nối mạng",
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });
+            }
+        })
     }
 });    

@@ -2,32 +2,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
     extend: 'Ext.app.ViewController',
 	alias: 'controller.Stockout_M_EditController',
 	init: function(){
-		// var viewModel = this.getViewModel();
-        // common.Check_Object_Permission();
-
-		// var devicestore = viewModel.getStore('DeviceInvStore');
-		// if(devicestore) devicestore.loadStore(3);
-
-		// var UnitStore = viewModel.getStore('UnitStore');
-		// if(UnitStore) UnitStore.loadStore();
-		// var UnitStoreFilters = UnitStore.getFilters();
-		// if (!this.UnitStoreFilters) {
-        //     this.UnitStoreFilters = UnitStoreFilters.add({
-        //         id: 'UnitStoreFilters',
-        //         property: 'unittype',
-        //         value: 0,
-        //         exactMatch: true,
-        //     });
-        // }
-
-		// var StockoutD_Store = viewModel.getStore('StockoutD_Store');
-        // StockoutD_Store.getSorters().add({
-        //     property: 'skucode',
-        //     direction: 'ASC'
-        // },{
-        //     property: 'skuname',
-        //     direction: 'ASC'
-        // });
+		
 	},
 	listen: {
         controller: {
@@ -89,18 +64,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 
 		var devicestore = viewModel.getStore('DeviceInvStore');
 		if(devicestore) devicestore.loadStore(3);
-
-		var UnitStore = viewModel.getStore('UnitStore');
-		if(UnitStore) UnitStore.loadStore();
-		var UnitStoreFilters = UnitStore.getFilters();
-		if (!this.UnitStoreFilters) {
-            this.UnitStoreFilters = UnitStoreFilters.add({
-                id: 'UnitStoreFilters',
-                property: 'unittype',
-                value: 0,
-                exactMatch: true,
-            });
-        }
 
 		var StockoutD_Store = viewModel.getStore('StockoutD_Store');
         StockoutD_Store.getSorters().add({

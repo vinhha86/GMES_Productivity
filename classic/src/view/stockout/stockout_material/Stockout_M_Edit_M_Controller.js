@@ -2,27 +2,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockout_M_Edit_M_Controller',
     init: function () {
-        // var viewModel = this.getViewModel();
-        // var orgstore = viewModel.getStore('OrgStore');
-        // if(orgstore) orgstore.loadStore(5);
-        // var userStore = viewModel.getStore('UserStore');
-        // if(userStore) userStore.loadStore();
-
-        // // var listidtype = "4,8,9,11,12";
-        // var listidtype = "3";
-        // var orgfromstore = viewModel.getStore('OrgFromStore');
-        // // orgfromstore.loadStore_allchildren_byorg(listidtype);
-        // // orgfromstore.loadStore(3, false);
-        // if(orgfromstore) orgfromstore.getOrgFromForStockoutMaterial();
-        // // var orgtostore = viewModel.getStore('OrgToStore');
-        // // orgtostore.loadStore_byRoot(listidtype);
-
-        // var currencyStore = viewModel.getStore('CurrencyStore');
-        // if(currencyStore) currencyStore.loadStore();
-        // var vattypeStore = viewModel.getStore('VatTypeStore');
-        // if(vattypeStore) vattypeStore.loadStore();
-        // var StockoutType = viewModel.getStore('StockoutTypeStore');
-        // if(StockoutType) StockoutType.loadStore();
         
     },
     control: {
@@ -39,8 +18,13 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
             beforeQuery: 'Product_AutoComplete_beforeQuery',
             select: 'onProduct_AutoCompleteSelect'
         },
+        '#UnitStoreCombo':{
+            select: 'onUnitStoreComboSelect'
+        },
     },
     onAfterrender: function(){
+        var m = this;
+        var me = this.getView();
         var viewModel = this.getViewModel();
         var orgstore = viewModel.getStore('OrgStore');
         if(orgstore) orgstore.loadStore(5);
@@ -62,6 +46,36 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
         if(vattypeStore) vattypeStore.loadStore();
         var StockoutType = viewModel.getStore('StockoutTypeStore');
         if(StockoutType) StockoutType.loadStore();
+
+        var UnitStore = viewModel.getStore('UnitStore');
+		if(UnitStore) {
+            UnitStore.loadStore();
+            m.filterUnitStore();
+            m.sortUnitStore();
+        }
+    },
+    filterUnitStore: function(){
+        var viewModel = this.getViewModel();
+        var UnitStore = viewModel.getStore('UnitStore');
+        UnitStore.clearFilter();
+        UnitStore.filterBy(function(rec) {
+            var isOk = false;
+            if(
+                rec.get('unittype') == 0 || rec.get('unittype') == 1
+            ){
+                isOk = true;
+            }
+            return isOk;
+        });
+    },
+    sortUnitStore: function(){
+        var viewModel = this.getViewModel();
+        var UnitStore = viewModel.getStore('UnitStore');
+        UnitStore.getSorters().removeAll();
+        UnitStore.getSorters().add({
+            property: 'unittype',
+            direction: 'ASC'
+        });
     },
     Product_AutoComplete_beforeQuery: function(){
         var viewModel = this.getViewModel();
@@ -473,14 +487,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_M_Controller', {
         }
     },
 
-    onSelectUnit: function (combo, record, eOpts) {
-        // console.log('onSelectUnit');
-        // console.log(record);
+    onUnitStoreComboSelect: function (combo, record, eOpts) {
         var viewmodel = this.getViewModel();
         var stockout = viewmodel.get('stockout'); // stockout_d // stockout_packinglist
+        var stockout_d = viewModel.get('stockout.stockout_d');
         var unitid_link = record.get('id');
-
-        var stockout_d = stockout.stockout_d;
+        
         if (stockout_d != null) {
             for (var i = 0; i < stockout_d.length; i++) {
                 var stockoutD_data = stockout_d[i];

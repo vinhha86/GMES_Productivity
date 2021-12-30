@@ -52,25 +52,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
                 },            
             ]
         },
-		// { 
-		// 	xtype: 'actioncolumn',
-		// 	reference: 'stockout_contextmenu',
-		// 	width: 25,
-		// 	menuDisabled: true,
-		// 	sortable: false,
-		// 	items: [
-		// 		// {
-		// 		// 	iconCls: 'x-fa fas fa-bars violetIcon',
-		// 		// 	tooltip:'Chi tiết chíp',
-		// 		// 	handler: 'onEPCDetail'
-		// 		// },
-		// 		{
-		// 			iconCls: 'x-fa fas fa-bars violetIcon',
-		// 			tooltip:'PackingList',
-		// 			handler: 'onViewPackingList'
-		// 		},
-		// 	]
-        // },   	
 		{
 			text: 'Mã NPL', 
 			dataIndex: 'skucode',
@@ -116,30 +97,6 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
                 }
             },
 		},
-		// {
-		// 	text: 'ĐVT', 
-		// 	dataIndex: 'unitid_link',
-		// 	width: 70,
-		// 	editor: {
-		// 		completeOnEnter: true,
-		// 		field: {
-		// 			xtype: 'combo',
-		// 			typeAhead: true,
-		// 			triggerAction: 'all',
-		// 			selectOnFocus: false,
-		// 			bind: {
-		// 				store: '{UnitStore}',
-		// 				// value: '{unitid_link}'
-		// 			},
-		// 			displayField: 'code',
-		// 			valueField: 'id',
-		// 			queryMode : 'local',
-		// 			editable: false,
-		// 			readOnly: true
-		// 		}
-		// 	},
-		// 	renderer: 'renderUnit'
-		// },
 		{
 			text: 'ĐVT', 
 			dataIndex: 'unitid_link',
@@ -151,6 +108,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 				}
 				if(value == 3){
 					return 'YARD'
+				}
+				if(value == 4){
+					return 'KG';
+				}
+				if(value == 5){
+					return 'POUND'
 				}
 				return "";
 			},
@@ -216,6 +179,79 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 			bind: {
 				hidden: '{isYdsColumnHidden}',
 			},
+		},
+		
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'SL Y/C (KG)', 
+			align:'right',
+			dataIndex: 'grossweight',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 105,
+			bind: {
+				hidden: '{isKgColumnHidden}',
+			},
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'SL kiểm (KG)', 
+			align:'right',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			dataIndex: 'netweight',
+			width: 105,
+			bind: {
+				hidden: '{isKgColumnHidden}',
+			},
+			// editor:{
+			// 	xtype:'textfield',
+			// 	maskRe: /[0-9.]/,
+			// 	selectOnFocus: true
+			// },
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'SL Y/C (lbs)', 
+			align:'right',
+			dataIndex: 'grossweight_lbs',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			width: 105,
+			bind: {
+				hidden: '{isLbsColumnHidden}',
+			},
+			editor:{
+				xtype:'textfield',
+				maskRe: /[0-9.]/,
+				selectOnFocus: true
+			},
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000.00',
+			text: 'SL kiểm (lbs)', 
+			align:'right',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			dataIndex: 'netweight_lbs',
+			width: 105,
+			bind: {
+				hidden: '{isLbsColumnHidden}',
+			},
+			// editor:{
+			// 	xtype:'textfield',
+			// 	maskRe: /[0-9.]/,
+			// 	selectOnFocus: true
+			// },
 		},
 		{
 			xtype: 'numbercolumn',
