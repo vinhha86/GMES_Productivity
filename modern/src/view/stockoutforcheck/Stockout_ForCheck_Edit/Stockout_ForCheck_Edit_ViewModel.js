@@ -68,7 +68,7 @@ Ext.define('GSmartApp.view.stockoutforcheck.Stockout_ForCheck_Edit_ViewModel', {
             if(unitid_link == null){
                 return false;
             }else 
-            if(unitid_link == 1){
+            if(unitid_link == 1 || unitid_link == 4 || unitid_link == 5){
                 return false;
             }
             return true;
