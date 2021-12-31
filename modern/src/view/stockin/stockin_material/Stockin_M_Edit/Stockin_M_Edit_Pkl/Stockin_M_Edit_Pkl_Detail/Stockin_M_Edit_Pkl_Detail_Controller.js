@@ -618,10 +618,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.stockin_m_edi
         objData.ydscheck = parseFloat(objData.ydscheck);
         objData.met_origin = parseFloat(objData.met_origin);
         objData.ydsorigin = parseFloat(objData.ydsorigin);
+
         objData.grossweight_lbs_check = parseFloat(objData.grossweight_lbs_check);
         objData.grossweight_lbs = parseFloat(objData.grossweight_lbs);
+        // objData.netweight_lbs = objData.grossweight_lbs_check;
         objData.grossweight_check = parseFloat(objData.grossweight_check);
         objData.grossweight = parseFloat(objData.grossweight);
+        // objData.netweight = objData.grossweight_check;
+        
         objData.width_met_check = parseFloat(objData.width_met_check);
         objData.width_yds_check = parseFloat(objData.width_yds_check);
         objData.width_met = parseFloat(objData.width_met);
