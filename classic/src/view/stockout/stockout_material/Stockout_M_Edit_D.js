@@ -27,19 +27,19 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
             var totalydsorigin = record.get('totalydsorigin') == null ? 0 : record.get('totalydsorigin');
 			var totalydscheck = record.get('totalydscheck') == null ? 0 : record.get('totalydscheck');
 			var grossweight = record.get('grossweight') == null ? 0 : record.get('grossweight');
-			var netweight = record.get('netweight') == null ? 0 : record.get('netweight');
+			var grossweight_check = record.get('grossweight_check') == null ? 0 : record.get('grossweight_check');
 			var grossweight_lbs = record.get('grossweight_lbs') == null ? 0 : record.get('grossweight_lbs');
-			var netweight_lbs = record.get('netweight_lbs') == null ? 0 : record.get('netweight_lbs');
+			var grossweight_lbs_check = record.get('grossweight_lbs_check') == null ? 0 : record.get('grossweight_lbs_check');
 
 			if(
 				totalmet_origin == 0
 				&& totalmet_check == 0
 				&& grossweight == 0
-				&& netweight == 0
+				&& grossweight_check == 0
 				&& totalydsorigin == 0
 				&& totalydscheck == 0
 				&& grossweight_lbs == 0
-				&& netweight_lbs == 0
+				&& grossweight_lbs_check == 0
 			){
 				return 'epc-ok';
 			}
@@ -49,10 +49,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 			if(totalydscheck >= totalydsorigin && totalydscheck >= 0 && unitid_link == 3){
 				return 'epc-ok';
 			}
-			if(netweight >= grossweight && netweight >= 0 && unitid_link == 4){
+			if(grossweight_check >= grossweight && grossweight_check >= 0 && unitid_link == 4){
 				return 'epc-ok';
 			}
-			if(netweight_lbs >= grossweight_lbs && netweight_lbs >= 0 && unitid_link == 5){
+			if(grossweight_lbs_check >= grossweight_lbs && grossweight_lbs_check >= 0 && unitid_link == 5){
 				return 'epc-ok';
 			}
 			return 'epc-error';
@@ -234,7 +234,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 			align:'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			dataIndex: 'netweight',
+			dataIndex: 'grossweight_check',
 			width: 105,
 			bind: {
 				hidden: '{isKgColumnHidden}',
@@ -270,7 +270,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_Edit_D', {
 			align:'right',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			dataIndex: 'netweight_lbs',
+			dataIndex: 'grossweight_lbs_check',
 			width: 105,
 			bind: {
 				hidden: '{isLbsColumnHidden}',

@@ -171,6 +171,9 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
         var items = allRecords;
         var totalcay = 0;
         var totaldai = 0;
+        var totaldaiyard = 0;
+        var totalkg = 0;
+        var totallbs = 0;
 
         // console.log(items);
         for(var i=0; i<items.length; i++){
@@ -178,11 +181,17 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
             if(cayVai.get('isChecked') == true){
                 totalcay++;
                 totaldai+= cayVai.get('met') == null ? 0 : cayVai.get('met');
+                totaldaiyard+= cayVai.get('yds') == null ? 0 : cayVai.get('yds');
+                totalkg+= cayVai.get('grossweight') == null ? 0 : cayVai.get('grossweight');
+                totallbs+= cayVai.get('grossweight_lbs') == null ? 0 : cayVai.get('grossweight_lbs');
             }
         }
 
         viewModel.set('totalcay', totalcay);
         viewModel.set('totaldai', totaldai.toFixed(2));
+        viewModel.set('totaldaiyard', totaldaiyard.toFixed(2));
+        viewModel.set('totalkg', totalkg.toFixed(2));
+        viewModel.set('totallbs', totallbs.toFixed(2));
     },
 
     onFilterValueKhoangKeyup: function () {

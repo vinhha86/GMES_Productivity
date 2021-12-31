@@ -106,20 +106,96 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
                 {
                     margin: 3,
                 },
+                // met
                 {
                     xtype: 'displayfield',
                     margin: 3,
                     // fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
                     labelWidth: 0,
-                    value: 'Tổng độ dài:'
+                    value: 'Tổng độ dài:',
+                    hidden: true,
+                    bind: {
+                        hidden: '{isMetColumnHidden}'
+                    }
                 },
                 {
                     xtype: 'displayfield',
                     margin: 3,
                     fieldStyle: "font-weight: bold; color: black;",
                     labelWidth: 0,
+                    hidden: true,
                     bind: {
-                        value: '{totaldai}' + ' m'
+                        hidden: '{isMetColumnHidden}',
+                        value: '{totaldai}' + ' met'
+                    },
+                },
+                // yds
+                {
+                    xtype: 'displayfield',
+                    margin: 3,
+                    // fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
+                    labelWidth: 0,
+                    value: 'Tổng độ dài:',
+                    hidden: true,
+                    bind: {
+                        hidden: '{isYdsColumnHidden}'
+                    }
+                },
+                {
+                    xtype: 'displayfield',
+                    margin: 3,
+                    fieldStyle: "font-weight: bold; color: black;",
+                    labelWidth: 0,
+                    hidden: true,
+                    bind: {
+                        hidden: '{isYdsColumnHidden}',
+                        value: '{totaldaiyard}' + ' yard'
+                    },
+                },
+                // kg
+                {
+                    xtype: 'displayfield',
+                    margin: 3,
+                    // fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
+                    labelWidth: 0,
+                    value: 'Tổng khối lượng (kg):',
+                    hidden: true,
+                    bind: {
+                        hidden: '{isKgColumnHidden}',
+                    },
+                },
+                {
+                    xtype: 'displayfield',
+                    margin: 3,
+                    fieldStyle: "font-weight: bold; color: black;",
+                    labelWidth: 0,
+                    hidden: true,
+                    bind: {
+                        hidden: '{isKgColumnHidden}',
+                        value: '{totalkg}' + ' kg'
+                    },
+                },
+                //lbs
+                {
+                    xtype: 'displayfield',
+                    margin: 3,
+                    // fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
+                    labelWidth: 0,
+                    value: 'Tổng khối lượng (lbs):',
+                    hidden: true,
+                    bind: {
+                        hidden: '{isLbsColumnHidden}',
+                    },
+                },
+                {
+                    xtype: 'displayfield',
+                    margin: 3,
+                    fieldStyle: "font-weight: bold; color: black;",
+                    labelWidth: 0,
+                    hidden: true,
+                    bind: {
+                        hidden: '{isLbsColumnHidden}',
+                        value: '{totallbs}' + ' lbs'
                     },
                 },
                 {

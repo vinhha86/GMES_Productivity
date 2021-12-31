@@ -774,7 +774,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 				form.close();
 			})
 
-			form.down('#Stockout_Pklist_Main').getController().on('ThemCayVai', function (listCayVaiThem, totalcay, totaldai) {
+			form.down('#Stockout_Pklist_Main').getController().on('ThemCayVai', function (listCayVaiThem, totalcay, totaldai, totaldaiyard, totalkg, totallbs) {
 				var stockout_d = stockout.stockout_d;
 				for(var i=0; i < stockout_d.length; i++){
 					if(stockout_d[i].skuid_link == data.get('skuid_link')){
@@ -800,6 +800,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 								cayVaiMoi.widthorigin = cayVaiThem.width_met;
 								cayVaiMoi.widthcheck = cayVaiThem.width_met;
 								cayVaiMoi.grossweight = cayVaiThem.grossweight;
+								cayVaiMoi.grossweight_check = cayVaiThem.grossweight;
+								cayVaiMoi.grossweight_lbs = cayVaiThem.grossweight_lbs;
+								cayVaiMoi.grossweight_lbs_check = cayVaiThem.grossweight_lbs;
 								cayVaiMoi.netweight = cayVaiThem.netweight;
 								cayVaiMoi.epc = cayVaiThem.epc;
 								cayVaiMoi.status = 0;
@@ -846,6 +849,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
             var totalydscheck = 0;
             var totalmet_origin = 0;
             var totalmet_check = 0;
+			var grossweight = 0;
+            var grossweight_check = 0;
+			var grossweight_lbs = 0;
+            var grossweight_lbs_check = 0;
+
             var stockout_packinglist = stockout_d[i].stockout_packinglist;
             for(var k=0; k<stockout_packinglist.length; k++){
                 totalpackage++;
@@ -854,6 +862,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
                 totalydscheck+=stockout_packinglist[k].ydscheck == null ? 0 : stockout_packinglist[k].ydscheck;
                 totalmet_origin+=stockout_packinglist[k].met_origin == null ? 0 : stockout_packinglist[k].met_origin;
                 totalmet_check+=stockout_packinglist[k].met_check == null ? 0 : stockout_packinglist[k].met_check;
+				grossweight+=stockout_packinglist[k].grossweight == null ? 0 : stockout_packinglist[k].grossweight;
+				grossweight_check+=stockout_packinglist[k].grossweight_check == null ? 0 : stockout_packinglist[k].grossweight_check;
+				grossweight_lbs+=stockout_packinglist[k].grossweight_lbs == null ? 0 : stockout_packinglist[k].grossweight_lbs;
+				grossweight_lbs_check+=stockout_packinglist[k].grossweight_lbs_check == null ? 0 : stockout_packinglist[k].grossweight_lbs_check;
             }
             // stockout_d[i].totalpackage = totalpackage;
             stockout_d[i].totalpackagecheck = totalpackagecheck;
@@ -861,6 +873,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
             stockout_d[i].totalydscheck = totalydscheck;
             // stockout_d[i].totalmet_origin = totalmet_origin;
             stockout_d[i].totalmet_check = totalmet_check;
+			stockout_d[i].grossweight_check = grossweight_check;
+			stockout_d[i].grossweight_lbs_check = grossweight_lbs_check;
         }
         return stockout;
     },

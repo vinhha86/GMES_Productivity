@@ -117,6 +117,45 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
             flex: 1,
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
+            bind: {
+                hidden: '{isMetColumnHidden}'
+            }
+        },
+        { 
+            header: 'Dài (y)', 
+            dataIndex: 'yds', 
+            sortable: false,
+            menuDisabled: true,
+            flex: 1,
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+            bind: {
+                hidden: '{isYdsColumnHidden}'
+            }
+        },
+        { 
+            header: 'Kg', 
+            dataIndex: 'grossweight', 
+            sortable: false,
+            menuDisabled: true,
+            flex: 1,
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+            bind: {
+                hidden: '{isKgColumnHidden}'
+            }
+        },
+        { 
+            header: 'Lbs', 
+            dataIndex: 'grossweight_lbs', 
+            sortable: false,
+            menuDisabled: true,
+            flex: 1,
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+            bind: {
+                hidden: '{isLbsColumnHidden}'
+            }
         },
         { 
             header: 'Trạng thái', 

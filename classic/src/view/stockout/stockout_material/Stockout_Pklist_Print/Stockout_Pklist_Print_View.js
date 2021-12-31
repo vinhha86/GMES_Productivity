@@ -147,7 +147,56 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist_Print.Stoc
 			},
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
+			bind: {
+				hidden: '{isMetColumnHidden}',
+			},
         },
+        { 
+            header: 'Dài (y)', 
+            dataIndex: 'ydscheck', 
+            flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                if(value == null) value = 0;
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			},
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			bind: {
+				hidden: '{isYdsColumnHidden}',
+			},
+        },
+        { 
+            header: 'Khối lượng (kg)', 
+            dataIndex: 'grossweight_check', 
+            flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                if(value == null) value = 0;
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			},
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			bind: {
+				hidden: '{isKgColumnHidden}',
+			},
+        },
+        { 
+            header: 'Khối lượng (lbs)', 
+            dataIndex: 'grossweight_lbs_check', 
+            flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                if(value == null) value = 0;
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			},
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			bind: {
+				hidden: '{isLbsColumnHidden}',
+			},
+        },
+
         { 
             header: 'Khổ (cm)', 
             dataIndex: 'widthcheck', 

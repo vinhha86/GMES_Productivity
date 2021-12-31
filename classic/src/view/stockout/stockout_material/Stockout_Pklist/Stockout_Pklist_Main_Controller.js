@@ -311,11 +311,17 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
 
         var totalcay = 0;
         var totaldai = 0;
+        var totaldaiyard = 0;
+        var totalkg = 0;
+        var totallbs = 0;
         for(var i=0; i<items.length; i++){
             var cayVai = items[i].data;
             if(cayVai.isChecked){
                 totalcay++;
                 totaldai+= cayVai.met == null ? 0 : cayVai.met;
+                totaldaiyard+= cayVai.yds == null ? 0 : cayVai.yds;
+                totalkg+= cayVai.grossweight == null ? 0 : cayVai.grossweight;
+                totallbs+= cayVai.grossweight_lbs == null ? 0 : cayVai.grossweight_lbs;
                 listCayVaiThem.push(cayVai);
             }
         }
@@ -397,16 +403,22 @@ Ext.define('GSmartApp.view.stockout.stockout_material.Stockout_Pklist.Stockout_P
 
         var totalcay = 0;
         var totaldai = 0;
+        var totaldaiyard = 0;
+        var totalkg = 0;
+        var totallbs = 0;
         for(var i=0; i<items.length; i++){
             var cayVai = items[i].data;
             if(cayVai.isChecked){
                 totalcay++;
                 totaldai+= cayVai.met == null ? 0 : cayVai.met;
+                totaldaiyard+= cayVai.yds == null ? 0 : cayVai.yds;
+                totalkg+= cayVai.grossweight == null ? 0 : cayVai.grossweight;
+                totallbs+= cayVai.grossweight_lbs == null ? 0 : cayVai.grossweight_lbs;
                 listCayVaiThem.push(cayVai);
             }
         }
 
-        m.fireEvent('ThemCayVai', listCayVaiThem, totalcay, totaldai);
+        m.fireEvent('ThemCayVai', listCayVaiThem, totalcay, totaldai, totaldaiyard, totalkg, totallbs);
     },
     onThemMatTem: function(){
         var m = this;
