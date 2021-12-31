@@ -125,6 +125,9 @@ Ext.define('GSmartApp.view.pcontract.PContractViewController', {
                     viewmodel.set('isHidden_btnLuu', true);
                     var tab = Ext.getCmp('Recon_Main_Pcontract');
                     tab.getController().setPcontractID(viewmodel.get('PContract.id'));
+                    var storeproduct_recon = viewmodel.getStore('PContractProductTreeStoreRecon');
+                    storeproduct_recon.loadStore(viewmodel.get('PContract.id'), viewmodel.get('productid_link_filter'));
+
                 }
                 else {
                     var storeproductlist = viewmodel.getStore('PContractProductStore');

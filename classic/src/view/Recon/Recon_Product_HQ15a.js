@@ -129,42 +129,42 @@ Ext.define('GSmartApp.view.Recon.Recon_Product_HQ15a', {
 			summaryRenderer: 'renderSum'
 		},
 	],
-	dockedItems: [{
-		dock: 'top',
-		xtype:'toolbar',
-		items: [{
-			xtype:'datefield',
-			labelWidth: 0,
-			emptyText: 'Từ ngày',
-			itemId: 'recondate_from',
-			editable: false,
-			margin: '5 5 5 5',
-            bind: {
-                value: '{recondate_from}'
-            },
-			width: 110,
-            format:'d/m/y'
-		},{
-			xtype:'datefield',
-			labelWidth: 0,
-			emptyText: 'Đến ngày',
-			itemId: 'recondate_to',
-			editable: false,
-			margin: '5 5 5 0',
-			width: 110,
-            bind: {
-                value: '{recondate_to}'
-            },
-            format:'d/m/y'
-		},
-		{
-            xtype: 'button',
-			text: 'Tính quyết toán',
-            margin: 5,
-            iconCls: 'x-fa fa-calculator',
-            itemId: 'btnRecon_Calculate'
-        },
-    ]
-	}]
+	// dockedItems: [{
+	// 	dock: 'top',
+	// 	xtype:'toolbar',
+	// 	items: [{
+	// 		xtype:'datefield',
+	// 		labelWidth: 0,
+	// 		emptyText: 'Từ ngày',
+	// 		itemId: 'recondate_from',
+	// 		editable: false,
+	// 		margin: '5 5 5 5',
+    //         bind: {
+    //             value: '{recondate_from}'
+    //         },
+	// 		width: 110,
+    //         format:'d/m/y'
+	// 	},{
+	// 		xtype:'datefield',
+	// 		labelWidth: 0,
+	// 		emptyText: 'Đến ngày',
+	// 		itemId: 'recondate_to',
+	// 		editable: false,
+	// 		margin: '5 5 5 0',
+	// 		width: 110,
+    //         bind: {
+    //             value: '{recondate_to}'
+    //         },
+    //         format:'d/m/y'
+	// 	},
+	// 	{
+    //         xtype: 'button',
+	// 		text: 'Tính quyết toán',
+    //         margin: 5,
+    //         iconCls: 'x-fa fa-calculator',
+    //         itemId: 'btnRecon_Calculate'
+    //     },
+    // ]
+	// }]
 });
 

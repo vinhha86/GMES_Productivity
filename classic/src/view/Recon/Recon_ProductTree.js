@@ -11,10 +11,10 @@ Ext.define('GSmartApp.view.Recon.Recon_ProductTree', {
     rootVisible: false,
     selModel: {
         selType: 'checkboxmodel',
-        mode: 'SINGLE'
+        mode: 'MULTI'
     },
     bind: {
-        store: '{ReconProductTree_Store}'
+        store: '{PContractProductTreeStoreRecon}'
     },
     columns: [
         {
@@ -78,22 +78,22 @@ Ext.define('GSmartApp.view.Recon.Recon_ProductTree', {
                 '</div>'
             ]
         },
-        {
-            text: 'SL ĐH',
-            dataIndex: 'amount',
-            align: 'right',
-            width: 65,
-            renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                var value = value == 0 ? "" : Ext.util.Format.number(value, '0,000');
-                return '<div>' + value + '</div>'
-            }
-        },
-        {
-            text: 'SL xuất',
-            dataIndex: 'amount_stockout',
-            align: 'right',
-            width: 65,
-        }
+        // {
+        //     text: 'SL ĐH',
+        //     dataIndex: 'amount',
+        //     align: 'right',
+        //     width: 65,
+        //     renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+        //         var value = value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+        //         return '<div>' + value + '</div>'
+        //     }
+        // },
+        // {
+        //     text: 'SL xuất',
+        //     dataIndex: 'amount_stockout',
+        //     align: 'right',
+        //     width: 65,
+        // }
     ],
     dockedItems: [{
         dock: 'bottom',

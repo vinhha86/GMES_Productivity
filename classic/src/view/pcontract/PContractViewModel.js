@@ -106,6 +106,9 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         PContractProductTreeStoreBalance: {
             type: 'PContractProductTreeStore'
         },
+        PContractProductTreeStoreRecon: {
+            type: 'PContractProductTreeStore'
+        },
         PContractPOList: {
             type: 'PContractPOStore'
         },

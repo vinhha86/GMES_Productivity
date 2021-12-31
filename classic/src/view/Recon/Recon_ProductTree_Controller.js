@@ -33,21 +33,22 @@ Ext.define('GSmartApp.view.Recon.Recon_ProductTree_Controller', {
         var me = this.getView();
         var select = me.getSelectionModel().getSelection();
         var viewmodel = this.getViewModel();
-        var SKUReconStore = viewmodel.getStore('SKUReconStore');
+        var ReconProduct_Store = viewmodel.getStore('ReconProduct_Store');
+        var ReconMaterial_Store = viewmodel.getStore('ReconMaterial_Store');
 
         var params = new Object();
         params.pcontractid_link = viewmodel.get('pcontractid_link');
         params.pcontract_poid_link = null;
 
         var list_id_product = '';
-        if (select[0].get('children').length > 0) {
-            for (var i = 0; i < select[0].get('children').length; i++) {
-                var data = select[0].get('children')[i];
+        if (select.length > 0) {
+            for (var i = 0; i < select.length; i++) {
+                var data = select[i];
                 if (i == 0) {
-                    list_id_product = data.productid_link;
+                    list_id_product = data.data.productid_link;
                 }
                 else {
-                    list_id_product += ";" + data.productid_link;
+                    list_id_product += ";" + data.data.productid_link;
                 }
             }
         }
@@ -58,13 +59,14 @@ Ext.define('GSmartApp.view.Recon.Recon_ProductTree_Controller', {
 
         me.setLoading("Đang tính quyết toán");
 
-        GSmartApp.Ajax.post('/api/v1/recon/cal_recon_bycontract', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post_longtimeout('/api/v1/recon/cal_recon_bycontract', Ext.JSON.encode(params),
         function (success, response, options) {
             me.setLoading(false);
             if (success) {
                 var response = Ext.decode(response.responseText);
                 if (response.respcode == 200) {
-                    SKUReconStore.setData(response.data);
+                    ReconProduct_Store.setData(response.productsku_data);
+                    ReconMaterial_Store.setData(response.data);
                 }
             }
         })
