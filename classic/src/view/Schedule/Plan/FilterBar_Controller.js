@@ -254,6 +254,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar_Controller', {
         params.startDate = viewmodel.get('schedule.startDate');
         params.endDate = viewmodel.get('schedule.endDate');
         params.PO_code = viewmodel.get('schedule.PO');
+        params.product_buyercode = viewmodel.get('schedule.product_buyercode');
         params.contractcode = viewmodel.get('schedule.contractcode');
         params.Buyer = viewmodel.get('schedule.buyer');
         params.Vendor = viewmodel.get('schedule.vendor');

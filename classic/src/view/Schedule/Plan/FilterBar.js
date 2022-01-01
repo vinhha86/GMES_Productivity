@@ -124,6 +124,23 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
                 value: '{schedule.endDate}'
             }
         },
+        // {
+        //     xtype: 'textfield',
+        //     emptyText: 'Mã hàng',
+        //     width: 125,
+        //     bind: {
+        //         value: '{schedule.product_buyercode}'
+        //     }
+        // },
+        {
+            xtype: 'textfield',
+            clearable: true,
+            emptyText: 'PO Line',
+            width: 130,
+            bind: {
+                value: '{schedule.PO}'
+            }
+        },
         {
             xtype: 'button',
             tooltip: 'Tìm kiếm',
@@ -153,7 +170,8 @@ Ext.define('GSmartApp.view.Schedule.Plan.FilterBar', {
             bind: {
                 value: '{schedule.isAllgrant}'
             }
-        }
+        },
+        '->'
         , {
             xtype: 'button',
             tooltip: 'Phóng to',
