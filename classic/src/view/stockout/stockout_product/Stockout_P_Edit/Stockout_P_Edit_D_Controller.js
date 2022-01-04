@@ -566,6 +566,14 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			}]
 		});
 		form.show();
+
+		form.down('#Stockout_EPC_Window').getController().on('LuuLoaiThanhPham_Done', function () {
+			// console.log('here');
+			var stockout_p_edit = Ext.getCmp('stockout_p_edit');
+			if(stockout_p_edit){
+				stockout_p_edit.getController().getInfo(stockout.id);
+			}
+		});
 	},
 	onDeleteStockoutD: function (grid, rowIndex) {
 		var me = this;

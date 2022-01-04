@@ -19,6 +19,8 @@ Ext.define('GSmartApp.view.stockout.Stockout_EPC_Controller', {
         var TPGroupStore = viewModel.getStore('TPGroupStore');
     },
     onSave: function(){
+        var m = this;
+        var me = this.getView();
         var viewModel = this.getViewModel();
         var stockout = viewModel.get('stockout');
         var stockout_d = viewModel.get('stockout_d');
@@ -38,14 +40,28 @@ Ext.define('GSmartApp.view.stockout.Stockout_EPC_Controller', {
             });
             return;
         }
+        if(stockout.id == null || stockout.id == 0){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn cần lưu phiếu xuất kho',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                },
+            });
+            return;
+        }
 
         //////
+        me.setLoading(true);
+
         var params = new Object();
         params.stockoutdid_link = stockout_d.get('id');
+        params.TPGroupStoreValue = TPGroupStoreValue;
 
         GSmartApp.Ajax.postJitin('/api/v1/stockout/save_loai_thanh_pham', Ext.JSON.encode(params),
         function (success, response, options) {
-            if(mainView) mainView.setLoading(false);
+            me.setLoading(false);
             if (success) {
                 var response = Ext.decode(response.responseText);
                 // console.log(response);
@@ -58,6 +74,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_EPC_Controller', {
                             yes: 'Đóng',
                         }
                     });
+                    m.fireEvent('LuuLoaiThanhPham_Done');
                 }
                 else {
                     Ext.Msg.show({
