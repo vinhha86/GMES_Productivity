@@ -127,64 +127,66 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
         GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_getbyid', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (mainView) mainView.setLoading(false);
-                var response = Ext.decode(response.responseText);
-                if (response.respcode == 200) {
-                    // console.log(response.data);
-                    // if(viewModel == null) viewModel = m.getViewModel();
+                if(success){
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        // console.log(response.data);
+                        // if(viewModel == null) viewModel = m.getViewModel();
 
-                    //gan gia tri vao list epc
-                    // viewModel.set('listepc', response.listepc);
-                    // viewModel.set('listepc', new Map());
-                    var listepc = new Map();
-                    for (var i = 0; i < response.listepc.length; i++) {
-                        var epc = response.listepc[i].epc.trim();
-                        listepc.set(epc, epc);
-                    }
-                    viewModel.set('listepc', listepc);
-                    
-                    viewModel.set('stockin', response.data);
-                    store.setData(response.data.stockin_d);
-                    store.commitChanges();
+                        //gan gia tri vao list epc
+                        // viewModel.set('listepc', response.listepc);
+                        // viewModel.set('listepc', new Map());
+                        var listepc = new Map();
+                        for (var i = 0; i < response.listepc.length; i++) {
+                            var epc = response.listepc[i].epc.trim();
+                            listepc.set(epc, epc);
+                        }
+                        viewModel.set('listepc', listepc);
+                        
+                        viewModel.set('stockin', response.data);
+                        store.setData(response.data.stockin_d);
+                        store.commitChanges();
 
-                    if (response.data.stockintypeid_link == 21) { // Nhap tu san xuat
-                        // var OrgFromStore = viewModel.getStore('OrgFromStore');
-                        // OrgFromStore.loadStore(9, false);
-                        // var OrgToStore = viewModel.getStore('OrgToStore');
-						// var listidtype = "8,4";
-						// OrgToStore.loadStore_allchildren_byorg(listidtype);
-						// // OrgToStore.loadStoreByOrgTypeString(listidtype);
+                        if (response.data.stockintypeid_link == 21) { // Nhap tu san xuat
+                            // var OrgFromStore = viewModel.getStore('OrgFromStore');
+                            // OrgFromStore.loadStore(9, false);
+                            // var OrgToStore = viewModel.getStore('OrgToStore');
+                            // var listidtype = "8,4";
+                            // OrgToStore.loadStore_allchildren_byorg(listidtype);
+                            // // OrgToStore.loadStoreByOrgTypeString(listidtype);
 
-                        var OrgFromStore = viewModel.getStore('OrgFromStore');
-                        OrgFromStore.loadStore(9, false);
+                            var OrgFromStore = viewModel.getStore('OrgFromStore');
+                            OrgFromStore.loadStore(9, false);
 
-                        var OrgToStore = viewModel.getStore('OrgToStore');
-                        // OrgToStore.loadStore(8, false);
-                        OrgToStore.loadOrgByTypeAndUser([8]);
+                            var OrgToStore = viewModel.getStore('OrgToStore');
+                            // OrgToStore.loadStore(8, false);
+                            OrgToStore.loadOrgByTypeAndUser([8]);
 
-                        var POrder_ListStore = viewModel.getStore('POrder_ListStore');
-                        POrder_ListStore.POrderPOLine_loadby_po(response.data.pcontract_poid_link);
-                        var POrder_ListGrantStore = viewModel.getStore('POrder_ListGrantStore');
-                        POrder_ListGrantStore.loadStore(response.data.porderid_link);
-                    }
-                    if (response.data.stockintypeid_link == 22) { // Nhap dieu chuyen
-                        var OrgFromStore = viewModel.getStore('OrgFromStore');
-                        OrgFromStore.loadStore(8, false);
-                        // var listidtypefrom = "8,4";
-						// // OrgFromStore.loadStore_allchildren_byorg(listidtypefrom);
-                        // OrgFromStore.loadStoreByOrgTypeString(listidtypefrom);
-                        var OrgToStore = viewModel.getStore('OrgToStore');
-                        OrgToStore.loadOrgByTypeAndUser([8]);
-						// var listidtypeto = "8,4";
-						// OrgToStore.loadStore_allchildren_byorg(listidtypeto);
-						// OrgToStore.loadStoreByOrgTypeString(listidtypeto);
-                    }
+                            var POrder_ListStore = viewModel.getStore('POrder_ListStore');
+                            POrder_ListStore.POrderPOLine_loadby_po(response.data.pcontract_poid_link);
+                            var POrder_ListGrantStore = viewModel.getStore('POrder_ListGrantStore');
+                            POrder_ListGrantStore.loadStore(response.data.porderid_link);
+                        }
+                        if (response.data.stockintypeid_link == 22) { // Nhap dieu chuyen
+                            var OrgFromStore = viewModel.getStore('OrgFromStore');
+                            OrgFromStore.loadStore(8, false);
+                            // var listidtypefrom = "8,4";
+                            // // OrgFromStore.loadStore_allchildren_byorg(listidtypefrom);
+                            // OrgFromStore.loadStoreByOrgTypeString(listidtypefrom);
+                            var OrgToStore = viewModel.getStore('OrgToStore');
+                            OrgToStore.loadOrgByTypeAndUser([8]);
+                            // var listidtypeto = "8,4";
+                            // OrgToStore.loadStore_allchildren_byorg(listidtypeto);
+                            // OrgToStore.loadStoreByOrgTypeString(listidtypeto);
+                        }
 
-                    // set gia tri sl nhap mac dinh = sl yeu cau
-                    // m.setSlNhap();
+                        // set gia tri sl nhap mac dinh = sl yeu cau
+                        // m.setSlNhap();
 
-                    // nếu là Duyệt
-                    if (isConfirm == true) {
-                        m.onConfirm();
+                        // nếu là Duyệt
+                        if (isConfirm == true) {
+                            m.onConfirm();
+                        }
                     }
                 }
             })

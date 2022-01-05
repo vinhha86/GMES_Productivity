@@ -496,17 +496,65 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D_Controller', {
 				}
 			})
 	},
+	// onEPCDetail: function (grid, rowIndex, colIndex) {
+	// 	var record = grid.store.getAt(rowIndex); 
+	// 	// console.log(record);
+	// 	var form = Ext.create({
+	// 		xtype: 'stockin_epc_window',
+	// 		reference: 'stockin_epc_window'
+	// 	});
+	// 	var viewModel = form.getViewModel();
+	// 	viewModel.set('stockin_d', record);
+	// 	form.show();
+	// },
+
 	onEPCDetail: function (grid, rowIndex, colIndex) {
-		var record = grid.store.getAt(rowIndex); 
+		var m = this;
+		var me = this.getView();
+		var viewModel = this.getViewModel();
+		var record = grid.store.getAt(rowIndex);
+		var stockin = viewModel.get('stockin');
+
+		// console.log(stockin);
 		// console.log(record);
-		var form = Ext.create({
-			xtype: 'stockin_epc_window',
-			reference: 'stockin_epc_window'
+		// return;
+
+		var form = Ext.create('Ext.window.Window', {
+			height: 600,
+			width: 600,
+			closable: true,
+			resizable: false,
+			modal: true,
+			border: false,
+			title: 'Danh sách thành phẩm',
+			closeAction: 'destroy',
+			bodyStyle: 'background-color: transparent',
+			layout: {
+				type: 'fit', // fit screen for window
+				padding: 5
+			},
+			items: [{
+				xtype: 'Stockin_EPC_Window',
+				viewModel: {
+					data: {
+						stockin: stockin,
+						stockin_d: record,
+						isAutoChecked: true,
+					}
+				}
+			}]
 		});
-		var viewModel = form.getViewModel();
-		viewModel.set('stockin_d', record);
 		form.show();
+
+		form.down('#Stockin_EPC_Window').getController().on('LuuLoaiThanhPham_Done', function () {
+			// console.log('here');
+			var Stockin_P_Edit = Ext.getCmp('Stockin_P_Edit');
+			if(Stockin_P_Edit){
+				Stockin_P_Edit.getController().getInfo(stockin.id);
+			}
+		});
 	},
+
 	Sku_AutoComplete_beforeQuery: function () {
 		var viewModel = this.getViewModel();
 		var Sku_AutoComplete = viewModel.getStore('Sku_AutoComplete');

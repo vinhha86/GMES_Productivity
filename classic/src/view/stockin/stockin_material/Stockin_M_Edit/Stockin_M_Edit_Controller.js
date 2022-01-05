@@ -156,46 +156,48 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         params.id = id;
         GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_getbyid', Ext.JSON.encode(params),
             function (success, response, options) {
-                var response = Ext.decode(response.responseText);
-                if (response.respcode == 200) {
-                    // console.log(response.data);
-                    var data = response.data;
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        // console.log(response.data);
+                        var data = response.data;
 
-                    if (data.unitid_link == null) data.unitid_link = 1;
-                    if (data.stockin_d == null) data.stockin_d = [];
-                    if (data.stockin_product == null) data.stockin_product = [];
-                    viewModel.set('stockin', data);
-                    for (var i = 0; i < response.listepc.length; i++) {
-                        listepc.set(response.listepc[i].epc, response.listepc[i].epc);
-                    }
-                    store.setData(data.stockin_d);
-                    store.commitChanges();
-                    StockinProduct_Store.setData(data.stockin_product);
-                    StockinProduct_Store.commitChanges();
+                        if (data.unitid_link == null) data.unitid_link = 1;
+                        if (data.stockin_d == null) data.stockin_d = [];
+                        if (data.stockin_product == null) data.stockin_product = [];
+                        viewModel.set('stockin', data);
+                        for (var i = 0; i < response.listepc.length; i++) {
+                            listepc.set(response.listepc[i].epc, response.listepc[i].epc);
+                        }
+                        store.setData(data.stockin_d);
+                        store.commitChanges();
+                        StockinProduct_Store.setData(data.stockin_product);
+                        StockinProduct_Store.commitChanges();
 
-                    // set store org from
-                    if (data.stockintypeid_link == 1) {// mua moi va cap bu thi là nha cung cap
-                        var orgfromstore = viewModel.getStore('OrgFromStore');
-                        orgfromstore.loadStore(5, false);
-                    } else if (data.stockintypeid_link == 2) { // nhap dieu chuyen (kho -> kho)
-                        var orgfromstore = viewModel.getStore('OrgFromStore');
-                        // orgfromstore.loadOrgByTypeAndUser([3]);
-                        orgfromstore.loadStore(3, false);
-                    } else {
-                        var listidtype = "13,4,8,9";
-                        var orgfromstore = viewModel.getStore('OrgFromStore');
-                        orgfromstore.loadStore_byRoot(listidtype);
-                    }
+                        // set store org from
+                        if (data.stockintypeid_link == 1) {// mua moi va cap bu thi là nha cung cap
+                            var orgfromstore = viewModel.getStore('OrgFromStore');
+                            orgfromstore.loadStore(5, false);
+                        } else if (data.stockintypeid_link == 2) { // nhap dieu chuyen (kho -> kho)
+                            var orgfromstore = viewModel.getStore('OrgFromStore');
+                            // orgfromstore.loadOrgByTypeAndUser([3]);
+                            orgfromstore.loadStore(3, false);
+                        } else {
+                            var listidtype = "13,4,8,9";
+                            var orgfromstore = viewModel.getStore('OrgFromStore');
+                            orgfromstore.loadStore_byRoot(listidtype);
+                        }
 
-                    // set store org to
-                    if (data.stockintypeid_link == 1) {// mua moi -> kho
-                        var OrgToStore = viewModel.getStore('OrgToStore');
-                        OrgToStore.loadOrgByTypeAndUser([3]);
-                    }
-                    if (data.stockintypeid_link == 2) {// nhap dieu chuyen (kho -> kho)
-                        var OrgToStore = viewModel.getStore('OrgToStore');
-                        // OrgToStore.loadStore(3, false);
-                        OrgToStore.loadOrgByTypeAndUser([3]);
+                        // set store org to
+                        if (data.stockintypeid_link == 1) {// mua moi -> kho
+                            var OrgToStore = viewModel.getStore('OrgToStore');
+                            OrgToStore.loadOrgByTypeAndUser([3]);
+                        }
+                        if (data.stockintypeid_link == 2) {// nhap dieu chuyen (kho -> kho)
+                            var OrgToStore = viewModel.getStore('OrgToStore');
+                            // OrgToStore.loadStore(3, false);
+                            OrgToStore.loadOrgByTypeAndUser([3]);
+                        }
                     }
                 }
             })

@@ -173,29 +173,31 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
         GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_getbyid',Ext.JSON.encode(params),
 		function(success,response,options ) {
 			me.setLoading(false);
-            var response = Ext.decode(response.responseText);
-            if(response.respcode == 200) {
-				var stockout = response.data;
-				if(stockout.unitid_link == null) stockout.unitid_link = 1;
-                viewModel.set('stockout', stockout);
-                for(var i=0; i<response.listepc.length; i++){
-                    listepc.set(response.listepc[i].epc, response.listepc[i].epc);
-                }
-                store.setData(response.data.stockout_d);
-				store.commitChanges();
+			if (success) {
+				var response = Ext.decode(response.responseText);
+				if(response.respcode == 200) {
+					var stockout = response.data;
+					if(stockout.unitid_link == null) stockout.unitid_link = 1;
+					viewModel.set('stockout', stockout);
+					for(var i=0; i<response.listepc.length; i++){
+						listepc.set(response.listepc[i].epc, response.listepc[i].epc);
+					}
+					store.setData(response.data.stockout_d);
+					store.commitChanges();
 
-				if(response.data.stockouttypeid_link == 1) { // xuat den cat
-					var OrgToStore = viewModel.getStore('OrgToStore');
-					// OrgToStore.loadStore(17, false);
-					OrgToStore.getOrgToForStockoutMaterial_Cut();
-				}
-				if(response.data.stockouttypeid_link == 2) { // xuat den dieu chuyen noi bo
-					var OrgToStore = viewModel.getStore('OrgToStore');
-					OrgToStore.loadStoreByOrgTypeString('3');
-				}
+					if(response.data.stockouttypeid_link == 1) { // xuat den cat
+						var OrgToStore = viewModel.getStore('OrgToStore');
+						// OrgToStore.loadStore(17, false);
+						OrgToStore.getOrgToForStockoutMaterial_Cut();
+					}
+					if(response.data.stockouttypeid_link == 2) { // xuat den dieu chuyen noi bo
+						var OrgToStore = viewModel.getStore('OrgToStore');
+						OrgToStore.loadStoreByOrgTypeString('3');
+					}
 
-				// console.log(stockout);
-            }
+					// console.log(stockout);
+				}
+			}
 		})
     },
     onNewData:function(node, id, type){

@@ -89,6 +89,11 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_D', {
 			width: 50
 		},
 		{
+			text: 'Loại thành phẩm', 
+			dataIndex: 'loaiThanhPham',
+			flex: 1
+		},
+		{
 			xtype: 'numbercolumn',
 			format: '0,000',
 			text: 'SL Y/C',

@@ -90,33 +90,35 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_getbyid', Ext.JSON.encode(params),
 			function (success, response, options) {
 				if(mainView) mainView.setLoading(false);
-				var response = Ext.decode(response.responseText);
-				if (response.respcode == 200) {
-					viewModel.set('stockout', response.data);
-					
-					// viewModel.set('listepc', new Map());
-                    var listepc = new Map();
-                    for (var i = 0; i < response.listepc.length; i++) {
-						var epc = response.listepc[i].epc.trim();
-                        listepc.set(epc, epc);
-                    }
+				if (success) {
+					var response = Ext.decode(response.responseText);
+					if (response.respcode == 200) {
+						viewModel.set('stockout', response.data);
+						
+						// viewModel.set('listepc', new Map());
+						var listepc = new Map();
+						for (var i = 0; i < response.listepc.length; i++) {
+							var epc = response.listepc[i].epc.trim();
+							listepc.set(epc, epc);
+						}
 
-                    viewModel.set('listepc', listepc);
+						viewModel.set('listepc', listepc);
 
-					store.setData(response.data.stockout_d);
-					store.commitChanges();
+						store.setData(response.data.stockout_d);
+						store.commitChanges();
 
-					if(response.data.stockouttypeid_link == 21) { // xuat theo don cho Vendor
-						var OrgToStore = viewModel.getStore('OrgToStore');
-						OrgToStore.loadStore(11, false);
-					}
-					if(response.data.stockouttypeid_link == 22) { // xuat dieu chuyen den px khac
-						var OrgToStore = viewModel.getStore('OrgToStore');
-						OrgToStore.loadStoreByOrgTypeString('8');
-					}
+						if(response.data.stockouttypeid_link == 21) { // xuat theo don cho Vendor
+							var OrgToStore = viewModel.getStore('OrgToStore');
+							OrgToStore.loadStore(11, false);
+						}
+						if(response.data.stockouttypeid_link == 22) { // xuat dieu chuyen den px khac
+							var OrgToStore = viewModel.getStore('OrgToStore');
+							OrgToStore.loadStoreByOrgTypeString('8');
+						}
 
-					if(isConfirm == true){
-						m.onConfirm();
+						if(isConfirm == true){
+							m.onConfirm();
+						}
 					}
 				}
 			})

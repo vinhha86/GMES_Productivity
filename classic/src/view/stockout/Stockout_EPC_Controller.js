@@ -64,7 +64,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_EPC_Controller', {
             });
             return;
         }
-        if(stockout.id == null || stockout.id == 0){
+        if(stockout.id == null || stockout.id == 0 || stockout_d.get('id') == null || isNaN(stockout_d.get('id'))){
             Ext.Msg.show({
                 title: 'Thông báo',
                 msg: 'Bạn cần lưu phiếu xuất kho',

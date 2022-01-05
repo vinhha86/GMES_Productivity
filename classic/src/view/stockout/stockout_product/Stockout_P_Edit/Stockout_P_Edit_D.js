@@ -106,7 +106,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                 maskRe: /[0-9.]/,
                 selectOnFocus: true,
                 bind: {
-                    editable: '{iseditSL_YC}',
+                    // editable: '{iseditSL_YC}',
                 }
             },
             bind: {
@@ -124,7 +124,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                 maskRe: /[0-9.]/,
                 selectOnFocus: true,
                 bind: {
-                    editable: '{iseditSL}'
+                    // editable: '{iseditSL}'
                 }
             }
         },
