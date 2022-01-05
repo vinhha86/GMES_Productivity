@@ -17,6 +17,30 @@ Ext.define('GSmartApp.view.stockout.Stockout_EPC_Controller', {
         var stockout = viewModel.get('stockout');
         var stockout_d = viewModel.get('stockout_d');
         var TPGroupStore = viewModel.getStore('TPGroupStore');
+
+        var stockout_packinglist = stockout_d.get('stockout_packinglist');
+        var loaiThanhPham1 = false;
+        var loaiThanhPham2 = false;
+        var loaiThanhPham3 = false;
+        for(var i=0;i< stockout_packinglist.length;i++){
+            var pklObj = stockout_packinglist[i];
+            if(pklObj.status == 11){
+                loaiThanhPham1 = true;
+            }
+            if(pklObj.status == 12){
+                loaiThanhPham2 = true;
+            }
+            if(pklObj.status == 13){
+                loaiThanhPham3 = true;
+            }
+        }
+        if(loaiThanhPham3){
+            viewModel.set('TPGroupStoreValue', 13);
+        }else if(loaiThanhPham2){
+            viewModel.set('TPGroupStoreValue', 12);
+        }else if(loaiThanhPham1){
+            viewModel.set('TPGroupStoreValue', 11);
+        }
     },
     onSave: function(){
         var m = this;

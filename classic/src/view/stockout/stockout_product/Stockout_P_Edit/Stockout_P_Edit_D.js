@@ -83,10 +83,16 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			text: 'Màu', 
 			dataIndex: 'color_name',
 			flex: 1
-		},{
+		},
+        {
 			text: 'Cỡ', 
 			dataIndex: 'size_name',
 			width: 50
+		},
+        {
+			text: 'Loại thành phẩm', 
+			dataIndex: 'loaiThanhPham',
+			flex: 1
 		},
         {
             // header: 'Số lượng YC', dataIndex: 'totalpackage_req', width: 80,
