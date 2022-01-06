@@ -29,13 +29,16 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         }
     },
     control: {
-        '#porderlistmain': {
-            // activate: 'onActivate',
-            itemdblclick: 'onitemdblclick',
-        },
+        // '#porderlistmain': {
+        //     // activate: 'onActivate',
+        //     itemdblclick: 'onitemdblclick',
+        // },
         '#btnTimKiem': {
             click: 'onBtnTimKiem'
         },
+        '#btnExcel':{
+            click: 'onExportExcel'
+        }
     },
     listen: {
         store: {
@@ -70,41 +73,72 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
         var golivedateto = objSearch.golivedateto;
         var status = objSearch.status;
 
+        var isHavingCri = false;
         if (pobuyer == "" || pobuyer == null) {
             pobuyer = "";
-        }
-        if (povendor == "" || povendor == null) {
-            povendor = "";
-        }
+        } else 
+            isHavingCri = true;
+        // if (povendor == "" || povendor == null) {
+        //     povendor = "";
+        // } else 
+        // isHavingCri = true;
+        
         if (style == "" || style == null) {
             style = "";
-        }
-        if (contractcode == "" || contractcode == null) {
-            contractcode = "";
-        }
-        if (buyerid == "") {
-            buyerid = null;
-        }
-        if (vendorid == "") {
-            vendorid = null;
-        }
-        if (factoryid == "") {
-            factoryid = null;
-        }
-        if (golivedatefrom == "") {
-            golivedatefrom = null;
-        }
-        if (golivedateto == "") {
-            golivedateto = null;
-        }
-        if (status == null || status == "") {
-            status = [];
-        }
+        } else 
+            isHavingCri = true;
+        
+        // if (contractcode == "" || contractcode == null) {
+        //     contractcode = "";
+        // } else 
+        //     isHavingCri = true;
 
-        store.loadStoreBySearch(pobuyer, povendor, style, contractcode,
-            buyerid, vendorid, factoryid,
-            golivedatefrom, golivedateto,
-            status, 500, 1);
+        if (buyerid == "" || buyerid == null) {
+            buyerid = null;
+        } else 
+            isHavingCri = true;
+        
+        if (vendorid == "" || vendorid == null) {
+            vendorid = null;
+        } else 
+            isHavingCri = true;
+        
+        // if (factoryid == "") {
+        //     factoryid = null;
+        // } else 
+        // isHavingCri = true;
+        
+        // if (golivedatefrom == "") {
+        //     golivedatefrom = null;
+        // } else 
+        // isHavingCri = true;
+        
+        // if (golivedateto == "") {
+        //     golivedateto = null;
+        // } else 
+        // isHavingCri = true;
+        
+        // if (status == null || status == "") {
+        //     status = [];
+        // } else 
+        // isHavingCri = true;
+        
+        if (isHavingCri){
+            store.loadStoreBySearch(pobuyer, povendor, style, contractcode,
+                buyerid, vendorid, factoryid,
+                golivedatefrom, golivedateto,
+                status, 500, 1);
+        } else {
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Cần phải có ít nhất 01 Điều kiện lọc',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            me.setLoading(false);            
+        }
     },
     onitemdblclick: function (m, record, item, index, e, eOpts) {
         var viewModel = this.getViewModel();
@@ -124,84 +158,144 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
             minWidth: 150,
             viewModel: {},
             items: [
+                // {
+                //     text: 'Chuẩn bị sản xuất',
+                //     reference: 'pprocess_productivity',
+                //     separator: true,
+                //     margin: '10 0 0',
+                //     iconCls: 'x-fa fas fa-bell yellowIcon',
+                //     handler: function () {
+                //         if (record.get('status') > 0 && record.get('status') < 4) {   // 2   
+                //             Ext.Msg.show({
+                //                 title: 'Thông báo',
+                //                 msg: 'Đổi trạng thái lệnh thành chuẩn bị sản xuất ?',
+                //                 buttons: Ext.Msg.YESNO,
+                //                 icon: Ext.Msg.QUESTION,
+                //                 buttonText: {
+                //                     yes: 'Có',
+                //                     no: 'Không'
+                //                 },
+                //                 fn: function (btn) {
+                //                     if (btn === 'yes') {
+                //                         me.updatePorderStatus(record.data.id, 2);
+                //                     }
+                //                 }
+                //             });
+                //         } else {
+                //             Ext.Msg.show({
+                //                 title: 'Thông báo',
+                //                 msg: 'Trạng thái lệnh phải là Đã phân chuyền hoặc Công đoạn phụ',
+                //                 buttons: Ext.MessageBox.YES,
+                //                 buttonText: {
+                //                     yes: 'Đóng',
+                //                 }
+                //             });
+                //         }
+                //     }
+                // },
+                // {
+                //     text: 'Kết thúc sản xuất',
+                //     reference: 'pprocess_subprocess',
+                //     margin: '10 0 0',
+                //     iconCls: 'x-fa fas fa-stop violetIcon',
+                //     handler: function () {
+                //         // console.log(record.data.id);
+                //         if (record.get('status') > 4) {     // 6
+                //             Ext.Msg.show({
+                //                 title: 'Thông báo',
+                //                 msg: 'Đổi trạng thái lệnh thành kết thúc sản xuất ?',
+                //                 buttons: Ext.Msg.YESNO,
+                //                 icon: Ext.Msg.QUESTION,
+                //                 buttonText: {
+                //                     yes: 'Có',
+                //                     no: 'Không'
+                //                 },
+                //                 fn: function (btn) {
+                //                     if (btn === 'yes') {
+                //                         me.updatePorderStatus(record.data.id, 6);
+                //                     }
+                //                 }
+                //             });
+                //         } else {
+                //             Ext.Msg.show({
+                //                 title: 'Thông báo',
+                //                 msg: 'Trạng thái lệnh phải là đã sản xuất xong',
+                //                 buttons: Ext.MessageBox.YES,
+                //                 buttonText: {
+                //                     yes: 'Đóng',
+                //                 }
+                //             });
+                //         }
+                //     }
+                // },
+                // {
+                //     text: 'Kế hoạch cắt',
+                //     margin: '10 0 0',
+                //     iconCls: 'x-fa fas fa-cut violetIcon',
+                //     handler: function () {
+                //         me.onCutPlan(record);
+                //     }
+                // }
                 {
-                    text: 'Chuẩn bị sản xuất',
-                    reference: 'pprocess_productivity',
-                    separator: true,
+                    text: 'Thông tin sản phẩm',
                     margin: '10 0 0',
-                    iconCls: 'x-fa fas fa-bell yellowIcon',
+                    iconCls: 'x-fa fa-shopping-bag yellowIcon',
                     handler: function () {
-                        if (record.get('status') > 0 && record.get('status') < 4) {   // 2   
-                            Ext.Msg.show({
-                                title: 'Thông báo',
-                                msg: 'Đổi trạng thái lệnh thành chuẩn bị sản xuất ?',
-                                buttons: Ext.Msg.YESNO,
-                                icon: Ext.Msg.QUESTION,
-                                buttonText: {
-                                    yes: 'Có',
-                                    no: 'Không'
-                                },
-                                fn: function (btn) {
-                                    if (btn === 'yes') {
-                                        me.updatePorderStatus(record.data.id, 2);
-                                    }
+                        let window = Ext.create('GSmartApp.view.PContract.PContract_General_InfoView', {
+                            IdPContract: record.data.pcontractid_link,
+                            IdProduct: record.data.productid_link,
+                            viewModel: {
+                                data: {
+                                    IdPContract: record.data.pcontractid_link,
+                                    IdProduct: record.data.productid_link,
+                                    isWindow: true
                                 }
-                            });
-                        } else {
-                            Ext.Msg.show({
-                                title: 'Thông báo',
-                                msg: 'Trạng thái lệnh phải là Đã phân chuyền hoặc Công đoạn phụ',
-                                buttons: Ext.MessageBox.YES,
-                                buttonText: {
-                                    yes: 'Đóng',
-                                }
-                            });
-                        }
+                            }
+                        });
+                        window.show();
                     }
                 },
                 {
-                    text: 'Kết thúc sản xuất',
-                    reference: 'pprocess_subprocess',
+                    text: 'Giá sản phẩm',
                     margin: '10 0 0',
-                    iconCls: 'x-fa fas fa-stop violetIcon',
+                    iconCls: 'x-fa fa-usd redIcon',
                     handler: function () {
-                        // console.log(record.data.id);
-                        if (record.get('status') > 4) {     // 6
-                            Ext.Msg.show({
-                                title: 'Thông báo',
-                                msg: 'Đổi trạng thái lệnh thành kết thúc sản xuất ?',
-                                buttons: Ext.Msg.YESNO,
-                                icon: Ext.Msg.QUESTION,
-                                buttonText: {
-                                    yes: 'Có',
-                                    no: 'Không'
-                                },
-                                fn: function (btn) {
-                                    if (btn === 'yes') {
-                                        me.updatePorderStatus(record.data.id, 6);
-                                    }
-                                }
-                            });
-                        } else {
-                            Ext.Msg.show({
-                                title: 'Thông báo',
-                                msg: 'Trạng thái lệnh phải là đã sản xuất xong',
-                                buttons: Ext.MessageBox.YES,
-                                buttonText: {
-                                    yes: 'Đóng',
-                                }
-                            });
-                        }
+                        // let window = Ext.create('GSmartApp.view.pcontract.PContract_PO_List', {
+                        //     viewModel: {
+                        //         data: {
+                        //             IdPContract: record.data.pcontractid_link,
+                        //             IdProduct: record.data.productid_link,
+                        //             isWindow: true
+                        //         }
+                        //     }
+                        // });
+                        // window.show();
                     }
                 },
                 {
-                    text: 'Kế hoạch cắt',
+                    text: 'Quyết toán với khách hàng',
                     margin: '10 0 0',
-                    iconCls: 'x-fa fas fa-cut violetIcon',
+                    iconCls: 'x-fa fas fa-calculator violetIcon',
                     handler: function () {
-                        me.onCutPlan(record);
+                        // me.onCutPlan(record);
                     }
-                }
+                },
+                {
+                    text: 'Quyết toán với Hải quan',
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-calculator greenIcon',
+                    handler: function () {
+                        // me.onCutPlan(record);
+                    }
+                }, 
+                {
+                    text: 'Quyết toán với Phân xưởng',
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-calculator blueIcon',
+                    handler: function () {
+                        // me.onCutPlan(record);
+                    }
+                }                       
             ]
         });
         // HERE IS THE MAIN CHANGE
@@ -347,5 +441,14 @@ Ext.define('GSmartApp.view.porders.POrder_List.POrder_List_MainController', {
             filters.remove(this.po_buyerFilter);
             this.po_buyerFilter = null;
         }
+    },
+    onExportExcel: function(){
+        this.getView().saveDocumentAs({
+            type: 'excel',
+            title: 'Danh sách Lệnh sản xuất',
+            showSummary: true,
+            includeGroups: true,
+            fileName:'lenhsanxuat.xls'
+        });
     },
 })

@@ -4,6 +4,16 @@ Ext.define('GSmartApp.store.porder.POrder_ListStore', {
 	alias: 'store.POrder_ListStore',
 	groupField: 'granttoorgname',
 	pageSize: 25,
+	sorters: [
+		{
+			direction: 'ASC',
+			property: 'stylebuyer'
+		},
+		{
+			direction: 'ASC',
+			property: 'startDatePlan'
+		}
+	],
 	fields: [
 		{ name: 'id', type: 'int' },
 		{ name: 'ordercode', type: 'string' },
