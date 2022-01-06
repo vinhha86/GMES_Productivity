@@ -3,6 +3,41 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List_Main_Controller', {
     alias: 'controller.StockIn_P_List_Main_Controller',
     isActivate: false,
     init: function () {
+        
+    },
+	listen: {
+        controller: {
+            '*': {
+				// urlBack:'onSearch',
+            },
+            'StockIn_P_Main_Controller': {
+                Reload_StockIn_P_List: 'onSearch'
+            }
+        }
+    },    
+    control: {
+        '#btnTimKiem': {
+            click: 'onSearch'
+        },
+        '#StockIn_P_List_Main': {
+            afterrender: 'onAfterrender'
+        },
+        '#StockIn_P_List': {
+            select: 'onStockinSelect',
+            itemdblclick: 'onCapNhatdbl',
+            // afterrender: 'onSearch'
+        },
+        // '#btnTaoPhieuNhap': {
+        //     click: 'onBtnTaoPhieuNhap'
+        // },
+        '#btnTaoPhieuNhapMoi': {
+            click: 'onBtnTaoPhieuNhapMoi'
+        },
+        '#btnTaoPhieuNhapDieuChuyen': {
+            click: 'onBtnTaoPhieuNhapDieuChuyen'
+        },
+    },
+    onAfterrender: function(){
         var me = this.getView();
         var viewmodel = this.getViewModel();
         
@@ -20,35 +55,8 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List_Main_Controller', {
         var today = new Date();
 		var priorDate = new Date().setDate(today.getDate()-30);
 		me.down('#stockindate_from').setValue(new Date(priorDate));
-    },
-	listen: {
-        controller: {
-            '*': {
-				// urlBack:'onSearch',
-            },
-            'StockIn_P_Main_Controller': {
-                Reload_StockIn_P_List: 'onSearch'
-            }
-        }
-    },    
-    control: {
-        '#btnTimKiem': {
-            click: 'onSearch'
-        },
-        '#StockIn_P_List': {
-            select: 'onStockinSelect',
-            itemdblclick: 'onCapNhatdbl',
-            afterrender: 'onSearch'
-        },
-        // '#btnTaoPhieuNhap': {
-        //     click: 'onBtnTaoPhieuNhap'
-        // },
-        '#btnTaoPhieuNhapMoi': {
-            click: 'onBtnTaoPhieuNhapMoi'
-        },
-        '#btnTaoPhieuNhapDieuChuyen': {
-            click: 'onBtnTaoPhieuNhapDieuChuyen'
-        },
+
+        this.onSearch();
     },
     onStockinSelect: function (e, selected, eOpts) {
         var viewmodel = this.getViewModel();

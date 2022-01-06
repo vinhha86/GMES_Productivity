@@ -1,25 +1,49 @@
 Ext.define('GSmartApp.view.stockout.Stockout_P_Main', {
-    extend: 'Ext.container.Container',
+    extend: 'Ext.tab.Panel',
     xtype: 'stockout_p_main',
-    controller: 'Stockout_P_Controller',
+    id:'stockout_p_main',
+    controller: 'Stockout_P_Main_Controller',
     viewModel: {
-        type: 'Stockout_P_EditModel'
+        type: 'Stockout_P_Model'
     },
-    requires: [
-        'Ext.layout.container.Border'
-    ],    
-    layout: {
-        type: 'border'
-    },
-    
     items: [
         {
-            xtype: 'stockout_p_list',
+            title: 'Phiếu xuất kho',
+            xtype: 'Stockout_P_List_Main',
             margin: 1,
-            region: 'center'
-        }
-    ],
-    listeners: {
-        activate: 'onActivate'
-    }      
-});
+            // region: 'center'
+        },
+        // {
+        //     title: 'Yêu cầu xuất kho',
+        //     xtype: 'Stockout_P_Order_List_Main',
+        //     margin: 1,
+        // }, 
+    ], 
+})
+
+// Ext.define('GSmartApp.view.stockout.Stockout_P_Main', {
+//     extend: 'Ext.container.Container',
+//     xtype: 'stockout_p_main',
+//     controller: 'Stockout_P_Controller',
+//     viewModel: {
+//         type: 'Stockout_P_EditModel'
+//     },
+//     requires: [
+//         'Ext.layout.container.Border'
+//     ],    
+//     layout: {
+//         type: 'border'
+//     },
+    
+//     items: [
+//         {
+//             xtype: 'stockout_p_list',
+//             margin: 1,
+//             region: 'center'
+//         }
+//     ],
+//     listeners: {
+//         activate: 'onActivate'
+//     }      
+// });
+
