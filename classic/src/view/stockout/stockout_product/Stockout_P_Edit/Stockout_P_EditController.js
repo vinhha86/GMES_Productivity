@@ -470,13 +470,14 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			GSmartApp.Ajax.postJitin('/api/v1/stockout/stockout_create', Ext.JSON.encode(params),
 				function (success, response, options) {
 					if(mainView) mainView.setLoading(false);
-					var response = Ext.decode(response.responseText);
 					if (success) {
+						var response = Ext.decode(response.responseText);
 						if (response.respcode == 200) {
 							m.getInfo(response.id);
 							m.fireEvent('Luu');
 						}
 					} else {
+						var response = Ext.decode(response.responseText);
 						Ext.MessageBox.show({
 							title: "Thông báo",
 							msg: 'Lỗi lập phiếu: ' + response.message,

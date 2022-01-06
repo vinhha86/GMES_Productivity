@@ -24,6 +24,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_ViewModel', {
 		StockinStore: {
 			type: 'StockinStore'
 		},
+		StockinD_Store:{
+			type: 'Stockin_d_Store'
+		},
 		StockinStore_Order: {
 			type: 'StockinStore'
 		},

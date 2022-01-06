@@ -36,7 +36,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List_Main_Controller', {
             click: 'onSearch'
         },
         '#StockIn_P_List': {
-            // select: 'onStockinSelect',
+            select: 'onStockinSelect',
             itemdblclick: 'onCapNhatdbl',
             afterrender: 'onSearch'
         },
@@ -49,6 +49,13 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List_Main_Controller', {
         '#btnTaoPhieuNhapDieuChuyen': {
             click: 'onBtnTaoPhieuNhapDieuChuyen'
         },
+    },
+    onStockinSelect: function (e, selected, eOpts) {
+        var viewmodel = this.getViewModel();
+        viewmodel.set('stockin', selected.data);
+        var StockinD_Store = viewmodel.getStore('StockinD_Store');
+        // StockinD_Store.setData(selected.data.stockin_d);
+        StockinD_Store.loadStore_byStockinId(selected.data.id);
     },
     onCapNhatdbl: function(m, record, item, index, e, eOpts){
         // console.log(record);
