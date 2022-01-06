@@ -14,11 +14,11 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Order_List_Main', {
             margin: 1,
             xtype: 'StockIn_P_Order_List'
         },
-        // {
-        //     region: 'south',
-        //     margin: 1,
-        //     height: '50%',
-        //     xtype: 'Stockin_P_Order_List_D'
-        // },
+        {
+            region: 'south',
+            margin: 1,
+            height: '50%',
+            xtype: 'Stockin_P_Order_List_D'
+        },
     ],
 })
