@@ -13,6 +13,12 @@ Ext.define('GSmartApp.view.balance.Balance_ViewModel', {
 		},
         PContractProductStore: {
             type: 'PContractProductStore'
+        },
+		Material_ByContract_Store: {
+            type: 'PContractProductBom2Store'
+        },	
+		Product_ByMaterial_Store: {
+            type: 'PContractProductBom2Store'
         },		
 	},
 	data: {

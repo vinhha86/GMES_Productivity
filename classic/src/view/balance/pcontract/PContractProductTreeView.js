@@ -11,7 +11,7 @@ Ext.define('GSmartApp.view.balance.PContractProductTreeView', {
     rootVisible: false,
     selModel: {
         selType: 'checkboxmodel',
-        mode: 'SINGLE'
+        mode: 'MULTI'
     },
     bind: {
         store: '{PContractProductTreeStoreBalance}'
@@ -79,20 +79,48 @@ Ext.define('GSmartApp.view.balance.PContractProductTreeView', {
             ]
         }
     ],
-    dockedItems: [{
-        dock: 'bottom',
-        xtype: 'toolbar',
-        height: 40,
-        padding: 2,
-        // layout: 'hbox',
-        items: [
-            {
-                xtype: 'button',
-                text: 'Tính cân đối',
-                iconCls: 'x-fa fa-calculator',
-                handler: 'onCalBalance_ManyProduct'
-            }
-        ]
-    }]
+    dockedItems: [
+        {
+            dock: 'bottom',
+            xtype: 'toolbar',
+            height: 40,
+            padding: 2,
+            // layout: 'hbox',
+            items: [
+                {
+                    xtype: 'button',
+                    text: 'Tính cân đối',
+                    iconCls: 'x-fa fa-calculator',
+                    handler: 'onCalBalance_ManyProduct'
+                }
+            ]
+        },
+        // {
+        //     dock: 'top',
+        //     xtype: 'toolbar',
+        //     height: 40,
+        //     padding: 2,
+        //     // layout: 'hbox',
+        //     items: [
+        //         {
+        //             xtype: 'combobox',
+        //             itemId: 'cboMaterialId',
+        //             bind: {
+        //                 store: '{Material_ByContract_Store}',
+        //                 value: '{Balance.materialid_link}'
+        //             },
+        //             displayField: 'description',
+        //             valueField: 'material_skuid_link',
+        //             queryMode: 'local',
+        //             anyMatch: true,
+        //             editable: true,
+        //             allowBlank: true,
+        //             margin: 2,
+        //             flex: 1,
+        //             emptyText: 'Nguyên phụ liệu'
+        //         },
+        //     ]
+        // }
+    ]
 });
 

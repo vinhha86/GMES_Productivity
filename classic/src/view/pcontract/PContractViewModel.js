@@ -153,7 +153,13 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         },
         POrderBom2Store: {
             type: 'POrderBomColorStore'
-        }
+        },
+        Material_ByContract_Store: {
+            type: 'PContractProductBom2Store'
+        },	
+		Product_ByMaterial_Store: {
+            type: 'PContractProductBom2Store'
+        },		
     },
     data: {
         titleAttvalue: 'Thuộc tính ',
@@ -198,7 +204,11 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         record_upload: 0,
         index_upload: 0,
 
-        isHiddenbalance: true //an nut tinh can doi 
+        isHiddenbalance: true, //an nut tinh can doi 
+        Balance: {
+            materialid_link: null,
+            p_selection_mode: 'SINGLE'
+        },
     },
     formulas: {
         ishidden_addproduct: function (get) {
