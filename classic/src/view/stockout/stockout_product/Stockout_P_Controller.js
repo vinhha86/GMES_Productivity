@@ -2,8 +2,42 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockout_P_Controller',
     init: function() {
+        
+
+    },
+    // onActivate: function () {
+    //     this.onSearch();
+    // },
+	listen: {
+        controller: {
+            '*': {
+				urlBack:'onSearch',
+            }
+        }
+    },        
+    control:{
+        '#Stockout_P_List_Main': {
+            afterrender: 'onAfterrender'
+        },
+        '#stockout_p_list': {
+            // afterrender: ''
+        },
+        '#btnThemMoi_ByPOLine':{
+            click: 'onStockoutNew_ByPOLine'
+        },
+        '#btnThemMoi_Move':{
+            click: 'onStockoutNew_Move'
+        },
+		'#stockout_p_list':{
+            select: 'onStockoutSelect',
+            itemdblclick: 'onCapNhat'
+        },
+        '#limitpage': {
+            specialkey: 'onSpecialkey'
+        }
+    },
+    onAfterrender: function(){
         var me = this.getView();
-        this.callParent(arguments);
         var StockoutType = this.getViewModel().getStore('StockoutTypeStore');
         StockoutType.loadStore();
 
@@ -17,43 +51,27 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Controller', {
         var StockoutType = this.getViewModel().getStore('StockoutTypeStore');
         StockoutType.loadStore(21, 30);
         
-        var store_stockout = this.getViewModel().getStore('Stockout');
-        if (store_stockout) {
-            var page = store_stockout.currentPage;
-            if (page == null) {
-                page = 1;
-            }
-             store_stockout.loadByDate_Product(0,'', new Date(),new Date(), page, 25, 0 ,0);
-        }  
+        // var store_stockout = this.getViewModel().getStore('Stockout');
+        // if (store_stockout) {
+        //     var page = store_stockout.currentPage;
+        //     if (page == null) {
+        //         page = 1;
+        //     }
+        //     store_stockout.loadByDate_Product(0,'', new Date(),new Date(), page, 25, 0 ,0);
+        // }  
 
         var today = new Date();
 		var priorDate = new Date().setDate(today.getDate()-30);
 		me.down('#stockoutdate_from').setValue(new Date(priorDate));
 
-    },
-    onActivate: function () {
         this.onSearch();
     },
-	listen: {
-        controller: {
-            '*': {
-				urlBack:'onSearch',
-            }
-        }
-    },        
-    control:{
-        '#btnThemMoi_ByPOLine':{
-            click: 'onStockoutNew_ByPOLine'
-        },
-        '#btnThemMoi_Move':{
-            click: 'onStockoutNew_Move'
-        },
-		'#stockout_p_list':{
-            itemdblclick: 'onCapNhat'
-        },
-        '#limitpage': {
-            specialkey: 'onSpecialkey'
-        }
+    onStockoutSelect: function (e, selected, eOpts) {
+        var viewmodel = this.getViewModel();
+        viewmodel.set('stockout', selected.data);
+        var StockoutD_Store = viewmodel.getStore('StockoutD_Store');
+        // StockinD_Store.setData(selected.data.stockin_d);
+        StockoutD_Store.loadByStockoutID(selected.data.id);
     },
     onSpecialkey: function (field, e) {
         var me = this;
@@ -100,6 +118,10 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Controller', {
         if (null == value) value = 0;
         return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
     },
+	renderCount: function (value) {
+		if (null == value) value = 0;
+		return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
+	},
     onStockoutEdit: function(grid, rowIndex, colIndex){
         var rec = grid.getStore().getAt(rowIndex);
         var id = rec.get('id');

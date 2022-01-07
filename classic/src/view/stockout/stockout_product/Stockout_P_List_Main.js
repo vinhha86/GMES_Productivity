@@ -1,9 +1,10 @@
-Ext.define('GSmartApp.view.stockin.StockIn_P_Order_List_Main', {
+Ext.define('GSmartApp.view.stockout.Stockout_P_List_Main', {
     extend: 'Ext.container.Container',
-    xtype: 'StockIn_P_Order_List_Main',
-    itemId:'StockIn_P_Order_List_Main',
+    xtype: 'Stockout_P_List_Main',
+    reference: 'Stockout_P_List_Main',
+    itemId: 'Stockout_P_List_Main',
     layout: 'border',
-    controller: 'StockIn_P_Order_List_Main_Controller',
+    controller: 'Stockout_P_Controller',
     // viewModel: {
     //     type: 'Stockin_M_ViewModel'
     // },
@@ -12,13 +13,13 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Order_List_Main', {
             region: 'center',
             border: true,
             margin: 1,
-            xtype: 'StockIn_P_Order_List'
+            xtype: 'stockout_p_list'
         },
         {
             region: 'south',
             margin: 1,
             height: '50%',
-            xtype: 'Stockin_P_Order_List_D'
+            xtype: 'Stockout_P_List_D'
         },
     ],
 })

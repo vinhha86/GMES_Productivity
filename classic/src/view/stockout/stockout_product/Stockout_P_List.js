@@ -2,11 +2,12 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_List', {
     extend: 'Ext.grid.Panel',
     xtype: 'stockout_p_list',
     id: 'stockout_p_list',
+    cls: 'stockout_p_list',
     reference: 'stockout_p_list',
     controller: 'Stockout_P_Controller',
-    viewModel: {
-        type: 'Stockout_P_EditModel'
-    },
+    // viewModel: {
+    //     type: 'Stockout_P_EditModel'
+    // },
     requires: [
         'GSmartApp.store.Stockout',
         'Ext.Number',
@@ -43,7 +44,25 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_List', {
                 },
             ]
         },      
-        { header: 'Số phiếu', dataIndex: 'stockoutcode', width: 150 },
+        { 
+            header: 'Số phiếu', dataIndex: 'stockoutcode', width: 150 ,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                var status = record.get('status');
+                if(status == -1){
+                    metaData.tdCls =  'rowYellow';
+                }
+                if(status == 0){
+                    metaData.tdCls =  'rowWhite';
+                }
+                if(status == 1){
+                    metaData.tdCls =  'rowGreen';
+                }
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
+        
+        },
         { header: 'Loại phiếu', dataIndex: 'stockouttype_name', width: 150 },
         { header: 'Ngày xuất', dataIndex: 'stockoutdate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 90 },
         { header: 'Nơi xuất', dataIndex: 'org_from_name', flex: 1 },
@@ -145,12 +164,14 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_List', {
                 handler: 'onSearch'
             }
         ]
-    }, {
+    }, 
+    {
         dock: 'bottom',
         layout: 'hbox',
         xtype: 'toolbar',
         border: false,
         height: 50,
+        hidden: true,
         items: [{
             xtype: 'textfield',
             value: 25,

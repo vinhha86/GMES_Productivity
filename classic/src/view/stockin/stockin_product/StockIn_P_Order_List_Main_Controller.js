@@ -38,10 +38,17 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Order_List_Main_Controller', {
             click: 'onSearch'
         },
         '#StockIn_P_Order_List': {
-            // select: 'onStockin_Order_Select',
+            select: 'onStockin_Order_Select',
             itemdblclick: 'onCapNhatdbl',
             afterrender: 'onSearch'
         },
+    },
+    onStockin_Order_Select: function (e, selected, eOpts) {
+        var viewmodel = this.getViewModel();
+        viewmodel.set('stockin_order', selected.data);
+        var StockinD_Store_Order = viewmodel.getStore('StockinD_Store_Order');
+        // StockinD_Store.setData(selected.data.stockin_d);
+        StockinD_Store_Order.loadStore_byStockinId(selected.data.id);
     },
     onCapNhatdbl: function(m, record, item, index, e, eOpts){
         // console.log(record);

@@ -30,12 +30,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_ViewModel', {
 		StockinStore_Order: {
 			type: 'StockinStore'
 		},
+		StockinD_Store_Order:{
+			type: 'Stockin_d_Store'
+		},
 		GpayUser: {
 			type: 'GpayUserOrg'
 		},
 	},
 	data: {
-		
+		stockin: null,
+		stockin_order: null,
 	},
 	formulas: {
         
