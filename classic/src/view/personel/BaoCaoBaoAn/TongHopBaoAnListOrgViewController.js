@@ -10,7 +10,10 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.TongHopBaoAnListOrgViewControlle
         '#TongHopBaoAnListOrgView': {
             itemclick: 'onloadDetail'
         },
-        '#date': {
+        '#date_from': {
+            collapse: 'loadData'
+        },
+        '#date_to': {
             collapse: 'loadData'
         }
     },
@@ -24,10 +27,11 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.TongHopBaoAnListOrgViewControlle
         var grid = this.getView();
         var viewmodel = this.getViewModel();
         var orgid_link = viewmodel.get('orgid_link');
-        var date = viewmodel.get('date');
+        var date_from = viewmodel.get('date_from');
+        var date_to = viewmodel.get('date_to');
         var store = viewmodel.getStore('BaoAnStore');
         var detail = grid.up('#TongHopBaoAnView');
         detail.setLoading('Đang tải dữ liệu');
-        store.loadStore(orgid_link, date);
+        store.loadStore(orgid_link, date_from, date_to);
     }
 })

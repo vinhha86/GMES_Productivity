@@ -11,7 +11,8 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.TongHopBaoAnViewModel', {
         }
     },
     data: {
-        date: new Date(),
+        date_from: new Date(),
+        date_to: new Date(),
         org_name: '',
         orgid_link: 0
     },

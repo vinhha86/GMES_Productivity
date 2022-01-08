@@ -9,7 +9,7 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.TongHopBaoAnView', {
     layout: 'border',
     items: [{
         region: 'west',
-        width: 220,
+        width: 250,
         title: 'Danh sách đơn vị',
         xtype: 'TongHopBaoAnListOrgView',
         border: true,

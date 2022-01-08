@@ -23,10 +23,11 @@ Ext.define('GSmartApp.store.BaoCaoBaoAn.BaoAnStore', {
             direction: 'DESC'
         }
     ],
-    loadStore: function (orgid_link, date) {
+    loadStore: function (orgid_link, date_from, date_to) {
         var params = new Object();
         params.orgid_link = orgid_link;
-        params.date = date;
+        params.date_from = date_from;
+        params.date_to = date_to;
 
         this.setProxy({
             type: 'ajax',

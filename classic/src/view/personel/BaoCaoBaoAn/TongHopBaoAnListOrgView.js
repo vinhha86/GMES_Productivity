@@ -34,21 +34,36 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.TongHopBaoAnListOrgView', {
     dockedItems: [{
         dock: 'top',
         xtype: 'toolbar',
-        layout: 'hbox',
+        layout: 'vbox',
         items: [{
             xtype: 'datefield',
-            fieldLabel: "Ngày",
+            fieldLabel: "Từ Ngày",
             fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
             labelStyle: "font-weight: bold; font-size: 14px; color: black;",
             bind: {
-                value: '{date}'
+                value: '{date_from}'
             },
             format: 'd/m/Y',
             altFormats: "Y-m-d\\TH:i:s.uO",
-            itemId: 'date',
+            itemId: 'date_from',
             margin: 2,
             editable: false,
-            labelWidth: 40,
+            labelWidth: 75,
+            width: '98%'
+        }, {
+            xtype: 'datefield',
+            fieldLabel: "Đến Ngày",
+            fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
+            labelStyle: "font-weight: bold; font-size: 14px; color: black;",
+            bind: {
+                value: '{date_to}'
+            },
+            format: 'd/m/Y',
+            altFormats: "Y-m-d\\TH:i:s.uO",
+            itemId: 'date_to',
+            margin: 2,
+            editable: false,
+            labelWidth: 75,
             width: '98%'
         }]
     }]
