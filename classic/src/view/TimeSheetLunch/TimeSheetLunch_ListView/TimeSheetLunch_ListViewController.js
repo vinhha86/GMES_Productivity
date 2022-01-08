@@ -878,6 +878,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                 obj.personnelid_link = recData.personnelid_link;
                 obj.workingdate = recData.workingdate;
                 obj.dataIndex = arr[j].dataIndex;
+                obj.orgid_link = recData.orgid_link;
+                obj.orgmanagerid_link = recData.orgmanagerid_link;
                 data.push(obj);
             }
 
