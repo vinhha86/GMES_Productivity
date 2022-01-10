@@ -10,6 +10,14 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
         columnLines: true,
         rowLines: true
     },
+    plugins: {
+        cellediting: {
+            clicksToEdit: 1,
+            listeners: {
+                validateedit: 'onDateAmountEdit',
+            }             
+        }
+    },
     // features: [
     //     {
     //         id: 'group',

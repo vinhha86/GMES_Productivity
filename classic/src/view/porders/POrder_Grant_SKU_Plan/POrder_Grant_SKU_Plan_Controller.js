@@ -38,7 +38,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
             direction: 'ASC'
         });
 
-        // 
+        // set value danh sach po
         viewModel.set('lineinfo', eventRecord.get('lineinfo'));
 
         // load store
@@ -63,16 +63,398 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
                     // console.log('POrderGrant_SKU_Store.load failed');
 				} else {
                     // console.log(records);
+
+                    // set value tong so luong textfield
                     var total_grantamount = 0;
                     for(var i=0;i<records.length;i++){
                         total_grantamount+=records[i].get('grantamount') == null ? 0 : records[i].get('grantamount');
                     }
                     viewModel.set('total_porderGrant_SKU_grantamount', total_grantamount);
+
+                    // them cot
+                    m.CreateColumns();
 				}
 			}
         });
     },
+    CreateColumns: function () {
+        var m = this;
+        // var me = this.getView();
+        var viewModel = this.getViewModel();
+        var grid = this.getView();
+        var POrderGrant_SKU_Store = viewModel.getStore('POrderGrant_SKU_Store');
 
+        var length = 4;
+        for (var i = 0; i < grid.headerCt.items.length; i++) {
+            if (i > length - 1) {
+                grid.headerCt.remove(i);
+                i--;
+            }
+        }
+
+        //
+        var sourceView = viewModel.get('sourceView');
+        var eventRecord = viewModel.get('eventRecord');
+        var porder_grantid_link = viewModel.get('porder_grantid_link');
+
+        // console.log(eventRecord);
+        var startDate = eventRecord.get('StartDate');
+        var endDate = eventRecord.get('EndDate');
+
+        
+        var params = new Object();
+        params.dateFrom = startDate;
+        params.dateTo = endDate;
+        params.porder_grantid_link = porder_grantid_link;
+
+        // console.log(startDate);
+        // console.log(endDate);
+        // console.log(porder_grantid_link);
+        // return;
+
+        GSmartApp.Ajax.post('/api/v1/porder_grant_sku_plan/getDateInfo_ByPOrderGrant', Ext.JSON.encode(params),
+            function (success, response, options) {
+                grid.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    var mapResponse = response.map;
+                    // console.log(mapResponse);
+                    // console.log(typeof mapResponse);
+
+                    // lay danh sach ngay de them cot
+                    var listtitle = [];
+                    var map = new Map(Object.entries(mapResponse));
+                    // console.log(map);
+                    var keys = Array.from(map.keys());
+                    // console.log(keys);
+                    for(var i=0; i < keys.length; i++){
+                        // console.log(keys[i]);
+                        // console.log(typeof keys[i]);
+                        var date = Date.parse(keys[i]);
+                        date = new Date(date);
+                        // console.log(date);
+                        // console.log(typeof date);
+                        var dateObj = new Object();
+                        dateObj.date = date;
+                        dateObj.dateStr = Ext.Date.format(date,'d-m-y');
+                        dateObj.dateStrShort = Ext.Date.format(date,'d-m');
+                        dateObj.mSec = date.getTime(); 
+                        listtitle.push(dateObj);
+                    }
+                    listtitle.sort(function(a,b){
+                        // Turn your strings into dates, and then subtract them
+                        // to get a value that is either negative, positive, or zero.
+                        return a.date - b.date;
+                    });
+                    viewModel.set('listtitle', listtitle);
+                    // console.log(listtitle);
+
+                    // them cot
+                    for (var i = 0; i < listtitle.length; i++) {
+                        if ("" + listtitle[i] == "") continue;
+                        var column = Ext.create('Ext.grid.column.Column', {
+                            text: listtitle[i].dateStrShort, // info
+                            textLong: listtitle[i].dateStr, // info
+                            textDate: listtitle[i].date, // info
+                            sortable: false,
+                            menuDisabled: true,
+                            dataIndex: 'date' + (i + 1),
+                            // headerCheckbox: true,
+                            // flex: 1,
+                            width: 80,
+                            align: 'end', 
+                            editor: {
+                                xtype: 'numberfield', 
+                                hideTrigger:true, 
+                                // allowBlank: false, 
+                                maxValue: 1000000000, 
+                                selectOnFocus: false,
+                                renderer: function(value){
+                                    return Ext.util.Format.number(value, '0,000');
+                                }
+                            }
+                        })
+                        grid.headerCt.insert(length, column);
+                        length++;
+                    }
+
+                    // set value amount cho tung date
+                    m.setGridData(map);
+                }
+            })
+    },
+
+    setGridData: function(map){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var POrderGrant_SKU_Store = viewModel.getStore('POrderGrant_SKU_Store');
+        var columns = me.getColumns();
+        // console.log(columns);
+
+        var arr = [];
+        map.forEach((value, name) => arr.push({ name, value }));
+        // console.log(arr);
+        for(var i=0;i<arr.length;i++){ // ngay
+            var values = arr[i].value;
+            if(values != null && values.length > 0){
+                // console.log(values);
+                for(var j=0;j<values.length;j++){ // sku
+                    var value = values[j];
+                    var skuid_link = value.skuid_link;
+                    var record = POrderGrant_SKU_Store.findRecord("skuid_link", skuid_link, 0, false, false, true);
+                    var date = new Date(value.date);
+                    var dateStr = Ext.Date.format(date,'d-m-y');
+
+                    for(k=0;k<columns.length;k++){
+                        var column = columns[k];
+                        var textLong = column.textLong;
+
+                        if(dateStr == textLong){
+                            record.set(column.dataIndex, value.amount);
+                        }
+                    }
+                }
+            }
+        }
+        POrderGrant_SKU_Store.commitChanges();
+        // var rec = POrderGrant_SKU_Store.findRecord("skuid_link", value, 0, false, false, true);
+
+    },
+
+    onDateAmountEdit: function(editor, e, eOpts){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var POrderGrant_SKU_Store = viewModel.getStore('POrderGrant_SKU_Store');
+
+        var column = editor.context.column;
+        var dataIndex = editor.context.column.dataIndex;
+
+        var skuid_link = e.record.get('skuid_link');
+        var pordergrantid_link = e.record.get('pordergrantid_link');
+        var date = column.textDate;
+
+        // console.log(editor);
+        // console.log(e);
+        // console.log(column);
+        // console.log(dataIndex);
+
+        // check tong sl cac ngay co vuot qua sl tong
+        var columns = me.getColumns();
+        var record = POrderGrant_SKU_Store.findRecord("skuid_link", skuid_link, 0, false, false, true);
+        // console.log(record);
+        var totalAmount = 0;
+        for(i=0;i<columns.length;i++){
+            var columnObj = columns[i];
+            // console.log(columnObj);
+            if(columnObj.fullColumnIndex >= 4){ // cot thu 5 tro di -> lay amount de tinh
+                if(columnObj.dataIndex != dataIndex){
+                    totalAmount+= record.get(columnObj.dataIndex) == null ? 0 : record.get(columnObj.dataIndex);
+                }
+                totalAmount+=e.value == null ? 0 : e.value;
+            }
+        }
+        if(totalAmount > record.get('grantamount')){ // sl nhap tong > sl tong
+            // e.record.beginedit;
+            // e.value = e.originalValue;
+            // // e.record.data[e.field] = e.value;
+            // e.record.set([dataIndex], e.originalValue);
+            // console.log(dataIndex);
+            // console.log(e.originalValue);
+            
+            // e.record.endedit;
+            // record.set(dataIndex, e.value);
+            // POrderGrant_SKU_Store.rejectChanges();
+            Ext.MessageBox.show({
+                title: "Kế hoạch vào chuyền",
+                msg: 'Tổng SL nhập không được lớn hơn SL tổng',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            
+            e.cancel = true;
+            return false;
+        }
+
+        //Neu du lieu OK --> Update new value vao record data
+        e.record.data[e.field] = e.value;
+
+        // return;
+        var params=new Object();
+        params.amount = e.value;
+        params.skuid_link = skuid_link;
+        params.porder_grantid_link = pordergrantid_link;
+        params.date = date;
+
+        GSmartApp.Ajax.post('/api/v1/porder_grant_sku_plan/save_porder_grant_sku_plan', Ext.JSON.encode(params),
+			function (success, response, options) {
+				if (success) {
+                    var response = Ext.decode(response.responseText);
+                    console.log('Lưu thành công.');
+                    e.record.beginedit;
+                    e.record.set(dataIndex, e.value);
+                    e.record.endedit;
+                    e.record.commit();
+                    return true;
+				} else {
+                    Ext.MessageBox.show({
+                        title: "Kế hoạch vào chuyền",
+                        msg: 'Lưu kế hoạch vào chuyền thất bại.',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                    return true;
+                }
+            });
+    },
+
+    // CreateColumns: function () {
+    //     var m = this;
+    //     // var me = this.getView();
+    //     var viewModel = this.getViewModel();
+    //     var grid = this.getView();
+
+    //     var length = 4;
+    //     for (var i = 0; i < grid.headerCt.items.length; i++) {
+    //         if (i > length - 1) {
+    //             grid.headerCt.remove(i);
+    //             i--;
+    //         }
+    //     }
+    //     var listtitle = [];
+    //     var listid = [];
+
+    //     var pcontractid_link = viewModel.get('pcontractid_link');
+    //     var productid_link = viewModel.get('productid_link');
+
+    //     if (productid_link != 0 && productid_link != null) {
+    //         grid.setLoading('Đang lấy dữ liệu');
+    //         //kiem tra mau co trong sku khong thi moi sinh tab 
+    //         var params = new Object();
+    //         params.pcontractid_link = pcontractid_link;
+    //         params.productid_link = productid_link;
+
+    //         GSmartApp.Ajax.post('/api/v1/pcontractsku/getbypcontract_product', Ext.JSON.encode(params),
+    //             function (success, response, options) {
+    //                 grid.setLoading(false);
+    //                 if (success) {
+    //                     var response = Ext.decode(response.responseText);
+
+    //                     for (var i = 0; i < response.data.length; i++) {
+    //                         var data = response.data[i];
+    //                         if (!listid.includes(data.sizeid_link)) {
+    //                             listid.push(data.sizeid_link);
+    //                             listtitle.push(data.coSanPham);
+    //                         }
+    //                     }
+
+    //                     for (var i = 0; i < listtitle.length; i++) {
+    //                         if ("" + listtitle[i] == "") continue;
+
+    //                         var column = Ext.create('Ext.grid.column.Column', {
+    //                             text: listtitle[i],
+    //                             columns: [{
+    //                                 text: 'CĐ',
+    //                                 dataIndex: listid[i].toString(),
+    //                                 width: 65,
+    //                                 format: '0.0000',
+    //                                 align: 'right',
+    //                                 renderer: function (value, metaData, record) {
+    //                                     if (value == 0) return "";
+    //                                     return Ext.util.Format.number(value, '0.0000')
+    //                                 }
+    //                             }, {
+    //                                 text: 'KT',
+    //                                 columns: [{
+    //                                     text: 'Viền',
+    //                                     dataIndex: listid[i] + "_Vien",
+    //                                     cls: 'titleRed',
+    //                                     width: 65,
+    //                                     format: '0.0000',
+    //                                     align: 'right',
+    //                                     renderer: function (value, metaData, record) {
+    //                                         if (value == 0) return "";
+    //                                         return Ext.util.Format.number(value, '0.0000')
+    //                                     },
+    //                                     getEditor: function (record) {
+    //                                         if (record.get('type') == 0) {
+    //                                             return Ext.create('Ext.grid.CellEditor', {
+    //                                                 field: {
+    //                                                     xtype: 'textfield',
+    //                                                     selectOnFocus: true,
+    //                                                     maskRe: /[0-9]/
+    //                                                 }
+    //                                             })
+    //                                         }
+    //                                     },
+    //                                 }, {
+    //                                     text: 'SĐ',
+    //                                     dataIndex: listid[i] + "_KT",
+    //                                     cls: 'titleRed',
+    //                                     width: 65,
+    //                                     format: '0.0000',
+    //                                     align: 'right',
+    //                                     renderer: function (value, metaData, record) {
+    //                                         if (value == 0) return "";
+    //                                         return Ext.util.Format.number(value, '0.0000')
+    //                                     }
+    //                                 }, {
+    //                                     text: 'Tổng',
+    //                                     dataIndex: listid[i] + "_Tong",
+    //                                     cls: 'titleRed',
+    //                                     width: 70,
+    //                                     format: '0.0000',
+    //                                     align: 'right',
+    //                                     renderer: function (value, metaData, record) {
+    //                                         if (value == 0) return "";
+    //                                         return Ext.util.Format.number(value, '0.0000')
+    //                                     }
+    //                                 }]
+    //                             }, {
+    //                                 text: 'SX',
+    //                                 dataIndex: listid[i] + "_SX",
+    //                                 cls: 'titleRed',
+    //                                 width: 65,
+    //                                 format: '0.0000',
+    //                                 align: 'right',
+    //                                 renderer: function (value, metaData, record) {
+    //                                     if (value == 0) return "";
+    //                                     return Ext.util.Format.number(value, '0.0000')
+    //                                 }
+    //                             }]
+    //                         })
+    //                         grid.headerCt.insert(length, column);
+    //                         length++;
+    //                     }
+
+    //                     var storeBOM = grid.getStore();
+
+    //                     var model = storeBOM.getModel();
+    //                     var fields = model.getFields();
+    //                     for (var i = 0; i < fields.length; i++) {
+    //                         if (i > 21) {
+    //                             model.removeFields(fields[i].name);
+    //                         }
+    //                     }
+
+    //                     var fieldnew = [];
+    //                     for (var i = 0; i < listid.length; i++) {
+    //                         fieldnew.push({ name: listid[i], type: 'number' });
+    //                     }
+
+    //                     model.addFields(fieldnew);
+    //                     // storeBOM.getbom_by_porder(porderid_link);
+    //                 }
+    //             })
+    //     }
+
+
+    // }
 
 })
 

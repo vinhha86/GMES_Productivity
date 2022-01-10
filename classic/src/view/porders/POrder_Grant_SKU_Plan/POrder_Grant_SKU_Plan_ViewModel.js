@@ -33,7 +33,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
         //
         total_porderGrant_SKU_grantamount: null,
         lineinfo: null,
-
+        //
+        listtitle: null, // list date column
     },
     formulas: {
         // isHiddenYard: function (get) {
