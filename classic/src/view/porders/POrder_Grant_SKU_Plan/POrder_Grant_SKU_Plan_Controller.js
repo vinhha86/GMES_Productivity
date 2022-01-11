@@ -169,10 +169,17 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
                                 // allowBlank: false, 
                                 maxValue: 1000000000, 
                                 selectOnFocus: false,
+                                maskRe: /[0-9]/,
                                 renderer: function(value){
                                     return Ext.util.Format.number(value, '0,000');
                                 }
-                            }
+                            },
+                            summaryType: 'sum', 
+                            summaryRenderer: 'renderSum',
+                            // summaryRenderer: function (value, summaryData, dataIndex) {
+                            //     if (null == value) value = 0;
+                            //     return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
+                            // },
                         })
                         grid.headerCt.insert(length, column);
                         length++;
@@ -268,7 +275,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
             // POrderGrant_SKU_Store.rejectChanges();
             Ext.MessageBox.show({
                 title: "Kế hoạch vào chuyền",
-                msg: 'Tổng SL nhập không được lớn hơn SL tổng',
+                msg: 'Tổng SL nhập ('+ totalAmount +') không được lớn hơn SL tổng ('+ record.get('grantamount') +')',
                 buttons: Ext.MessageBox.YES,
                 buttonText: {
                     yes: 'Đóng',
@@ -312,6 +319,10 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
                 }
             });
     },
+    renderSum: function(value, summaryData, dataIndex) {
+        if (null == value) value = 0;
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
+    } ,
 
     // CreateColumns: function () {
     //     var m = this;

@@ -18,15 +18,19 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
             }             
         }
     },
-    // features: [
-    //     {
-    //         id: 'group',
-    //         ftype: 'groupingsummary',
-    //         groupHeaderTpl: '<b>NPL: {name}</b>',
-    //         hideGroupedHeader: false,
-    //         enableGroupingMenu: false,
-    //     },
-    // ],
+    features: [
+        // {
+        //     id: 'group',
+        //     ftype: 'groupingsummary',
+        //     groupHeaderTpl: '<b>NPL: {name}</b>',
+        //     hideGroupedHeader: false,
+        //     enableGroupingMenu: false,
+        // },
+        {
+            ftype: 'summary',
+            dock: 'top'
+        }
+    ],
     bind:{
         store: '{POrderGrant_SKU_Store}',
     },
