@@ -259,7 +259,6 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
         // check tong sl cac ngay co vuot qua sl tong
         var columns = me.getColumns();
         var record = POrderGrant_SKU_Store.findRecord("skuid_link", skuid_link, 0, false, false, true);
-        // console.log(record);
         var totalAmount = 0;
         for(i=0;i<columns.length;i++){
             var columnObj = columns[i];
@@ -268,9 +267,10 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
                 if(columnObj.dataIndex != dataIndex){
                     totalAmount+= record.get(columnObj.dataIndex) == null ? 0 : record.get(columnObj.dataIndex);
                 }
-                totalAmount+=e.value == null ? 0 : e.value;
             }
         }
+        totalAmount+=e.value == null ? 0 : e.value;
+
         if(totalAmount > record.get('grantamount')){ // sl nhap tong > sl tong
             // e.record.beginedit;
             // e.value = e.originalValue;
