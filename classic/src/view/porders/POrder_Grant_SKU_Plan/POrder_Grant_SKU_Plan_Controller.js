@@ -170,12 +170,10 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
                                 maxValue: 1000000000, 
                                 selectOnFocus: false,
                                 maskRe: /[0-9]/,
-                                // renderer: function(value){
-                                //     if(value != null)
-                                //         return Ext.util.Format.number(value, '0,000');
-                                //     else
-                                //         return 0;
-                                // }
+                                // enableKeyEvents : true,
+                                // listeners: {
+                                //     specialkey: 'onEnter'
+                                // },
                             },
                             // renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                             //     if(value == null) value = 0;
@@ -255,6 +253,11 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
         // console.log(e);
         // console.log(column);
         // console.log(dataIndex);
+        //
+        if(e.value == e.originalValue){
+            e.cancel = true;
+            return false;
+        }
 
         // check tong sl cac ngay co vuot qua sl tong
         var columns = me.getColumns();
@@ -337,6 +340,29 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
                 }
             });
     },
+
+    onEnter: function(field, e){
+        console.log('enter here');
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var POrderGrant_SKU_Store = viewModel.getStore('POrderGrant_SKU_Store');
+        if(e.getKey() == e.ENTER) {
+            console.log('enter here 2');
+            console.log(e);
+            console.log(e.rowIdx);
+            console.log(POrderGrant_SKU_Store.data.length - 1);
+            if (e.rowIdx < POrderGrant_SKU_Store.data.length - 1) {
+                console.log('enter here 3'); 
+                var cellediting = me.getPlugin('cellediting');
+                cellediting.startEditByPosition({
+                    row: (e.rowIdx + 1),
+                    column: e.colIdx
+                });
+            }
+        }
+    },
+
     renderSum: function(value, summaryData, dataIndex) {
         if (null == value) value = 0;
         return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';    
