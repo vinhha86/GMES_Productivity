@@ -314,6 +314,15 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
                     e.record.set(dataIndex, e.value);
                     e.record.endedit;
                     e.record.commit();
+
+                    if (e.rowIdx < POrderGrant_SKU_Store.data.length - 1) {
+                        var cellediting = me.getPlugin('cellediting');
+                        cellediting.startEditByPosition({
+                            row: (e.rowIdx + 1),
+                            column: e.colIdx
+                        });
+                    }
+
                     return true;
 				} else {
                     Ext.MessageBox.show({
