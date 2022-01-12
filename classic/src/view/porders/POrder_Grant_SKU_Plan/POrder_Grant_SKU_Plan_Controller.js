@@ -170,10 +170,18 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
                                 maxValue: 1000000000, 
                                 selectOnFocus: false,
                                 maskRe: /[0-9]/,
-                                renderer: function(value){
-                                    return Ext.util.Format.number(value, '0,000');
-                                }
+                                // renderer: function(value){
+                                //     if(value != null)
+                                //         return Ext.util.Format.number(value, '0,000');
+                                //     else
+                                //         return 0;
+                                // }
                             },
+                            // renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                            //     if(value == null) value = 0;
+                            //     metaData.tdAttr = 'data-qtip="' + value + '"';
+                            //     return value;
+                            // },
                             summaryType: 'sum', 
                             summaryRenderer: 'renderSum',
                             // summaryRenderer: function (value, summaryData, dataIndex) {
@@ -225,6 +233,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
             }
         }
         POrderGrant_SKU_Store.commitChanges();
+        me.setStore(POrderGrant_SKU_Store);
         // var rec = POrderGrant_SKU_Store.findRecord("skuid_link", value, 0, false, false, true);
 
     },

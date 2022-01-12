@@ -71,7 +71,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_M
 		{
 			text: 'Định mức',
 			dataIndex: 'mat_sku_bom_amount',
-			width: 70,
+			width: 100,
 			xtype: 'numbercolumn',
 			format: '0.0000',
 			renderer: function (value, metaData, record) {
@@ -97,7 +97,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_M
 			dataIndex: 'mat_sku_demand',
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
-			width: 70
+			width: 100
 		},
 		// {
 		// 	xtype: 'numbercolumn',
@@ -123,7 +123,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_M
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'mat_sku_stockin',
-			width: 70
+			width: 100
 		},
 		{
 			xtype: 'numbercolumn',
@@ -133,7 +133,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_M
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'mat_sku_stockout_order',
-			width: 70
+			width: 100
 		},
 		{
 			xtype: 'numbercolumn',
@@ -143,7 +143,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_M
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'mat_sku_stockout',
-			width: 70
+			width: 100
 		},
 		{
 			xtype: 'numbercolumn',
@@ -153,14 +153,14 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_M
 			summaryType: 'sum',
 			summaryRenderer: 'renderSum',
 			dataIndex: 'in_stock',
-			width: 70
+			width: 100
 		},
 		{
 			header: 'Năng lực', 
 			headerWrap: false,
 			dataIndex: 'ability',
 			align:'right',
-			width: 70,
+			width: 100,
 			renderer: function (value, metaData, record) {
 				if(value ==0) return "";
 				return Ext.util.Format.number(value, '0,000')
