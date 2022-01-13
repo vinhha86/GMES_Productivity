@@ -200,6 +200,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                     margin: '0 0 0 0',
                     itemId:'lenhXuatKhoSearch',
                     fieldLabel: 'Lệnh xuất kho',
+                    emptyText: 'Tìm theo sản phẩm',
                     width: 335,
                     labelWidth: 95,
                     hideLabel: false,

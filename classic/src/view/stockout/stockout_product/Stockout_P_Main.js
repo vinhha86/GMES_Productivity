@@ -13,11 +13,11 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Main', {
             margin: 1,
             // region: 'center'
         },
-        // {
-        //     title: 'Yêu cầu xuất kho',
-        //     xtype: 'Stockout_P_Order_List_Main',
-        //     margin: 1,
-        // }, 
+        {
+            title: 'Lệnh xuất kho',
+            xtype: 'Stockout_P_Order_Main',
+            margin: 1,
+        }, 
     ], 
 })
 
