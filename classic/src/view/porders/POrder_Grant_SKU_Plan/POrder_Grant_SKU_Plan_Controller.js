@@ -112,6 +112,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
         var startDate = eventRecord.get('StartDate');
         var endDate = eventRecord.get('EndDate');
 
+        grid.setLoading(true);
         
         var params = new Object();
         params.dateFrom = startDate;
@@ -189,6 +190,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
 
                     // set value amount cho tung date
                     m.setGridData(map);
+
+                    // grid.setLoading(false);
                 }
             })
     },
@@ -197,6 +200,8 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
+
+        me.setLoading(true);
         var POrderGrant_SKU_Store = viewModel.getStore('POrderGrant_SKU_Store');
         var columns = me.getColumns();
         var items = POrderGrant_SKU_Store.getData().items;
@@ -241,6 +246,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
         POrderGrant_SKU_Store.commitChanges();
         me.setStore(POrderGrant_SKU_Store);
 
+        me.setLoading(false);
     },
 
     onDateAmountEdit: function(editor, e, eOpts){
