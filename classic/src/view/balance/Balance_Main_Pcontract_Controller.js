@@ -102,7 +102,7 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract_Controller', {
                 }]
             });
             form.show();
-        } else if (cellIndex == 11) { // cột Nhập kho
+        } else if (cellIndex == 10) { // cột Nhập kho
             // bật danh sách phiếu nhập kho có chứa NPL đang chọn
             var form = Ext.create('Ext.window.Window', {
                 closable: true,
@@ -132,7 +132,7 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract_Controller', {
                 }]
             });
             form.show();
-        } else if (cellIndex == 12) {//Yeu cau xuat
+        } else if (cellIndex == 11) {//Yeu cau xuat
             // var porderid_link = viewmodel.get('porderid_link');
 
             var form = Ext.create('Ext.window.Window', {
@@ -163,7 +163,7 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract_Controller', {
                 }]
             });
             form.show();
-        } else if (cellIndex == 13) { // cột Xuất kho
+        } else if (cellIndex == 12) { // cột Xuất kho
             // bật danh sách phiếu xuất kho có chứa NPL đanh chọn
             var form = Ext.create('Ext.window.Window', {
                 closable: true,

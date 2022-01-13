@@ -75,7 +75,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
             xtype: 'numbercolumn',
 			format: '0,000',
 			align: 'right',
-			text: 'Số lượng tổng', 
+			text: 'SL Y/C', 
 			dataIndex: 'grantamount',
 			width: 85,
 			// flex: 1,
@@ -84,7 +84,9 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
-			}
+			},
+            summaryType: 'sum', 
+            summaryRenderer: 'renderSum'
 		},
 	],
 	
@@ -171,7 +173,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
                 itemId: 'btnThoat'
             },
         ]
-    }]
+    }],
 });
 
 
