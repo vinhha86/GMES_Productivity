@@ -123,6 +123,28 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
 			}
 		},
 		{
+			xtype: 'numbercolumn',
+			// format:'0,000.00',
+			text: 'Lbs', 
+			align:'right',
+			dataIndex: 'grossweight_lbs',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			// width: 70,
+            flex: 1,
+            sortable: false,
+            menuDisabled: true,
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				if(value == null) {
+					value = '';
+				}else{
+					value = Ext.Number.roundToPrecision(value, 2);
+				}
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			}
+		},
+		{
 			text: 'Trạng thái', 
 			dataIndex: 'warehouseStatusString',
 			// width: 85,
