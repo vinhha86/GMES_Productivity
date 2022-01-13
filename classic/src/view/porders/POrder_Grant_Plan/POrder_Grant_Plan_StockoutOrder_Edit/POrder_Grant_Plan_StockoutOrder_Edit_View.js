@@ -123,14 +123,14 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
                         hidden: '{isBtnSaveHidden}'
                     }
                 },
-                // {
-                //     margin: 3,
-                //     xtype:'button',
-                //     text:  'Test',
-                //     iconCls: 'x-fa fa-plus',
-                //     itemId: 'btnTest',
-                //     hidden: false,
-                // },
+                {
+                    margin: 3,
+                    xtype:'button',
+                    text:  'Test',
+                    iconCls: 'x-fa fa-plus',
+                    itemId: 'btnTest',
+                    hidden: false,
+                },
             ]
         }
     ],

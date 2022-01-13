@@ -253,6 +253,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
             newPkl.ydscheck = 0;
             newPkl.netweight = warehouse_obj.get('netweight');
             newPkl.grossweight = warehouse_obj.get('grossweight');
+            newPkl.grossweight_lbs = warehouse_obj.get('grossweight_lbs');
             newPkl.spaceepc_link = warehouse_obj.get('spaceepc_link');
             newPkl.status = 1;
             newPkl.warehouseStatusString = warehouse_obj.get('warehouseStatusString');
@@ -315,6 +316,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
             newWarehouse.yds = pkl_obj.get('ydsorigin');
             newWarehouse.netweight = pkl_obj.get('netweight');
             newWarehouse.grossweight = pkl_obj.get('grossweight');
+            newWarehouse.grossweight_lbs = pkl_obj.get('grossweight_lbs');
             newWarehouse.spaceepc_link = pkl_obj.get('spaceepc_link');
             newWarehouse.warehouseStatusString = pkl_obj.get('warehouseStatusString');
             newWarehouse.date_check = pkl_obj.get('date_check');
