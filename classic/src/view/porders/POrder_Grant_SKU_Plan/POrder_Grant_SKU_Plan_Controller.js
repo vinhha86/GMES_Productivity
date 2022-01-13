@@ -13,10 +13,21 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
         '#btnThoat': {
             click: 'onThoat',
         },
+        '#btnTest': {
+            click: 'onTest',
+        },
     },
 
     onThoat: function(){
         this.getView().up('window').close();
+    },
+    onTest: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var POrderGrant_SKU_Store = viewModel.getStore('POrderGrant_SKU_Store');
+        console.log(POrderGrant_SKU_Store.getData().items);
     },
     onAfterrender: function(){
         var m = this;
@@ -118,22 +129,14 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     var mapResponse = response.map;
-                    // console.log(mapResponse);
-                    // console.log(typeof mapResponse);
 
                     // lay danh sach ngay de them cot
                     var listtitle = [];
                     var map = new Map(Object.entries(mapResponse));
-                    // console.log(map);
                     var keys = Array.from(map.keys());
-                    // console.log(keys);
                     for(var i=0; i < keys.length; i++){
-                        // console.log(keys[i]);
-                        // console.log(typeof keys[i]);
                         var date = Date.parse(keys[i]);
                         date = new Date(date);
-                        // console.log(date);
-                        // console.log(typeof date);
                         var dateObj = new Object();
                         dateObj.date = date;
                         dateObj.dateStr = Ext.Date.format(date,'d-m-y');
@@ -142,12 +145,9 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
                         listtitle.push(dateObj);
                     }
                     listtitle.sort(function(a,b){
-                        // Turn your strings into dates, and then subtract them
-                        // to get a value that is either negative, positive, or zero.
                         return a.date - b.date;
                     });
                     viewModel.set('listtitle', listtitle);
-                    // console.log(listtitle);
 
                     // them cot
                     for (var i = 0; i < listtitle.length; i++) {
@@ -182,10 +182,6 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
                             // },
                             summaryType: 'sum', 
                             summaryRenderer: 'renderSum',
-                            // summaryRenderer: function (value, summaryData, dataIndex) {
-                            //     if (null == value) value = 0;
-                            //     return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
-                            // },
                         })
                         grid.headerCt.insert(length, column);
                         length++;
@@ -203,15 +199,27 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
         var viewModel = this.getViewModel();
         var POrderGrant_SKU_Store = viewModel.getStore('POrderGrant_SKU_Store');
         var columns = me.getColumns();
-        // console.log(columns);
+        var items = POrderGrant_SKU_Store.getData().items;
 
+        // set gia tri truong = null (for summary)
+        for(var i=0;i<columns.length;i++){
+            var column = columns[i];
+            var fullColumnIndex = column.fullColumnIndex;
+            var dataIndex = column.dataIndex;
+            if(fullColumnIndex >= 4){ // cot thu 5 tro di (ngay)
+                for(var j=0;j<items.length;j++){
+                    items[j].set(dataIndex, null);
+                }
+            }
+        }
+        POrderGrant_SKU_Store.commitChanges();
+
+        // set amount data
         var arr = [];
         map.forEach((value, name) => arr.push({ name, value }));
-        // console.log(arr);
         for(var i=0;i<arr.length;i++){ // ngay
             var values = arr[i].value;
             if(values != null && values.length > 0){
-                // console.log(values);
                 for(var j=0;j<values.length;j++){ // sku
                     var value = values[j];
                     var skuid_link = value.skuid_link;
@@ -232,7 +240,6 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
         }
         POrderGrant_SKU_Store.commitChanges();
         me.setStore(POrderGrant_SKU_Store);
-        // var rec = POrderGrant_SKU_Store.findRecord("skuid_link", value, 0, false, false, true);
 
     },
 

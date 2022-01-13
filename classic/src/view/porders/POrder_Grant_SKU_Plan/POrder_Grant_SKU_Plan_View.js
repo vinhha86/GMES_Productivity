@@ -172,6 +172,14 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
                 iconCls: 'x-fa fa-window-close',
                 itemId: 'btnThoat'
             },
+            {
+                margin: 3,
+                xtype:'button',
+                text:  'Test',
+                iconCls: 'x-fa fa-check',
+                itemId: 'btnTest',
+                hidden: true
+            },
         ]
     }],
 });
