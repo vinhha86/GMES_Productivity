@@ -82,11 +82,33 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
             sortable: false,
             menuDisabled: true,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                // metaData.tdCls = (value < 0) ? 'redCls' : 'greenCls';
+                var me = this;
+                var columns = me.getColumns();
+
+                var total = 0;
+
+                for(var i=0;i<columns.length;i++){
+                    var column = columns[i];
+                    var fullColumnIndex = column.fullColumnIndex;
+                    var dataIndex = column.dataIndex;
+                    if(fullColumnIndex >= 4){ // cot thu 5 tro di (ngay)
+                        total+=record.get(dataIndex) == null ? 0 : record.get(dataIndex);
+                    }
+                }
+
+                if(total < value){
+                    metaData.tdCls = 'redCls';
+                }else{
+                    metaData.tdCls = 'whiteCls';
+                }
+                
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value;
+                
 			},
             summaryType: 'sum', 
-            summaryRenderer: 'renderSum'
+            summaryRenderer: 'renderSum',
 		},
 	],
 	

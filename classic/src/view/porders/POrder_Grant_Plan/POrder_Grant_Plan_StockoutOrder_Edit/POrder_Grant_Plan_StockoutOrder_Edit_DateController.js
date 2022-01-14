@@ -135,9 +135,9 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_Plan.POrder_Grant_Plan_StockoutO
         var dateXuat = new Date(date.getFullYear(), date.getMonth(), date.getDate()-2, 0, 0, 0, 0);
         var dateTo = new Date(date.getFullYear(), date.getMonth(), date.getDate()-3, 0, 0, 0, 0);
 
-        console.log(date);
-        console.log(dateXuat);
-        console.log(dateTo);
+        // console.log(date);
+        // console.log(dateXuat);
+        // console.log(dateTo);
 
         // dateXuat = new Date(dateXuat);
         // dateTo = new Date(dateTo);
