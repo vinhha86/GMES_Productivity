@@ -120,4 +120,44 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
 		if (null == value) value = 0;
 		return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
     },
+    onFilterPOKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('POLineStore');
+        var filterField = this.lookupReference('filterPO'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.filterPO = filters.add({
+                id: 'filterPO',
+                property: 'po_buyer',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.filterPO) {
+            filters.remove(this.filterPO);
+            this.filterPO = null;
+        }
+    },
+    onFilterMaSPKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('POLineStore');
+        var filterField = this.lookupReference('filterMaSP'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.filterPO = filters.add({
+                id: 'filterMaSP',
+                property: 'productbuyercode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.filterPO) {
+            filters.remove(this.filterPO);
+            this.filterPO = null;
+        }
+    },
 });
