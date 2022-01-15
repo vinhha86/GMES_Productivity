@@ -1,17 +1,35 @@
-Ext.define('GSmartApp.view.documentguide.DocumentGuideViewCotroller', {
+Ext.define('GSmartApp.view.documentguide.Document_Cotroller', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.DocumentGuideViewCotroller',
+    alias: 'controller.Document_Cotroller',
     init: function () {
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('DocumentGuideStore');
-        store.loadStore();
+        store.loadByType(0);
     },
     control: {
         '#btnAddGuide' : {
             click: 'onThemMoi'
         },
+        '#btnAdd_Tech' : {
+            click: 'onThemMoi'
+        },
         '#btnFile': {
             change: 'onUpload'
+        },
+        '#Document_Main': {
+            tabchange: 'onTabChange'
+        }
+    },
+    onTabChange: function (tabPanel, newCard, oldCard, eOpts) { console.log(newCard);
+        var viewmodel = this.getViewModel();
+        var fromStore = viewmodel.getStore('DocumentGuideStore');
+        if (newCard.xtype == "DocumentGuideView") {
+            viewmodel.set('doctype', 0);
+            fromStore.loadByType(0);
+        }
+        if (newCard.xtype == "DocumentTechView") {
+            viewmodel.set('doctype', 1);
+            fromStore.loadByType(1);
         }
     },
     onThemMoi: function () {
@@ -23,21 +41,37 @@ Ext.define('GSmartApp.view.documentguide.DocumentGuideViewCotroller', {
         var th = this;
 
         var viewmodel = this.getViewModel();
-
-        for(var i=0; i<m.fileInputEl.dom.files.length;i++){
-            var data = new FormData();
-            data.append('file', m.fileInputEl.dom.files[i]);;
-    
-            GSmartApp.Ajax.postUpload('/api/v1/documentguide/create', data,
-                function (success, response, options) {
-                    m.reset();
-                    if (success) {
-                        // var response = Ext.decode(response.responseText);
-                        viewmodel.getStore('DocumentGuideStore').load();
-                    }
-                })
+        var params = new Object();
+		var doctype = viewmodel.get('doctype');
+        if (doctype == 0){
+            for(var i=0; i<m.fileInputEl.dom.files.length;i++){
+                var data = new FormData();
+                data.append('file', m.fileInputEl.dom.files[i]);;
+        
+                GSmartApp.Ajax.postUpload('/api/v1/documentguide/create', data, 
+                    function (success, response, options) {
+                        m.reset();
+                        if (success) {
+                            // var response = Ext.decode(response.responseText);
+                            viewmodel.getStore('DocumentGuideStore').load();
+                        }
+                    })
+            }
+        } else if (doctype == 1){
+            for(var i=0; i<m.fileInputEl.dom.files.length;i++){
+                var data = new FormData();
+                data.append('file', m.fileInputEl.dom.files[i]);;
+        
+                GSmartApp.Ajax.postUpload('/api/v1/documentguide/create_tech', data, 
+                    function (success, response, options) {
+                        m.reset();
+                        if (success) {
+                            // var response = Ext.decode(response.responseText);
+                            viewmodel.getStore('DocumentGuideStore').load();
+                        }
+                    })
+            }
         }
-
         
     },
     onDownload: function (grid, rowIndex, colIndex) {

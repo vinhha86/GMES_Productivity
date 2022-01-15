@@ -1,7 +1,7 @@
-Ext.define('GSmartApp.view.documentguide.DocumentGuideView', {
+Ext.define('GSmartApp.view.documentguide.DocumentTechView', {
     extend: 'Ext.grid.Panel',
-    xtype: 'DocumentGuideView',
-    id:'DocumentGuideView',
+    xtype: 'DocumentTechView',
+    id:'DocumentTechView',
     viewConfig: {
         stripeRows: true,
         enableTextSelection: true,
@@ -72,9 +72,9 @@ Ext.define('GSmartApp.view.documentguide.DocumentGuideView', {
             margin: 1
         },{
             xtype:'button',
-            itemId:'btnAddGuide',
+            itemId:'btnAdd_Tech',
             margin: 5,
-			text: 'Thêm tài liệu hướng dẫn',
+			text: 'Thêm tài liệu kỹ thuật',
             iconCls: 'x-fa fa-plus'
         }]
     }]
