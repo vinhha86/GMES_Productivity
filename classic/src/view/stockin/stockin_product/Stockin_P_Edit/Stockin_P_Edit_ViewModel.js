@@ -146,7 +146,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_ViewModel', {
 			if (get('stockin.id') == null || get('stockin.id') == 0) {
                 return true;
             } else
-            if (get('stockin.status') < 1 || get('stockin.status') > -1) {
+            if (get('stockin.status') < 1 && get('stockin.status') > -1) {
                 return false;
             } else {
                 return true;
