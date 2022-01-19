@@ -14,6 +14,7 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit_Product.Stocki
 		},
     },
     data: {
+        stockid_link: null,
         productSearchString: null,
 
     },

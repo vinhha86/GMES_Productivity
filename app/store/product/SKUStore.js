@@ -17,10 +17,11 @@ Ext.define('GSmartApp.store.product.SKUStore', {
         direction: 'ASC',
         property: 'coSanPham'
     }],
-	loadStore:function(id){
+	loadStore:function(id, stockid_link){
         var me=this;
         var params = new Object();
         params.productid_link = id;
+        params.stockid_link = stockid_link;
 
 		this.setProxy({
 			type: 'ajax',

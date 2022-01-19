@@ -300,7 +300,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			return;
 		}
 
-		var stockin = viewModel.get('stockin');
+		var stockout = viewModel.get('stockout');
 		var grid = this.getView();
 		var form = Ext.create('Ext.window.Window', {
 			height: '90%',
@@ -320,6 +320,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 				xtype: 'Stockin_P_Edit_Product_Main_View',
 				viewModel: {
 					data: {
+						stockid_link: stockout.orgid_from_link,
 						productSearchString: productSearchString,
 					}
 				}
@@ -351,7 +352,6 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		var m = this;
 		var me = this.getView();
 		var viewModel = this.getViewModel();
-		// var stockin = viewModel.get('stockin');
 		var stockout_d = viewModel.get('stockout.stockout_d');
 
 		if (null != stockout_d) {
@@ -384,9 +384,10 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		stockout_dObj.colorid_link = data.color_id;
 		stockout_dObj.color_name = data.mauSanPham;
 		stockout_dObj.size_name = data.coSanPham;
+		stockout_dObj.totalSLTon = data.totalSLTon;
 		stockout_dObj.totalpackage = null;
 		stockout_dObj.totalpackagecheck = null;
-		stockout_dObj.stockin_packinglist = [];
+		stockout_dObj.stockout_packinglist = [];
 
 		stockout_d.push(stockout_dObj);
 		store.setData([]);
