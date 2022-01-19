@@ -143,14 +143,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_ViewModel', {
 			}
 		},
 		isBtnConfirmHidden: function (get) {
-			if (get('stockin.id') == null || get('stockin.id') == 0) {
-                return true;
-            } else
-            if (get('stockin.status') < 1 && get('stockin.status') > -1) {
+			var stockin = get('stockin');
+			if(stockin.id == null || stockin.id == 0){
+				return true;
+			}
+			if (stockin.status < 1 && stockin.status > -1) {
                 return false;
-            } else {
-                return true;
             }
+			return true;
 		},
 		isBtnLuuHidden: function (get) {
 			if (get('stockin.status') > 0) {
@@ -159,6 +159,16 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_ViewModel', {
 			else {
 				return false;
 			}
-		}
+		},
+		isBtnTestHidden: function(get){
+			return true;
+		},
+		isBtnDuyetHidden: function(get){
+			var stockin = get('stockin');
+			if(stockin.id == null || stockin.id == 0){
+				return true;
+			}
+			return false;
+		},
 	}
 })

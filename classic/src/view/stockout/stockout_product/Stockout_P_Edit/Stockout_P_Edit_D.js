@@ -95,6 +95,21 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			flex: 1
 		},
         {
+            header: 'SL tồn', dataIndex: 'totalSLTon', width: 90,
+            align:'right',
+            summaryType: 'sum', summaryRenderer: 'renderCount',
+            // xtype: 'numbercolumn',
+            // format: '0,000',
+            // editor:{
+            //     xtype:'textfield',
+            //     maskRe: /[0-9.]/,
+            //     selectOnFocus: true,
+            //     bind: {
+            //         // editable: '{iseditSL}'
+            //     }
+            // }
+        },
+        {
             // header: 'Số lượng YC', dataIndex: 'totalpackage_req', width: 80,
             header: 'SL Y/C', dataIndex: 'totalpackage', width: 80,
             align:'right',
