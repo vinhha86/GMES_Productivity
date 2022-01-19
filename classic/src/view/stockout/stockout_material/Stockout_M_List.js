@@ -24,7 +24,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_List', {
     ],
     columnLines: true,
     viewConfig: {
-        enableTextSelection: false,
+        enableTextSelection: true,
         stripeRows: false
     },
     columns: [

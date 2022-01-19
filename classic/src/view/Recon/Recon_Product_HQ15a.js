@@ -29,27 +29,27 @@ Ext.define('GSmartApp.view.Recon.Recon_Product_HQ15a', {
 		{
 			text: 'Mã SP',
 			width: 120,
-			dataIndex: 'productcode',
+			dataIndex: 'product_code',
 		},
 		{
 			text: 'Tên SP',
 			flex: 1,
-			dataIndex: 'productname',
+			dataIndex: 'product_name',
 		},
 		{
 			text: 'Mầu',
 			width: 150,
-			dataIndex: 'mauSanPham',
+			dataIndex: 'mausanpham',
 		},
 		{
 			text: 'Cỡ',
 			width: 70,
-			dataIndex: 'coSanPham',
+			dataIndex: 'cosanpham',
 		},
 		{
 			text: 'ĐVT',
 			width: 70,
-			dataIndex: 'unitname',
+			dataIndex: 'unit_name',
 		},
 		{
 			text: 'SL Y/C',

@@ -5,16 +5,86 @@ Ext.define('GSmartApp.view.Recon.Recon_Main_Pcontract_Controller', {
         var viewmodel = this.getViewModel();
         // var storeproduct = viewmodel.getStore('ReconProductTree_Store');
         // storeproduct.loadStore(viewmodel.get('pcontractid_link'), null);
+        var storeproduct_recon = viewmodel.getStore('PContractProductTreeStoreRecon');
+        storeproduct_recon.loadStore(viewmodel.get('pcontractid_link'), null);
+
+        var storematerial = viewmodel.getStore('Material_ByContract_Store');
+        storematerial.loadMaterialByContract(viewmodel.get('pcontractid_link'));
     },
     control: {
         '#btnRecon_Calculate': {
             click: 'onRecon_Calculate'
+        },
+        '#cboMaterialId': {
+            select: 'onMaterialSelect'
+        }
+    },
+    onMaterialSelect: function(e, newValue, oldValue, eOpts ){
+        //Xoa các mã hàng đã chọn
+        Ext.getCmp('Recon_ProductTree').getSelectionModel().deselectAll();
+
+        var viewmodel = this.getViewModel();
+        store = viewmodel.getStore('PContractProductTreeStoreRecon');
+        store.filterer = 'bottomup';
+        store.getRoot().expandChildren(true);
+        
+        // console.log(newValue);
+        // console.log(viewmodel.get('Balance.materialid_link'));
+        if (viewmodel.get('Balance.materialid_link') > 0){
+            //Cho phép chọn nhiều Mã hàng để tính toán
+            viewmodel.set('Balance.p_selection_mode', 'MULTI');
+
+            var product_bymaterial = viewmodel.getStore('Product_ByMaterial_Store');
+            product_bymaterial.loadProductListByMaterial(viewmodel.get('pcontractid_link'), viewmodel.get('Balance.materialid_link'));
+            product_bymaterial.loadPage(1, {
+                scope: this,
+                callback: function (records, operation, success) {
+                    if (success) {
+                        store.clearFilter();
+                        var filters = store.getFilters();
+            
+                        var product_filters = [];
+                        for(var k =0; k<product_bymaterial.data.length; k++){
+                            var p_data = product_bymaterial.data.items[k].data;
+                            product_filters[k] = p_data.productid_link;
+
+                            // this.codeFilter = filters.add({
+                            //     id: 'codeFilter',
+                            //     property: 'productid_link',
+                            //     value: p_data.productid_link,
+                            //     anyMatch: true,
+                            //     caseSensitive: false
+                            // });
+                        }
+                        // console.log(product_filters);
+                        function legalProduct (item) {
+                            if (item.firstChild != null){
+                                if (Ext.Array.contains(product_filters, item.firstChild.get('productid_link')))
+                                    return true;
+                                else 
+                                    return false;
+                            } else {
+                                if (Ext.Array.contains(product_filters, item.get('productid_link')))
+                                return true;
+                            else 
+                                return false;
+                            }
+                        }
+                        filters.add(legalProduct);                        
+                    }
+                }
+            });
+
+
+        } else {
+            store.clearFilter();
+            //Không chọn NPL -> Chỉ được chọn 1 mã hàng để tính toán
+            viewmodel.set('Balance.p_selection_mode', 'SINGLE');
         }
     },
     setPcontractID: function(pcontractid_link){
         var viewmodel = this.getViewModel();
         viewmodel.set('pcontractid_link',pcontractid_link);
-        console.log(pcontractid_link);
     },
     onRecon_Calculate: function () {
         var me = this.getView();
