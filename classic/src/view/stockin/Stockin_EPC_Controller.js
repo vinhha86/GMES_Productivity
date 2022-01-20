@@ -20,6 +20,10 @@ Ext.define('GSmartApp.view.stockin.Stockin_EPC_Controller', {
         var TPGroupStore = viewModel.getStore('TPGroupStore');
 
         var stockin_packinglist = stockin_d.get('stockin_packinglist');
+        if(stockin_packinglist == null){
+            stockin_d.set('stockin_packinglist', []);
+            stockin_packinglist = stockin_d.get('stockin_packinglist');
+        }
         var loaiThanhPham1 = false;
         var loaiThanhPham2 = false;
         var loaiThanhPham3 = false;

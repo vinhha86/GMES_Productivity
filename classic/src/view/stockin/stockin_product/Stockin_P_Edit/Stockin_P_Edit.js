@@ -3,7 +3,9 @@ Ext.define('GSmartApp.view.stockout.Stockin_P_Edit', {
     xtype: 'Stockin_P_Edit',
     id: 'Stockin_P_Edit',
     controller: 'Stockin_P_Edit_Controller',
-    viewModel: 'Stockin_P_Edit_ViewModel',
+    viewModel: {
+        type: 'Stockin_P_Edit_ViewModel'
+    },
 	layout: {
         type: 'vbox',
         pack: 'start',
@@ -41,8 +43,19 @@ Ext.define('GSmartApp.view.stockout.Stockin_P_Edit', {
                 bind: {
                     hidden: '{isBtnConfirmHidden}'
                 },
-                // hidden: true
-            },            
+                hidden: true
+            },       
+            {
+                margin: '0 5 5 5',
+                xtype:'button',
+                text:  "test",
+                iconCls: 'x-fa fa-check',
+                itemId: 'btnTest',
+                // bind: {
+                //     hidden: '{isBtnTestHidden}'
+                // },
+                hidden: true
+            },      
             {
                 flex:1
             },
@@ -55,7 +68,8 @@ Ext.define('GSmartApp.view.stockout.Stockin_P_Edit', {
                 bind: {
                     disabled: '{isStart}',
                     hidden: '{isBtnLuuHidden}'
-                }
+                },
+                hidden: true
             }
         ]
         }        

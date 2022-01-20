@@ -118,10 +118,10 @@ Ext.define('GSmartApp.view.pcontract.PContractView', {
                     }
                 }
             },
-            {
-                title: 'Quyết toán đơn hàng',
-                xtype: 'Recon_Main_Pcontract',
-            },
+            // {
+            //     title: 'Quyết toán đơn hàng',
+            //     xtype: 'Recon_Main_Pcontract',
+            // },
                 // {
                 //     title: 'Lệnh sản xuất',
                 //     xtype: 'PContract_POrder_Main',

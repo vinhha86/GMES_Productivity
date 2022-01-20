@@ -288,40 +288,30 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
         totalAmount+=e.value == null ? 0 : e.value;
 
         if(totalAmount > record.get('grantamount')){ // sl nhap tong > sl tong
-            // e.record.beginedit;
-            // e.value = e.originalValue;
-            // // e.record.data[e.field] = e.value;
-            // e.record.set([dataIndex], e.originalValue);
-            // console.log(dataIndex);
-            // console.log(e.originalValue);
-            
-            // e.record.endedit;
-            // record.set(dataIndex, e.value);
-            // POrderGrant_SKU_Store.rejectChanges();
             Ext.MessageBox.show({
                 title: "Kế hoạch vào chuyền",
                 msg: 'Tổng SL nhập ('+ totalAmount +') không được lớn hơn SL tổng ('+ record.get('grantamount') +')',
+                
                 buttons: Ext.MessageBox.YES,
                 buttonText: {
                     yes: 'Đóng',
-                }
+                },
             });
             
             e.cancel = true;
             return false;
-        }
+        }else{
+            //Neu du lieu OK --> Update new value vao record data
+            e.record.data[e.field] = e.value;
 
-        //Neu du lieu OK --> Update new value vao record data
-        e.record.data[e.field] = e.value;
+            // return;
+            var params=new Object();
+            params.amount = e.value;
+            params.skuid_link = skuid_link;
+            params.porder_grantid_link = pordergrantid_link;
+            params.date = date;
 
-        // return;
-        var params=new Object();
-        params.amount = e.value;
-        params.skuid_link = skuid_link;
-        params.porder_grantid_link = pordergrantid_link;
-        params.date = date;
-
-        GSmartApp.Ajax.post('/api/v1/porder_grant_sku_plan/save_porder_grant_sku_plan', Ext.JSON.encode(params),
+            GSmartApp.Ajax.post('/api/v1/porder_grant_sku_plan/save_porder_grant_sku_plan', Ext.JSON.encode(params),
 			function (success, response, options) {
 				if (success) {
                     var response = Ext.decode(response.responseText);
@@ -352,6 +342,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
                     return true;
                 }
             });
+        }
     },
 
     onEnter: function(field, e){

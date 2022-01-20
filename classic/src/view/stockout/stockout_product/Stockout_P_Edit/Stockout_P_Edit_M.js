@@ -234,6 +234,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                         hidden: '{isTimSanPhamHidden}'
                     },
                     fieldLabel: 'Sản phẩm',
+                    emptyText: 'Tìm theo sản phẩm',
                     // editable: false,
                     // readOnly: true,
                     // cls: 'notEditable',

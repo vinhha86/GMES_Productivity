@@ -63,10 +63,14 @@ Ext.define('GSmartApp.view.stockin.stockin_product.Stockin_P_Edit_Product.Stocki
         var me = this.getView();
         var viewModel = this.getViewModel();
 
+        var stockid_link = viewModel.get('stockid_link');
+        // console.log(stockid_link);
+        // console.log(record.get('id'));
+
         var mainView = me.up('window').down('#Stockin_P_Edit_Product_Main_View');
         if(mainView) mainView.setLoading(true);
         var SKUStore = viewModel.getStore('SKUStore');
-        SKUStore.loadStore(record.get('id'));
+        SKUStore.loadStore(record.get('id'), stockid_link);
     },
 
     onFilterValueKhoangKeyup: function () {

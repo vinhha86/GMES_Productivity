@@ -19,15 +19,26 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
         '#btnLuu': {
             click: 'onSave'
         },
+        '#btnTest': {
+            click: 'onTest'
+        },
         '#btnConfirm': {
             click: 'onBtnConfirm'
         }
+    },
+    onTest: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+        console.log(stockin);
     },
     onNewData: function (type, id) {
         var me = this.getView();
         var viewModel = this.getViewModel();
         var session = GSmartApp.util.State.get('session');
 
+        viewModel.set('stockin.id', null);
         viewModel.set('stockin.stockindate', new Date());
         viewModel.set('stockin.usercreateid_link', session.id);
         if(id != 0){

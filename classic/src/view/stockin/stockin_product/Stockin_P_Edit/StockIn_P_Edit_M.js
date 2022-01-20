@@ -83,24 +83,6 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M', {
 			flex: 1,
 			labelWidth: 85,
 		},
-		// {
-		// 	xtype: 'combo',
-		// 	valueField: 'id',
-		// 	displayField: 'fullName',
-		// 	bind: {
-		// 		value: '{stockin.usercreateid_link}',
-		// 		store: '{UserStore}'
-		// 	},
-		// 	queryMode: 'local',
-		// 	anyMatch: true,
-		// 	margin: '0 5 0 5',
-		// 	editable: false,
-		// 	readOnly: true,
-		// 	cls: 'notEditable',
-		// 	flex: 1,
-        //     labelWidth: 85,
-		// 	fieldLabel: 'Người lập'
-		// }
 		]
 	}, {
 		layout: 'hbox',
@@ -151,24 +133,6 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M', {
 			flex: 1,
 			labelWidth: 85,
 		},
-		// {
-		// 	xtype: 'combo',
-		// 	valueField: 'id',
-		// 	displayField: 'fullName',
-		// 	bind: {
-		// 		value: '{stockin.approverid_link}',
-		// 		store: '{UserStore}'
-		// 	},
-		// 	queryMode: 'local',
-		// 	anyMatch: true,
-		// 	margin: '0 5 0 5',
-		// 	editable: false,
-		// 	readOnly: true,
-		// 	cls: 'notEditable',
-		// 	flex: 1,
-        //     labelWidth: 85,
-		// 	fieldLabel: 'Người duyệt'
-		// }
 		]
 	}, {
 		layout: 'hbox',
@@ -216,10 +180,90 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M', {
 			{
 				xtype: 'textfield',
 				margin: '0 0 0 5',
-				itemId:'stockoutcode',
-				fieldLabel: 'Phiếu XK',
+				itemId:'linegiaohang',
+				fieldLabel: 'Line giao hàng',
 				width: 335,
 				labelWidth: 95,
+				hideLabel: false,			
+				bind:{
+					disabled: '{isEdit}',
+					value: '{stockin.contract_number}',
+					// hidden: '{isPOLineHidden}'
+				},
+                enableKeyEvents : true,
+				hidden: true,
+			},
+			{
+				xtype: 'button',
+				tooltip: 'Tìm PO Line',
+				margin: '0 5 0 3',
+				itemId: 'btnTimPOLine',
+				//text: 'Thêm thẻ vải',
+				iconCls: 'x-fa fa-search',
+				weight: 30,			
+				bind:{
+					disabled: '{isEdit}',
+					// hidden: '{isPOLineHidden}'
+				},
+				hidden: true,
+			},
+			{
+				xtype: 'combo',
+				itemId: 'cbo_POrder_ListStore',
+				valueField: 'id',
+				displayField: 'ordercode',
+				bind: {
+					value: '{stockin.porderid_link}',
+					store: '{POrder_ListStore}',
+					disabled: '{isEdit}',
+					hideTrigger: '{isEdit}',
+					// hidden: '{isPOLineHidden}'
+				},
+				queryMode: 'local',
+				anyMatch: true,
+				margin: '0 5 0 5',
+				width: 445,
+				labelWidth: 85,
+				fieldLabel: 'Lệnh SX',
+				hidden: true,
+			},
+			{
+				margin: '0 0 0 5',
+				xtype: 'textfield',
+				itemId: 'productSearchStringField',
+				bind: {
+					value: '{productSearchString}'
+				},
+				fieldLabel: 'Sản phẩm',
+				// editable: false,
+				// readOnly: true,
+				// cls: 'notEditable',
+				// flex: 1,
+				width: 335,
+				labelWidth: 95,
+				enableKeyEvents : true,
+			},
+			{
+				xtype: 'button',
+				tooltip: 'Tìm sản phẩm',
+				margin: '0 5 0 3',
+				itemId: 'btnTimSanPham',
+				//text: 'Thêm thẻ vải',
+				iconCls: 'x-fa fa-search',
+				weight: 30,			
+				// bind:{
+				// 	disabled: '{isEdit}',
+				// 	hidden: '{isPOLineHidden}'
+				// }
+				// handler: 'onSkuSearchTap'
+			},
+			{
+				xtype: 'textfield',
+				margin: '0 0 0 5',
+				itemId:'stockoutcode',
+				fieldLabel: 'Phiếu XK',
+				width: 410,
+				labelWidth: 85,
 				hideLabel: false,			
 				bind:{
 					disabled: '{isEdit}',
@@ -239,83 +283,6 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_Edit_M', {
 					hidden: '{isStockoutHidden}'
 				}
 			}, 	
-			{
-				xtype: 'textfield',
-				margin: '0 0 0 5',
-				itemId:'linegiaohang',
-				fieldLabel: 'Line giao hàng',
-				width: 335,
-				labelWidth: 95,
-				hideLabel: false,			
-				bind:{
-					disabled: '{isEdit}',
-					value: '{stockin.contract_number}',
-					hidden: '{isPOLineHidden}'
-				},
-                enableKeyEvents : true,
-			},
-			{
-				xtype: 'button',
-				tooltip: 'Tìm PO Line',
-				margin: '0 5 0 3',
-				itemId: 'btnTimPOLine',
-				//text: 'Thêm thẻ vải',
-				iconCls: 'x-fa fa-search',
-				weight: 30,			
-				bind:{
-					disabled: '{isEdit}',
-					hidden: '{isPOLineHidden}'
-				}
-				// handler: 'onSkuSearchTap'
-			},
-			{
-				xtype: 'combo',
-				itemId: 'cbo_POrder_ListStore',
-				valueField: 'id',
-				displayField: 'ordercode',
-				bind: {
-					value: '{stockin.porderid_link}',
-					store: '{POrder_ListStore}',
-					disabled: '{isEdit}',
-					hideTrigger: '{isEdit}',
-					hidden: '{isPOLineHidden}'
-				},
-				queryMode: 'local',
-				anyMatch: true,
-				margin: '0 5 0 5',
-				width: 445,
-				labelWidth: 85,
-				fieldLabel: 'Lệnh SX'
-			},
-			{
-				margin: '0 0 0 5',
-				xtype: 'textfield',
-				itemId: 'productSearchStringField',
-				bind: {
-					value: '{productSearchString}'
-				},
-				fieldLabel: 'Sản phẩm',
-				// editable: false,
-				// readOnly: true,
-				// cls: 'notEditable',
-				flex: 1,
-				labelWidth: 85,
-				enableKeyEvents : true,
-			},
-			{
-				xtype: 'button',
-				tooltip: 'Tìm sản phẩm',
-				margin: '0 5 0 3',
-				itemId: 'btnTimSanPham',
-				//text: 'Thêm thẻ vải',
-				iconCls: 'x-fa fa-search',
-				weight: 30,			
-				// bind:{
-				// 	disabled: '{isEdit}',
-				// 	hidden: '{isPOLineHidden}'
-				// }
-				// handler: 'onSkuSearchTap'
-			},
 		]
 	},
 	]
