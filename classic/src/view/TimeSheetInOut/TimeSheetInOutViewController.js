@@ -2,26 +2,32 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TimeSheetInOutViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.TimeSheetInOutViewController',
     init: function (view) {
+        var me = this;
         var viewmodel = view.getViewModel();
-        //gán giá trị mặc định cho lọc từ ngày - đến ngày
-        var fromdate = new Date();
-        viewmodel.set('timesheetinout.fromdate', fromdate);
-        var todate = new Date(fromdate.getFullYear(), fromdate.getMonth() - 1, fromdate.getDate());
-        viewmodel.set('timesheetinout.todate', todate);
 
-        var TimeSheetInoutStore = viewmodel.getStore('TimeSheetInoutStore');
-        TimeSheetInoutStore.loadStore(viewmodel.get('timesheetinout.todate'), viewmodel.get('timesheetinout.fromdate'));
+        var ListOrgStore = viewmodel.getStore('ListOrgStore');
+        ListOrgStore.loadOrg_ByOrgType(13);
+
+        //gán giá trị mặc định cho lọc từ ngày - đến ngày
+
+        var todate = new Date();
+        viewmodel.set('timesheetinout.todate', todate);
+        var fromdate = new Date(todate.getFullYear(), todate.getMonth(), todate.getDate() - 1);
+        viewmodel.set('timesheetinout.fromdate', fromdate);
+
+        var session = GSmartApp.util.State.get('session');
+        if (session.orgid_link != 1) {
+            viewmodel.set('timesheetinout.orgid_link', session.orgid_link);
+
+            me.onSearch();
+        }
+
+
     },
     control: {
-        "#onToDate": {
-            change: 'onToDate'
-        },
         '#btnSearch': {
             click: 'onSearch'
         }
-    },
-    onToDate: function (datefield, newValue, oldValue, eOpts) {
-        console.log(newValue);
     },
     onSearch: function () {
         var viewmodel = this.getViewModel();
@@ -31,15 +37,14 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TimeSheetInOutViewController', {
         var tohour = to_hour.getHours();
         var tominute = to_hour.getMinutes();
         var todate = new Date(viewmodel.get('timesheetinout.todate'));
-        
-         //giờ - từ ngày để trống 
-        if(to_hour.getFullYear() == 1970){
-            tohour ="00";
-            tominute="00"
-        }
-        var todate_hour = todate.toDateString() + " " + tohour + ":" + tominute;
-        var dateto = new Date(todate_hour);
 
+        //giờ - từ ngày để trống 
+        if (to_hour.getFullYear() == 1970) {
+            tohour = "00";
+            tominute = "00"
+        }
+        var todate_hour = todate.toDateString() + " " + tohour + ":" + tominute + ":00";
+        var dateto = new Date(todate_hour);
 
         //đến ngày
         var from_hour = new Date(viewmodel.get('timesheetinout.from_hour'));
@@ -47,16 +52,16 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TimeSheetInOutViewController', {
         var fromminute = from_hour.getMinutes();
         var fromdate = new Date(viewmodel.get('timesheetinout.fromdate'));
 
-         //giờ - đến ngày để trống 
-         if(from_hour.getFullYear() == 1970){
+        //giờ - đến ngày để trống 
+        if (from_hour.getFullYear() == 1970) {
             fromhour = "00";
             fromminute = "00"
         }
-        var fromdate_hour = fromdate.toDateString() + " " + fromhour + ":" + fromminute;
+        var fromdate_hour = fromdate.toDateString() + " " + fromhour + ":" + fromminute + ":00";
         var datefrom = new Date(fromdate_hour);
 
-        var number_space = (datefrom - dateto) / 1000 / 60 / 60 / 24;
-       
+        var number_space = Ext.Date.diff(datefrom, dateto, 'd');
+
         //kiểm tra "đến ngày " không được nhỏ hơn "từ ngày"
         if (number_space < 0) {
             Ext.MessageBox.show({
@@ -69,8 +74,10 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TimeSheetInOutViewController', {
             });
             return;
         }
+
+
         //nếu khoảng thời gia tìm kiếm quá 1 tháng thì thông báo lỗi - chỉ được tìm kiếm trong khoảng 1 tháng
-        if (number_space > 32) {
+        if (number_space > 31) {
             Ext.MessageBox.show({
                 title: "Thông báo",
                 msg: 'Thời gian tìm kiếm chỉ trong 1 tháng!',
@@ -81,8 +88,26 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TimeSheetInOutViewController', {
             });
             return;
         }
-        var TimeSheetInoutStore = viewmodel.getStore('TimeSheetInoutStore');
-        TimeSheetInoutStore.loadStore(dateto, datefrom);
+
+        var orgid_link = viewmodel.get('timesheetinout.orgid_link');
+        if (orgid_link == null || orgid_link == 0) {
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: 'Bạn chưa chọn đơn vị!',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+        }
+        else {
+            var TimeSheetInoutStore = viewmodel.getStore('TimeSheetInoutStore');
+            var s_datefrom = Ext.Date.format(datefrom, "Y-m-d H:i:s");
+            var s_dateto = Ext.Date.format(dateto, "Y-m-d H:i:s");
+
+            TimeSheetInoutStore.loadStore(s_dateto, s_datefrom, viewmodel.get('timesheetinout.orgid_link'), orgid_link);
+        }
+
     },
     //lọc - filter
     onCodeFilter: function () {

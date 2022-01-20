@@ -51,6 +51,11 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TimeSheetInOutView', {
             },
         },
         {
+            text: "Ngày",
+            width: 120,
+            dataIndex: 'day'
+        },
+        {
             text: "Giờ ra/vào",
             flex: 1,
             dataIndex: 'time'
@@ -62,6 +67,19 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TimeSheetInOutView', {
             dock: 'top',
             items: [
                 {
+                    xtype: 'combo',
+                    fieldLabel: 'Đơn vị',
+                    bind: {
+                        store: '{ListOrgStore}',
+                        value: '{timesheetinout.orgid_link}'
+                    },
+                    displayField: 'code',
+                    valueField: 'id',
+                    margin: 5,
+                    labelWidth: 50,
+                    itemId: 'orgFactoryList'
+                },
+                {
                     xtype: 'datefield',
                     labelWidth: 65,
                     fieldLabel: 'Từ ngày',
@@ -69,7 +87,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TimeSheetInOutView', {
                     margin: 5,
                     itemId: 'onToDate',
                     bind: {
-                        value: '{timesheetinout.todate}',
+                        value: '{timesheetinout.fromdate}',
                     },
                 },
                 {
@@ -81,7 +99,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TimeSheetInOutView', {
                     format: 'H:i',
                     value: '00:00',
                     bind: {
-                        value: '{timesheetinout.to_hour}',
+                        value: '{timesheetinout.from_hour}',
                     },
                 },
                 {
@@ -91,7 +109,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TimeSheetInOutView', {
                     format: 'd/m/Y',
                     itemId: 'onFromDate',
                     bind: {
-                        value: '{timesheetinout.fromdate}',
+                        value: '{timesheetinout.todate}',
                     },
                     margin: 5
                 },
@@ -103,7 +121,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TimeSheetInOutView', {
                     format: 'H:i',
                     value: '00:00',
                     bind: {
-                        value: '{timesheetinout.from_hour}',
+                        value: '{timesheetinout.to_hour}',
                     },
                     margin: 5
                 },

@@ -18,10 +18,12 @@ Ext.define('GSmartApp.store.TimeSheetInOut.TimeSheetInOutStore', {
 			}
 		}
 	],
-	loadStore: function (todate, fromdate) {
+	loadStore: function (todate, fromdate, orgid_link) {
 		var params = new Object();
 		params.todate = todate;
 		params.fromdate = fromdate;
+		params.orgid_link = orgid_link;
+
 		this.setProxy({
 			type: 'ajax',
 			actionMethods: {
