@@ -130,25 +130,44 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         dock: 'top',
         xtype: 'toolbar',
         padding: '0 0 5 5',
-        height: 30,
-        items: [{
-            xtype: 'displayfield',
-            fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
-            labelWidth: 0,
-            value: 'Danh sách PO Line (Nhịp giao hàng)'
-        },
-            '->'
-            ,
-        {
-            xtype: 'button',
-            itemId: 'btnEditAllLine',
-            ui: 'header',
-            tooltip: 'Sửa nhanh line giao hàng',
-            iconCls: 'x-fa fa-edit',
-            bind: {
-                hidden: '{isHiddenEditAll}'
+        height: 40,
+        items: [
+            {
+				margin:'0 5 0 0',
+				xtype: 'button',
+				iconCls: 'x-fa fa-angle-double-up',
+				itemId: 'btnThuGon',
+				bind: {
+					hidden: '{IsformMaster}'
+				}
+			}, 
+			{
+				margin:'0 5 0 0',
+				xtype: 'button',
+				itemId: 'btnMoRong',
+				iconCls: 'x-fa fa-angle-double-down',
+				bind: {
+					hidden: '{!IsformMaster}'
+				}
+			}, 
+            {
+                xtype: 'displayfield',
+                fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
+                labelWidth: 0,
+                value: ' Danh sách PO Line (Nhịp giao hàng)'
+            },
+                '->'
+                ,
+            {
+                xtype: 'button',
+                itemId: 'btnEditAllLine',
+                ui: 'header',
+                tooltip: 'Sửa nhanh line giao hàng',
+                iconCls: 'x-fa fa-edit',
+                bind: {
+                    hidden: '{isHiddenEditAll}'
+                }
             }
-        }
         ]
     },
     {

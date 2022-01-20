@@ -8,8 +8,22 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOViewController', {
         },
         '#btnEditAllLine': {
             click: 'onEditLine'
-        }
+        },
+        '#btnThuGon': {
+			click: 'onhiddenMaster'
+		},
+		'#btnMoRong': {
+			click: 'onhiddenMaster'
+		},
     },
+    onhiddenMaster: function () {
+		var viewModel = this.getViewModel();
+		var formMaster = Ext.getCmp('PContractMainView');
+		var isHidden = formMaster.getHeight() > 0 ? false : true;
+		viewModel.set('IsformMaster', !isHidden);
+
+		formMaster.setHidden(!isHidden);
+	},
     onPOSelect: function (grid, record, item, index, e, eOpts) {
         if (null != record) {
             var pcontractid_link = record.get('pcontractid_link');
