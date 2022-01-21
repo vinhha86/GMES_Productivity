@@ -7,12 +7,10 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
     // viewModel:{
     //     type:'Stockout_Pcontract_ViewModel'
     // },
-    // viewConfig: {
-    //     stripeRows: false,
-    //     enableTextSelection: true,
-    //     columnLines: true,
-    //     rowLines: true,
-    // },
+    viewConfig: {
+        enableTextSelection: true,
+        stripeRows: false,
+    },
     // selModel: {
     //     selType: 'checkboxmodel',
     //     mode: 'MULTI'

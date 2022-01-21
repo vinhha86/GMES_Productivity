@@ -252,6 +252,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 				stockoutd_new.size_name = data.size_name_p;
 				stockoutd_new.colorid_link = data.colorid_link;
 				stockoutd_new.skuid_link = data.p_skuid_link;
+				stockoutd_new.totalSLTon = data.totalSLTon;
 				// stockoutd_new.sizeid_link = data.sku.size_id;
 				stockoutd_new.totalpackage = data.totalpackage == null ? 0 : data.totalpackage;
 				stockoutd_new.totalpackagecheck = data.totalpackagecheck == null ? 0 : 0;

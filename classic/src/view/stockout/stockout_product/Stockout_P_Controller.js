@@ -20,17 +20,14 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Controller', {
             afterrender: 'onAfterrender'
         },
         '#stockout_p_list': {
-            // afterrender: ''
+            select: 'onStockoutSelect',
+            itemdblclick: 'onCapNhat'
         },
         '#btnThemMoi_ByPOLine':{
             click: 'onStockoutNew_ByPOLine'
         },
         '#btnThemMoi_Move':{
             click: 'onStockoutNew_Move'
-        },
-		'#stockout_p_list':{
-            select: 'onStockoutSelect',
-            itemdblclick: 'onCapNhat'
         },
         '#limitpage': {
             specialkey: 'onSpecialkey'

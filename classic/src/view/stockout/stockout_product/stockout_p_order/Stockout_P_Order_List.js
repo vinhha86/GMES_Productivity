@@ -4,6 +4,7 @@ Ext.define('GSmartApp.view.stockout_product.stockout_p_order.Stockout_P_Order_Li
     id: 'Stockout_P_Order_List',
     reference: 'Stockout_P_Order_List',
     viewConfig: {
+        enableTextSelection: true,
         stripeRows: false,
         columnLines: true,
         rowLines: true

@@ -7,12 +7,10 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
     // viewModel:{
     //     type:'Stockout_Pcontract_ViewModel'
     // },
-    // viewConfig: {
-    //     stripeRows: false,
-    //     enableTextSelection: true,
-    //     columnLines: true,
-    //     rowLines: true,
-    // },
+    viewConfig: {
+        enableTextSelection: true,
+        stripeRows: false       
+    },
     selModel: {
         selType: 'checkboxmodel',
         mode: 'MULTI'
@@ -50,6 +48,15 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			dataIndex: 'size_name_p',
 			flex: 1
 			// width: 70
+		},
+        {
+			xtype: 'numbercolumn',
+			format:'0,000',
+			text: 'SL tồn', 
+			align:'right',
+			summaryType: 'sum',
+			summaryRenderer: 'renderCount',
+			dataIndex: 'totalSLTon'
 		},
 		{
 			xtype: 'numbercolumn',

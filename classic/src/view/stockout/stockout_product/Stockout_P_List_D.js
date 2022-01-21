@@ -99,6 +99,15 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_List_D', {
 			dataIndex: 'loaiThanhPham',
 			flex: 1
 		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000',
+			text: 'SL tồn', 
+			align:'right',
+			summaryType: 'sum',
+			summaryRenderer: 'renderCount',
+			dataIndex: 'totalSLTon'
+		},
         {
             // header: 'Số lượng YC', dataIndex: 'totalpackage_req', width: 80,
             header: 'SL Y/C', dataIndex: 'totalpackage', width: 80,
