@@ -9,7 +9,12 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
     controller: 'BaoCaoRaVaoViewController',
     viewConfig: {
         columnLines: true,
-        rowLines: true
+        rowLines: true,
+        getRowClass: function (record, index) {
+            if (record.data.sortvalue == 0) {
+                return "po_accept";
+            }
+        }
     },
     columns: [
         {
