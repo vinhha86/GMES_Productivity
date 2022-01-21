@@ -41,6 +41,15 @@ Ext.define('GSmartApp.view.stockout_product.stockout_p_order.Stockout_P_Order_D'
 		{
 			xtype: 'numbercolumn',
 			format:'0,000',
+			text: 'SL tồn', 
+			align:'right',
+			summaryType: 'sum',
+			summaryRenderer: 'renderSum',
+			dataIndex: 'totalSLTon'
+		},
+		{
+			xtype: 'numbercolumn',
+			format:'0,000',
 			text: 'SL xuất', 
 			align:'right',
 			summaryType: 'sum',

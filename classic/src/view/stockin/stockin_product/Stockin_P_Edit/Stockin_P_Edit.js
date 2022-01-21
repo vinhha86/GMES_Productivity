@@ -43,7 +43,7 @@ Ext.define('GSmartApp.view.stockout.Stockin_P_Edit', {
                 bind: {
                     hidden: '{isBtnConfirmHidden}'
                 },
-                hidden: true
+                // hidden: true
             },       
             {
                 margin: '0 5 5 5',
@@ -69,7 +69,7 @@ Ext.define('GSmartApp.view.stockout.Stockin_P_Edit', {
                     disabled: '{isStart}',
                     hidden: '{isBtnLuuHidden}'
                 },
-                hidden: true
+                // hidden: true
             }
         ]
         }        
