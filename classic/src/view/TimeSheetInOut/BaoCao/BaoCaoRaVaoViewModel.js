@@ -10,6 +10,9 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewModel', {
         ListOrgStore: {
             type: 'ListOrgStore'
         },
+        GrantStore: {
+            type: 'ListOrgStore'
+        },
         YearStore: {
             data: [{
                 id: (new Date().getFullYear()) - 1, name: (new Date().getFullYear()) - 1

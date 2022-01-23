@@ -16,12 +16,18 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             }
         }
     },
+    plugins: {
+        gridexporter: true
+    },
     columns: [
         {
             text: 'STT',
             width: 50,
-            xtype: 'rownumberer',
-            align: 'center'
+            dataIndex: 'stt',
+            align: 'center',
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                return record.data.sortvalue == 0 ? value : "";
+            }
         },
         {
             text: "Mã nhân viên",
@@ -361,7 +367,22 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
                     valueField: 'id',
                     margin: 5,
                     labelWidth: 50,
-                    itemId: 'orgFactoryList'
+                    itemId: 'cmbDonVi',
+                    width: 180
+                },
+                {
+                    xtype: 'combo',
+                    fieldLabel: 'Bộ phận',
+                    bind: {
+                        store: '{GrantStore}',
+                        value: '{timesheetdaily.grantid_link}'
+                    },
+                    displayField: 'code',
+                    valueField: 'id',
+                    itemId: 'cmbBoPhan',
+                    margin: 5,
+                    labelWidth: 60,
+                    width: 180
                 },
                 {
                     xtype: 'combo',
@@ -373,7 +394,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
                     displayField: 'name',
                     valueField: 'id',
                     margin: 5,
-                    labelWidth: 50
+                    labelWidth: 50,
+                    width: 150
                 },
                 {
                     xtype: 'combo',
@@ -385,7 +407,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
                     displayField: 'name',
                     valueField: 'id',
                     margin: 5,
-                    labelWidth: 50
+                    labelWidth: 50,
+                    width: 150
                 },
                 {
                     xtype: 'button',
@@ -394,6 +417,13 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
                     itemId: 'btnSearch',
                     margin: 5,
                     handler: 'Search'
+                },
+                {
+                    xtype: 'button',
+                    text: 'Excel',
+                    iconCls: 'x-fa fa-file-excel-o',
+                    margin: 5,
+                    handler: 'onExport'
                 }
             ]
         }
