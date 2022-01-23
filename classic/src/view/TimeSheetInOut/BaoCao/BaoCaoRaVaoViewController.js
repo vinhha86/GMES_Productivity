@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.BaoCaoRaVaoViewController',
     init: function (view) {
+        var me = this;
         var viewmodel = this.getViewModel();
         var ListOrgStore = viewmodel.getStore('ListOrgStore');
         ListOrgStore.loadOrg_ByOrgType(13);
