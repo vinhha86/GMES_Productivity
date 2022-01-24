@@ -230,13 +230,22 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		form.down('#Stockout_P_Stockout_order_Main_View').getController().on('ThemSanPham', function (select, stockout_order) {
 			// console.log(select);
 			// console.log(stockout_order);
+			var pcontractid_link = stockout_order.pcontractid_link;
+			var pcontract_poid_link = stockout_order.pcontract_poid_link;
+			var productid_link = stockout_order.p_skuid_link;
+			// var orgid_from_link = stockout_order.orgid_from_link;
+			// var orgid_to_link = stockout_order.orgid_to_link;
 			// return;
 			viewModel.set('stockout.stockoutorderid_link', stockout_order.id);
+			viewModel.set('stockout.pcontractid_link', pcontractid_link);
+			viewModel.set('stockout.pcontract_poid_link', pcontract_poid_link);
+			viewModel.set('stockout.productid_link', productid_link);
+			// viewModel.set('stockout.orgid_from_link', orgid_from_link);
+			// viewModel.set('stockout.orgid_to_link', orgid_to_link);
 
 			var StockoutD_Store = viewModel.getStore('StockoutD_Store');
 			StockoutD_Store.removeAll();
 			viewModel.set('stockout.stockout_d', []);
-			// viewModel.set('stockout.porderid_link', null);
 
 			var list = [];
 			for(var i=0; i<select.length; i++){

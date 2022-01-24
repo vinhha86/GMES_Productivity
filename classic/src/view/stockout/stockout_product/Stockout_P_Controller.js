@@ -165,7 +165,29 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Controller', {
                                     }
                                 });
                                 grid.getStore().remove(rec);
+                            }else{
+                                Ext.MessageBox.show({
+                                    title: "Thông báo",
+                                    msg: response.msg,
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
                             }
+                        }else{
+                            if(response != null){
+                                var response = Ext.decode(response.responseText);
+                                Ext.MessageBox.show({
+                                    title: "Thông báo",
+                                    msg: response.message,
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
+                            }
+
                         }
                     })
                 }
