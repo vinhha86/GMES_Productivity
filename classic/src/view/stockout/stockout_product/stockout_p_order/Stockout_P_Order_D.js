@@ -9,10 +9,10 @@ Ext.define('GSmartApp.view.stockout_product.stockout_p_order.Stockout_P_Order_D'
 		ftype: 'summary',
 		dock: 'top'
 	}],
-    selModel: {
-        selType: 'checkboxmodel',
-        mode: 'MULTI'
-    },
+    // selModel: {
+    //     selType: 'checkboxmodel',
+    //     mode: 'MULTI'
+    // },
     viewConfig: {
         enableTextSelection: true,
         stripeRows: false               

@@ -44,6 +44,40 @@ Ext.define('GSmartApp.view.stockout_product.stockout_p_order.Stockout_P_Order_Ma
             }
         });
     },
+
+    onMenu_StockoutPOrderList: function (grid, rowIndex, colIndex, item, e, record) {
+        var me = this;
+        var menu_grid = new Ext.menu.Menu({
+            xtype: 'menu',
+            anchor: true,
+            //padding: 10,
+            minWidth: 150,
+            viewModel: {},
+            items: [
+                {
+                    text: 'Tạo phiếu xuất kho',
+                    itemId: 'btnMenu_StockoutOrderList_Cat',
+                    separator: true,
+                    margin: '10 0 0',
+                    // iconCls: 'x-fa fas fa-edit brownIcon',
+                    handler: function () {
+                        // console.log(record);
+                        var stockoutorderidObj = new Object();
+                        stockoutorderidObj.id = record.get('id');
+                        stockoutorderidObj.stockouttypeid_link = record.get('stockouttypeid_link');
+                        GSmartApp.util.State.set('stockoutorderidObj', stockoutorderidObj);
+                        me.redirectTo('stockout_p_main/' + record.get('stockouttypeid_link') + '/create');
+                    },
+                },
+            ]
+        });
+        // HERE IS THE MAIN CHANGE
+        var position = [e.getX() - 10, e.getY() - 10];
+        e.stopEvent();
+        menu_grid.record = record;
+        menu_grid.showAt(position);
+    },
+
     renderSum: function (value) {
 		if (null == value) value = 0;
 		return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';

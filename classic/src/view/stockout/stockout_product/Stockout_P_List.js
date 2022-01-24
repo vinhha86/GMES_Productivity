@@ -65,8 +65,24 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_List', {
         },
         { header: 'Loại phiếu', dataIndex: 'stockouttype_name', width: 150 },
         { header: 'Ngày xuất', dataIndex: 'stockoutdate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 90 },
-        { header: 'Nơi xuất', dataIndex: 'org_from_name', flex: 1 },
-        { header: 'Nơi nhận', dataIndex: 'org_to_name', flex: 1 },
+        { 
+            header: 'Nơi xuất', dataIndex: 'org_from_name', flex: 1, 
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                if(record.get('org_from_parent_name') != null){
+                    return value + ' (' + record.get('org_from_parent_name') + ')';
+                }
+                return value;
+            },
+        },
+        { 
+            header: 'Nơi nhận', dataIndex: 'org_to_name', flex: 1,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                if(record.get('org_to_parent_name') != null){
+                    return value + ' (' + record.get('org_to_parent_name') + ')';
+                }
+                return value;
+            },
+        },
         { header: 'Trạng thái', dataIndex: 'statusString', width: 120}, 
         { header: 'Người lập phiếu', dataIndex: 'usercreate_name', width: 120 },
     ],
