@@ -9,7 +9,7 @@ Ext.define('GSmartApp.view.Recon.Recon_ProductTree_Controller', {
     onStyleCodeFilterKeyup: function () {
         var viewmodel = this.getViewModel();
         var filterField = this.lookupReference('styleCodeFilter');
-        store = viewmodel.getStore('ReconProductTree_Store'),
+        store = viewmodel.getStore('PContractProductTreeStoreRecon'),
             filters = store.getFilters();
 
         store.filterer = 'bottomup';
