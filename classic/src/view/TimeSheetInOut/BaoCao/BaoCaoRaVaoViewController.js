@@ -11,7 +11,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
         if (session.orgid_link != 1) {
             viewmodel.set('timesheetdaily.orgid_link', session.orgid_link);
 
-            me.onSearch();
+            me.Search();
         }
 
 
