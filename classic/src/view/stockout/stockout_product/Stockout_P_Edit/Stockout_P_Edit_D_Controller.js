@@ -279,7 +279,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		// console.log(items); // skuid_link
 		var skuIdList = [];
 		for (var i = 0; i < items.length; i++) {
-			var skuid_link = items[i].get('skuid_link');
+			var skuid_link = items[i].get('p_skuid_link');
 			skuIdList.push(skuid_link);
 		}
 		// console.log(stockid_link);
@@ -301,8 +301,10 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 						// console.log(response);
 						for (var i = 0; i < response.data.length; i++) {
 							var obj = response.data[i];
-							var rec = StockoutD_Store.findRecord('skuid_link', obj.skuid_link, 0, false, true, true);
-							rec.set('so_luong_ton_kho', obj.totalpackage);
+							var rec = StockoutD_Store.findRecord('p_skuid_link', obj.skuid_link, 0, false, true, true);
+							if(rec){
+								rec.set('totalSLTon', obj.totalpackage);
+							}
 							StockoutD_Store.commitChanges();
 							// console.log(rec);
 						}
@@ -329,62 +331,62 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 
 			})
 	},
-	onBtnTonKhoPOLine: function () {
-		var m = this;
-		var me = this.getView();
-		var viewModel = this.getViewModel();
-		var stockid_link = viewModel.get('stockout.orgid_from_link');
-		if (stockid_link == 0 || stockid_link == null || isNaN(stockid_link)) {
-			Ext.MessageBox.show({
-				title: "Thông báo",
-				msg: "Bạn cần chọn đơn vị xuất kho",
-				buttons: Ext.MessageBox.YES,
-				buttonText: {
-					yes: 'Đóng',
-				}
-			});
-			return;
-		}
+	// onBtnTonKhoPOLine: function () {
+	// 	var m = this;
+	// 	var me = this.getView();
+	// 	var viewModel = this.getViewModel();
+	// 	var stockid_link = viewModel.get('stockout.orgid_from_link');
+	// 	if (stockid_link == 0 || stockid_link == null || isNaN(stockid_link)) {
+	// 		Ext.MessageBox.show({
+	// 			title: "Thông báo",
+	// 			msg: "Bạn cần chọn đơn vị xuất kho",
+	// 			buttons: Ext.MessageBox.YES,
+	// 			buttonText: {
+	// 				yes: 'Đóng',
+	// 			}
+	// 		});
+	// 		return;
+	// 	}
 
-		// var pcontract_poid_link = viewModel.get('stockout.pcontract_poid_link');
-		// if (pcontract_poid_link == 0 || pcontract_poid_link == null || isNaN(pcontract_poid_link)) {
-		// 	Ext.MessageBox.show({
-		// 		title: "Thông báo",
-		// 		msg: "Bạn cần chọn PO Line",
-		// 		buttons: Ext.MessageBox.YES,
-		// 		buttonText: {
-		// 			yes: 'Đóng',
-		// 		}
-		// 	});
-		// 	return;
-		// }
+	// 	// var pcontract_poid_link = viewModel.get('stockout.pcontract_poid_link');
+	// 	// if (pcontract_poid_link == 0 || pcontract_poid_link == null || isNaN(pcontract_poid_link)) {
+	// 	// 	Ext.MessageBox.show({
+	// 	// 		title: "Thông báo",
+	// 	// 		msg: "Bạn cần chọn PO Line",
+	// 	// 		buttons: Ext.MessageBox.YES,
+	// 	// 		buttonText: {
+	// 	// 			yes: 'Đóng',
+	// 	// 		}
+	// 	// 	});
+	// 	// 	return;
+	// 	// }
 
-		var form = Ext.create('Ext.window.Window', {
-			height: 600,
-			closable: true,
-			resizable: false,
-			modal: true,
-			border: false,
-			title: 'Danh sách tồn kho SP',
-			closeAction: 'destroy',
-			width: 1100,
-			bodyStyle: 'background-color: transparent',
-			layout: {
-				type: 'fit', // fit screen for window
-				padding: 5
-			},
-			items: [{
-				xtype: 'Stockout_P_TonKho',
-				viewModel: {
-					data: {
-						stockid_link: stockid_link,
-						pcontract_poid_link: pcontract_poid_link
-					}
-				}
-			}]
-		});
-		form.show();
-	},
+	// 	var form = Ext.create('Ext.window.Window', {
+	// 		height: 600,
+	// 		closable: true,
+	// 		resizable: false,
+	// 		modal: true,
+	// 		border: false,
+	// 		title: 'Danh sách tồn kho SP',
+	// 		closeAction: 'destroy',
+	// 		width: 1100,
+	// 		bodyStyle: 'background-color: transparent',
+	// 		layout: {
+	// 			type: 'fit', // fit screen for window
+	// 			padding: 5
+	// 		},
+	// 		items: [{
+	// 			xtype: 'Stockout_P_TonKho',
+	// 			viewModel: {
+	// 				data: {
+	// 					stockid_link: stockid_link,
+	// 					pcontract_poid_link: pcontract_poid_link
+	// 				}
+	// 			}
+	// 		}]
+	// 	});
+	// 	form.show();
+	// },
 	Sku_AutoComplete_beforeQuery: function () {
 		var viewModel = this.getViewModel();
 		var Sku_AutoComplete = viewModel.getStore('Sku_AutoComplete');
