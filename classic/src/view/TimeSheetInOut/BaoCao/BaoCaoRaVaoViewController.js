@@ -10,8 +10,9 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
         var session = GSmartApp.util.State.get('session');
         if (session.orgid_link != 1) {
             viewmodel.set('timesheetdaily.orgid_link', session.orgid_link);
-
-            me.onSearch();
+            var grantStore = viewmodel.getStore('GrantStore');
+            grantStore.getbyParent(session.orgid_link);
+            // me.Search();
         }
 
 
