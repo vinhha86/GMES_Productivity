@@ -19,6 +19,19 @@ Ext.define('GSmartApp.view.stockout_product.stockout_p_order.Stockout_P_Order_Li
         }
     ],
     columns: [
+        {
+            xtype: 'actioncolumn',
+            width: 28,
+            menuDisabled: true,
+            sortable: false,
+            align: 'center',
+            items: [
+                {
+                    iconCls: 'x-fa fas fa-bars violetIcon',
+                    handler: 'onMenu_StockoutPOrderList'
+                },            
+            ]
+        },
         // {
         //     text: 'Buyer', dataIndex: 'buyername', width: 90
         // },

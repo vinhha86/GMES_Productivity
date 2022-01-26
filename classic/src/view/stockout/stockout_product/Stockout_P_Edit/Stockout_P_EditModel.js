@@ -71,6 +71,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 
 		//
 		lenhXuatKhoSearch: null,
+		stockoutorderid_link: null,
 	},
 	formulas: {
 		isEdit: function (get) {

@@ -128,6 +128,14 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		var viewModel = this.getViewModel();
 		var session = GSmartApp.util.State.get('session');
 
+		// lấy id stockout_order truyền vào -> xoá trong State
+		var stockoutorderidObj = GSmartApp.util.State.get('stockoutorderidObj'); // console.log(stockoutorderidObj);
+		if(stockoutorderidObj != null){
+			viewModel.set('stockoutorderid_link', stockoutorderidObj.id);
+			viewModel.set('stockouttypeid_link', stockoutorderidObj.stockouttypeid_link)
+			GSmartApp.util.State.set('stockoutorderidObj', null);
+		}
+
 		viewModel.set('stockout.stockoutdate', new Date());
 		viewModel.set('stockout.usercreateid_link', session.id);
 		viewModel.set('stockout.status',-1);
@@ -136,6 +144,11 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		var isWindow = viewModel.get('isWindow');
 		if(!isWindow){
 			viewModel.set('stockout.stockouttypeid_link', id);
+			//
+			var stockoutorderid_link = viewModel.get('stockoutorderid_link');
+			if(stockoutorderid_link != null){
+				m.loadStockoutOrderData();
+			}
 		}else{
 			var stockouttypeid_link = viewModel.get('stockouttypeid_link');
 			var po = viewModel.get('po');
@@ -177,6 +190,106 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 
 		
 	},
+
+	loadStockoutOrderData: function(){
+		var me = this.getView();
+		var m = this;
+		var viewModel = this.getViewModel();
+
+		var stockoutorderid_link = viewModel.get('stockoutorderid_link');
+
+		var params=new Object();
+		params.id = stockoutorderid_link;
+
+		me.setLoading("Đang tải dữ liệu");
+		GSmartApp.Ajax.postJitin('/api/v1/stockoutorder/getById', Ext.JSON.encode(params),
+		// GSmartApp.Ajax.postJitin('/api/v1/stockoutorder/stockoutorder_getbyid',Ext.JSON.encode(params),
+		function(success,response,options ) {
+			me.setLoading(false);
+				if (success) {
+					var response = Ext.decode(response.responseText);
+					if (response.respcode == 200) {
+						// console.log(response);
+						var stockout_order = response.data;
+						m.setStockoutOrderData(stockout_order);
+					}
+				} else {
+					var response = Ext.decode(response.responseText);
+					Ext.MessageBox.show({
+						title: "Thông báo",
+						msg: 'Lấy thông tin Stockout_Order thất bại: ' + response.message,
+						buttons: Ext.MessageBox.YES,
+						buttonText: {
+							yes: 'Đóng',
+						}
+					});
+				}
+		})	
+	},
+	setStockoutOrderData: function(stockout_order){
+		console.log(stockout_order);
+		var me = this.getView();
+		var m = this;
+		var viewModel = this.getViewModel();
+
+		// return;
+
+		var stockout_order_ds = stockout_order.stockout_order_d == null ? new Array() : stockout_order.stockout_order_d;
+		viewModel.set('stockout.stockout_order_code', stockout_order.stockout_order_code);
+		viewModel.set('stockout.porderid_link', stockout_order.porderid_link);
+		viewModel.set('stockout.pcontractid_link', stockout_order.pcontractid_link);
+		viewModel.set('stockout.pcontract_productid_link', stockout_order.pcontract_productid_link);
+		viewModel.set('stockout.productid_link', stockout_order.porder_Product_id);
+		viewModel.set('stockout.product_buyercode', stockout_order.porder_product_buyercode);
+		viewModel.set('stockout.pcontractid_link', stockout_order.pcontractid_link);
+		viewModel.set('stockout.pcontract_poid_link', stockout_order.pcontract_poid_link);
+		viewModel.set('stockout.stockoutorderid_link', stockout_order.id);
+		viewModel.set('stockout.stockout_d', null);
+		// viewModel.set('stockout.orgid_from_link', stockout_order.orgid_from_link);
+		// viewModel.set('stockout.orgid_to_link', stockout_order.orgid_to_link);
+
+		var stockout = viewModel.get('stockout');
+		var stockout_d = viewModel.get('stockout.stockout_d');
+		if (stockout_d == null) {
+			stockout_d = new Array();
+		}
+
+		for (var i = 0; i < stockout_order_ds.length; i++) {
+			var stockout_order_d = stockout_order_ds[i];
+			var stockout_order_pkl = stockout_order_d.stockout_order_pkl;
+			
+			var found = false;
+			if (!found) {
+				// skucode, sku_product_code, skuname, color_name, size_name, 
+				// loaiThanhPham, totalSLTon, totalpackage, totalpackagecheck
+				var stockout_dObj = new Object();
+				stockout_dObj.stockout_packinglist = [];
+				stockout_dObj.skuid_link = stockout_order_d.material_skuid_link;
+				stockout_dObj.p_skuid_link = stockout_order_d.p_skuid_link;
+				stockout_dObj.porderid_link = stockout_order.porderid_link;
+				stockout_dObj.skucode = stockout_order_d.skucode_product;
+				stockout_dObj.sku_product_code = stockout_order_d.sku_product_code;
+				stockout_dObj.skuname = stockout_order_d.skuname_product;
+				stockout_dObj.color_name = stockout_order_d.color_name_product;
+				stockout_dObj.colorid_link = stockout_order_d.colorid_link;
+				stockout_dObj.size_name = stockout_order_d.size_name_product;
+				stockout_dObj.loaiThanhPham = stockout_order_d.loaiThanhPham;
+				stockout_dObj.totalSLTon = stockout_order_d.totalSLTon;
+				stockout_dObj.totalpackage = stockout_order_d.totalpackage == null ? 0 : stockout_order_d.totalpackage;
+				stockout_dObj.totalpackagecheck = stockout_order_d.totalpackage == null ? 0 : stockout_order_d.totalpackage;
+
+				stockout_d.push(stockout_dObj);
+			}
+		}
+
+		viewModel.set('stockout.stockout_d', stockout_d);
+		var store = viewModel.getStore('StockoutD_Store');
+		store.insert(0, stockout_d);
+		store.commitChanges();
+		// console.log(stockout_order);
+		// console.log(stockout);
+	},
+
 	CheckValidate: function () {
 		var mes = "";
 		var stockout = this.getViewModel().get('stockout');

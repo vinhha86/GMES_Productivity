@@ -105,6 +105,7 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
 		orgToFilterValue: null,
         productBuyerCodeFilterValue: null,
 		UsercreateFilterValue: null,
+        stockoutorderid_link: null
 	},
 	formulas: {
         isEdit: function (get) {
