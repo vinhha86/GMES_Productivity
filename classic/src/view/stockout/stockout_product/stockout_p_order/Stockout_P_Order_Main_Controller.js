@@ -29,8 +29,23 @@ Ext.define('GSmartApp.view.stockout_product.stockout_p_order.Stockout_P_Order_Ma
         var stockoutorderdate_from = me.down('#stockoutorderdate_from').getValue();
 		var stockoutorderdate_to = me.down('#stockoutorderdate_to').getValue();
 
-        Stockout_P_Order_Store.loadStore_byPage_async(
-            stockoutorderdate_from, stockoutorderdate_to, 1, 1000, 21);
+        // Stockout_P_Order_Store.loadStore_byPage_async(
+        //     stockoutorderdate_from, stockoutorderdate_to, 1, 1000, 21);
+
+        //     Stockout_P_Order_Store.load({
+        //     scope: this,
+        //     callback: function (records, operation, success) {
+        //         if (!success) {
+        //             // this.fireEvent('logout');
+        //         } 
+        //         else {
+        //             console.log(records);
+        //         }
+        //     }
+        // });
+
+        Stockout_P_Order_Store.loadStore_byPage_types_async(
+            stockoutorderdate_from, stockoutorderdate_to, 1, 1000, 21, 29);
 
             Stockout_P_Order_Store.load({
             scope: this,
