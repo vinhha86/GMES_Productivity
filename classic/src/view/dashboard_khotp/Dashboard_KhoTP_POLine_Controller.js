@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Dashboard_KhoTP_POLine_Controller',
     init: function () {
+        this.loadBuyer();
         this.loadShipmode();
         this.loadPO_HavetoShip();
     },
@@ -16,6 +17,11 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
             click: 'loadPO_HavetoShip'
         }
     },
+    loadBuyer: function(){
+        var viewmodel = this.getViewModel();
+        var EndBuyer = viewmodel.getStore('EndBuyer');
+        EndBuyer.loadStore(12);
+    },
     loadShipmode: function(){
         var viewmodel = this.getViewModel();
         var ShipModeStore = viewmodel.getStore('ShipModeStore');
@@ -27,13 +33,13 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
     loadPO_HavetoShip: function () {
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('POLineStore');
-        store.getpo_havetoship(viewmodel.get('shipdate_from'), viewmodel.get('shipdate_to'));
+        store.getpo_havetoship(viewmodel.get('shipdate_from'), viewmodel.get('shipdate_to'), viewmodel.get('orgbuyerid_link'));
     },
     onSelectProduct: function (t, record, index, eOpts) {
         var viewmodel = this.getViewModel();
         var storeSku = viewmodel.getStore('PContractSKUStore');
         var pcontract_poid_link = record.data.id;
-        storeSku.load_by_pcontract_po(pcontract_poid_link);
+        storeSku.load_by_pcontract_po_avail(pcontract_poid_link, 1);
 
         var storePo_Orgs = viewmodel.getStore('POLine_Orgs_Store');
         storePo_Orgs.loadStore_Preview_ByPO(pcontract_poid_link);
@@ -160,4 +166,44 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
             this.filterPO = null;
         }
     },
+    onMenuShow: function (grid, rowIndex, colIndex, item, e, record) {
+        var me = this;
+        var menu_grid = new Ext.menu.Menu({
+            xtype: 'menu',
+            anchor: true,
+            //padding: 10,
+            minWidth: 150,
+            viewModel: {},
+            items: [
+                {
+                    text: 'Cân đối nguyên phụ liệu',
+                    itemId: 'btnBalance_MaSP',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-balance-scale blueIcon',
+                    handler: function () {
+                        var record = this.parentMenu.record;
+                        // me.onEdit(record);
+                    },
+                },
+                {
+                    text: 'Tiến độ sản xuất',
+                    itemId: 'btnProcessing_MaSP',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-trash greenIcon',
+                    handler: function () {
+                        var record = this.parentMenu.record;
+                        // me.onXoa(record);
+                    }
+                }
+            ]
+        });
+        // HERE IS THE MAIN CHANGE
+        var position = [e.getX() - 10, e.getY() - 10];
+        e.stopEvent();
+        menu_grid.record = record;
+        menu_grid.showAt(position);
+        common.Check_Menu_Permission(menu_grid);
+    }
 });

@@ -26,7 +26,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
         width: 28,
         menuDisabled: true,
         sortable: false,
-        hidden: true,
+        // hidden: true,
         align: 'center',
         items: [
             {
@@ -187,6 +187,21 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
             },
             format:'d/m/y'
 		},
+        {
+            xtype: 'combo',
+            labelWidth: 0,
+            emptyText: 'Buyer',
+            bind: {
+                store: '{EndBuyer}',
+                value: '{orgbuyerid_link}'
+            },
+            valueField: 'id',
+            displayField: 'code',
+            queryMode: 'local',
+            anyMatch: true,
+            itemId: 'orgbuyerid_link',
+            margin: '5 1 5 0'
+        },
 		{
             xtype: 'button',
             margin: 5,

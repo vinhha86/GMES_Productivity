@@ -179,7 +179,8 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             bind: {
                 value: '{value.po_code}'
             }
-        }, {
+        }, 
+        {
             xtype: 'combo',
             labelWidth: 0,
             emptyText: 'Buyer',

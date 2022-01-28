@@ -33,7 +33,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_D', {
     {
         text: 'Màu',
         // flex: 1,
-        width: 120,
+        width: 110,
         dataIndex: 'mauSanPham',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -43,7 +43,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_D', {
     {
         text: 'Cỡ',
         dataIndex: 'coSanPham',
-        width: 65
+        width: 50
     }, 
     {
         text: 'SL đơn',
@@ -59,7 +59,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_D', {
     {
         text: 'SL SX',
         dataIndex: 'pquantity_production',
-        width: 62,
+        width: 65,
         align: 'right',
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
@@ -81,14 +81,25 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_D', {
     {
         text: 'SL Tổng',
         dataIndex: 'pquantity_total',
-        width: 75,
+        width: 68,
         align: 'right',
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         },
         summaryType: 'sum',
         summaryRenderer: 'renderSum'
-    }    
+    },
+    {
+        text: 'Tồn kho',
+        dataIndex: 'pquantity_onhand_end',
+        width: 65,
+        align: 'right',
+        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+        },
+        summaryType: 'sum',
+        summaryRenderer: 'renderSum'
+    }     
     ],
     // dockedItems: [{
     //     dock: 'top',

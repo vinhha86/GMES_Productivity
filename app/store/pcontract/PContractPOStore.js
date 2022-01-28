@@ -447,10 +447,11 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 		});
 		this.load();
 	},
-	getpo_havetoship: function (shipdate_from, shipdate_to) {
+	getpo_havetoship: function (shipdate_from, shipdate_to, orgbuyerid_link) {
 		var params = new Object();
 		params.shipdate_from = shipdate_from;
 		params.shipdate_to = shipdate_to;
+		params.orgbuyerid_link = orgbuyerid_link;
 
 		this.setProxy({
 			type: 'ajax',
