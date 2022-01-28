@@ -405,13 +405,13 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 	CheckValidate: function(){
 		var mes = "";
 		var stockout = this.getViewModel().get('stockout');
-		if(stockout.stockouttypeid_link == null){
+		if(stockout.stockouttypeid_link == null || stockout.stockouttypeid_link == 0){
 			mes = "Bạn chưa chọn loại phiếu";
 		}
-		else if (stockout.orgid_from_link == null){
+		else if (stockout.orgid_from_link == null || stockout.orgid_from_link == 0){
 			mes = "Bạn chưa chọn nơi xuất";
 		}
-		else if (stockout.orgid_to_link == null){
+		else if (stockout.orgid_to_link == null || stockout.orgid_to_link == 0){
 			mes = "Bạn chưa chọn nơi nhập";
 		} 
 		else if (stockout.stockoutd.length == 0){

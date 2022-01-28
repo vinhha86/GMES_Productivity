@@ -293,13 +293,15 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 	CheckValidate: function () {
 		var mes = "";
 		var stockout = this.getViewModel().get('stockout');
-		if (stockout.stockouttypeid_link == null) {
+		console.log(stockout.orgid_from_link);
+		console.log(stockout.orgid_to_link);
+		if (stockout.stockouttypeid_link == null || stockout.stockouttypeid_link == 0) {
 			mes = "Bạn chưa chọn loại phiếu";
 		}
-		else if (stockout.orgid_from_link == null) {
+		else if (stockout.orgid_from_link == null || stockout.orgid_from_link == 0) {
 			mes = "Bạn chưa chọn nơi xuất";
 		}
-		else if (stockout.orgid_to_link == null) {
+		else if (stockout.orgid_to_link == null || stockout.orgid_to_link == 0) {
 			mes = "Bạn chưa chọn nơi nhập";
 		}
 		else if (stockout.stockout_d.length == 0) {
