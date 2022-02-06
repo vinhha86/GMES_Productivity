@@ -15,7 +15,6 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
             // me.Search();
         }
 
-
     },
     control: {
         '#cmbDonVi': {

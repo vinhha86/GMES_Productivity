@@ -48,6 +48,18 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'BuyerCodeFilterField',
+            width: '99%',
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onBuyerCodeFilterKeyup',
+                buffer: 500
+            }
         }
     },
     {
@@ -110,7 +122,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
     {
         text: 'Phân xưởng',
         dataIndex: 'factories',
-        flex: 1,
+        width: 100,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -119,6 +131,15 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
     {
         text: 'Phụ trách',
         dataIndex: 'merchandiser_name',
+        width: 120,
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        }
+    },
+    {
+        text: 'FOB',
+        dataIndex: 'fob_worklist',
         flex: 1,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -154,7 +175,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
                 xtype: 'displayfield',
                 fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
                 labelWidth: 0,
-                value: ' Danh sách PO Line (Nhịp giao hàng)'
+                value: ' Danh sách PO Line (Nhịp giao hàng kế hoạch)'
             },
                 '->'
                 ,

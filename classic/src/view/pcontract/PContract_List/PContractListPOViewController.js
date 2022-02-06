@@ -65,5 +65,27 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOViewController', {
             storePO.reload();
             // form.close();
         })
-    }
+    },
+    onBuyerCodeFilterKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var POStore = viewmodel.get('PContractPOList');
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('BuyerCodeFilterField'),
+            filters = POStore.getFilters();
+
+        if (filterField.value) {
+            this.buyercodeFilter = filters.add({
+                id: 'buyercodeFilter',
+                property: 'productbuyercode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.buyercodeFilter) {
+            filters.remove(this.buyercodeFilter);
+            this.buyercodeFilter = null;
+        }
+    },
 })
