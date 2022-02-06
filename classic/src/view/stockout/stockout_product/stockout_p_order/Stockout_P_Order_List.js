@@ -66,7 +66,7 @@ Ext.define('GSmartApp.view.stockout_product.stockout_p_order.Stockout_P_Order_Li
             },
         },  
         {
-            text: 'SL',
+            text: 'SL theo PO',
             align: 'right',
             dataIndex: 'po_quantity',
             width: 80,
@@ -86,7 +86,7 @@ Ext.define('GSmartApp.view.stockout_product.stockout_p_order.Stockout_P_Order_Li
             }
         }, 
         {
-            text: 'SL Y/C',
+            text: 'SL Y/C xuất',
             align: 'right',
             dataIndex: 'po_quantity_sp',
             width: 80,
