@@ -1347,7 +1347,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     },
 
     porderGrantSkuPlan: function (eventRecord) {
-        var sourceView = 'SchedulePlan'
+        var sourceView = 'SchedulePlan';
         var porder_grantid_link = eventRecord.data.porder_grantid_link;
 
         var form = Ext.create('Ext.window.Window', {

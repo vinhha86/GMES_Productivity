@@ -26,7 +26,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_V
         },
     },
     data: {
-        sourceView: null,
+        sourceView: null, // SchedulePlan, Dashboard_KhoTP_POLine_Main, 
         eventRecord: null,
         porder_grantid_link: null,
 

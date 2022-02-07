@@ -184,6 +184,8 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
                     handler: function () {
                         var record = this.parentMenu.record;
                         // me.onEdit(record);
+                        // console.log(record);
+                        me.porderGrantSkuPlan(record);
                     },
                 },
                 {
@@ -195,6 +197,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
                     handler: function () {
                         var record = this.parentMenu.record;
                         // me.onXoa(record);
+                        // console.log(record);
                     }
                 }
             ]
@@ -205,5 +208,41 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
         menu_grid.record = record;
         menu_grid.showAt(position);
         common.Check_Menu_Permission(menu_grid);
-    }
+    },
+
+    porderGrantSkuPlan: function (eventRecord) {
+        var sourceView = 'Dashboard_KhoTP_POLine_Main';
+        var porder_grantid_link = eventRecord.data.porder_grantid_link;
+
+        var form = Ext.create('Ext.window.Window', {
+            height: '90%',
+            width: '95%',
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Kế hoạch vào chuyền',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'POrder_Grant_SKU_Plan_Main_View',
+                viewModel: {
+                    data: {
+                        sourceView: sourceView,
+                        eventRecord: eventRecord,
+                        porder_grantid_link: porder_grantid_link
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#POrder_Grant_SKU_Plan_Main_View').getController().on('Thoat', function (productivity) {
+            form.close();
+        })
+    },
 });

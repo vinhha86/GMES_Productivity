@@ -49,11 +49,15 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
             direction: 'ASC'
         });
 
-        // set value danh sach po
-        viewModel.set('lineinfo', eventRecord.get('lineinfo'));
+        if(sourceView == 'SchedulePlan'){
+            // set value danh sach po
+            viewModel.set('lineinfo', eventRecord.get('lineinfo'));
 
-        // load store
-        m.loadStore();
+            // load store
+            m.loadStore();
+        }else if(sourceView == 'Dashboard_KhoTP_POLine_Main'){
+            console.log(eventRecord);
+        }
     },
     loadStore: function(){
         var m = this;
