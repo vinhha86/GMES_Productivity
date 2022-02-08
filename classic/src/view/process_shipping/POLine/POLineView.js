@@ -155,6 +155,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
             items: [
                 {
                     xtype: 'combo',
+                    emptyText: 'Mầu sản phẩm',
                     bind: {
                         store: '{MauSanPhamStore}',
                         value: '{colorid_link}'
@@ -176,6 +177,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
                 },
                 {
                     xtype: 'combo',
+                    emptyText: 'Dải cỡ',
                     bind: {
                         store: '{DaiCoSanPhamStore}',
                         value: '{sizesetid_link}'
