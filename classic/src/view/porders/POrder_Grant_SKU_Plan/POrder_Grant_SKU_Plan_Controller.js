@@ -49,14 +49,17 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
             direction: 'ASC'
         });
 
-        if(sourceView == 'SchedulePlan'){
+        if(sourceView == 'SchedulePlan'){ // view ke hoach vao chuyen
             // set value danh sach po
             viewModel.set('lineinfo', eventRecord.get('lineinfo'));
 
             // load store
             m.loadStore();
-        }else if(sourceView == 'Dashboard_KhoTP_POLine_Main'){
+        }else if(sourceView == 'Dashboard_KhoTP_POLine_Main'){ // view lenh xuat kho
             console.log(eventRecord);
+            
+            
+            
         }
     },
     loadStore: function(){

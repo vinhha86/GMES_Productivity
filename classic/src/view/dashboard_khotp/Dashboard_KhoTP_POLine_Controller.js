@@ -36,6 +36,8 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
         store.getpo_havetoship(viewmodel.get('shipdate_from'), viewmodel.get('shipdate_to'), viewmodel.get('orgbuyerid_link'));
     },
     onSelectProduct: function (t, record, index, eOpts) {
+        var m = this;
+        var me = this.getView();
         var viewmodel = this.getViewModel();
         var storeSku = viewmodel.getStore('PContractSKUStore');
         var pcontract_poid_link = record.data.id;
@@ -43,6 +45,10 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
 
         var storePo_Orgs = viewmodel.getStore('POLine_Orgs_Store');
         storePo_Orgs.loadStore_Preview_ByPO(pcontract_poid_link);
+
+        // console.log(record);
+        var pcontract_poid = record.data.id;
+        m.getPorderGrantInfo(pcontract_poid);
     },
     onStockoutOrder_Create: function(){
         //Lấy danh sách các PO Line được chọn --> Gửi lên để tạo Stockout_order
@@ -185,7 +191,9 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
                         var record = this.parentMenu.record;
                         // me.onEdit(record);
                         // console.log(record);
-                        me.porderGrantSkuPlan(record);
+                        // var pcontract_poid = record.id;
+                        // me.getPorderGrantInfo(pcontract_poid);
+                        // me.porderGrantSkuPlan(record);
                     },
                 },
                 {
@@ -210,6 +218,32 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
         common.Check_Menu_Permission(menu_grid);
     },
 
+    getPorderGrantInfo: function(pcontract_poid){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var params = new Object();
+        params.pcontract_poid_link = pcontract_poid;
+        GSmartApp.Ajax.post('/api/v1/porder_grant/getByPcontractPo', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        console.log(response);
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: 'Lấy thông tin thất bại',
+                        msg: null,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
+    },
     porderGrantSkuPlan: function (eventRecord) {
         var sourceView = 'Dashboard_KhoTP_POLine_Main';
         var porder_grantid_link = eventRecord.data.porder_grantid_link;
