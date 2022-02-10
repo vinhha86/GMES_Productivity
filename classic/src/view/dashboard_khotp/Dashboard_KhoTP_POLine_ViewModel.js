@@ -21,6 +21,9 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_ViewModel', {
     data: {
         shipdate_to: Ext.Date.add(new Date(), Ext.Date.DAY, 7),
         shipdate_from: Ext.Date.add(new Date(), Ext.Date.DAY, -10),
-        orgbuyerid_link: null
+        orgbuyerid_link: null,
+
+        ////////////////
+        porderGrant: null, // load khi click danh sach poline
     },
 })

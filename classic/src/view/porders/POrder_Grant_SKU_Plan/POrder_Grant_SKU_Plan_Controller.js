@@ -57,9 +57,11 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
             m.loadStore();
         }else if(sourceView == 'Dashboard_KhoTP_POLine_Main'){ // view lenh xuat kho
             console.log(eventRecord);
-            
-            
-            
+            if(eventRecord != null){
+                // viewModel.set('lineinfo', eventRecord.get('lineinfo'));
+                viewModel.set('lineinfo', eventRecord.lineinfo);
+                m.loadStore();
+            }
         }
     },
     loadStore: function(){

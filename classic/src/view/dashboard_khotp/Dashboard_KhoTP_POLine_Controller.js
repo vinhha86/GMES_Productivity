@@ -48,6 +48,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
 
         // console.log(record);
         var pcontract_poid = record.data.id;
+        viewmodel.set('porderGrant', null);
         m.getPorderGrantInfo(pcontract_poid);
     },
     onStockoutOrder_Create: function(){
@@ -191,9 +192,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
                         var record = this.parentMenu.record;
                         // me.onEdit(record);
                         // console.log(record);
-                        // var pcontract_poid = record.id;
-                        // me.getPorderGrantInfo(pcontract_poid);
-                        // me.porderGrantSkuPlan(record);
+                        me.porderGrantSkuPlan();
                     },
                 },
                 {
@@ -231,22 +230,24 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         console.log(response);
+                        viewModel.set('porderGrant', response.data);
+                        // viewModel.set('porderGrant', response);
                     }
                 } else {
-                    Ext.Msg.show({
-                        title: 'Lấy thông tin thất bại',
-                        msg: null,
-                        buttons: Ext.MessageBox.YES,
-                        buttonText: {
-                            yes: 'Đóng',
-                        }
-                    });
+                    viewModel.set('porderGrant', null);
                 }
             })
     },
     porderGrantSkuPlan: function (eventRecord) {
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var porderGrant = viewModel.get('porderGrant');
+        var porder_grantid_link = porderGrant == null ? null : porderGrant.id;
+        // var porder_grantid_link = porderGrant == null ? null : porderGrant.get('id');
+
         var sourceView = 'Dashboard_KhoTP_POLine_Main';
-        var porder_grantid_link = eventRecord.data.porder_grantid_link;
 
         var form = Ext.create('Ext.window.Window', {
             height: '90%',
@@ -267,7 +268,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
                 viewModel: {
                     data: {
                         sourceView: sourceView,
-                        eventRecord: eventRecord,
+                        eventRecord: porderGrant,
                         porder_grantid_link: porder_grantid_link
                     }
                 }
