@@ -56,7 +56,7 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
             // load store
             m.loadStore();
         }else if(sourceView == 'Dashboard_KhoTP_POLine_Main'){ // view lenh xuat kho
-            console.log(eventRecord);
+            // console.log(eventRecord);
             if(eventRecord != null){
                 // viewModel.set('lineinfo', eventRecord.get('lineinfo'));
                 viewModel.set('lineinfo', eventRecord.lineinfo);
@@ -92,7 +92,11 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
                     viewModel.set('total_porderGrant_SKU_grantamount', total_grantamount);
 
                     // them cot
-                    m.CreateColumns();
+                    if(sourceView == 'SchedulePlan'){
+                        m.CreateColumns();
+                    }else if(sourceView == 'Dashboard_KhoTP_POLine_Main'){
+                        m.CreateColumns();
+                    }
 				}
 			}
         });
@@ -118,8 +122,20 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_C
         var porder_grantid_link = viewModel.get('porder_grantid_link');
 
         // console.log(eventRecord);
-        var startDate = eventRecord.get('StartDate');
-        var endDate = eventRecord.get('EndDate');
+        // var startDate = eventRecord.get('StartDate');
+        // var endDate = eventRecord.get('EndDate');
+        var startDate;
+        var endDate;
+
+        if(sourceView == 'SchedulePlan'){
+            console.log(eventRecord);
+            var startDate = eventRecord.get('StartDate');
+            var endDate = eventRecord.get('EndDate');
+        }else if(sourceView == 'Dashboard_KhoTP_POLine_Main'){
+            console.log(eventRecord);
+            var startDate = eventRecord.start_date_plan;
+            var endDate = eventRecord.finish_date_plan;
+        }
 
         grid.setLoading(true);
         

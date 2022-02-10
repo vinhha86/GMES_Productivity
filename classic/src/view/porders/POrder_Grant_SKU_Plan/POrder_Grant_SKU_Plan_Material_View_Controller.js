@@ -31,7 +31,14 @@ Ext.define('GSmartApp.view.porders.POrder_Grant_SKU_Plan.POrder_Grant_SKU_Plan_M
         var sourceView = viewModel.get('sourceView');
         var eventRecord = viewModel.get('eventRecord');
         var porder_grantid_link = viewModel.get('porder_grantid_link');
-        var porderid_link = eventRecord.get('porderid_link');
+        // var porderid_link = eventRecord.get('porderid_link');
+        var porderid_link;
+
+        if(sourceView == 'SchedulePlan'){
+            porderid_link = eventRecord.get('porderid_link');
+        }else if(sourceView == 'Dashboard_KhoTP_POLine_Main'){
+            porderid_link = eventRecord.porderid_link;
+        }
 
         // console.log("sourceView: " + sourceView);
         // console.log(eventRecord);
