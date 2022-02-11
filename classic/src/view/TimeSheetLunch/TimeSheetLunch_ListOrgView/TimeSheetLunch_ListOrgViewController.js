@@ -30,6 +30,11 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
         // }
         // console.log( record.get('id'));
 
+        //load danh sách ca của đơn vị
+        // console.log(record);
+        var TimesheetShiftTypeOrgStore = viewModel.getStore('TimesheetShiftTypeOrgStore');
+        TimesheetShiftTypeOrgStore.getbyorgid_link_caAn(record.get('id'));
+
         //gọi function CreateColumns
         var controler = Ext.getCmp('TimeSheetLunch_ListView').getController();
         controler.CreateColumns(record.get('id'));

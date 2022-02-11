@@ -15,7 +15,10 @@ Ext.define('GSmartApp.view.personel.TimeSheetLunch_MainViewModel', {
         },
         TimeSheetLunchKhachStore: {
             type: 'TimeSheetLunchKhachStore'
-        }
+        },
+        TimesheetShiftTypeOrgStore:{
+            type: 'TimesheetShiftTypeOrgStore'
+        },
     },
     data: {
         orgtypeid_link: null,

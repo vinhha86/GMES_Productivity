@@ -14,14 +14,14 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
             }
         }
     },
-    // plugins: {
-    //     cellediting: {
-    //         clicksToEdit: 1,
-    //         listeners: {
-    //             edit: 'onEditCheckBox'
-    //         } 
-    //     }
-    // },    
+    plugins: {
+        cellediting: {
+            clicksToEdit: 1,
+            // listeners: {
+            //     edit: 'onEditCheckBox'
+            // } 
+        }
+    },    
     bind: {
         store: '{TimeSheetLunchStore}'
     },
@@ -111,6 +111,37 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
             listeners: {
                 keyup: 'onPersonnelFullnameFilterKeyup',
                 buffer: 500
+            }
+        }
+    }, {
+        text: 'Không ăn trưa',
+        dataIndex: 'nolunch_shift_idlink',
+        // flex: 1,
+        width: 100,
+        sortable: false,
+        menuDisabled: true,
+        // renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+        //     // metaData.tdAttr = 'data-qtip="' + value + '"';
+        //     var viewModel = this.getViewModel();
+        //     console.log(viewModel);
+        //     return value;
+        // },
+        renderer: 'renderedKhongAnTrua',
+        editor:{
+            field: {
+                xtype: 'combobox',
+                bind:{
+                    store:'{TimesheetShiftTypeOrgStore}',
+                    // value: '{data.type}'
+                },
+                displayField: 'name',
+                valueField: 'id',
+                editable: false,
+                allowBlank: true,
+                listeners:{
+                    // change: 'onTypeChange',
+                    // focusleave: 'onTypeFocusLeave'
+                }
             }
         }
     },

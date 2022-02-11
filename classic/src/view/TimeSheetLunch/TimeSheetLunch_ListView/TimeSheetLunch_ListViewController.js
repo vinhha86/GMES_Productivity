@@ -28,6 +28,34 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
             }
         }
     },
+    renderedKhongAnTrua: function(value, metaData, record, rowIdx, colIdx, store){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var result = '';
+        var TimesheetShiftTypeOrgStore = viewModel.getStore('TimesheetShiftTypeOrgStore');
+        var items = TimesheetShiftTypeOrgStore.getData().items;
+
+        // console.log(value);
+        // console.log(items);
+
+        if(value != null && value != 0){
+            for(var i=0; i<items.length; i++){
+                var item = items[i];
+                var id = item.get('id');
+                var name = item.get('name');
+
+                if(value == id){
+                    result = name;
+                    break;
+                }
+            }
+        }
+
+        return result;
+
+    },
     onTimeSheetLunchStore_Done: function () {
         var me = this;
         me.sumInfo();
@@ -36,8 +64,9 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
     CreateColumns: function (data) {
         var viewmodel = this.getViewModel();
         var grid = this.getView();
-        var length = 4;
+        var length = 5;
         //xóa cột sinh động
+        console.log(grid.headerCt.items);
         for (var i = 0; i < grid.headerCt.items.length; i++) {
             if (i > length - 1) {
                 grid.headerCt.remove(i);
