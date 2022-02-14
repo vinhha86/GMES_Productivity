@@ -66,7 +66,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         var grid = this.getView();
         var length = 5;
         //xóa cột sinh động
-        console.log(grid.headerCt.items);
+        // console.log(grid.headerCt.items);
         for (var i = 0; i < grid.headerCt.items.length; i++) {
             if (i > length - 1) {
                 grid.headerCt.remove(i);
@@ -861,40 +861,77 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
 
         for (var i = 0; i < modifiers.length; i++) {
             var recData = modifiers[i].data;
+            var nolunch_shift_idlink = recData.nolunch_shift_idlink;
+            // console.log(nolunch_shift_idlink);
 
             // console.log(modifiers[i]);
             var modified = modifiers[i].modified;
+            // console.log(modified);
             var arr = new Array();
-            if (modified.lunchShift1 != null) {
-                var o = new Object();
-                o.dataIndex = 1;
-                o.lunchShift = modified.lunchShift1;
-                arr.push(o);
-            }
-            if (modified.lunchShift2 != null) {
-                var o = new Object();
-                o.dataIndex = 2;
-                o.lunchShift = modified.lunchShift2;
-                arr.push(o);
-            }
-            if (modified.lunchShift3 != null) {
-                var o = new Object();
-                o.dataIndex = 3;
-                o.lunchShift = modified.lunchShift3;
-                arr.push(o);
-            }
-            if (modified.lunchShift4 != null) {
-                var o = new Object();
-                o.dataIndex = 4;
-                o.lunchShift = modified.lunchShift4;
-                arr.push(o);
-            }
-            if (modified.lunchShift5 != null) {
-                var o = new Object();
-                o.dataIndex = 5;
-                o.lunchShift = modified.lunchShift5;
-                arr.push(o);
-            }
+            // if (modified.lunchShift1 != null) {
+            //     var o = new Object();
+            //     o.dataIndex = 1;
+            //     o.lunchShift = modified.lunchShift1;
+            //     o.nolunch_shift_idlink = nolunch_shift_idlink;
+            //     arr.push(o);
+            // }
+            // if (modified.lunchShift2 != null) {
+            //     var o = new Object();
+            //     o.dataIndex = 2;
+            //     o.lunchShift = modified.lunchShift2;
+            //     o.nolunch_shift_idlink = nolunch_shift_idlink;
+            //     arr.push(o);
+            // }
+            // if (modified.lunchShift3 != null) {
+            //     var o = new Object();
+            //     o.dataIndex = 3;
+            //     o.lunchShift = modified.lunchShift3;
+            //     o.nolunch_shift_idlink = nolunch_shift_idlink;
+            //     arr.push(o);
+            // }
+            // if (modified.lunchShift4 != null) {
+            //     var o = new Object();
+            //     o.dataIndex = 4;
+            //     o.lunchShift = modified.lunchShift4;
+            //     o.nolunch_shift_idlink = nolunch_shift_idlink;
+            //     arr.push(o);
+            // }
+            // if (modified.lunchShift5 != null) {
+            //     var o = new Object();
+            //     o.dataIndex = 5;
+            //     o.lunchShift = modified.lunchShift5;
+            //     o.nolunch_shift_idlink = nolunch_shift_idlink;
+            //     arr.push(o);
+            // }
+
+            var o = new Object();
+            o.dataIndex = 1;
+            o.lunchShift = modified.lunchShift1;
+            o.nolunch_shift_idlink = nolunch_shift_idlink;
+            arr.push(o);
+            var o = new Object();
+            o.dataIndex = 2;
+            o.lunchShift = modified.lunchShift2;
+            o.nolunch_shift_idlink = nolunch_shift_idlink;
+            arr.push(o);
+            var o = new Object();
+            o.dataIndex = 3;
+            o.lunchShift = modified.lunchShift3;
+            o.nolunch_shift_idlink = nolunch_shift_idlink;
+            arr.push(o);
+            var o = new Object();
+            o.dataIndex = 4;
+            o.lunchShift = modified.lunchShift4;
+            o.nolunch_shift_idlink = nolunch_shift_idlink;
+            arr.push(o);
+            var o = new Object();
+            o.dataIndex = 5;
+            o.lunchShift = modified.lunchShift5;
+            o.nolunch_shift_idlink = nolunch_shift_idlink;
+            arr.push(o);
+
+            // console.log(arr.length);
+            // console.log(arr);
 
             for (var j = 0; j < arr.length; j++) {
                 var obj = new Object();
@@ -909,6 +946,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                 obj.dataIndex = arr[j].dataIndex;
                 obj.orgid_link = recData.orgid_link;
                 obj.orgmanagerid_link = recData.orgmanagerid_link;
+                obj.nolunch_shift_idlink = arr[j].nolunch_shift_idlink;
                 data.push(obj);
             }
 
