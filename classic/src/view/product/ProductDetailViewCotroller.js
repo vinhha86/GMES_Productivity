@@ -107,6 +107,7 @@ Ext.define('GSmartApp.view.product.ProductDetailViewCotroller', {
                                 }
                             }
                         });
+
                     }
                     else {
                         Ext.Msg.show({

@@ -197,11 +197,44 @@ Ext.define('GSmartApp.view.product.ProductImageViewController', {
                 function (success, response, options) {
                     if (success) {
                         var response = Ext.decode(response.responseText);
+                        th.setProductImg(response);
                         th.loadImg(img, filename);
                     }
                 })
         }
     },
+
+    setProductImg: function(response){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var product = viewModel.get('product');
+
+        var imgname = response.imgname;
+        var imgnumber = response.imgnumber;
+
+        if(product != null){
+            switch(imgnumber){
+                case 1:
+                    viewModel.set('product.imgurl1', imgname);
+                    break;
+                case 2:
+                    viewModel.set('product.imgurl2', imgname);
+                    break;
+                case 3:
+                    viewModel.set('product.imgurl3', imgname);
+                    break;
+                case 4:
+                    viewModel.set('product.imgurl4', imgname);
+                    break;
+                case 5:
+                    viewModel.set('product.imgurl5', imgname);
+                    break;
+            }
+        }
+    },
+
     loadImg: function (img, filename) {
         var viewmodel = this.getViewModel();
         var me = this.getView();
