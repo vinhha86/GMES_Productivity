@@ -333,7 +333,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         // m.saveRecord(data);
     },
     onCheckchange: function (column, rowIndex, checked, record, e, eOpts) {
-        console.log(column);
+        // console.log(column);
         // console.log(checked);
         var m = this;
         var viewModel = this.getViewModel();
@@ -617,6 +617,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
             viewmodel.set('isCa5Confirm', false);
             TimeSheetLunch_MainView.down('#sumCa5').setFieldStyle('background-color: white;');
         }
+
+        // gui request len api
 
     },
     setShiftColumnConfirm: function () {

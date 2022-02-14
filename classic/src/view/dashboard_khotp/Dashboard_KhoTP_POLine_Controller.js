@@ -205,6 +205,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
                         var record = this.parentMenu.record;
                         // me.onXoa(record);
                         // console.log(record);
+                        me.bieuDo_TienDo();
                     }
                 }
             ]
@@ -238,6 +239,50 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
                 }
             })
     },
+
+    bieuDo_TienDo: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var porderGrant = viewModel.get('porderGrant');
+        var porderid_link = porderGrant == null ? null : porderGrant.porderid_link;;
+
+        if(porderid_link != null){
+            // var sourceView = 'Dashboard_KhoTP_POLine_Main';
+
+            var form = Ext.create('Ext.window.Window', {
+                // height: '90%',
+                // width: '95%',
+                height: 450,
+                width: 700,
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'Tiến độ lệnh sản xuất',
+                closeAction: 'destroy',
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'Dashboard_KhoTP_BieuDo_Main',
+                    viewModel: {
+                        data: {
+                            porder_id: porderid_link,
+                        }
+                    }
+                }]
+            });
+            form.show();
+
+            // form.down('#Dashboard_KhoTP_BieuDo_Main').getController().on('Thoat', function () {
+            //     form.close();
+            // })
+        }
+    },
     porderGrantSkuPlan: function (eventRecord) {
         var m = this;
         var me = this.getView();
@@ -247,37 +292,39 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
         var porder_grantid_link = porderGrant == null ? null : porderGrant.id;
         // var porder_grantid_link = porderGrant == null ? null : porderGrant.get('id');
 
-        var sourceView = 'Dashboard_KhoTP_POLine_Main';
+        if(porder_grantid_link != null){
+            var sourceView = 'Dashboard_KhoTP_POLine_Main';
 
-        var form = Ext.create('Ext.window.Window', {
-            height: '90%',
-            width: '95%',
-            closable: true,
-            resizable: false,
-            modal: true,
-            border: false,
-            title: 'Kế hoạch vào chuyền',
-            closeAction: 'destroy',
-            bodyStyle: 'background-color: transparent',
-            layout: {
-                type: 'fit', // fit screen for window
-                padding: 5
-            },
-            items: [{
-                xtype: 'POrder_Grant_SKU_Plan_Main_View',
-                viewModel: {
-                    data: {
-                        sourceView: sourceView,
-                        eventRecord: porderGrant,
-                        porder_grantid_link: porder_grantid_link
+            var form = Ext.create('Ext.window.Window', {
+                height: '90%',
+                width: '95%',
+                closable: true,
+                resizable: false,
+                modal: true,
+                border: false,
+                title: 'Kế hoạch vào chuyền',
+                closeAction: 'destroy',
+                bodyStyle: 'background-color: transparent',
+                layout: {
+                    type: 'fit', // fit screen for window
+                    padding: 5
+                },
+                items: [{
+                    xtype: 'POrder_Grant_SKU_Plan_Main_View',
+                    viewModel: {
+                        data: {
+                            sourceView: sourceView,
+                            eventRecord: porderGrant,
+                            porder_grantid_link: porder_grantid_link
+                        }
                     }
-                }
-            }]
-        });
-        form.show();
+                }]
+            });
+            form.show();
 
-        form.down('#POrder_Grant_SKU_Plan_Main_View').getController().on('Thoat', function (productivity) {
-            form.close();
-        })
+            form.down('#POrder_Grant_SKU_Plan_Main_View').getController().on('Thoat', function (productivity) {
+                form.close();
+            })
+        }
     },
 });

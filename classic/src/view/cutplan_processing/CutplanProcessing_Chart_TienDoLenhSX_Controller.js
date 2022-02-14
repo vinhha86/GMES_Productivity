@@ -6,6 +6,8 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Chart_TienDoLenh
         var me = this.getView();
         var viewModel = this.getViewModel();
         var porder = viewModel.get('porder');
+        var porder_id = viewModel.get('porder_id');
+
         var store = chart.getStore();
         store.removeAll();
         store.add({
@@ -65,7 +67,51 @@ Ext.define('GSmartApp.view.cutplan_processing.CutplanProcessing_Chart_TienDoLenh
                         }
                     }
                 }
-            });        
+            });
+        }else{
+            var POrderLineChartStore = this.getViewModel().getStore('POrderLineChartStore');
+            POrderLineChartStore.LoadPorderProcessing(porder_id);
+            // LineChartStore.LoadPorderProcessing(4020);
+            POrderLineChartStore.load({
+                scope: this,
+                callback: function(records, operation, success) {
+                    if(!success){
+                        // this.fireEvent('logout');
+                    }
+                    else{
+                        // console.log(POrderLineChartStore);
+                        store.removeAll();
+                        if(POrderLineChartStore.data.length == 0){
+                            store.add({
+                                processingdate: null,
+                                amountinput: null,
+                                amountinputsum: null,
+                                amountoutput: null,
+                                amountoutputsum: null,
+                                amountpacked: null,
+                                amountpackedsum: null,
+                                amountstocked: null,
+                                amountstockedsum: null                                                       
+                            });
+                        }else{
+                            for (var i = 0; i < POrderLineChartStore.data.length; i++) {
+                                var data = POrderLineChartStore.data.items[i].data;
+                                store.add({
+                                    processingdate: data.processingdate_str,
+                                    amountinput: null==data.amountinput?0:data.amountinput,
+                                    amountinputsum: null==data.amountinputsum?0:data.amountinputsum,
+                                    amountoutput: null==data.amountoutput?0:data.amountoutput,
+                                    amountoutputsum: null==data.amountoutputsum?0:data.amountoutputsum,
+                                    amountpacked: null==data.amountpacked?0:data.amountpacked,
+                                    amountpackedsum: null==data.amountpackedsum?0:data.amountpackedsum,
+                                    amountstocked: null==data.amountstocked?0:data.amountstocked,
+                                    amountstockedsum: null==data.amountstockedsum?0:data.amountstockedsum                                                        
+                                });
+                            }
+                        }
+                    }
+                }
+            });
         }
     },
     onAxisLabelRender: function(axis, label, layoutContext) {
