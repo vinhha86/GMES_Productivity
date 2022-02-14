@@ -175,12 +175,13 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
     },
     onMenuShow: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
+        var viewModel = this.getViewModel();
         var menu_grid = new Ext.menu.Menu({
             xtype: 'menu',
             anchor: true,
             //padding: 10,
             minWidth: 150,
-            viewModel: {},
+            viewModel: viewModel,
             items: [
                 {
                     text: 'Cân đối nguyên phụ liệu',
@@ -194,6 +195,9 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
                         // console.log(record);
                         me.porderGrantSkuPlan();
                     },
+                    bind: {
+                        disabled: '{isbtnBalance_MaSP_disabled}'
+                    },
                 },
                 {
                     text: 'Tiến độ sản xuất',
@@ -206,7 +210,10 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
                         // me.onXoa(record);
                         // console.log(record);
                         me.bieuDo_TienDo();
-                    }
+                    },
+                    bind: {
+                        disabled: '{isbtnBalance_MaSP_disabled}'
+                    },
                 }
             ]
         });

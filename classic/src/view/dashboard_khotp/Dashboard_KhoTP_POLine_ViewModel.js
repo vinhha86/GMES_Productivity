@@ -26,4 +26,13 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_ViewModel', {
         ////////////////
         porderGrant: null, // load khi click danh sach poline
     },
+    formulas: {
+        isbtnBalance_MaSP_disabled: function(get){
+            var porderGrant = get('porderGrant') ;
+            if(porderGrant == null){
+                return true;
+            }
+            return false;
+        }
+    }
 })
