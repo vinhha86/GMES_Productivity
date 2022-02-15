@@ -33,7 +33,23 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
         //load danh sách ca của đơn vị
         // console.log(record);
         var TimesheetShiftTypeOrgStore = viewModel.getStore('TimesheetShiftTypeOrgStore');
-        TimesheetShiftTypeOrgStore.getbyorgid_link_caAn(record.get('id'));
+        TimesheetShiftTypeOrgStore.getbyorgid_link_caAn(record.get('id'), true);
+        // TimesheetShiftTypeOrgStore.getbyorgid_link_caAn_async(record.get('id'), true);
+		// TimesheetShiftTypeOrgStore.load({
+		// 	scope: this,
+		// 	callback: function(records, operation, success) {
+		// 		if(!success){
+		// 			 // this.fireEvent('logout');
+		// 		} else {
+                    
+		// 		}
+        //         var nullValueRec = new Object();
+        //         nullValueRec.name = 'Không có';
+        //         nullValueRec.timesheet_shift_type_id_link = 0;
+        //         nullValueRec.id = 0;
+        //         TimesheetShiftTypeOrgStore.insert(0, nullValueRec);
+		// 	}
+		// });
 
         //gọi function CreateColumns
         var controler = Ext.getCmp('TimeSheetLunch_ListView').getController();

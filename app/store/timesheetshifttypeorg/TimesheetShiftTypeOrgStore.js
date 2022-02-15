@@ -170,10 +170,11 @@ Ext.define('GSmartApp.store.timesheetshifttypeorg.TimesheetShiftTypeOrgStore', {
 		});
 	},
 
-    getbyorgid_link_caAn:function(orgid_link){
+    getbyorgid_link_caAn:function(orgid_link, isHavingNullValue){
 		var me=this;
         var params = new Object();
         params.orgid_link = orgid_link;
+        params.isHavingNullValue = isHavingNullValue;
         // params.is_ca_an = is_ca_an;
 		this.setProxy({
 			type: 'ajax',
@@ -206,10 +207,11 @@ Ext.define('GSmartApp.store.timesheetshifttypeorg.TimesheetShiftTypeOrgStore', {
 		});
 	},
 
-	getbyorgid_link_caAn_async:function(orgid_link){
+	getbyorgid_link_caAn_async:function(orgid_link, isHavingNullValue){
 		var me=this;
         var params = new Object();
         params.orgid_link = orgid_link;
+        params.isHavingNullValue = isHavingNullValue;
         // params.is_ca_an = is_ca_an;
 		this.setProxy({
 			type: 'ajax',

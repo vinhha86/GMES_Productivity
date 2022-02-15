@@ -136,7 +136,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
                 },
                 displayField: 'name',
                 valueField: 'id',
-                editable: false,
+                // editable: false,
                 allowBlank: true,
                 listeners:{
                     // change: 'onTypeChange',

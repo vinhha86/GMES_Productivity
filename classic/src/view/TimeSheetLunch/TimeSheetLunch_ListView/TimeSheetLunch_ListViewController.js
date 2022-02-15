@@ -594,6 +594,10 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         });
     },
     HuyXacNhan: function (params) {
+
+        console.log(params);
+        return;
+
         var viewmodel = this.getViewModel();
         var TimeSheetLunch_MainView = Ext.getCmp('TimeSheetLunch_MainView');
 
@@ -619,6 +623,9 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         }
 
         // gui request len api
+
+
+
 
     },
     setShiftColumnConfirm: function () {
@@ -864,9 +871,12 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         for (var i = 0; i < modifiers.length; i++) {
             var recData = modifiers[i].data;
             var nolunch_shift_idlink = recData.nolunch_shift_idlink;
-            // console.log(nolunch_shift_idlink);
 
-            // console.log(modifiers[i]);
+            if(isNaN(nolunch_shift_idlink)){
+                nolunch_shift_idlink = null;
+                modifiers[i].set('nolunch_shift_idlink', null);
+            }
+            
             var modified = modifiers[i].modified;
             // console.log(modified);
             var arr = new Array();
