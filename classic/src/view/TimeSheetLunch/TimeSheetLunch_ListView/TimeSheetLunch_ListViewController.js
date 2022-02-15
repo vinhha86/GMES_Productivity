@@ -593,11 +593,43 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
 
         });
     },
-    HuyXacNhan: function (params) {
+    HuyXacNhan: function (data) {
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        // console.log(data);
+        // return;
+        
+        // gui request len api
+        var params = new Object();
+        params.comment = data.comment;
+        params.workingdate = data.date;
+        params.orgid_link = data.orgid_link;
+        params.shifttypeid_link = data.shifttypeid_link;
 
-        console.log(params);
-        return;
+        GSmartApp.Ajax.post('/api/v1/timesheetlunch/cancel_approve', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        m.setTextfield_Ca_color(params);
+                    }
+                } else {
+                    var response = Ext.decode(response.responseText);
+                    Ext.MessageBox.show({
+                        title: "Thông báo",
+                        msg: 'Lỗi huỷ xác nhận',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+        })
 
+        
+    },
+    setTextfield_Ca_color: function(params){
         var viewmodel = this.getViewModel();
         var TimeSheetLunch_MainView = Ext.getCmp('TimeSheetLunch_MainView');
 
@@ -621,12 +653,6 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
             viewmodel.set('isCa5Confirm', false);
             TimeSheetLunch_MainView.down('#sumCa5').setFieldStyle('background-color: white;');
         }
-
-        // gui request len api
-
-
-
-
     },
     setShiftColumnConfirm: function () {
         var m = this;
@@ -876,7 +902,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                 nolunch_shift_idlink = null;
                 modifiers[i].set('nolunch_shift_idlink', null);
             }
-            
+
             var modified = modifiers[i].modified;
             // console.log(modified);
             var arr = new Array();
