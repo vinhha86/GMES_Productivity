@@ -54,6 +54,9 @@ Ext.define('GSmartApp.view.personel.TimeSheetLunch_MainViewModel', {
         personnelCodeFilterValue: null,
         personnelRegCodeFilterValue: null,
         personnelFullnameFilterValue: null,
+
+        //
+        selectedRecord_Donvi: null,
     },
     formulas: {
         // fieldStyle1: function (get) {

@@ -490,10 +490,6 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         });
 
         form.down('#Shift_List_View').getController().on('SelectConfirm', function (select, unselect) {
-            // console.log(select);
-            // console.log(unselect);
-            // console.log(orgid_link);
-            // console.log(date);
             var selectIds = new Array();
             var unselectIds = new Array();
             for (var i = 0; i < select.length; i++) {
@@ -527,7 +523,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                             });
                         }
                         form.close();
-                        m.setShiftColumnConfirm();
+                        // m.setShiftColumnConfirm();
+                        m.reloadStore();
                         me.setLoading(false);
                     } else {
                         var response = Ext.decode(response.responseText);
@@ -612,7 +609,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                        m.setTextfield_Ca_color(params);
+                        // m.setTextfield_Ca_color(params);
+                        m.reloadStore();
                     }
                 } else {
                     var response = Ext.decode(response.responseText);
@@ -629,6 +627,24 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
 
         
     },
+
+    reloadStore: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var selectedRecord_Donvi = viewModel.get('selectedRecord_Donvi');
+
+        if(selectedRecord_Donvi){
+            var TimeSheetLunch_ListOrgView = Ext.getCmp('TimeSheetLunch_ListOrgView');
+            if(TimeSheetLunch_ListOrgView){
+                var TimeSheetLunch_ListOrgViewController = TimeSheetLunch_ListOrgView.getController();
+                if(TimeSheetLunch_ListOrgViewController){
+                    TimeSheetLunch_ListOrgViewController.onloadDetail(null, selectedRecord_Donvi);
+                }
+            }
+        }
+    },
+
     setTextfield_Ca_color: function(params){
         var viewmodel = this.getViewModel();
         var TimeSheetLunch_MainView = Ext.getCmp('TimeSheetLunch_MainView');

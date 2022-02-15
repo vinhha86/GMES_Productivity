@@ -24,32 +24,9 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
         viewModel.set('orgtypeid_link', orgtypeid_link);
         viewModel.set('orgid_link', orgid_link);
 
-        // if(orgtypeid_link == 1 || orgtypeid_link == 13){
-        //     TimeSheetLunchStore.removeAll();
-        //     return;
-        // }
-        // console.log( record.get('id'));
-
         //load danh sách ca của đơn vị
-        // console.log(record);
         var TimesheetShiftTypeOrgStore = viewModel.getStore('TimesheetShiftTypeOrgStore');
         TimesheetShiftTypeOrgStore.getbyorgid_link_caAn(record.get('id'), true);
-        // TimesheetShiftTypeOrgStore.getbyorgid_link_caAn_async(record.get('id'), true);
-		// TimesheetShiftTypeOrgStore.load({
-		// 	scope: this,
-		// 	callback: function(records, operation, success) {
-		// 		if(!success){
-		// 			 // this.fireEvent('logout');
-		// 		} else {
-                    
-		// 		}
-        //         var nullValueRec = new Object();
-        //         nullValueRec.name = 'Không có';
-        //         nullValueRec.timesheet_shift_type_id_link = 0;
-        //         nullValueRec.id = 0;
-        //         TimesheetShiftTypeOrgStore.insert(0, nullValueRec);
-		// 	}
-		// });
 
         //gọi function CreateColumns
         var controler = Ext.getCmp('TimeSheetLunch_ListView').getController();
@@ -61,15 +38,18 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
         TimeSheetLunchStore.removeAll();
         TimeSheetLunchStore.loadStore(orgid_link, date);
 
-        // check status xác nhận của ngày và của đơn vị
-        this.setShiftColumnConfirm();
-
         // set color
         TimeSheetLunch_MainView.down('#sumCa1').setFieldStyle('background-color: white;');
         TimeSheetLunch_MainView.down('#sumCa2').setFieldStyle('background-color: white;');
         TimeSheetLunch_MainView.down('#sumCa3').setFieldStyle('background-color: white;');
         TimeSheetLunch_MainView.down('#sumCa4').setFieldStyle('background-color: white;');
         TimeSheetLunch_MainView.down('#sumCa5').setFieldStyle('background-color: white;');
+
+        // check status xác nhận của ngày và của đơn vị
+        this.setShiftColumnConfirm();
+
+        //
+        viewModel.set('selectedRecord_Donvi', record);
     },
     setShiftColumnConfirm: function () {
         var m = this;
