@@ -116,5 +116,57 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
         });
 
         grid.saveDocumentAs(cfg);
+    },
+    onCalculate: function () {
+        var me = this;
+        var grid = this.getView();
+        var viewmodel = this.getViewModel();
+        var orgid_link = viewmodel.get('timesheetdaily.orgid_link');
+        if (orgid_link == 0 || orgid_link == null) {
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: 'Bạn chưa chọn đơn vị',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
+
+        grid.setLoading("Đang tính dữ liệu");
+        var params = new Object();
+        params.orgid_link = orgid_link;
+
+        GSmartApp.Ajax.post('/api/v1/timesheetinout/calculate_daily', Ext.JSON.encode(params),
+            function (success, response, options) {
+                grid.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    var store = viewmodel.getStore('TimeSheetLunchKhachStore');
+                    if (response.respcode == 200) {
+                        me.Search();
+                    }
+                    else {
+                        Ext.MessageBox.show({
+                            title: "Thông báo",
+                            msg: 'Cập nhật thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                } else {
+                    Ext.MessageBox.show({
+                        title: "Thông báo",
+                        msg: 'Cập nhật thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            }, 120000)
     }
 })
