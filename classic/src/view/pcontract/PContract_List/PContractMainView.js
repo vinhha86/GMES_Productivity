@@ -167,7 +167,8 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             width: 120,
             bind: {
                 value: '{value.productbuyer_code}'
-            }
+            },
+			enableKeyEvents : true,
         }, {
             xtype: 'textfield',
             labelWidth: 0,
@@ -178,7 +179,8 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             width: 120,
             bind: {
                 value: '{value.po_code}'
-            }
+            },
+			enableKeyEvents : true,
         }, 
         {
             xtype: 'combo',
@@ -193,7 +195,8 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             queryMode: 'local',
             anyMatch: true,
             itemId: 'orgbuyerid_link',
-            margin: '5 1 5 0'
+            margin: '5 1 5 0',
+			enableKeyEvents : true,
         },
         {
             xtype: 'combo',
@@ -208,7 +211,8 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             queryMode: 'local',
             anyMatch: true,
             itemId: 'orgvendorid_link',
-            margin: '5 1 5 0'
+            margin: '5 1 5 0',
+			enableKeyEvents : true,
         }, {
             xtype: 'textfield',
             labelWidth: 0,
@@ -216,10 +220,10 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             emptyText: "Số HĐ",
             itemId: 'contractbuyer_code',
             width: 120,
-            width: 120,
             bind: {
                 value: '{value.contractbuyer_code}'
-            }
+            },
+			enableKeyEvents : true,
         }, {
             xtype: 'textfield',
             labelWidth: 0,
@@ -231,7 +235,8 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             width: 65,
             bind: {
                 value: '{value.contractbuyer_yearfrom}'
-            }
+            },
+			enableKeyEvents : true,
         }, {
             xtype: 'textfield',
             labelWidth: 0,
@@ -243,7 +248,8 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             width: 65,
             bind: {
                 value: '{value.contractbuyer_yearto}'
-            }
+            },
+			enableKeyEvents : true,
         },
         {
             xtype: 'button',
@@ -253,42 +259,6 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             itemId: 'btnTimKiem'
         }]
     },
-        // {
-        //     dock: 'bottom',
-        //     layout: 'hbox',
-        //     xtype: 'toolbar',
-        //     border: false,
-        //     cls: 'botToolbar',
-        //     items: [{
-        //         xtype: 'textfield',
-        //         value: 25,
-        //         itemId: 'limitpage',
-        //         maskRe: /[0-9]/,
-        //         width: 180,
-        //         selectOnFocus: true,
-        //         margin: 5,
-        //         fieldLabel: 'Số bản ghi/ Trang',
-        //         labelWidth: 120
-        //     }, '-', {
-        //         xtype: 'pagingtoolbar',
-        //         displayInfo: true,
-        //         flex: 1,
-        //         nextText: 'Trang tiếp',
-        //         prevText: 'Trang trước',
-        //         afterPageText: '/ {0}',
-        //         beforePageText: 'Trang',
-        //         itemId: 'page',
-        //         refreshText: 'Làm mới dữ liệu',
-        //         border: false,
-        //         bind: {
-        //             store: '{PContractStore}'
-        //         },
-        //         emptyMsg: 'Không có kết quả tìm kiếm',
-        //         lastText: 'Trang cuối',
-        //         firstText: 'Trang đầu',
-        //         displayMsg: 'Hiển thị {0} - {1} của {2}'
-        //     }]
-        // }
     ]
 });
 

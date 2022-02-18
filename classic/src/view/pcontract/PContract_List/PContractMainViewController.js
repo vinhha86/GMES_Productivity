@@ -55,6 +55,28 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         '#limitpage': {
             specialkey: 'onSpecialkey'
         },
+        // searh fields
+        '#productbuyer_code': {
+            keypress: 'onPressEnterSearch',
+        },
+        '#po_code': {
+            keypress: 'onPressEnterSearch'
+        },
+        '#orgbuyerid_link': {
+            keypress: 'onPressEnterSearch',
+        },
+        '#orgvendorid_link': {
+            keypress: 'onPressEnterSearch'
+        },
+        '#contractbuyer_code': {
+            keypress: 'onPressEnterSearch',
+        },
+        '#contractbuyer_yearfrom': {
+            keypress: 'onPressEnterSearch'
+        },
+        '#contractbuyer_yearto': {
+            keypress: 'onPressEnterSearch',
+        },
     },
     onActivate: function () {
         var me = this;
@@ -435,5 +457,14 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
             }]
         });
         form.show();
-    }
+    },
+
+    // enter to search
+    onPressEnterSearch: function (textfield, e, eOpts) {
+		var m = this;
+		if (e.getKey() == e.ENTER) {
+			// Ext.Msg.alert('Keys','You pressed the Enter key');
+			m.onloadPage();
+		}
+	},
 })
