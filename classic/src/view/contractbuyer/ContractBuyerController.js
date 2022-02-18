@@ -31,7 +31,26 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerController', {
         '#ContractBuyer': {
             activate: 'onActivate',
             itemdblclick: 'onCapNhatdbl'
-        }
+        },
+        // searh fields
+        '#contract_code': {
+            keypress: 'onPressEnterSearch',
+        },
+        '#contract_year': {
+            keypress: 'onPressEnterSearch'
+        },
+        '#contract_datefrom': {
+            keypress: 'onPressEnterSearch',
+        },
+        '#contract_dateto': {
+            keypress: 'onPressEnterSearch'
+        },
+        '#buyerid_link': {
+            keypress: 'onPressEnterSearch',
+        },
+        '#vendorid_link': {
+            keypress: 'onPressEnterSearch'
+        },
     },
     onActivate: function () {
         var me = this;
@@ -106,26 +125,6 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerController', {
                 me.setLoading(false);
             })
     },
-    // onloadPage: function () {
-    //     var viewmodel = this.getViewModel();
-    //     var ContractBuyerStore = viewmodel.getStore('ContractBuyerStore');
-    //     ContractBuyerStore.loadStore();
-
-    //     var EndBuyer = viewmodel.getStore('EndBuyer');
-    //     var Vendor = viewmodel.getStore('Vendor');
-    //     EndBuyer.loadStore(12);
-    //     EndBuyer.sort('code','ASC');
-    //     Vendor.loadStore(11);
-    //     Vendor.sort('code','ASC');
-
-    //     var ContractBuyerYearsStore = viewmodel.getStore('ContractBuyerYearsStore');
-    //     ContractBuyerYearsStore.loadYearsStore();
-
-    //     var contract_datefrom = this.lookupReference('contract_datefrom');
-    //     contract_datefrom.getPicker().monthYearFormat = 'm-Y';
-    //     var contract_dateto = this.lookupReference('contract_dateto');
-    //     contract_dateto.getPicker().monthYearFormat = 'm-Y';
-    // },
     onloadPage: function() {
         var me = this.getView();
 
@@ -177,5 +176,14 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerController', {
         store.loadStore_ByPage(limit, page, contract_code, contract_year, contract_datefrom,
             contract_dateto, buyerid_link, vendorid_link);
             
-    }
+    },
+
+    // enter to search
+    onPressEnterSearch: function (textfield, e, eOpts) {
+		var m = this;
+		if (e.getKey() == e.ENTER) {
+			// Ext.Msg.alert('Keys','You pressed the Enter key');
+			m.onloadPage();
+		}
+	},
 })

@@ -12,7 +12,7 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
     // },
     items: [{
         region: 'west',
-        width: '50%',
+        width: '60%',
         border: true,
         margin: 1,
         bind: {
@@ -163,7 +163,7 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyerDetail.ContractBuyerDetail
         }]
     }, {
         region: 'center',
-        width: '50%',
+        width: '40%',
         border: true,
         margin: 1,
         title: 'Danh sách Buyer',

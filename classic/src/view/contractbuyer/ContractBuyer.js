@@ -65,7 +65,7 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyer', {
     },
     {
         text: 'Buyer',
-        dataIndex: 'buyerCodes',
+        dataIndex: 'buyerNames',
         width: 250,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -74,7 +74,7 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyer', {
     },
     {
         text: 'Vendor',
-        dataIndex: 'vendorCode',
+        dataIndex: 'vendorName',
         width: 120,
         renderer: function(value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -107,7 +107,8 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyer', {
             margin: '5 1 5 0',
             emptyText: "Mã hợp đồng",
             itemId: 'contract_code',
-            width: 120
+            width: 120,
+			enableKeyEvents : true,
         },{
             xtype: 'combo',
             labelWidth: 0,
@@ -119,7 +120,8 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyer', {
             displayField: 'contract_year',
             itemId: 'contract_year',
             margin: '5 1 5 0',
-            width: 100
+            width: 100,
+			enableKeyEvents : true,
         },{
             xtype: 'datefield',
             labelWidth: 0,
@@ -128,7 +130,8 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyer', {
             reference: 'contract_datefrom',
             format:'d/m/Y',
             margin: '5 1 5 0',
-            width: 130
+            width: 130,
+			enableKeyEvents : true,
         },{
             xtype: 'datefield',
             labelWidth: 0,
@@ -137,7 +140,8 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyer', {
             reference: 'contract_dateto',
             format:'d/m/Y',
             margin: '5 1 5 0',
-            width: 130
+            width: 130,
+			enableKeyEvents : true,
         },{
             xtype: 'combo',
             labelWidth: 0,
@@ -151,7 +155,8 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyer', {
             anyMatch: true,
             itemId: 'buyerid_link',
             margin: '5 1 5 0',
-            width: 130
+            width: 130,
+			enableKeyEvents : true,
         },{
             xtype: 'combo',
             labelWidth: 0,
@@ -165,7 +170,8 @@ Ext.define('GSmartApp.view.contractbuyer.ContractBuyer', {
             anyMatch: true,
             itemId: 'vendorid_link',
             margin: '5 1 5 0',
-            width: 130
+            width: 130,
+			enableKeyEvents : true,
         },{
             xtype: 'button',
             margin: '5 1 5 1',
