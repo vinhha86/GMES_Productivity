@@ -232,6 +232,20 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatViewContro
                                             if (value == 0) return "";
                                             return Ext.util.Format.number(value, '0.0000')
                                         }
+                                    },{
+                                        text: '% C/lệch',
+                                        dataIndex: listid[i] + "_PhanTramChenhLech",
+                                        // cls: 'titleRed',
+                                        width: 80,
+                                        sortable: false,
+                                        menuDisabled: true,
+                                        // format: '0.00',
+                                        align: 'right',
+                                        renderer: function (value, metaData, record) {
+                                            if (value == 0 || value == null) return "";
+                                            return value;
+                                            // return Ext.util.Format.number(value, '0.0000');
+                                        }
                                     }, {
                                         text: 'Tổng',
                                         dataIndex: listid[i] + "_Tong",
