@@ -279,11 +279,12 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		// console.log(items); // skuid_link
 		var skuIdList = [];
 		for (var i = 0; i < items.length; i++) {
-			var skuid_link = items[i].get('p_skuid_link');
+			var skuid_link = items[i].get('skuid_link');
 			skuIdList.push(skuid_link);
 		}
 		// console.log(stockid_link);
 		// console.log(skuIdList);
+		// console.log(items);
 
 		var params = new Object();
 		params.stockid_link = stockid_link;

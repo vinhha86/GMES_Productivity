@@ -126,6 +126,18 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'PhannXuongFilterField',
+            width: '99%',
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onPhanXuongFilterKeyup',
+                buffer: 500
+            }
         }
     },
     {

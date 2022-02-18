@@ -88,4 +88,26 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOViewController', {
             this.buyercodeFilter = null;
         }
     },
+    onPhanXuongFilterKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var POStore = viewmodel.get('PContractPOList');
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('PhannXuongFilterField'),
+            filters = POStore.getFilters();
+
+        if (filterField.value) {
+            this.phanXuongFilter = filters.add({
+                id: 'phanXuongFilter',
+                property: 'factories',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.phanXuongFilter) {
+            filters.remove(this.phanXuongFilter);
+            this.phanXuongFilter = null;
+        }
+    },
 })
