@@ -386,6 +386,8 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                             xtype: 'numbercolumn',
                             dataIndex: listid[i].toString(),
                             width: 65,
+                            sortable: false,
+                            menuDisabled: true,
                             align: 'right',
                             getEditor: function (record) {
                                 if (record.get('type') == 0) {

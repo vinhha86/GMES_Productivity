@@ -32,8 +32,8 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
     columns: [{
         xtype: 'actioncolumn',
         width: 28,
-        menuDisabled: true,
         sortable: false,
+        menuDisabled: true,
         align: 'center',
         items: [
             {
@@ -54,6 +54,8 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         text: 'Sơ đồ',
         dataIndex: 'name',
         width: 120,
+        sortable: false,
+        menuDisabled: true,
         getEditor: function (record) {
             if (record.get('type') == 0) {
                 return Ext.create('Ext.grid.CellEditor', {
@@ -72,6 +74,8 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         text: 'Số lá trải',
         dataIndex: 'la_vai',
         width: 70,
+        sortable: false,
+        menuDisabled: true,
         getEditor: function (record) {
             if (record.get('type') == 0) {
                 return Ext.create('Ext.grid.CellEditor', {
@@ -91,6 +95,8 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         text: 'Dài sơ đồ',
         dataIndex: 'dai_so_do',
         width: 80,
+        sortable: false,
+        menuDisabled: true,
         getEditor: function (record) {
             if (record.get('type') == 0) {
                 return Ext.create('Ext.grid.CellEditor', {
@@ -110,6 +116,8 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         text: 'Tiêu hao',
         dataIndex: 'sl_vai',
         width: 80,
+        sortable: false,
+        menuDisabled: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return parseFloat(value) == 0 ? '' : Ext.util.Format.number(value, '0,000.00');
@@ -118,6 +126,8 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         text: 'Khổ',
         dataIndex: 'kho',
         width: 60,
+        sortable: false,
+        menuDisabled: true,
         getEditor: function (record) {
             if (record.get('type') == 0) {
                 return Ext.create('Ext.grid.CellEditor', {
@@ -137,6 +147,8 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         text: 'SL Cây',
         dataIndex: 'so_cay',
         width: 60,
+        sortable: false,
+        menuDisabled: true,
         getEditor: function (record) {
             if (record.get('type') == 0) {
                 return Ext.create('Ext.grid.CellEditor', {

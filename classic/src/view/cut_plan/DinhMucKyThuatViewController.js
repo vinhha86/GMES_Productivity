@@ -46,10 +46,14 @@ Ext.define('GSmartApp.view.cut_plan.DinhMucKyThuatViewController', {
 
                             var column = Ext.create('Ext.grid.column.Column', {
                                 text: listtitle[i],
+                                sortable: false,
+                                menuDisabled: true,
                                 columns: [{
                                     text: 'CĐ',
                                     dataIndex: listid[i].toString(),
                                     width: 65,
+                                    sortable: false,
+                                    menuDisabled: true,
                                     format: '0.0000',
                                     align: 'right',
                                     renderer: function (value, metaData, record) {
@@ -58,11 +62,15 @@ Ext.define('GSmartApp.view.cut_plan.DinhMucKyThuatViewController', {
                                     }
                                 }, {
                                     text: 'KT',
+                                    sortable: false,
+                                    menuDisabled: true,
                                     columns: [{
                                         text: 'Viền',
                                         dataIndex: listid[i] + "_Vien",
                                         cls: 'titleRed',
                                         width: 65,
+                                        sortable: false,
+                                        menuDisabled: true,
                                         format: '0.0000',
                                         align: 'right',
                                         renderer: function (value, metaData, record) {
@@ -85,6 +93,8 @@ Ext.define('GSmartApp.view.cut_plan.DinhMucKyThuatViewController', {
                                         dataIndex: listid[i] + "_KT",
                                         cls: 'titleRed',
                                         width: 65,
+                                        sortable: false,
+                                        menuDisabled: true,
                                         format: '0.0000',
                                         align: 'right',
                                         renderer: function (value, metaData, record) {
@@ -96,6 +106,8 @@ Ext.define('GSmartApp.view.cut_plan.DinhMucKyThuatViewController', {
                                         dataIndex: listid[i] + "_Tong",
                                         cls: 'titleRed',
                                         width: 70,
+                                        sortable: false,
+                                        menuDisabled: true,
                                         format: '0.0000',
                                         align: 'right',
                                         renderer: function (value, metaData, record) {
@@ -108,6 +120,8 @@ Ext.define('GSmartApp.view.cut_plan.DinhMucKyThuatViewController', {
                                     dataIndex: listid[i] + "_SX",
                                     cls: 'titleRed',
                                     width: 65,
+                                    sortable: false,
+                                    menuDisabled: true,
                                     format: '0.0000',
                                     align: 'right',
                                     renderer: function (value, metaData, record) {

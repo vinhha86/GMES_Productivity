@@ -179,10 +179,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatViewContro
 
                             var column = Ext.create('Ext.grid.column.Column', {
                                 text: listtitle[i],
+                                sortable: false,
+                                menuDisabled: true,
                                 columns: [{
                                     text: 'CĐ',
                                     dataIndex: listid[i].toString(),
                                     width: 65,
+                                    sortable: false,
+                                    menuDisabled: true,
                                     format: '0.0000',
                                     align: 'right',
                                     renderer: function (value, metaData, record) {
@@ -191,11 +195,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatViewContro
                                     }
                                 }, {
                                     text: 'KT',
+                                    sortable: false,
+                                    menuDisabled: true,
                                     columns: [{
                                         text: 'Viền',
                                         dataIndex: listid[i] + "_Vien",
                                         cls: 'titleRed',
                                         width: 65,
+                                        sortable: false,
+                                        menuDisabled: true,
                                         format: '0.0000',
                                         align: 'right',
                                         renderer: function (value, metaData, record) {
@@ -216,6 +224,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatViewContro
                                         dataIndex: listid[i] + "_KT",
                                         cls: 'titleRed',
                                         width: 65,
+                                        sortable: false,
+                                        menuDisabled: true,
                                         format: '0.0000',
                                         align: 'right',
                                         renderer: function (value, metaData, record) {
@@ -227,6 +237,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatViewContro
                                         dataIndex: listid[i] + "_Tong",
                                         cls: 'titleRed',
                                         width: 70,
+                                        sortable: false,
+                                        menuDisabled: true,
                                         format: '0.0000',
                                         align: 'right',
                                         renderer: function (value, metaData, record) {
@@ -239,6 +251,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatViewContro
                                     dataIndex: listid[i] + "_SX",
                                     cls: 'titleRed',
                                     width: 65,
+                                    sortable: false,
+                                    menuDisabled: true,
                                     format: '0.0000',
                                     align: 'right',
                                     renderer: function (value, metaData, record) {

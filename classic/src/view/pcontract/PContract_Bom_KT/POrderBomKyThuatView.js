@@ -27,6 +27,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatView', {
         text: 'Mã NPL',
         dataIndex: 'materialCode',
         width: 120,
+        sortable: false,
+        menuDisabled: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             var val = value == 'null' ? "" : value;
             metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -48,6 +50,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatView', {
         text: 'Màu SP',
         dataIndex: 'color_name',
         width: 150,
+        sortable: false,
+        menuDisabled: true,
         items: {
             xtype: 'textfield',
             fieldStyle: "",
@@ -64,6 +68,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatView', {
         text: 'Nguyên phụ liệu',
         dataIndex: 'materialName',
         width: 150,
+        sortable: false,
+        menuDisabled: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             var val = value == 'null' ? "" : value;
             metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -73,6 +79,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatView', {
         text: 'TP vải',
         dataIndex: 'thanhPhanVai',
         width: 200,
+        sortable: false,
+        menuDisabled: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             var val = value == 'null' ? "" : value;
             metaData.tdAttr = 'data-qtip="' + val + '"';
@@ -82,6 +90,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatView', {
         text: 'Tiêu hao',
         dataIndex: 'lost_ratio',
         width: 70,
+        sortable: false,
+        menuDisabled: true,
         xtype: 'numbercolumn',
         format: '0.000',
         editor: {
