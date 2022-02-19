@@ -43,26 +43,38 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
             beforedrop: 'onBeforeDrop'
         }
     },
-    columns: [{
-        header: 'Số PO', dataIndex: 'po_buyer', flex: 1,
-        items: {
-            xtype: 'textfield',
-            fieldStyle: "",
-            reference: 'unGrantedPoBuyerFilterField',
-            width: '99%',
-            margin: 1,
-            enableKeyEvents: true,
-            listeners: {
-                keyup: 'onUnGrantedPoBuyerFilterKeyup',
-                buffer: 500
+    columns: [
+        {
+            text:'Ảnh',
+            // dataIndex:'imgproduct',
+            width: 45,
+            textAlign: 'center',
+            listeners:{
+                click: 'viewImg'
             }
         },
-        summaryType: 'count',
-        summaryRenderer: function (value, summaryData, dataIndex) {
-            if (null == value) value = 0;
-            return '<div style="font-weight: bold; color:darkred;">Tổng: ' + Ext.util.Format.number(value, '0,000') + '</div>';
-        }
-    },
+        {
+            header: 'Số PO', 
+            dataIndex: 'po_buyer', 
+            flex: 1,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'unGrantedPoBuyerFilterField',
+                width: '99%',
+                margin: 1,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onUnGrantedPoBuyerFilterKeyup',
+                    buffer: 500
+                }
+            },
+            summaryType: 'count',
+            summaryRenderer: function (value, summaryData, dataIndex) {
+                if (null == value) value = 0;
+                return '<div style="font-weight: bold; color:darkred;">Tổng: ' + Ext.util.Format.number(value, '0,000') + '</div>';
+            }
+        },
     {
         header: 'Mã SP (Buyer)', dataIndex: 'product_buyername', width: 130,
         items: {

@@ -38,101 +38,117 @@ Ext.define('GSmartApp.view.Schedule.POrderReq.Schedule_POrderReq_View', {
     bind:{
         store:'{PContractrPoductPOStore}'
     },
-    columns:[{
-        text: 'STT',
-        width: 40,
-        xtype: 'rownumberer',
-        align: 'center'
-    },{ header: 'Số PO', dataIndex: 'po_buyer', flex: 1,
-    items: {
-        xtype: 'textfield',
-        fieldStyle: "",
-        reference: 'poBuyerFilterField',
-        width: '99%',
-        margin: 1,
-        enableKeyEvents: true,
-        listeners: {
-            keyup: 'onPoBuyerFilterKeyup',
-            buffer: 500
-        }
-    },
-    renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-        metaData.tdAttr = 'data-qtip="' + value + '"';
-        return value;
-    }},
-    { header: 'Mã SP (Buyer)', dataIndex: 'product_buyername', width: 130,
-        items: {
-            xtype: 'textfield',
-            fieldStyle: "",
-            reference: 'codeFilterField',
-            width: '99%',
-            margin: 1,
-            enableKeyEvents: true,
-            listeners: {
-                keyup: 'onCodeFilterKeyup',
-                buffer: 500
+    columns:[
+        {
+            text: 'STT',
+            width: 40,
+            xtype: 'rownumberer',
+            align: 'center'
+        },
+        { 
+            header: 'Số PO', 
+            dataIndex: 'po_buyer', 
+            flex: 1,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'poBuyerFilterField',
+                width: '99%',
+                margin: 1,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onPoBuyerFilterKeyup',
+                    buffer: 500
+                }
+            },
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
             }
         },
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
+        { 
+            header: 'Mã SP (Buyer)', 
+            dataIndex: 'product_buyername', 
+            width: 130,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'codeFilterField',
+                width: '99%',
+                margin: 1,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onCodeFilterKeyup',
+                    buffer: 500
+                }
+            },
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
+            summaryType: 'count',
+            summaryRenderer: function (value, summaryData, dataIndex) {
+                return '<div style="color:black; font-weight: bold; align: right">'+'Tổng: ' + value+'</div>';
+            }
         },
-        summaryType: 'count',
-        summaryRenderer: function (value, summaryData, dataIndex) {
-            return '<div style="color:black; font-weight: bold; align: right">'+'Tổng: ' + value+'</div>';
-        }
-    },
 
-    { header: 'Buyer', dataIndex: 'buyername', width: 80,
-        items: {
-            xtype: 'textfield',
-            fieldStyle: "",
-            reference: 'unGrantedReqBuyernameFilterField',
-            width: '99%',
-            margin: 1,
-            enableKeyEvents: true,
-            listeners: {
-                keyup: 'onUnGrantedReqBuyernameFilterKeyup',
-                buffer: 500
+        { 
+            header: 'Buyer', 
+            dataIndex: 'buyername', 
+            width: 80,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'unGrantedReqBuyernameFilterField',
+                width: '99%',
+                margin: 1,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onUnGrantedReqBuyernameFilterKeyup',
+                    buffer: 500
+                }
+            },
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
+        },
+        { 
+            header: 'Vendor', 
+            dataIndex: 'vendorname', 
+            width: 80,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'unGrantedReqVendornameFilterField',
+                width: '99%',
+                margin: 1,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onUnGrantedReqVendornameFilterKeyup',
+                    buffer: 500
+                }
+            },
+            renderer: function(value, metaData, record, rowIdx, colIdx, store) {
+                metaData.tdAttr = 'data-qtip="' + value + '"';
+                return value;
+            },
+        },
+        { header: 'Giao hàng', headerWrap: true, dataIndex: 'shipdate', 
+            renderer: Ext.util.Format.dateRenderer('d/m/y'),
+            // renderer: function(value){
+            //     // var date = Ext.Date.parse(value, 'c');
+            //     // return Ext.Date.format(date, 'd/m/y');
+            // },
+            width: 70
+        },
+        { header: 'SL', dataIndex: 'quantity', width: 70,  xtype: 'numbercolumn', format: '0,000', align: 'right',
+            summaryType: 'sum',
+            summaryRenderer: function(value, summaryData, dataIndex) {
+                return '<div style="color:black; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000')+'</div>';
             }
-        },
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        },
-    },
-    { header: 'Vendor', dataIndex: 'vendorname', width: 80,
-        items: {
-            xtype: 'textfield',
-            fieldStyle: "",
-            reference: 'unGrantedReqVendornameFilterField',
-            width: '99%',
-            margin: 1,
-            enableKeyEvents: true,
-            listeners: {
-                keyup: 'onUnGrantedReqVendornameFilterKeyup',
-                buffer: 500
-            }
-        },
-        renderer: function(value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        },
-    },
-    { header: 'Giao hàng', headerWrap: true, dataIndex: 'shipdate', 
-        renderer: Ext.util.Format.dateRenderer('d/m/y'),
-        // renderer: function(value){
-        //     // var date = Ext.Date.parse(value, 'c');
-        //     // return Ext.Date.format(date, 'd/m/y');
-        // },
-        width: 70
-    },
-    { header: 'SL', dataIndex: 'quantity', width: 70,  xtype: 'numbercolumn', format: '0,000', align: 'right',
-        summaryType: 'sum',
-        summaryRenderer: function(value, summaryData, dataIndex) {
-            return '<div style="color:black; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000')+'</div>';
         }
-    }],
+    ],
     plugins: {
         rowwidget: {
             widget: 

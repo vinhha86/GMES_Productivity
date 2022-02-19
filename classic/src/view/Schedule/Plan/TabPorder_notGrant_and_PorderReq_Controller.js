@@ -714,4 +714,63 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
         menu_grid.showAt(position);
         common.Check_Menu_Permission(menu_grid);
     },
+
+    viewImg: function (grid, metadata, rowIndex) {
+        var viewmodel = this.getViewModel();
+        var me = this.getView();
+        var data = grid.getStore().getAt(rowIndex);
+        console.log(data);
+        var id = data.get('productid_link');
+
+        var params = new Object();
+        params.id = id;
+        GSmartApp.Ajax.post('/api/v1/product/getone', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        var form = Ext.create('Ext.window.Window', {
+                            height: 400,
+                            width: 380,
+                            closable: true,
+                            resizable: true,
+                            modal: true,
+                            border: false,
+                            title: 'Ảnh sản phẩm ' + name,
+                            closeAction: 'destroy',
+                            bodyStyle: 'background-color: transparent',
+                            layout: {
+                                type: 'fit', // fit screen for window
+                                padding: 5
+                            },
+                            items: [{
+                                xtype: 'PContractImageView',
+                                IdProduct: id,
+                                viewModel: {
+                                    data: {
+                                        img: response.img,
+                                        productid_link: id
+                                    }
+                                }
+                            }]
+                        });
+                        form.show();
+
+                        form.down('#PContractImageView').on('Reload',function(){
+                            var store = viewmodel.getStore('PContractProductStore');
+                            store.load();
+                        })
+                    }
+                } else {
+                    Ext.Msg.show({
+                        title: 'Lấy thông tin thất bại',
+                        msg: null,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+            })
+    },
 })

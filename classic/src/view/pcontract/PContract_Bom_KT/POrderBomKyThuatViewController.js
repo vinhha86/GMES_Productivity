@@ -54,6 +54,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatViewContro
         grid.setLoading('Đang đồng bộ');
         var pcontractid_link = viewmodel.get('PContract.id');
         var productid_link = viewmodel.get('IdProduct');
+
         var params = new Object();
         params.porderid_link = 0;
         params.pcontractid_link = pcontractid_link;
@@ -73,7 +74,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatViewContro
                             mes = response.message;
                         }
                         var store = viewmodel.getStore('POrderBom2Store');
-                        store.getbom_by_porder(porderid_link, pcontractid_link, productid_link);
+                        store.getbom_by_porder(0, pcontractid_link, productid_link);
                     }
                 } else {
                     mes = "Đồng bộ thất bại";
