@@ -345,6 +345,18 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
                         var record = this.parentMenu.record;
                         me.onShowInfo(record);
                     }
+                },
+                
+                {
+                    text: 'Tổng hợp báo cáo KHSX',
+                    itemId: 'btnTongHopBaoCao',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-download brownIcon',
+                    handler: function () {
+                        var record = this.parentMenu.record;
+                        me.onTongHopBaoCao(record);
+                    }
                 }
             ]
         });
@@ -430,6 +442,33 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
             }]
         });
         form.show();
+    },
+    onTongHopBaoCao: function (rec) {
+        var id = rec.get('id');
+        // console.log(rec);
+
+        var params = new Object();
+		params.id = id;
+		GSmartApp.Ajax.post('/api/v1/pcontract/get_TongHopBaoCaoKHSX', Ext.JSON.encode(params),
+			function (success, response, options) {
+				var response = Ext.decode(response.responseText);
+				m.setLoading(false);
+				if (success) {
+					if (response.respcode == 200) {
+                        console.log('get_TongHopBaoCaoKHSX successed');
+					}
+				} else {
+					Ext.Msg.show({
+						title: 'Thông báo',
+						msg: 'Lấy thông tin tổng hợp thất bại',
+						buttons: Ext.MessageBox.YES,
+						buttonText: {
+							yes: 'Đóng',
+						}
+					});
+				}
+
+			})
     },
     onShowRecon: function (rec) {
         var id = rec.get('id');
