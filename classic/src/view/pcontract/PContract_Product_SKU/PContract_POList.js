@@ -98,6 +98,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             metaData.tdCls = 'po_offer';
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         }
+    },
+    {
+        text: '+/-',
+        align: 'end',
+        dataIndex: 'po_quantity_difference',
+        width: 70,
+        renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
+            metaData.tdCls = 'po_offer';
+            value == null ? value = 0 : value;
+            return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+        }
     }],
     plugins: [{
         ptype: 'cellediting',
@@ -258,7 +269,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                 },
                 summaryType: 'sum', summaryRenderer: 'renderSum',
                 align: 'end',
-            }]
+            },]
         }
     }
     ],

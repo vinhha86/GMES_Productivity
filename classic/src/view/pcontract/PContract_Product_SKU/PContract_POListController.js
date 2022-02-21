@@ -334,11 +334,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                             }
                         });
                     }
-                    var rowIndex = viewmodel.get('index_upload');
-                    var record = viewmodel.get('record_upload');
+                    // reload store
+                    var PContractPOList = viewmodel.getStore('PContractPOList');
+                    PContractPOList.reload();
+                    // 
+                    // var rowIndex = viewmodel.get('index_upload');
+                    // var record = viewmodel.get('record_upload');
 
-                    var widget = grid.getPlugin('rowwidget');
-                    widget.toggleRow(rowIndex, record);
+                    // var widget = grid.getPlugin('rowwidget');
+                    // widget.toggleRow(rowIndex, record);
                 }
             })
     },
@@ -806,6 +810,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         }
     },
     onPOListEdit: function (editor, e) {
+        var viewModel = this.getViewModel();
         if (e.originalValue != e.value) {
             e.record.data[e.field] = e.value;
             var params = new Object();
@@ -815,6 +820,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                     var response = Ext.decode(response.responseText);
                     if (success) {
                         e.record.commit();
+                        var PContractPOList = viewModel.getStore('PContractPOList');
+                        PContractPOList.reload();
                     }
                     else {
                         Ext.MessageBox.show({

@@ -88,12 +88,56 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOViewController', {
             this.buyercodeFilter = null;
         }
     },
+    onNgayGiaoFilterKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var POStore = viewmodel.get('PContractPOList');
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('NgayGiaoFilterField'),
+            filters = POStore.getFilters();
+
+        if (filterField.value) {
+            this.ngayGiaoFilter = filters.add({
+                id: 'ngayGiaoFilter',
+                property: 'shipdate',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ngayGiaoFilter) {
+            filters.remove(this.ngayGiaoFilter);
+            this.ngayGiaoFilter = null;
+        }
+    },
+    onNgayGiaoStringFilterKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var POStore = viewmodel.get('PContractPOList');
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('NgayGiaoStringFilterField'),
+            filters = POStore.getFilters();
+
+        if (filterField.value) {
+            this.ngayGiaoStringFilter = filters.add({
+                id: 'ngayGiaoStringFilter',
+                property: 'shipdateString',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ngayGiaoStringFilter) {
+            filters.remove(this.ngayGiaoStringFilter);
+            this.ngayGiaoStringFilter = null;
+        }
+    },
     onPhanXuongFilterKeyup: function () {
         var viewmodel = this.getViewModel();
         var POStore = viewmodel.get('PContractPOList');
         var grid = this.getView(),
             // Access the field using its "reference" property name.
-            filterField = this.lookupReference('PhannXuongFilterField'),
+            filterField = this.lookupReference('PhanXuongFilterField'),
             filters = POStore.getFilters();
 
         if (filterField.value) {
@@ -108,6 +152,28 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOViewController', {
         else if (this.phanXuongFilter) {
             filters.remove(this.phanXuongFilter);
             this.phanXuongFilter = null;
+        }
+    },
+    onPhuTrachFilterKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var POStore = viewmodel.get('PContractPOList');
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('PhuTrachFilterField'),
+            filters = POStore.getFilters();
+
+        if (filterField.value) {
+            this.PhuTrachFilter = filters.add({
+                id: 'PhuTrachFilter',
+                property: 'merchandiser_name',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.PhuTrachFilter) {
+            filters.remove(this.PhuTrachFilter);
+            this.PhuTrachFilter = null;
         }
     },
 })

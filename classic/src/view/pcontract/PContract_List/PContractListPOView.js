@@ -95,11 +95,42 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         summaryRenderer: function (value, summaryData, dataIndex) {
             return '<div style="color:red; font-size:9px; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
         }
-    }, {
+    }, 
+    // {
+    //     text: 'Ngày giao',
+    //     dataIndex: 'shipdate',
+    //     renderer: Ext.util.Format.dateRenderer('d/m/y'),
+    //     width: 80,
+    //     items: {
+    //         xtype: 'textfield',
+    //         fieldStyle: "",
+    //         reference: 'NgayGiaoFilterField',
+    //         width: '99%',
+    //         margin: 2,
+    //         enableKeyEvents: true,
+    //         listeners: {
+    //             keyup: 'onNgayGiaoFilterKeyup',
+    //             buffer: 500
+    //         }
+    //     }
+    // },
+    {
         text: 'Ngày giao',
-        dataIndex: 'shipdate',
-        renderer: Ext.util.Format.dateRenderer('d/m/y'),
-        width: 80
+        dataIndex: 'shipdateString',
+        // renderer: Ext.util.Format.dateRenderer('d/m/y'),
+        width: 80,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'NgayGiaoStringFilterField',
+            width: '99%',
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onNgayGiaoStringFilterKeyup',
+                buffer: 500
+            }
+        }
     },
     {
         text: 'Ngày NPL',
@@ -130,7 +161,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         items: {
             xtype: 'textfield',
             fieldStyle: "",
-            reference: 'PhannXuongFilterField',
+            reference: 'PhanXuongFilterField',
             width: '99%',
             margin: 2,
             enableKeyEvents: true,
@@ -147,6 +178,18 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
+        },
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'PhuTrachFilterField',
+            width: '99%',
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onPhuTrachFilterKeyup',
+                buffer: 500
+            }
         }
     },
     {
