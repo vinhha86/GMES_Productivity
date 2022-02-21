@@ -43,7 +43,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductView', {
             // handler: 'onEditSoLuong'
             // },
             {
-                iconCls: 'x-fa fas fa-trash',
+                iconCls: 'x-fa fas fa-trash redIcon',
                 itemId: 'btn_XoaSP',
                 isActionDisabled: 'checkActionColumnPermission',
                 tooltip: 'Hủy',
@@ -55,18 +55,35 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductView', {
         width: 50,
         xtype: 'rownumberer',
         align: 'center'
-    },{
-        text:'Ảnh',
-        dataIndex:'imgproduct',
-        width: 45,
-        textAlign: 'center',
-        renderer: function(value, meta, record){
-            return '<img style="width:16px; height:14px" src="data:image/gif;base64,'+ value +'">';
-        },
-        listeners:{
-            click: 'viewImg'
-        }
-    },{
+    },
+    {
+        xtype: 'actioncolumn',
+        // text: 'Ảnh',
+        width: 30,
+        menuDisabled: true,
+        sortable: false,
+        align: 'center',
+        items: [
+            {
+                iconCls: 'x-fa fas fa-photo greenIcon',
+                tooltip: "Ảnh sản phẩm",
+                handler: 'viewImg'
+            },
+        ]
+    },    
+    // {
+    //     text:'Ảnh',
+    //     dataIndex:'imgproduct',
+    //     width: 45,
+    //     textAlign: 'center',
+    //     renderer: function(value, meta, record){
+    //         return '<img style="width:16px; height:14px" src="data:image/gif;base64,'+ value +'">';
+    //     },
+    //     listeners:{
+    //         click: 'viewImg'
+    //     }
+    // },
+    {
         text:'Mã SP (Buyer)',
         dataIndex:'productBuyerCode',
         width: 120,

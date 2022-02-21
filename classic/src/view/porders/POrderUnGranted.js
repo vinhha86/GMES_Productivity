@@ -45,14 +45,28 @@ Ext.define('GSmartApp.view.porders.POrderUnGranted', {
     },
     columns: [
         {
-            text:'Ảnh',
-            // dataIndex:'imgproduct',
-            width: 45,
-            textAlign: 'center',
-            listeners:{
-                click: 'viewImg'
-            }
-        },
+            xtype: 'actioncolumn',
+            width: 30,
+            menuDisabled: true,
+            sortable: false,
+            align: 'center',
+            items: [
+                {
+                    iconCls: 'x-fa fas fa-photo greenIcon',
+                    tooltip: "Ảnh sản phẩm",
+                    handler: 'viewImg'
+                },
+            ]
+        },   
+        // {
+        //     text:'Ảnh',
+        //     // dataIndex:'imgproduct',
+        //     width: 45,
+        //     textAlign: 'center',
+        //     listeners:{
+        //         click: 'viewImg'
+        //     }
+        // },
         {
             header: 'Số PO', 
             dataIndex: 'po_buyer', 

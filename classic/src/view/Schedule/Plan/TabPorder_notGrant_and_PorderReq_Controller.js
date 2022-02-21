@@ -715,11 +715,11 @@ Ext.define('GSmartApp.view.Schedule.Plan.TabPorder_notGrant_and_PorderReq_Contro
         common.Check_Menu_Permission(menu_grid);
     },
 
-    viewImg: function (grid, metadata, rowIndex) {
+    viewImg: function (grid, rowIndex, colIndex) {
         var viewmodel = this.getViewModel();
         var me = this.getView();
         var data = grid.getStore().getAt(rowIndex);
-        console.log(data);
+        // console.log(data);
         var id = data.get('productid_link');
 
         var params = new Object();

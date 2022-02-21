@@ -423,7 +423,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
                     text: 'Excel',
                     iconCls: 'x-fa fa-file-excel-o',
                     margin: 5,
-                    handler: 'onExport'
+                    handler: 'onExport_Excel'
                 },
                 {
                     xtype: 'button',

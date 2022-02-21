@@ -241,7 +241,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListProductViewCotroller', {
         })
     },
 
-    viewImg: function (grid, metadata, rowIndex) {
+    viewImg: function (grid, rowIndex, colIndex) {
         var viewmodel = this.getViewModel();
         var me = this.getView();
         var data = grid.getStore().getAt(rowIndex);
