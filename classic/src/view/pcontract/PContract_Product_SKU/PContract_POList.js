@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
     extend: 'Ext.grid.Panel',
     xtype: 'PContract_POList',
     itemId: 'PContract_POList',
+    cls: 'PContract_POList',
     controller: 'PContract_POListController',
     viewConfig: {
         stripeRows: false,
@@ -105,8 +106,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
         dataIndex: 'po_quantity_difference',
         width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-            metaData.tdCls = 'po_offer';
+            // metaData.tdCls = 'po_offer';
             value == null ? value = 0 : value;
+            if(value >= 0 ){
+                console.log(value + ' >=');
+                metaData.tdCls = 'yellowBgBlackTxt';
+            }else if(value < 0){
+                console.log(value + ' <');
+                metaData.tdCls = 'yellowBgRedTxt';
+            }
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         }
     }],
