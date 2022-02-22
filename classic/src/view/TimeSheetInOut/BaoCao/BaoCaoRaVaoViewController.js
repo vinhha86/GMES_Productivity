@@ -120,6 +120,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
     onExport_Excel: function () {
         var viewmodel = this.getViewModel();
         var me = this;
+        var grid = this.getView();
         
         var params = new Object();
         params.month = viewmodel.get('timesheetdaily.month');
@@ -127,16 +128,31 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
         params.orgid_link = viewmodel.get('timesheetdaily.orgid_link');
         params.grantid_link = viewmodel.get('timesheetdaily.grantid_link');
 
-        var fileName = "Bangcong_T" + params.month + "_" + params.year + "_" + params.orgid_link + ".xlsx";
+        if (null != params.grantid_link){
+            grid.setLoading("Đang tính dữ liệu");
 
-        GSmartApp.Ajax.post('/api/v1/timesheet_report/daily', Ext.JSON.encode(params),
-        function (success, response, options) {
-            if (success) {
-                var response = Ext.decode(response.responseText);
-                if (response.respcode == 200) {
-                    me.saveByteArray(fileName, response.data);
-                }
-                else {
+            var fileName = "Bangcong_T" + params.month + "_" + params.year + "_" + params.orgid_link + ".xlsx";
+
+            GSmartApp.Ajax.post('/api/v1/timesheet_report/daily', Ext.JSON.encode(params),
+            function (success, response, options) {
+                grid.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        me.saveByteArray(fileName, response.data);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lưu thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+
+                } else {
                     Ext.Msg.show({
                         title: 'Thông báo',
                         msg: 'Lưu thất bại',
@@ -146,18 +162,17 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
                         }
                     });
                 }
-
-            } else {
-                Ext.Msg.show({
-                    title: 'Thông báo',
-                    msg: 'Lưu thất bại',
-                    buttons: Ext.MessageBox.YES,
-                    buttonText: {
-                        yes: 'Đóng',
-                    }
-                });
-            }
-        })
+            })
+        } else {
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: 'File Excel chỉ được tải cho từng bộ phận',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+        }
     },
     onCalculate: function () {
         var me = this;
