@@ -272,6 +272,37 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 		// 	}
 		// });		
 	},
+
+	loadByPContractAndType_async: function (pcontractid_link, potype) {
+		var me = this;
+		var params = new Object();
+		params.pcontractid_link = pcontractid_link;
+		params.potype = potype;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl() + '/api/v1/pcontract_po/getbycontract_type',
+			paramsAsJson: true,
+			noCache: false,
+			extraParams: params,
+			timeout: 60000,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+	},
+
 	loadLeafOnly_ByContract: function (pcontractid_link, productid_link, pcontractpo_id_link) {
 		var me = this;
 		pcontractpo_id_link = pcontractpo_id_link == null ? 0 : pcontractpo_id_link;

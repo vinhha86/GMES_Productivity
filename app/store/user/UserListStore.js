@@ -165,5 +165,59 @@ Ext.define('GSmartApp.store.UserListStore', {
 			}
 		});
 		this.load();
+	},
+
+	loadUserbyOrg_Buyer_Multi: function(orgid_link_arr, orgbuyerid_link){
+		var params = new Object();
+		params.orgid_link_arr = orgid_link_arr;
+		params.orgbuyerid_link = orgbuyerid_link;
+        this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl()+'/api/v1/users/getby_org_buyer_multi',
+			paramsAsJson:true,
+			noCache: false,
+			extraParams : params,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.load();
+	},
+	loadUserbyOrg_Buyer_Multi_async: function(orgid_link_arr, orgbuyerid_link){
+		var params = new Object();
+		params.orgid_link_arr = orgid_link_arr;
+		params.orgbuyerid_link = orgbuyerid_link;
+        this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl()+'/api/v1/users/getby_org_buyer_multi',
+			paramsAsJson:true,
+			noCache: false,
+			extraParams : params,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
 	}
 });

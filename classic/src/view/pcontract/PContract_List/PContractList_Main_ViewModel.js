@@ -24,7 +24,10 @@ Ext.define('GSmartApp.view.pcontract.PContractList_Main_ViewModel', {
         },
         Vendor: {
             type: 'ListOrgStore'
-        }
+        },
+        UserStore: {
+            type: 'userliststore'
+        },
     },
     data: {
         value: {

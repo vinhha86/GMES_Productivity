@@ -37,9 +37,6 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         var TimesheetShiftTypeOrgStore = viewModel.getStore('TimesheetShiftTypeOrgStore');
         var items = TimesheetShiftTypeOrgStore.getData().items;
 
-        // console.log(value);
-        // console.log(items);
-
         if(value != null && value != 0){
             for(var i=0; i<items.length; i++){
                 var item = items[i];
@@ -52,9 +49,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                 }
             }
         }
-
         return result;
-
     },
     onTimeSheetLunchStore_Done: function () {
         var me = this;

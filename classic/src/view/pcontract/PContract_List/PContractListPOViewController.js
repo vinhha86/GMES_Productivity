@@ -176,4 +176,67 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOViewController', {
             this.PhuTrachFilter = null;
         }
     },
+
+    renderedPhuTrach: function(value, metaData, record, rowIdx, colIdx, store){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var result = '';
+        var UserStore = viewModel.getStore('UserStore');
+        var items = UserStore.getData().items;
+
+        if(value != null && value != 0){
+            for(var i=0; i<items.length; i++){
+                var item = items[i];
+                var id = item.get('id');
+                var fullName = item.get('fullName');
+
+                if(value == id){
+                    result = fullName;
+                    break;
+                }
+            }
+        }
+        return result;
+    },
+    onEdit: function (editor, context, e) {
+        var grid = this.getView();
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('PContractPOList');
+
+        if (context.value == context.originalValue) return;
+        grid.setLoading("Đang xử lý");
+
+        var data = context.record.data;
+
+        if(isNaN(data.merchandiserid_link)) {
+            data.merchandiserid_link = null;
+        }
+
+        var params = new Object();
+        params.data = data;
+
+        GSmartApp.Ajax.post('/api/v1/pcontract_po/update_merchandiser', Ext.JSON.encode(params),
+        function (success, response, options) {
+            grid.setLoading(false);
+            if (success) {
+                var response = Ext.decode(response.responseText);
+                if (response.respcode != 200) {
+                    Ext.Msg.show({
+                        title: "Thông báo",
+                        msg: 'Lưu thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Có'
+                        }
+                    });
+                    store.rejectChanges();
+                }
+                else {
+                    store.commitChanges();
+                }
+            }
+        })
+    },
 })

@@ -260,9 +260,9 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
     },
     onPContractSelect: function (e, selected, eOpts) {
         if (null != selected) {
+            var m = this;
             var me = this.getView();
             var viewmodel = this.getViewModel();
-            var store = viewmodel.getStore('PContractPOList');
 
             viewmodel.set('pcontractid_link', selected.data.id);
             var productbuyer_code = me.down('#productbuyer_code').getValue();
@@ -276,11 +276,83 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
                 po_code = "";
             }
 
-            // store.loadLeafOnly_ByContract(selected.id, 0);
-            // store.loadStoreBySearch(selected.id, productbuyer_code, po_code);
-            store.loadByPContractAndType(selected.id, 10);
+            var params = new Object();
+            params.pcontractid_link = selected.id;
+            params.potype = 10;
+            GSmartApp.Ajax.post('/api/v1/pcontract_po/getDsPhanXuongSX_byPcontractId', Ext.JSON.encode(params),
+                function (success, response, options) {
+                    var response = Ext.decode(response.responseText);
+                    me.setLoading(false);
+                    if (success) {
+                        if (response.respcode == 200) {
+                            var phanXuongIds = response.phanXuongIds;
+                            m.loadDsUser_PContractPOList(selected.id, phanXuongIds);
+                        }
+                    } else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lấy thông tin thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+
+                })
+
+            // var PContractPOList = viewmodel.getStore('PContractPOList');
+            // // PContractPOList.loadByPContractAndType(selected.id, 10);
+            // PContractPOList.loadByPContractAndType_async(selected.id, 10);
+            // PContractPOList.load({
+            //     scope: this,
+            //     callback: function(records, operation, success) {
+            //         if(!success){
+            //              // this.fireEvent('logout');
+            //         } else {
+            //             // lay danh sach id phan xuong de load store user
+            //             var factories_Id = new Array();
+            //             for(var i = 0; i < records.length; i++){
+            //                 var records_factories_Id = records[i].get('factories_Id');
+            //                 for(var j = 0; j < records_factories_Id.length; j++){
+            //                     if(!factories_Id.includes(records_factories_Id[j])){
+            //                         factories_Id.push(records_factories_Id[j]);
+            //                     }
+            //                 }
+            //             }
+            //             // console.log(factories_Id);
+
+            //             // load store user
+            //             var userStore = viewmodel.getStore('UserStore');
+            //             userStore.loadUserbyOrg_Buyer_Multi(factories_Id, null);
+            //         }
+            //     }
+            // });
+
         }
     },
+
+    loadDsUser_PContractPOList: function(pcontractId, phanXuongIds){
+        var m = this;
+        var me = this.getView();
+        var viewmodel = this.getViewModel();
+
+        var userStore = viewmodel.getStore('UserStore');
+        var PContractPOList = viewmodel.getStore('PContractPOList');
+        // userStore.loadUserbyOrg_Buyer_Multi(factories_Id, null);
+        userStore.loadUserbyOrg_Buyer_Multi_async(phanXuongIds, null);
+        userStore.load({
+            scope: this,
+            callback: function(records, operation, success) {
+                if(!success){
+                     // this.fireEvent('logout');
+                } else {
+                    PContractPOList.loadByPContractAndType(pcontractId, 10);
+                }
+            }
+        });
+    },
+
     onMenu_ContractList: function (grid, rowIndex, colIndex, item, e, record) {
         var me = this;
         var menu_grid = new Ext.menu.Menu({

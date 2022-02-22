@@ -12,6 +12,16 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         columnLines: true,
         rowLines: true
     },
+    
+    plugins: {
+        cellediting: {
+            clicksToEdit: 1,
+            listeners: {
+                edit: 'onEdit'
+            }
+        }
+    },
+
     bind: {
         store: '{PContractPOList}'
     },
@@ -29,6 +39,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         text: 'PO Buyer',
         dataIndex: 'po_buyer',
         width: 120,
+        sortable: false,
+        menuDisabled: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
 
@@ -45,6 +57,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         text: 'Mã SP (Buyer)',
         dataIndex: 'productbuyercode',
         width: 120,
+        sortable: false,
+        menuDisabled: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -67,6 +81,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         align: 'right',
         dataIndex: 'po_quantity',
         width: 80,
+        sortable: false,
+        menuDisabled: true,
         summaryType: 'sum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -79,6 +95,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         text: 'ĐVT',
         dataIndex: 'totalpair',
         width: 60,
+        sortable: false,
+        menuDisabled: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 1 ? "Chiếc" : "Bộ (" + value + ")";
         }
@@ -87,6 +105,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         align: 'right',
         dataIndex: 'po_quantity_sp',
         width: 80,
+        sortable: false,
+        menuDisabled: true,
         summaryType: 'sum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -119,6 +139,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         dataIndex: 'shipdateString',
         // renderer: Ext.util.Format.dateRenderer('d/m/y'),
         width: 80,
+        sortable: false,
+        menuDisabled: true,
         items: {
             xtype: 'textfield',
             fieldStyle: "",
@@ -136,13 +158,17 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         text: 'Ngày NPL',
         renderer: Ext.util.Format.dateRenderer('d/m/y'),
         dataIndex: 'matdate',
-        width: 80
+        width: 80,
+        sortable: false,
+        menuDisabled: true,
     },
     {
         text: 'Ngày VC',
         renderer: Ext.util.Format.dateRenderer('d/m/y'),
         dataIndex: 'productiondate',
-        width: 70
+        width: 70,
+        sortable: false,
+        menuDisabled: true,
     },
     // {
     //     text:'Số ngày SX',
@@ -154,6 +180,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         text: 'Phân xưởng',
         dataIndex: 'factories',
         width: 100,
+        sortable: false,
+        menuDisabled: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -171,13 +199,66 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
             }
         }
     },
+    // {
+    //     text: 'Phụ trách',
+    //     dataIndex: 'merchandiser_name',
+    //     width: 150,
+    //     sortable: false,
+    //     menuDisabled: true,
+    //     // renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+    //     //     metaData.tdAttr = 'data-qtip="' + value + '"';
+    //     //     return value;
+    //     // },
+    //     items: {
+    //         xtype: 'textfield',
+    //         fieldStyle: "",
+    //         reference: 'PhuTrachFilterField',
+    //         width: '99%',
+    //         margin: 2,
+    //         enableKeyEvents: true,
+    //         listeners: {
+    //             keyup: 'onPhuTrachFilterKeyup',
+    //             buffer: 500
+    //         }
+    //     }
+    // },
     {
         text: 'Phụ trách',
-        dataIndex: 'merchandiser_name',
-        width: 120,
-        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
+        dataIndex: 'merchandiserid_link',
+        width: 150,
+        sortable: false,
+        menuDisabled: true,
+        // renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+        //     metaData.tdAttr = 'data-qtip="' + value + '"';
+        //     return value;
+        // },
+        renderer: 'renderedPhuTrach',
+        editor:{
+            field: {
+                xtype: 'combobox',
+                bind:{
+                    store:'{UserStore}',
+                    // value: '{data.type}'
+                },
+                displayField: 'fullname',
+                valueField: 'id',
+                // editable: false,
+                allowBlank: true,
+				queryMode: 'local',
+				anyMatch: true,
+                listeners:{
+                    // change: 'onTypeChange',
+                    // focusleave: 'onTypeFocusLeave'
+                },
+                matchFieldWidth: false,
+                listConfig: {
+                    listeners: {
+                        beforeshow: function(picker) {
+                            picker.minWidth = picker.up('combobox').getSize().width;
+                        }
+                    }
+                },
+            }
         },
         items: {
             xtype: 'textfield',
@@ -196,6 +277,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         text: 'FOB',
         dataIndex: 'fob_worklist',
         flex: 1,
+        sortable: false,
+        menuDisabled: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
