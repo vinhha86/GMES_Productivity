@@ -109,10 +109,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             // metaData.tdCls = 'po_offer';
             value == null ? value = 0 : value;
             if(value >= 0 ){
-                console.log(value + ' >=');
                 metaData.tdCls = 'yellowBgBlackTxt';
             }else if(value < 0){
-                console.log(value + ' <');
                 metaData.tdCls = 'yellowBgRedTxt';
             }
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');

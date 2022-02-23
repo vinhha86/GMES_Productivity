@@ -524,7 +524,6 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
 		GSmartApp.Ajax.post('/api/v1/pcontract/get_TongHopBaoCaoKHSX', Ext.JSON.encode(params),
 			function (success, response, options) {
 				var response = Ext.decode(response.responseText);
-				m.setLoading(false);
 				if (success) {
 					if (response.respcode == 200) {
                         console.log('get_TongHopBaoCaoKHSX successed');
