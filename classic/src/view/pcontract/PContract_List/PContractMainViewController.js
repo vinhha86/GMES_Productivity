@@ -516,6 +516,11 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
         form.show();
     },
     onTongHopBaoCao: function (rec) {
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var fileName = "KeHoachSX_" + rec.get('contractcode') + ".xlsx";
         var id = rec.get('id');
         // console.log(rec);
 
@@ -527,6 +532,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
 				if (success) {
 					if (response.respcode == 200) {
                         console.log('get_TongHopBaoCaoKHSX successed');
+                        m.saveByteArray(fileName, response.data);
 					}
 				} else {
 					Ext.Msg.show({
@@ -541,6 +547,28 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
 
 			})
     },
+    saveByteArray: function (reportName, byte) {
+        var me = this;
+        byte = this.base64ToArrayBuffer(byte);
+        
+        var blob = new Blob([byte], {type: "application/xlsx"});
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        var fileName = reportName;
+        link.download = fileName;
+        link.click();
+    },
+    base64ToArrayBuffer: function (base64) {
+        var binaryString = window.atob(base64);
+        var binaryLen = binaryString.length;
+        var bytes = new Uint8Array(binaryLen);
+        for (var i = 0; i < binaryLen; i++) {
+           var ascii = binaryString.charCodeAt(i);
+           bytes[i] = ascii;
+        }
+        return bytes;
+    },
+
     onShowRecon: function (rec) {
         var id = rec.get('id');
         var form = Ext.create('Ext.window.Window', {
