@@ -26,9 +26,16 @@ Ext.define('GSmartApp.store.TimeSheetInOut.TimeSheetMonthStore', {
         { name: 'time_sunday', type: 'number' },
         { name: 'lunch', type: 'number' },
         { name: 'total', type: 'number' },
-        'month', 'year', {
-            name: 'ngayvao_congty', type: 'date'
-        }, 'fullname'
+        'month', 
+        'year', 
+        {name: 'ngayvao_congty', type: 'date'}, 
+        'fullname',
+        {
+            name: 'total_shift',
+            calculate: function(data) {
+                return data.total/8;
+            }
+        },       
     ],
     sorters: [{
         property: 'personnel_code',
