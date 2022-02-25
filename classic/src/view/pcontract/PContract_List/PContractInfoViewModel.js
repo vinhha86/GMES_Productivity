@@ -8,6 +8,7 @@ Ext.define('GSmartApp.view.pcontract.PContractInfoViewModel', {
         }
     },
     data: {
+        pcontract: null,
         pcontractid_link: 0,
         productid_link: 0,
         potype: 10

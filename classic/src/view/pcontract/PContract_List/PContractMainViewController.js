@@ -508,6 +508,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
                 xtype: 'PContractInfo_View',
                 viewModel: {
                     data: {
+                        pcontract: rec,
                         pcontractid_link: id
                     }
                 }

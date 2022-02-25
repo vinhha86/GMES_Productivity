@@ -742,6 +742,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                         me.onShowBalance(record);
                     }
                 },
+                {
+                    text: 'Tổng hợp báo cáo KHSX',
+                    itemId: 'btnBaoCaoKHSX',
+                    separator: true,
+                    margin: '10 0 0',
+                    iconCls: 'x-fa fas fa-download brownIcon',
+                    handler: function () {
+                        // var record = this.parentMenu.record;
+                        me.onTongHopBaoCao(record);
+                    }
+                },
             ]
         });
         // HERE IS THE MAIN CHANGE
@@ -835,5 +846,65 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
                     }
                 });
         }
-    }
+    },
+    onTongHopBaoCao: function (rec) {
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var PContract = viewModel.get('PContract');
+
+        // console.log(PContract);
+        // console.log(rec);
+        // return;
+
+        var fileName = "KeHoachSX_" + PContract.contractcode + ".xlsx";
+        var id = PContract.id;
+        var pcontract_poid_link = rec.get('id');
+        // console.log(rec);
+
+        var params = new Object();
+		params.id = id;
+		params.pcontract_poid_link = pcontract_poid_link;
+		GSmartApp.Ajax.post('/api/v1/pcontract/get_TongHopBaoCaoKHSX', Ext.JSON.encode(params),
+			function (success, response, options) {
+				var response = Ext.decode(response.responseText);
+				if (success) {
+					if (response.respcode == 200) {
+                        console.log('get_TongHopBaoCaoKHSX successed');
+                        m.saveByteArray(fileName, response.data);
+					}
+				} else {
+					Ext.Msg.show({
+						title: 'Thông báo',
+						msg: 'Lấy thông tin tổng hợp thất bại',
+						buttons: Ext.MessageBox.YES,
+						buttonText: {
+							yes: 'Đóng',
+						}
+					});
+				}
+
+			})
+    },
+    saveByteArray: function (reportName, byte) {
+        var me = this;
+        byte = this.base64ToArrayBuffer(byte);
+        
+        var blob = new Blob([byte], {type: "application/xlsx"});
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        var fileName = reportName;
+        link.download = fileName;
+        link.click();
+    },
+    base64ToArrayBuffer: function (base64) {
+        var binaryString = window.atob(base64);
+        var binaryLen = binaryString.length;
+        var bytes = new Uint8Array(binaryLen);
+        for (var i = 0; i < binaryLen; i++) {
+           var ascii = binaryString.charCodeAt(i);
+           bytes[i] = ascii;
+        }
+        return bytes;
+    },
 })

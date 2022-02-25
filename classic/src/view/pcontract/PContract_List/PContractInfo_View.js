@@ -17,6 +17,10 @@ Ext.define('GSmartApp.view.pcontract.PContractInfo_View', {
         groupHeaderTpl: 'Tổng',
         dock: 'bottom'
     }],
+    selModel: {
+        selType: 'checkboxmodel',
+        mode: 'MULTI',
+    },
     rootVisible: false,
     bind: {
         store: '{PContractProductTreeStore}'
@@ -143,9 +147,16 @@ Ext.define('GSmartApp.view.pcontract.PContractInfo_View', {
                 text: 'Thoát',
                 itemId: 'btnThoat',
                 iconCls: 'x-fa fa-window-close',
-                itemId: 'btnThoat',
                 margin: 3
-            }
+            },
+            {
+                xtype: 'button',
+                text: 'Báo cáo KHSX',
+                itemId: 'btnBaoCaoKHSX',
+                iconCls: 'x-fa fa-download',
+                margin: 3
+            },
+
         ]
     }]
 });
