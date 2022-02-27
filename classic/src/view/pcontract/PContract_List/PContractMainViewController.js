@@ -419,17 +419,17 @@ Ext.define('GSmartApp.view.pcontract.PContractMainViewController', {
                     }
                 },
                 
-                {
-                    text: 'Tổng hợp báo cáo KHSX',
-                    itemId: 'btnTongHopBaoCao',
-                    separator: true,
-                    margin: '10 0 0',
-                    iconCls: 'x-fa fas fa-download brownIcon',
-                    handler: function () {
-                        var record = this.parentMenu.record;
-                        me.onTongHopBaoCao(record);
-                    }
-                }
+                // {
+                //     text: 'Tổng hợp báo cáo KHSX',
+                //     itemId: 'btnTongHopBaoCao',
+                //     separator: true,
+                //     margin: '10 0 0',
+                //     iconCls: 'x-fa fas fa-download brownIcon',
+                //     handler: function () {
+                //         var record = this.parentMenu.record;
+                //         me.onTongHopBaoCao(record);
+                //     }
+                // }
             ]
         });
         // HERE IS THE MAIN CHANGE

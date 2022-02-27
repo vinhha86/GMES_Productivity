@@ -19,7 +19,7 @@ Ext.define('GSmartApp.view.pcontract.PContractInfo_View', {
     }],
     selModel: {
         selType: 'checkboxmodel',
-        mode: 'MULTI',
+        mode: 'SINGLE',
     },
     rootVisible: false,
     bind: {
