@@ -40,4 +40,8 @@ Ext.define('GSmartApp.view.baocao_ns.BaoCaoNS_ViewController', {
         var TimeSheetAbsenceStore = viewModel.getStore('TimeSheetAbsenceStore');
         TimeSheetAbsenceStore.getForBaoCaoNS(newValue);
     },
+    renderSum: function (value, summaryData, dataIndex) {
+        if (null == value) value = 0;
+        return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
+    },
 })

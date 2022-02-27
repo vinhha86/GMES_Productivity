@@ -7,6 +7,10 @@ Ext.define('GSmartApp.view.baocao_ns.BaoCaoNS_View', {
     },
     controller: 'BaoCaoNS_ViewController',
     reference: 'BaoCaoNS_View',
+    features: [{
+        ftype: 'summary',
+        dock: 'top'
+    }],
     viewConfig: {
         stripeRows: false,
         columnLines: true,
@@ -48,7 +52,9 @@ Ext.define('GSmartApp.view.baocao_ns.BaoCaoNS_View', {
                 }
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
-            }
+            },
+            summaryType: 'sum',
+            summaryRenderer: 'renderSum',
         },
         {
             text: 'Số có mặt',
@@ -63,7 +69,9 @@ Ext.define('GSmartApp.view.baocao_ns.BaoCaoNS_View', {
                 }
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
-            }
+            },
+            summaryType: 'sum',
+            summaryRenderer: 'renderSum',
         },
         {
             text: 'Nghỉ phép',
@@ -78,7 +86,9 @@ Ext.define('GSmartApp.view.baocao_ns.BaoCaoNS_View', {
                 }
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
-            }
+            },
+            summaryType: 'sum',
+            summaryRenderer: 'renderSum',
         },
         {
             text: 'Không phép',
@@ -93,7 +103,9 @@ Ext.define('GSmartApp.view.baocao_ns.BaoCaoNS_View', {
                 }
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
-            }
+            },
+            summaryType: 'sum',
+            summaryRenderer: 'renderSum',
         },
         {
             text: 'Cách ly',
@@ -108,7 +120,9 @@ Ext.define('GSmartApp.view.baocao_ns.BaoCaoNS_View', {
                 }
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
-            }
+            },
+            summaryType: 'sum',
+            summaryRenderer: 'renderSum',
         },
         {
             text: 'Khác',
@@ -123,7 +137,9 @@ Ext.define('GSmartApp.view.baocao_ns.BaoCaoNS_View', {
                 }
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
-            }
+            },
+            summaryType: 'sum',
+            summaryRenderer: 'renderSum',
         },
         // {
         //     text: 'Nghỉ 1/2 ngày',
