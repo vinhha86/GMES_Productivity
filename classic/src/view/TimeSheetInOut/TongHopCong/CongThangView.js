@@ -97,6 +97,9 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
             align: 'right',
             width: 70,
             summaryType: 'sum',
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.00') + '</div>';
+            },
             summaryRenderer: function (value, summaryData, dataIndex) {
                 return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
             }
