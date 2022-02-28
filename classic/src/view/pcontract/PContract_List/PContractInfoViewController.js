@@ -23,6 +23,7 @@ Ext.define('GSmartApp.view.pcontract.PContractInfoViewController', {
         var viewModel = this.getViewModel();
         var pcontractid_link = viewModel.get('pcontractid_link');
 
+        
 
         var select = me.getSelectionModel().getSelection();
         if (select.length == 0) {
@@ -65,6 +66,8 @@ Ext.define('GSmartApp.view.pcontract.PContractInfoViewController', {
         var fileName = "KeHoachSX_" + rec.get('contractcode') + ".xlsx";
         var id = rec.get('id');
 
+        me.setLoading(true);
+
         var params = new Object();
         params.id = pcontractid_link;
         params.product_ids = product_ids;
@@ -72,6 +75,7 @@ Ext.define('GSmartApp.view.pcontract.PContractInfoViewController', {
         GSmartApp.Ajax.post('/api/v1/pcontract/get_TongHopBaoCaoKHSX', Ext.JSON.encode(params),
             function (success, response, options) {
                 var response = Ext.decode(response.responseText);
+                me.setLoading(false);
 				if (success) {
 					if (response.respcode == 200) {
                         console.log('get_TongHopBaoCaoKHSX successed');
