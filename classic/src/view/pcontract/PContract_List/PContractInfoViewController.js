@@ -116,4 +116,27 @@ Ext.define('GSmartApp.view.pcontract.PContractInfoViewController', {
         return bytes;
     },
 
+    onStyleCodeFilterKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var filterField = this.lookupReference('styleCodeFilter');
+        store = viewmodel.getStore('PContractProductTreeStore'),
+            filters = store.getFilters();
+
+        store.filterer = 'bottomup';
+        store.getRoot().expandChildren(true);
+
+        if (filterField.value) {
+            this.codeFilter = filters.add({
+                id: 'codeFilter',
+                property: 'code',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.codeFilter) {
+            filters.remove(this.codeFilter);
+            this.codeFilter = null;
+        }
+    },
 })

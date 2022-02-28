@@ -33,18 +33,18 @@ Ext.define('GSmartApp.view.pcontract.PContractInfo_View', {
             cellWrap: true,
             dataIndex: 'code',
             flex: 1,
-            // items: {
-            //     xtype: 'textfield',
-            //     fieldStyle: "",
-            //     reference: 'styleCodeFilter',
-            //     width: '99%',
-            //     margin: 2,
-            //     enableKeyEvents: true,
-            //     listeners: {
-            //         keyup: 'onStyleCodeFilterKeyup',
-            //         buffer: 500
-            //     }
-            // },
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'styleCodeFilter',
+                width: '99%',
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onStyleCodeFilterKeyup',
+                    buffer: 500
+                }
+            },
             summaryType: 'count',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 metaData.tdAttr = 'data-qtip="' + value + '"';
