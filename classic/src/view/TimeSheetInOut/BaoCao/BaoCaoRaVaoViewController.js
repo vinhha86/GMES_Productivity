@@ -153,14 +153,16 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
             }
         }
         
-        console.log(records);
-        this.onDetail(dataObj, record);
+        // console.log(records);
+        this.onDetail(dataObj, record, cellIndex);
     },
     
-    onDetail: function (dataObj, record) {
+    onDetail: function (dataObj, record, cellIndex) {
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
+
+        var TimeSheetDailyStore = viewModel.getStore('TimeSheetDailyStore');
         
         // popup window
         var form = Ext.create('Ext.window.Window', {
@@ -191,9 +193,98 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
         });
         form.show();
     
-        // form.down('#Shift_List_View').getController().on('Thoat', function () {
-        //     form.close();
-        // });
+        form.down('#BaoCaoRaVaoView_Detail').getController().on('Thoat', function () {
+            form.close();
+        });
+
+        form.down('#BaoCaoRaVaoView_Detail').getController().on('updateSuccessed', function (params) {
+            var personnel_code = record.get('personnel_code');
+            var fullname = record.get('fullname');
+
+            // console.log(params);
+
+            if(params.totalworking_time != null && params.totalworking_time != '' && params.totalworking_time != 'x' && params.totalworking_time  != 'X'){
+                var ls_values = params.totalworking_time.split("/");
+                if (ls_values.length > 1){
+                    var records = TimeSheetDailyStore.queryBy(function(record,id){
+                        return (record.get('personnel_code') == personnel_code && 
+                                record.get('fullname') == fullname &&
+                                record.get('sortvalue') == 0
+                            );
+                    }).items;
+                    if(records.length > 0){
+                        var recToUpdate = records[0];
+                        recToUpdate.set('day'+(cellIndex-2), params.totalworking_time);
+                    }
+                }
+            }
+
+            if(params.in_time != null && params.in_time != '' && params.in_time != 'x' && params.in_time != 'X'){
+                var ls_values = params.in_time.split("/");
+                if (ls_values.length > 1){
+                    var records = TimeSheetDailyStore.queryBy(function(record,id){
+                        return (record.get('personnel_code') == personnel_code && 
+                                record.get('fullname') == fullname &&
+                                record.get('sortvalue') == 1
+                            );
+                    }).items;
+                    if(records.length > 0){
+                        var recToUpdate = records[0];
+                        recToUpdate.set('day'+(cellIndex-2), params.in_time);
+                    }
+                }
+            }
+
+            if(params.out_time != null && params.out_time != '' && params.out_time != 'x' && params.out_time != 'X'){
+                var ls_values = params.out_time.split("/");
+                if (ls_values.length > 1){
+                    var records = TimeSheetDailyStore.queryBy(function(record,id){
+                        return (record.get('personnel_code') == personnel_code && 
+                                record.get('fullname') == fullname &&
+                                record.get('sortvalue') == 4
+                            );
+                    }).items;
+                    if(records.length > 0){
+                        var recToUpdate = records[0];
+                        recToUpdate.set('day'+(cellIndex-2), params.out_time);
+                    }
+                }
+            }
+
+            if(params.lunchstart_time != null && params.lunchstart_time != '' && params.lunchstart_time != 'x' && params.lunchstart_time != 'X'){
+                var ls_values = params.lunchstart_time.split("/");
+                if (ls_values.length > 1){
+                    var records = TimeSheetDailyStore.queryBy(function(record,id){
+                        return (record.get('personnel_code') == personnel_code && 
+                                record.get('fullname') == fullname &&
+                                record.get('sortvalue') == 2
+                            );
+                    }).items;
+                    if(records.length > 0){
+                        var recToUpdate = records[0];
+                        recToUpdate.set('day'+(cellIndex-2), params.lunchstart_time);
+                    }
+                }
+            }
+
+            if(params.lunchend_time != null && params.lunchend_time != '' && params.lunchend_time != 'x' && params.lunchend_time != 'X'){
+                var ls_values = params.lunchend_time.split("/");
+                if (ls_values.length > 1){
+                    var records = TimeSheetDailyStore.queryBy(function(record,id){
+                        return (record.get('personnel_code') == personnel_code && 
+                                record.get('fullname') == fullname &&
+                                record.get('sortvalue') == 3
+                            );
+                    }).items;
+                    if(records.length > 0){
+                        var recToUpdate = records[0];
+                        recToUpdate.set('day'+(cellIndex-2), params.lunchend_time);
+                    }
+                }
+            }
+            
+            form.close();
+        });
     },
 
     onCodeFilter: function () {

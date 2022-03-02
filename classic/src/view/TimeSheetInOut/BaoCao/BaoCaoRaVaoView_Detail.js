@@ -80,6 +80,13 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView_Detail', {
                     itemId:'btnSelect',
                     iconCls: 'x-fa fa-save',
                 },
+                // {
+                //     xtype:'button',
+                //     text: 'Test',
+                //     margin: 3,
+                //     itemId:'btnTest',
+                //     iconCls: 'x-fa fa-save',
+                // },
             ]
         }
     ],
