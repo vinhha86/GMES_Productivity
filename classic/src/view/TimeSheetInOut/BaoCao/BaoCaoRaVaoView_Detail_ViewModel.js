@@ -47,6 +47,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView_Detail_ViewMode
             }
 
             return '';
-        }
+        },
+        // isBtnSelectDisable: function(get){
+        //     if (get('dataObj') != null){
+        //         var dataObj = get('dataObj');
+        //         if(
+        //             dataObj.in_time == null || dataObj.in_time == '' || 
+        //             dataObj.out_time == null || dataObj.out_time == '' || 
+        //             dataObj.lunchstart_time == null || dataObj.lunchstart_time == '' || 
+        //             dataObj.lunchend_time == null || dataObj.lunchend_time == ''
+        //             ){
+        //                 return true;
+        //         }
+        //         return false;
+        //     }
+        // },
     }
 })

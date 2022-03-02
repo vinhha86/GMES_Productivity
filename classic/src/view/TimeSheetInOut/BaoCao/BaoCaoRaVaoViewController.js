@@ -203,7 +203,19 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
 
             // console.log(params);
 
-            if(params.totalworking_time != null && params.totalworking_time != '' && params.totalworking_time != 'x' && params.totalworking_time  != 'X'){
+            if(params.totalworking_time == null || params.totalworking_time == ''){
+                var records = TimeSheetDailyStore.queryBy(function(record,id){
+                    return (record.get('personnel_code') == personnel_code && 
+                            record.get('fullname') == fullname &&
+                            record.get('sortvalue') == 0
+                        );
+                }).items;
+                if(records.length > 0){
+                    var recToUpdate = records[0];
+                    recToUpdate.set('day'+(cellIndex-2), params.totalworking_time);
+                }
+            }else
+            if(params.totalworking_time != 'x' && params.totalworking_time  != 'X'){
                 var ls_values = params.totalworking_time.split("/");
                 if (ls_values.length > 1){
                     var records = TimeSheetDailyStore.queryBy(function(record,id){
