@@ -1,6 +1,7 @@
 Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
     extend: 'Ext.grid.Panel',
     xtype: 'BaoCaoRaVaoView',
+    itemId: 'BaoCaoRaVaoView',
 
     viewModel: {
         type: 'BaoCaoRaVaoViewModel'

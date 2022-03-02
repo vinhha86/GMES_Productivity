@@ -17,6 +17,9 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
 
     },
     control: {
+        '#BaoCaoRaVaoView': {
+            celldblclick: 'onCelldblclick'
+        },
         '#cmbDonVi': {
             select: 'onSelectDonVi'
         }
@@ -61,6 +64,138 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
         var store = viewmodel.getStore('TimeSheetDailyStore');
         store.loadStore(month, year, orgid_link, grantid_link, personnel_code);
     },
+    
+    onCelldblclick: function(view, td, cellIndex, record, tr, rowIndex, e, eOpts){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+    
+        var TimeSheetDailyStore = viewModel.getStore('TimeSheetDailyStore');
+    
+        if(cellIndex < 3){ // chua den cac cot day
+            return;
+        }
+    
+        // console.log(view);
+        // console.log(cellIndex); // col number start at 0
+        // console.log(rowIndex); // row number start at 0
+        // console.log(record);
+        // console.log(e);
+    
+        var dataObj = new Object();
+        dataObj.row_day = view.grid.columns[cellIndex].text;
+        dataObj.row_month = record.get('month');
+        dataObj.row_year = record.get('year');
+    
+        dataObj.in_time;//Thời gian check-in trong ngày (sớm nhất)
+        dataObj.out_time;//Thời gian check-out trong ngày (muộn nhất)
+        dataObj.lunchstart_time;//Thời giat bắt đầu ăn trưa
+        dataObj.lunchend_time;//Thời gian kết thúc ăn trưa
+        dataObj.totalworking_time;//Tổng thời gian 
+        
+        dataObj.in_time_rowid;
+        dataObj.out_rowid;
+        dataObj.lunchstart_rowid;
+        dataObj.lunchend_rowid;
+        dataObj.totalworking_time_rowid;
+    
+        var personnel_code = record.get('personnel_code');
+        var fullname = record.get('fullname');
+    
+        var records = TimeSheetDailyStore.queryBy(function(record,id){
+            return (record.get('personnel_code') == personnel_code && 
+                    record.get('fullname') == fullname
+                );
+        }).items;
+        for(var i=0;i<records.length;i++){
+            var sortvalue = records[i].get('sortvalue');
+            switch(sortvalue){
+                case 0:
+                    dataObj.totalworking_time = records[i].data['day'+(cellIndex-2)];
+                    dataObj.totalworking_time_rowid = records[i].data.id;
+                    break;
+                case 1:
+                    dataObj.in_time = records[i].data['day'+(cellIndex-2)];
+                    dataObj.in_time_rowid = records[i].data.id;
+                    if(dataObj.in_time == null || dataObj.in_time == '' || dataObj.in_time == 'x' || dataObj.in_time == 'X'){
+                        dataObj.in_time_editable = true;
+                    }else{
+                        dataObj.in_time_editable = false;
+                    }
+                    break;
+                case 2:
+                    dataObj.lunchstart_time = records[i].data['day'+(cellIndex-2)];
+                    dataObj.lunchstart_rowid = records[i].data.id;
+                    if(dataObj.lunchstart_time == null || dataObj.lunchstart_time == '' || dataObj.lunchstart_time == 'x' || dataObj.lunchstart_time == 'X'){
+                        dataObj.lunchstart_time_editable = true;
+                    }else{
+                        dataObj.lunchstart_time_editable = false;
+                    }
+                    break;
+                case 3:
+                    dataObj.lunchend_time = records[i].data['day'+(cellIndex-2)];
+                    dataObj.lunchend_rowid = records[i].data.id;
+                    if(dataObj.lunchend_time == null || dataObj.lunchend_time == '' || dataObj.lunchend_time == 'x' || dataObj.lunchend_time == 'X'){
+                        dataObj.lunchend_time_editable = true;
+                    }else{
+                        dataObj.lunchend_time_editable = false;
+                    }
+                    break;
+                case 4:
+                    dataObj.out_time = records[i].data['day'+(cellIndex-2)];
+                    dataObj.out_rowid = records[i].data.id;
+                    if(dataObj.out_time == null || dataObj.out_time == '' || dataObj.out_time == 'x' || dataObj.out_time == 'X'){
+                        dataObj.out_time_editable = true;
+                    }else{
+                        dataObj.out_time_editable = false;
+                    }
+                    break;
+            }
+        }
+        
+        console.log(records);
+        this.onDetail(dataObj, record);
+    },
+    
+    onDetail: function (dataObj, record) {
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        
+        // popup window
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: record.get('fullname') + ': ' + dataObj.row_day + '/' + dataObj.row_month + '/' + dataObj.row_year,
+            closeAction: 'destroy',
+            // height: Ext.getBody().getViewSize().height * .95,
+            // width: Ext.getBody().getViewSize().width * .95,
+            height: 300,
+            width: 300,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'BaoCaoRaVaoView_Detail',
+                viewModel: {
+                    data: {
+                        dataObj: dataObj,
+                        record: record,
+                    }
+                }
+            }],
+        });
+        form.show();
+    
+        // form.down('#Shift_List_View').getController().on('Thoat', function () {
+        //     form.close();
+        // });
+    },
+
     onCodeFilter: function () {
         var filterField = this.lookupReference('CodeFilter'),
             filters = this.getView().store.getFilters();
