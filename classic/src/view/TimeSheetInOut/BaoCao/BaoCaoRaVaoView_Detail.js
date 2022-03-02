@@ -26,7 +26,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView_Detail', {
             labelWidth: 110,
             bind:{
                 value : '{dataObj.in_time}',
-                editable: '{dataObj.in_time_editable}'
+                // editable: '{dataObj.in_time_editable}'
             },
         },
         {
@@ -36,7 +36,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView_Detail', {
             labelWidth: 110,
             bind:{
                 value : '{dataObj.lunchstart_time}',
-                editable: '{dataObj.lunchstart_time_editable}'
+                // editable: '{dataObj.lunchstart_time_editable}'
             },
         },
         {
@@ -46,7 +46,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView_Detail', {
             labelWidth: 110,
             bind:{
                 value : '{dataObj.lunchend_time}',
-                editable: '{dataObj.lunchend_time_editable}'
+                // editable: '{dataObj.lunchend_time_editable}'
             },
         },
         {
