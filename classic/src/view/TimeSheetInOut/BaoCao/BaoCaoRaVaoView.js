@@ -82,16 +82,17 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
                 data_source = 0;
                 if (value != ""){
                     ls_values = value.split("/");
-                    if (ls_values.size > 1){
+                    if (ls_values.length > 1){
                         value = ls_values[0];
                         data_source = ls_values[1];
+                        
                     } else
                         value = ls_values[0];
                 }
                 if (data_source == 0)
                     return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
                 else
-                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;    
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -100,7 +101,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day2',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -109,7 +123,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day3',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -118,7 +145,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day4',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -127,7 +167,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day5',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -136,7 +189,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day6',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -145,7 +211,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day7',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -157,16 +236,17 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
                 data_source = 0;
                 if (value != ""){
                     ls_values = value.split("/");
-                    if (ls_values.size > 1){
+                    if (ls_values.length > 1){
                         value = ls_values[0];
                         data_source = ls_values[1];
+                        
                     } else
                         value = ls_values[0];
                 }
                 if (data_source == 0)
                     return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
                 else
-                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;  
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -175,7 +255,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day9',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -184,7 +277,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day10',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -193,7 +299,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day11',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -202,7 +321,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day12',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -211,7 +343,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day13',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -220,7 +365,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day14',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -229,7 +387,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day15',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -238,7 +409,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day16',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -247,7 +431,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day17',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -256,7 +453,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day18',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -265,7 +475,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day19',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -274,7 +497,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day20',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -283,7 +519,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day21',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -292,7 +541,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day22',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -301,7 +563,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day23',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -310,7 +585,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day24',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -319,7 +607,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day25',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -328,7 +629,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day26',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -337,7 +651,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day27',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -346,7 +673,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day28',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -355,7 +695,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day29',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -364,7 +717,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day30',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         },
         {
@@ -373,7 +739,20 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day31',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.length > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                        
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : '<div style="background-color:yellow;">' + value + "</div>";    
             }
         }
     ],
