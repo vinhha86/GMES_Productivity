@@ -16,13 +16,14 @@ Ext.define('GSmartApp.store.TimeSheetInOut.TimeSheetDailyStore', {
         property: 'sortvalue',
         direction: 'ASC'
     }],
-    loadStore: function (month, year, orgid_link, grantid_link) {
+    loadStore: function (month, year, orgid_link, grantid_link, personnel_code) {
         grantid_link = grantid_link == null ? 0 : grantid_link;
         var params = new Object();
         params.month = month;
         params.year = year;
         params.orgid_link = orgid_link;
         params.grantid_link = grantid_link;
+        params.personnel_code = personnel_code;
 
         this.setProxy({
             type: 'ajax',

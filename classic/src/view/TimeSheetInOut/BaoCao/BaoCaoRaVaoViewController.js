@@ -56,9 +56,10 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
         var year = viewmodel.get('timesheetdaily.year');
         var orgid_link = viewmodel.get('timesheetdaily.orgid_link');
         var grantid_link = viewmodel.get('timesheetdaily.grantid_link');
+        var personnel_code = viewmodel.get('timesheetdaily.personnel_code');
 
         var store = viewmodel.getStore('TimeSheetDailyStore');
-        store.loadStore(month, year, orgid_link, grantid_link);
+        store.loadStore(month, year, orgid_link, grantid_link, personnel_code);
     },
     onCodeFilter: function () {
         var filterField = this.lookupReference('CodeFilter'),
@@ -127,6 +128,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
         params.year = viewmodel.get('timesheetdaily.year');
         params.orgid_link = viewmodel.get('timesheetdaily.orgid_link');
         params.grantid_link = viewmodel.get('timesheetdaily.grantid_link');
+        params.personnel_code = viewmodel.get('timesheetdaily.personnel_code');
 
         if (null != params.grantid_link){
             grid.setLoading("Đang tính dữ liệu");

@@ -10,6 +10,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
     viewConfig: {
         columnLines: true,
         rowLines: true,
+        stripeRows: false,
         getRowClass: function (record, index) {
             if (record.data.sortvalue == 0) {
                 return "po_accept";
@@ -30,8 +31,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             }
         },
         {
-            text: "Mã nhân viên",
-            width: 120,
+            text: "Mã NV",
+            width: 80,
             dataIndex: 'personnel_code',
             items: {
                 xtype: 'textfield',
@@ -77,7 +78,19 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day1',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.size > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;    
             }
         },
         {
@@ -140,7 +153,19 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day8',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
-                return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                data_source = 0;
+                if (value != ""){
+                    ls_values = value.split("/");
+                    if (ls_values.size > 1){
+                        value = ls_values[0];
+                        data_source = ls_values[1];
+                    } else
+                        value = ls_values[0];
+                }
+                if (data_source == 0)
+                    return record.data.sortvalue == 0 ? '<div style="font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;
+                else
+                    return record.data.sortvalue == 0 ? '<div style="background-color:yellow; font-weight: bold; color:darkred; text-decoration: underline;">' + value + "</div>" : value;  
             }
         },
         {
@@ -394,8 +419,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
                     displayField: 'name',
                     valueField: 'id',
                     margin: 5,
-                    labelWidth: 50,
-                    width: 150
+                    labelWidth: 45,
+                    width: 120
                 },
                 {
                     xtype: 'combo',
@@ -407,8 +432,18 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
                     displayField: 'name',
                     valueField: 'id',
                     margin: 5,
-                    labelWidth: 50,
-                    width: 150
+                    labelWidth: 40,
+                    width: 130
+                },
+                {
+                    xtype: 'textfield',
+                    clearable: true,
+                    emptyText: 'Mã NV',
+                    margin: 5,
+                    width: 100,
+                    bind: {
+                        value: '{timesheetdaily.personnel_code}'
+                    }
                 },
                 {
                     xtype: 'button',

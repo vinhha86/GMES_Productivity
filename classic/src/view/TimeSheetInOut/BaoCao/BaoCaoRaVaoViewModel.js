@@ -53,7 +53,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewModel', {
     data: {
         timesheetdaily: {
             year: new Date().getFullYear(),
-            month: (new Date().getMonth()) + 1
+            month: (new Date().getMonth()) + 1,
+            personnel_code: ""
         }
     }
 })

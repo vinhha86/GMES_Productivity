@@ -25,7 +25,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
     columns: [
         {
             text: 'STT',
-            width: 50,
+            width: 60,
             xtype: 'rownumberer'
         },
         {
@@ -160,7 +160,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
         {
             text: 'Nghỉ',
             align: 'right',
-            columns: [{
+            columns: [
+            {
                 text: 'Ốm',
                 dataIndex: 'nghi_om',
                 align: 'right',
@@ -168,10 +169,14 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                 menuDisabled: true,
                 width: 70,
                 summaryType: 'sum',
+                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+                },
                 summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
+                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
                 }
-            }, {
+            }, 
+            {
                 text: 'TS',
                 dataIndex: 'nghi_thaisan',
                 align: 'right',
@@ -179,10 +184,14 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                 menuDisabled: true,
                 width: 70,
                 summaryType: 'sum',
+                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+                },
                 summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
+                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
                 }
-            }, {
+            }, 
+            {
                 text: 'T.nạn',
                 dataIndex: 'nghi_tainan',
                 align: 'right',
@@ -190,10 +199,14 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                 menuDisabled: true,
                 width: 70,
                 summaryType: 'sum',
+                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+                },
                 summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
+                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
                 }
-            }, {
+            }, 
+            {
                 text: 'Lễ',
                 dataIndex: 'nghi_le',
                 align: 'right',
@@ -201,10 +214,14 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                 menuDisabled: true,
                 width: 70,
                 summaryType: 'sum',
+                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+                },
                 summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
+                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
                 }
-            }, {
+            }, 
+            {
                 text: 'Ko Lương',
                 dataIndex: 'nghi_khongluong',
                 align: 'right',
@@ -212,10 +229,14 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                 menuDisabled: true,
                 width: 75,
                 summaryType: 'sum',
+                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+                },
                 summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
+                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
                 }
-            }, {
+            }, 
+            {
                 text: 'Phép',
                 dataIndex: 'nghi_phep',
                 align: 'right',
@@ -223,10 +244,14 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                 menuDisabled: true,
                 width: 70,
                 summaryType: 'sum',
+                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+                },
                 summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
+                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
                 }
-            }, {
+            }, 
+            {
                 text: 'H.tập',
                 dataIndex: 'nghi_hoctap',
                 align: 'right',
@@ -234,10 +259,14 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                 menuDisabled: true,
                 width: 70,
                 summaryType: 'sum',
+                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+                },
                 summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
+                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
                 }
-            }, {
+            }, 
+            {
                 text: 'Văn nghệ',
                 dataIndex: 'nghi_vannghe',
                 align: 'right',
@@ -245,10 +274,14 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                 menuDisabled: true,
                 width: 70,
                 summaryType: 'sum',
+                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+                },
                 summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
+                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
                 }
-            }, {
+            }, 
+            {
                 text: 'Bù',
                 dataIndex: 'nghi_bu',
                 align: 'right',
@@ -256,10 +289,14 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                 menuDisabled: true,
                 width: 70,
                 summaryType: 'sum',
+                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+                },
                 summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
+                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
                 }
-            }, {
+            }, 
+            {
                 text: 'Chờ việc',
                 dataIndex: 'nghi_choviec',
                 align: 'right',
@@ -267,10 +304,14 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                 menuDisabled: true,
                 width: 70,
                 summaryType: 'sum',
+                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+                },
                 summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
+                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
                 }
-            }, {
+            }, 
+            {
                 text: 'C.tác',
                 dataIndex: 'nghi_congtac',
                 align: 'right',
@@ -278,10 +319,14 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                 menuDisabled: true,
                 width: 70,
                 summaryType: 'sum',
+                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+                },
                 summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
+                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
                 }
-            }, {
+            },
+            {
                 text: 'Tự do',
                 dataIndex: 'nghi_tudo',
                 align: 'right',
@@ -289,10 +334,14 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                 menuDisabled: true,
                 width: 70,
                 summaryType: 'sum',
+                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+                },
                 summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
+                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
                 }
-            }, {
+            }, 
+            {
                 text: 'Việc CN',
                 dataIndex: 'nghi_viecrieng',
                 align: 'right',
@@ -300,10 +349,14 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                 menuDisabled: true,
                 width: 70,
                 summaryType: 'sum',
+                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+                },
                 summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
+                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
                 }
-            }, {
+            }, 
+            {
                 text: 'Ko phép',
                 dataIndex: 'nghi_khongphep',
                 align: 'right',
@@ -311,10 +364,14 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                 menuDisabled: true,
                 width: 70,
                 summaryType: 'sum',
+                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+                },
                 summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
+                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
                 }
-            }, {
+            }, 
+            {
                 text: 'Cách ly',
                 dataIndex: 'nghi_cachly',
                 align: 'right',
@@ -322,8 +379,11 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                 menuDisabled: true,
                 width: 70,
                 summaryType: 'sum',
+                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+                },
                 summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
+                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
                 }
             }]
         }
