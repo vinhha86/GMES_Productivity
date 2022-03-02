@@ -228,7 +228,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView_Detail_Controll
                     // console.log('failed');
                     Ext.Msg.show({
                         title: 'Thông báo',
-                        msg: 'Cập nhật thất bại',
+                        msg: response.message,
                         buttons: Ext.MessageBox.YES,
                         buttonText: {
                             yes: 'Đóng',
