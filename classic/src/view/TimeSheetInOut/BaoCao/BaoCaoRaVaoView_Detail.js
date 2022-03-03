@@ -27,7 +27,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView_Detail', {
             labelWidth: 110,
             maskRe: /[0-9x:]/,
             allowBlank: false,
-            blankText: 'Không được để trống',
+            blankText: 'Không được để trống, điền x nếu không có thông tin giờ',
             bind:{
                 value : '{dataObj.in_time}',
                 // editable: '{dataObj.in_time_editable}'
@@ -40,7 +40,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView_Detail', {
             labelWidth: 110,
             maskRe: /[0-9x:]/,
             allowBlank: false,
-            blankText: 'Không được để trống',
+            blankText: 'Không được để trống, điền x nếu không có thông tin giờ',
             bind:{
                 value : '{dataObj.lunchstart_time}',
                 // editable: '{dataObj.lunchstart_time_editable}'
@@ -53,7 +53,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView_Detail', {
             labelWidth: 110,
             maskRe: /[0-9x:]/,
             allowBlank: false,
-            blankText: 'Không được để trống',
+            blankText: 'Không được để trống, điền x nếu không có thông tin giờ',
             bind:{
                 value : '{dataObj.lunchend_time}',
                 // editable: '{dataObj.lunchend_time_editable}'
@@ -66,7 +66,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView_Detail', {
             labelWidth: 110,
             maskRe: /[0-9x:]/,
             allowBlank: false,
-            blankText: 'Không được để trống',
+            blankText: 'Không được để trống, điền x nếu không có thông tin giờ',
             // validator: function(v) {
             //     return /PE[0-9]{3}\.[0-9]{3}/.test(v)? true : 'Entered text must be of the form PExxx.xxx, where x represent digits 0-9.';
             // },

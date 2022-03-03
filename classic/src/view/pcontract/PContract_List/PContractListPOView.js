@@ -3,7 +3,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
     xtype: 'PContractListPOView',
     id: 'PContractListPOView',
     requires: [
-        'Ext.ProgressBarWidget'
+        'Ext.ProgressBarWidget',
+		'Ext.grid.plugin.Exporter',
     ],
     controller: 'PContractListPOViewController',
     reference: 'PContractListPOView',
@@ -13,14 +14,16 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         rowLines: true
     },
     
-    plugins: {
-        cellediting: {
-            clicksToEdit: 1,
-            listeners: {
-                edit: 'onEdit'
-            }
+    plugins: [{
+        ptype: 'cellediting',
+        clicksToEdit: 1,
+        listeners: {
+            edit: 'onEdit'
         }
-    },
+    },{
+        ptype: 'gridexporter',
+        // gridexporter: true
+    }],
 
     bind: {
         store: '{PContractPOList}'
@@ -315,8 +318,15 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
                 labelWidth: 0,
                 value: ' Danh sách PO Line (Nhịp giao hàng kế hoạch)'
             },
-                '->'
-                ,
+            '->'
+            ,
+            {
+                xtype: 'button',
+                itemId: 'btnPrint',
+                ui: 'header',
+                tooltip: 'Xuất Excel danh sách PO Line',
+                iconCls: 'x-fa fa-download',
+            },
             {
                 xtype: 'button',
                 itemId: 'btnEditAllLine',
@@ -352,10 +362,9 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
                     + '<div class="color-square po_cancel"></div>&nbspĐã hủy'
                     + '</div>',
                 margin: '5'
-            }]
+            },]
         }]
-    }
-    ],
+    }],
 
 });
 

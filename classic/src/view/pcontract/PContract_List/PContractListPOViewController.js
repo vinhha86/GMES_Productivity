@@ -2,6 +2,9 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOViewController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.PContractListPOViewController',
     isActivate: false,
+    requires: [
+        'Ext.exporter.excel.Xlsx'
+    ],
     control: {
         'PContractListPOView': {
             itemdblclick: 'onPOSelect'
@@ -15,6 +18,9 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOViewController', {
 		'#btnMoRong': {
 			click: 'onhiddenMaster'
 		},
+        '#btnPrint': {
+            click: 'onPrint'
+        },
     },
     onhiddenMaster: function () {
 		var viewModel = this.getViewModel();
@@ -239,4 +245,33 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOViewController', {
             }
         })
     },
+
+    onPrint: function (btn) {
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+		// var cfg = Ext.merge({
+		// 	title: 'Grid export demo',
+		// 	fileName: 'GridExport' + '.' + (btn.cfg.ext || btn.cfg.type)
+		// }, btn.cfg);
+
+		// this.getView().saveDocumentAs(cfg);
+
+        me.saveDocumentAs({
+            type: 'excel', // exporter alias
+            title: 'Danh sách PO Line',
+            showSummary: true,
+            includeGroups: true,
+            fileName: 'DsPOLine.xlsx'
+        });
+	},
+	onBeforeDocumentSave: function (view) {
+		view.mask({
+			xtype: 'loadmask',
+			message: 'Document is prepared for export. Please wait ...'
+		});
+	},
+	onDocumentSave: function (view) {
+		view.unmask();
+	},
 })
