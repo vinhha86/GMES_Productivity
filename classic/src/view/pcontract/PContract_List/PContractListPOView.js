@@ -55,7 +55,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
                 metaData.tdAttr = 'data-qtip="PO đã hủy"';
             }
             return value;
-        }
+        },
+        // exportRenderer: true
     }, {
         text: 'Mã SP (Buyer)',
         dataIndex: 'productbuyercode',
@@ -77,7 +78,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
                 keyup: 'onBuyerCodeFilterKeyup',
                 buffer: 500
             }
-        }
+        },
+        // exportRenderer: true
     },
     {
         text: 'SL',
@@ -93,7 +95,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         },
         summaryRenderer: function (value, summaryData, dataIndex) {
             return '<div style="color:red; font-size:9px; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
-        }
+        },
+        // exportRenderer: true
     }, {
         text: 'ĐVT',
         dataIndex: 'totalpair',
@@ -102,7 +105,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         menuDisabled: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 1 ? "Chiếc" : "Bộ (" + value + ")";
-        }
+        },
+        exportRenderer: true
     }, {
         text: 'SL SP',
         align: 'right',
@@ -117,7 +121,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         },
         summaryRenderer: function (value, summaryData, dataIndex) {
             return '<div style="color:red; font-size:9px; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
-        }
+        },
+        // exportRenderer: true
     }, 
     // {
     //     text: 'Ngày giao',
@@ -155,7 +160,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
                 keyup: 'onNgayGiaoStringFilterKeyup',
                 buffer: 500
             }
-        }
+        },
+        exportRenderer: true
     },
     {
         text: 'Ngày NPL',
@@ -164,6 +170,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         width: 80,
         sortable: false,
         menuDisabled: true,
+        exportRenderer: true
     },
     {
         text: 'Ngày VC',
@@ -172,6 +179,7 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         width: 70,
         sortable: false,
         menuDisabled: true,
+        exportRenderer: true
     },
     // {
     //     text:'Số ngày SX',
@@ -200,7 +208,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
                 keyup: 'onPhanXuongFilterKeyup',
                 buffer: 500
             }
-        }
+        },
+        // exportRenderer: true
     },
     // {
     //     text: 'Phụ trách',
@@ -274,7 +283,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
                 keyup: 'onPhuTrachFilterKeyup',
                 buffer: 500
             }
-        }
+        },
+        exportRenderer: true
     },
     {
         text: 'FOB',
@@ -285,7 +295,8 @@ Ext.define('GSmartApp.view.pcontract.PContractListPOView', {
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
-        }
+        },
+        // exportRenderer: true
     }
     ],
     dockedItems: [{
