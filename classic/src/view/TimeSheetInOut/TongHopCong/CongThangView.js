@@ -48,7 +48,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
         },
         {
             text: "Tên nhân viên",
-            width: 150,
+            // width: 150,
+            flex:1,
             dataIndex: 'fullname',
             items: {
                 xtype: 'textfield',
@@ -176,51 +177,51 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                     return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
                 }
             }, 
-            {
-                text: 'TS',
-                dataIndex: 'nghi_thaisan',
-                align: 'right',
-                sortable: false,
-                menuDisabled: true,
-                width: 70,
-                summaryType: 'sum',
-                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
-                },
-                summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
-                }
-            }, 
-            {
-                text: 'T.nạn',
-                dataIndex: 'nghi_tainan',
-                align: 'right',
-                sortable: false,
-                menuDisabled: true,
-                width: 70,
-                summaryType: 'sum',
-                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
-                },
-                summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
-                }
-            }, 
-            {
-                text: 'Lễ',
-                dataIndex: 'nghi_le',
-                align: 'right',
-                sortable: false,
-                menuDisabled: true,
-                width: 70,
-                summaryType: 'sum',
-                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
-                },
-                summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
-                }
-            }, 
+            // {
+            //     text: 'TS',
+            //     dataIndex: 'nghi_thaisan',
+            //     align: 'right',
+            //     sortable: false,
+            //     menuDisabled: true,
+            //     width: 70,
+            //     summaryType: 'sum',
+            //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            //         return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+            //     },
+            //     summaryRenderer: function (value, summaryData, dataIndex) {
+            //         return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+            //     }
+            // }, 
+            // {
+            //     text: 'T.nạn',
+            //     dataIndex: 'nghi_tainan',
+            //     align: 'right',
+            //     sortable: false,
+            //     menuDisabled: true,
+            //     width: 70,
+            //     summaryType: 'sum',
+            //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            //         return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+            //     },
+            //     summaryRenderer: function (value, summaryData, dataIndex) {
+            //         return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+            //     }
+            // }, 
+            // {
+            //     text: 'Lễ',
+            //     dataIndex: 'nghi_le',
+            //     align: 'right',
+            //     sortable: false,
+            //     menuDisabled: true,
+            //     width: 70,
+            //     summaryType: 'sum',
+            //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            //         return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+            //     },
+            //     summaryRenderer: function (value, summaryData, dataIndex) {
+            //         return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+            //     }
+            // }, 
             {
                 text: 'Ko Lương',
                 dataIndex: 'nghi_khongluong',
@@ -251,111 +252,111 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                     return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
                 }
             }, 
-            {
-                text: 'H.tập',
-                dataIndex: 'nghi_hoctap',
-                align: 'right',
-                sortable: false,
-                menuDisabled: true,
-                width: 70,
-                summaryType: 'sum',
-                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
-                },
-                summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
-                }
-            }, 
-            {
-                text: 'Văn nghệ',
-                dataIndex: 'nghi_vannghe',
-                align: 'right',
-                sortable: false,
-                menuDisabled: true,
-                width: 70,
-                summaryType: 'sum',
-                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
-                },
-                summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
-                }
-            }, 
-            {
-                text: 'Bù',
-                dataIndex: 'nghi_bu',
-                align: 'right',
-                sortable: false,
-                menuDisabled: true,
-                width: 70,
-                summaryType: 'sum',
-                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
-                },
-                summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
-                }
-            }, 
-            {
-                text: 'Chờ việc',
-                dataIndex: 'nghi_choviec',
-                align: 'right',
-                sortable: false,
-                menuDisabled: true,
-                width: 70,
-                summaryType: 'sum',
-                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
-                },
-                summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
-                }
-            }, 
-            {
-                text: 'C.tác',
-                dataIndex: 'nghi_congtac',
-                align: 'right',
-                sortable: false,
-                menuDisabled: true,
-                width: 70,
-                summaryType: 'sum',
-                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
-                },
-                summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
-                }
-            },
-            {
-                text: 'Tự do',
-                dataIndex: 'nghi_tudo',
-                align: 'right',
-                sortable: false,
-                menuDisabled: true,
-                width: 70,
-                summaryType: 'sum',
-                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
-                },
-                summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
-                }
-            }, 
-            {
-                text: 'Việc CN',
-                dataIndex: 'nghi_viecrieng',
-                align: 'right',
-                sortable: false,
-                menuDisabled: true,
-                width: 70,
-                summaryType: 'sum',
-                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
-                },
-                summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
-                }
-            }, 
+            // {
+            //     text: 'H.tập',
+            //     dataIndex: 'nghi_hoctap',
+            //     align: 'right',
+            //     sortable: false,
+            //     menuDisabled: true,
+            //     width: 70,
+            //     summaryType: 'sum',
+            //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            //         return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+            //     },
+            //     summaryRenderer: function (value, summaryData, dataIndex) {
+            //         return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+            //     }
+            // }, 
+            // {
+            //     text: 'Văn nghệ',
+            //     dataIndex: 'nghi_vannghe',
+            //     align: 'right',
+            //     sortable: false,
+            //     menuDisabled: true,
+            //     width: 70,
+            //     summaryType: 'sum',
+            //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            //         return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+            //     },
+            //     summaryRenderer: function (value, summaryData, dataIndex) {
+            //         return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+            //     }
+            // }, 
+            // {
+            //     text: 'Bù',
+            //     dataIndex: 'nghi_bu',
+            //     align: 'right',
+            //     sortable: false,
+            //     menuDisabled: true,
+            //     width: 70,
+            //     summaryType: 'sum',
+            //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            //         return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+            //     },
+            //     summaryRenderer: function (value, summaryData, dataIndex) {
+            //         return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+            //     }
+            // }, 
+            // {
+            //     text: 'Chờ việc',
+            //     dataIndex: 'nghi_choviec',
+            //     align: 'right',
+            //     sortable: false,
+            //     menuDisabled: true,
+            //     width: 70,
+            //     summaryType: 'sum',
+            //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            //         return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+            //     },
+            //     summaryRenderer: function (value, summaryData, dataIndex) {
+            //         return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+            //     }
+            // }, 
+            // {
+            //     text: 'C.tác',
+            //     dataIndex: 'nghi_congtac',
+            //     align: 'right',
+            //     sortable: false,
+            //     menuDisabled: true,
+            //     width: 70,
+            //     summaryType: 'sum',
+            //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            //         return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+            //     },
+            //     summaryRenderer: function (value, summaryData, dataIndex) {
+            //         return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+            //     }
+            // },
+            // {
+            //     text: 'Tự do',
+            //     dataIndex: 'nghi_tudo',
+            //     align: 'right',
+            //     sortable: false,
+            //     menuDisabled: true,
+            //     width: 70,
+            //     summaryType: 'sum',
+            //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            //         return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+            //     },
+            //     summaryRenderer: function (value, summaryData, dataIndex) {
+            //         return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+            //     }
+            // }, 
+            // {
+            //     text: 'Việc CN',
+            //     dataIndex: 'nghi_viecrieng',
+            //     align: 'right',
+            //     sortable: false,
+            //     menuDisabled: true,
+            //     width: 70,
+            //     summaryType: 'sum',
+            //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            //         return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+            //     },
+            //     summaryRenderer: function (value, summaryData, dataIndex) {
+            //         return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+            //     }
+            // }, 
             {
                 text: 'Ko phép',
                 dataIndex: 'nghi_khongphep',
@@ -371,21 +372,22 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                     return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
                 }
             }, 
-            {
-                text: 'Cách ly',
-                dataIndex: 'nghi_cachly',
-                align: 'right',
-                sortable: false,
-                menuDisabled: true,
-                width: 70,
-                summaryType: 'sum',
-                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
-                },
-                summaryRenderer: function (value, summaryData, dataIndex) {
-                    return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
-                }
-            }]
+            // {
+            //     text: 'Cách ly',
+            //     dataIndex: 'nghi_cachly',
+            //     align: 'right',
+            //     sortable: false,
+            //     menuDisabled: true,
+            //     width: 70,
+            //     summaryType: 'sum',
+            //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            //         return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+            //     },
+            //     summaryRenderer: function (value, summaryData, dataIndex) {
+            //         return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+            //     }
+            // }
+            ]
         }
     ],
     dockedItems: [
