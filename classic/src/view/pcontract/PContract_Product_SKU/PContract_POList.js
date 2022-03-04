@@ -192,6 +192,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                     allowBlank: false,
                     selectOnFocus: false
                 }
+            },{
+                text: 'PT đóng gói',
+                dataIndex: 'phuongThucDongGoi',
+                width: 85,
+                hideable: false,
+                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                    metaData.tdAttr = 'data-qtip="' + value + '"';
+                    return value;
+                },
             }, {
                 text: 'Ship Mode',
                 dataIndex: 'shipmodeid_link',
