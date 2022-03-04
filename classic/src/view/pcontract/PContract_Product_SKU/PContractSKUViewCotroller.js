@@ -173,6 +173,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
 
     onXoa: function (grid, rowIndex, colIndex) {
         var th = this;
+        var m = this;
         var grid = this.getView();
 
         if (grid.down('#btnThemSKU').hidden) {
@@ -223,6 +224,10 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
 
                                         var storeAtt = viewmodel.getStore('PContractAttValueStore');
                                         storeAtt.loadStore(params.pcontractid_link, viewmodel.get('IdProduct'));
+
+                                        // update sl danh sach po line
+                                        m.updateAmountPoLine(response.poAfterUpdate);
+                                        m.updateAmountPoParent(response.poParentAfterUpdate);
                                     }
                                     else {
                                         Ext.Msg.show({
