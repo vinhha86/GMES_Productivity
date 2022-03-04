@@ -209,6 +209,10 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
             materialid_link: null,
             p_selection_mode: 'SINGLE'
         },
+
+        // tab chi tiet po -> update sl po parent va po line sau update
+        poLine: null,
+        poParent: null,
     },
     formulas: {
         ishidden_addproduct: function (get) {

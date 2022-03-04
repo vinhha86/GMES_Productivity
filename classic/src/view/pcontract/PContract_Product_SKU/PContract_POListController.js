@@ -362,6 +362,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POListController', {
         var grid = this.getView();
 
         var viewModel = this.getViewModel();
+        viewModel.set('poLine', rec);
         viewModel.set('isDisable_btnThemSKU', false);
         viewModel.set('isDisable_btnConfirmSKU', false);
         viewModel.set('pcontract_poid_link', rec.data.id);

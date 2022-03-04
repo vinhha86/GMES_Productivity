@@ -74,6 +74,7 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
         if (e.keyCode == 9) e.stopEvent();
     },
     onEdit: function (editor, context, e) {
+        var m = this;
         var grid = this.getView();
         var viewmodel = this.getViewModel();
         var store = viewmodel.getStore('PContractSKUStore');
@@ -132,11 +133,44 @@ Ext.define('GSmartApp.view.pcontract.PContractSKUViewCotroller', {
                                     column: context.colIdx
                                 });
                             }
+
+                            // update sl danh sach po line
+                            m.updateAmountPoLine(response.poAfterUpdate);
+                            m.updateAmountPoParent(response.poParentAfterUpdate);
                         }
                     }
                 })
         }
     },
+
+    updateAmountPoLine: function(poAfterUpdate){
+        if(poAfterUpdate != null){
+            var viewModel = this.getViewModel();
+            var po_quantity = poAfterUpdate.po_quantity;
+            var poLine = viewModel.get('poLine');
+            if(poLine != null){
+                // console.log(poAfterUpdate);
+                // console.log(poLine);
+                poLine.set('po_quantity', po_quantity);
+            }
+        }
+    },
+    updateAmountPoParent: function(poParentAfterUpdate){
+        if(poParentAfterUpdate != null){
+            var viewModel = this.getViewModel();
+            var po_quantity_difference = poParentAfterUpdate.po_quantity_difference;
+            var PContractPOList = viewModel.getStore('PContractPOList');
+            var records = PContractPOList.queryBy(function(record,id){
+                return (record.get('id') == poParentAfterUpdate.id);
+            }).items;
+            if(records.length > 0){
+                var recToUpdate = records[0]; // po_quantity_difference
+                recToUpdate.set('po_quantity_difference', po_quantity_difference);
+                // console.log(recToUpdate);
+            }
+        }
+    },
+
     onXoa: function (grid, rowIndex, colIndex) {
         var th = this;
         var grid = this.getView();
