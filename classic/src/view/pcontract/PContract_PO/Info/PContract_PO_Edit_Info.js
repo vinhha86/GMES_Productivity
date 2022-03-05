@@ -730,7 +730,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                                     labelAlign: 'left',
                                     labelWidth: 78,
                                     width: '60%',
-                                    margin: 1,
+                                    // margin: 1,
                                     bind: {
                                         value: '{po.productiondays}'
                                     }    
@@ -746,7 +746,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                                     labelAlign: 'left',
                                     labelWidth: 20,
                                     flex: 1,
-                                    margin: 1,
+                                    // margin: 1,
                                     bind: {
                                         value: '{pcontract_po_productivity.productiondays_ns}'
                                     }    
@@ -774,9 +774,22 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             }
                         },
                         {
+                            xtype: 'textfield',
+                            labelStyle: "font-size:11px;padding: 5px 0px 0px 2px;",
+                            fieldStyle: 'font-size:11px;',
+                            fieldLabel: 'Mã phụ:',
+                            labelAlign: 'left',
+                            labelWidth: 78,
+                            flex:1,
                             margin: 1,
-                            flex: 1,
-                        }
+                            bind: {
+                                value: '{po.code_extra}',
+                            }
+                        },
+                        // {
+                        //     margin: 1,
+                        //     flex: 1,
+                        // }
                     ]
                 },
             ]
