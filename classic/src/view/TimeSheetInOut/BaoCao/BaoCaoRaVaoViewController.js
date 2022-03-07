@@ -373,7 +373,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
             resizable: false,
             modal: true,
             border: false,
-            title: 'Chi tiết nghỉ',
+            title: 'Sửa thông tin nghỉ',
             closeAction: 'destroy',
             bodyStyle: 'background-color: transparent',
             layout: {
