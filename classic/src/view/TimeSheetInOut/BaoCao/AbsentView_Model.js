@@ -3,7 +3,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.AbsentView_Model', {
     alias: 'viewmodel.AbsentView_Model',
     requires: [
         'GSmartApp.store.org.ListOrgStore',
-        'GSmartApp.store.org.ListOrgStore'
+        'GSmartApp.store.AbsentTypeStore'
     ],
     stores: {
         AbsentTypeStore: {
