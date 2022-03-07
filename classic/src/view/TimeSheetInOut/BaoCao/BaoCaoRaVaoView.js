@@ -27,6 +27,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             width: 50,
             dataIndex: 'stt',
             align: 'center',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 return record.data.sortvalue == 0 ? value : "";
             }
@@ -35,6 +37,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "Mã NV",
             width: 80,
             dataIndex: 'personnel_code',
+            sortable: false,
+            menuDisabled: true,
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
@@ -56,6 +60,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "Tên nhân viên",
             width: 150,
             dataIndex: 'fullname',
+            sortable: false,
+            menuDisabled: true,
             items: {
                 xtype: 'textfield',
                 fieldStyle: "",
@@ -77,6 +83,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "1",
             width: 50,
             dataIndex: 'day1',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -99,6 +107,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "2",
             width: 50,
             dataIndex: 'day2',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -121,6 +131,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "3",
             width: 50,
             dataIndex: 'day3',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -143,6 +155,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "4",
             width: 50,
             dataIndex: 'day4',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -165,6 +179,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "5",
             width: 50,
             dataIndex: 'day5',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -187,6 +203,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "6",
             width: 50,
             dataIndex: 'day6',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -209,6 +227,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "7",
             width: 50,
             dataIndex: 'day7',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -231,6 +251,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "8",
             width: 50,
             dataIndex: 'day8',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -253,6 +275,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "9",
             width: 50,
             dataIndex: 'day9',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -275,6 +299,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "10",
             width: 50,
             dataIndex: 'day10',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -297,6 +323,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "11",
             width: 50,
             dataIndex: 'day11',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -319,6 +347,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "12",
             width: 50,
             dataIndex: 'day12',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -341,6 +371,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "13",
             width: 50,
             dataIndex: 'day13',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -363,6 +395,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "14",
             width: 50,
             dataIndex: 'day14',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -385,6 +419,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "15",
             width: 50,
             dataIndex: 'day15',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -407,6 +443,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "16",
             width: 50,
             dataIndex: 'day16',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -429,6 +467,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "17",
             width: 50,
             dataIndex: 'day17',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -451,6 +491,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "18",
             width: 50,
             dataIndex: 'day18',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -473,6 +515,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "19",
             width: 50,
             dataIndex: 'day19',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -495,6 +539,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "20",
             width: 50,
             dataIndex: 'day20',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -517,6 +563,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "21",
             width: 50,
             dataIndex: 'day21',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -539,6 +587,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "22",
             width: 50,
             dataIndex: 'day22',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -561,6 +611,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "23",
             width: 50,
             dataIndex: 'day23',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -583,6 +635,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "24",
             width: 50,
             dataIndex: 'day24',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -605,6 +659,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "25",
             width: 50,
             dataIndex: 'day25',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -627,6 +683,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "26",
             width: 50,
             dataIndex: 'day26',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -649,6 +707,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "27",
             width: 50,
             dataIndex: 'day27',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -671,6 +731,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "28",
             width: 50,
             dataIndex: 'day28',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -693,6 +755,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "29",
             width: 50,
             dataIndex: 'day29',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -715,6 +779,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "30",
             width: 50,
             dataIndex: 'day30',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
@@ -737,6 +803,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             text: "31",
             width: 50,
             dataIndex: 'day31',
+            sortable: false,
+            menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;
