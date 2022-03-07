@@ -85,6 +85,9 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
             dataIndex: 'day1',
             sortable: false,
             menuDisabled: true,
+            listeners: {
+                headerclick: 'onHeaderClick'
+            },
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                 value = value == null ? "" : value;
                 data_source = 0;

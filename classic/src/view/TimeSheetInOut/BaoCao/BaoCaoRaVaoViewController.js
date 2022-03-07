@@ -299,6 +299,69 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
         });
     },
 
+    // click on header
+    onHeaderClick: function(header, column, e, t,eOpts){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var timesheetdaily = viewModel.get('timesheetdaily');
+        if(timesheetdaily == null){
+            return;
+        }
+        var orgid_link_phanxuong = timesheetdaily.orgid_link; // id px
+        if(orgid_link_phanxuong == null){
+            return;
+        }
+
+        // console.log(header);
+        // console.log(column);
+        // console.log(e);
+        // console.log(t);
+
+        var day = column.text;
+        var month = timesheetdaily.month;
+        var year = timesheetdaily.year;
+        // return;
+
+        var form = Ext.create('Ext.window.Window', {
+            // height: 200,
+            width: 315,
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Chi tiết nghỉ',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'AbsentView',
+                viewModel: {
+                    data: {
+                        orgid_link_phanxuong: orgid_link_phanxuong,
+                        row_day: day,
+                        row_month: month,
+                        row_year: year,
+                    }
+                }
+            }]
+        });
+        form.show();
+
+		form.down('#AbsentView').getController().on('Thoat', function () {
+            form.close();
+        })
+
+        form.down('#AbsentView').getController().on('LuuThanhCong', function (responseObj) {
+            console.log('LuuThanhCong');
+            // form.close();
+        })
+    },
+
     onCodeFilter: function () {
         var filterField = this.lookupReference('CodeFilter'),
             filters = this.getView().store.getFilters();
