@@ -310,7 +310,15 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
             return;
         }
         var orgid_link_phanxuong = timesheetdaily.orgid_link; // id px
-        if(orgid_link_phanxuong == null){
+        if(orgid_link_phanxuong == null || orgid_link_phanxuong == ''){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn cần chọn phân xưởng',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
             return;
         }
 
@@ -322,6 +330,40 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
         var day = column.text;
         var month = timesheetdaily.month;
         var year = timesheetdaily.year;
+
+        if(day == null || day == ''){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn cần chọn ngày',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
+        if(month == null || month == ''){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn cần chọn tháng',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
+        if(year == null || year == ''){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn cần chọn năm',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
         // return;
 
         var form = Ext.create('Ext.window.Window', {
