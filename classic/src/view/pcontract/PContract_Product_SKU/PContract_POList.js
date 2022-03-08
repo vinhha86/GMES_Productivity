@@ -6,7 +6,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
     controller: 'PContract_POListController',
     viewConfig: {
         stripeRows: false,
-        enableTextSelection: false,
+        enableTextSelection: true,
         columnLines: true,
         rowLines: true,
         listeners: {

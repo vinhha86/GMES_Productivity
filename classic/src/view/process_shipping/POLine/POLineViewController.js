@@ -20,6 +20,9 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         '#btnMap': {
             click: 'onMap'
         },
+        '#btnMapNew': {
+            click: 'onMapNew'
+        },
         '#btnHuyMap': {
             click: 'onHuyMap'
         }
@@ -88,6 +91,97 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                 });
             }
         }
+    },
+    onMapNew: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var select = me.getSelectionModel().getSelection();
+        if (select.length == 0) {
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: 'Bạn chưa chọn line',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+        }
+        else {
+            for (var i = 0; i < select.length; i++) {
+                var check = false;
+                if (select[i].get('ismap')) {
+                    check = true;
+                    Ext.MessageBox.show({
+                        title: "Thông báo",
+                        msg: 'Không được Map line đã được maps vào biểu đồ',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                    break;
+                }
+            }
+            if (!check) {
+                m.showDanhSachLenhKeHoach(select);
+            }
+
+        }
+
+    },
+    showDanhSachLenhKeHoach: function(select){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        if(select.length == 0){
+            return;
+        }
+        var po = select[0];
+        var productbuyercode = po.get('productbuyercode');productid_link
+        var productid_link = po.get('productid_link');
+
+        // console.log(po);
+        // return;
+
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Danh sách lệnh kế hoạch ' + productbuyercode,
+            closeAction: 'destroy',
+            height: 500,
+            width: 600,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'DanhSachLenhKeHoachView',
+                viewModel: {
+                    data: {
+                        productbuyercode: productbuyercode,
+                        productid_link: productid_link,
+                        list_po: select,
+                        // colorid_link: viewModel.get('colorid_link'),
+                        // sizesetid_link: viewModel.get('sizesetid_link')
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#DanhSachLenhKeHoachView').getController().on('Thoat', function () {
+            form.close();
+        })
+
+        // form.down('#DanhSachLenhKeHoachView').getController().on('Thoat', function () {
+        //     form.close();
+        // })
     },
     onMap: function () {
         var grid = this.getView();
