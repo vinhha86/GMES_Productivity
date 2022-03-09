@@ -170,6 +170,43 @@ Ext.define('GSmartApp.store.timesheetshifttypeorg.TimesheetShiftTypeOrgStore', {
 		});
 	},
 
+	getbyorgid_link_caLamViec:function(orgid_link, isHavingNullValue){
+		var me=this;
+        var params = new Object();
+        params.orgid_link = orgid_link;
+        params.isHavingNullValue = isHavingNullValue;
+        // params.is_ca_an = is_ca_an;
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl()+'/api/v1/timesheetshifttypeorg/getbyorgid_link_caLamViec',
+			paramsAsJson:true,
+			extraParams : params,
+			noCache: false,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.loadPage(1,{
+			scope: this,
+			callback: function(records, operation, success) {
+				if(!success){
+					 // this.fireEvent('logout');
+				}
+			}
+		});
+	},
+
     getbyorgid_link_caAn:function(orgid_link, isHavingNullValue){
 		var me=this;
         var params = new Object();

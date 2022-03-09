@@ -35,9 +35,11 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
         var checkboxto = data.checkboxto;
         var timesheet_shift_type_id_link = data.timesheet_shift_type_id_link;
         var is_ca_an = data.is_ca_an
+        var tenLoaiCa = data.tenLoaiCa;
+        var working_shift = data.working_shift;
 
         var title = '';
-        if(is_ca_an){
+        if(tenLoaiCa == 'Ca ăn'){
             title = 'Thông tin ca ăn';
         }else{
             title = 'Thông tin ca làm việc';
@@ -46,7 +48,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
         var viewmodel = this.getViewModel();
         //var me = this.getView();
         var form = Ext.create('Ext.window.Window', {
-            height: 230,
+            // height: 230,
             width: 400,
             closable: true,
             title: title,
@@ -63,19 +65,21 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
                 border: false,
                 xtype: 'TimesheetShiftTypeAddView',
                 viewModel: {
-                    type: 'Salary_MainView_Model',
+                    // type: 'Salary_MainView_Model',
                     data:{
                         TimeShift:{
                             name:name,
-                            timesheet_shift_type_id_link:timesheet_shift_type_id_link
+                            timesheet_shift_type_id_link:timesheet_shift_type_id_link,
+                            working_shift: working_shift,
                         },
-                            id:id,
-                            timefrom: datefrom,
-                            timeto: dateto,
-                            checkboxfrom: checkboxfrom,
-                            checkboxto: checkboxto,
-                            orgid_link:orgid_link,
-                            is_ca_an: is_ca_an,
+                        id:id,
+                        timefrom: datefrom,
+                        timeto: dateto,
+                        checkboxfrom: checkboxfrom,
+                        checkboxto: checkboxto,
+                        orgid_link:orgid_link,
+                        is_ca_an: is_ca_an,
+                        tenLoaiCa: tenLoaiCa,
                     }
                 },
             }]

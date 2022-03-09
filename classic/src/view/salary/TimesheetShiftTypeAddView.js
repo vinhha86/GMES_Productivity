@@ -3,6 +3,9 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddView', {
     xtype: 'TimesheetShiftTypeAddView',
     id:'TimesheetShiftTypeAddView',
     controller:'TimesheetShiftTypeAddViewController',
+    viewModel: {
+        type: 'Salary_MainView_Model',
+    },
     layout: 'vbox',
     items: [{
         layout: 'hbox',
@@ -20,7 +23,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddView', {
                 valueField: 'id',
                 queryMode: 'local',
                 bind: {
-                    store:'TimesheetShiftTypeStore',
+                    store:'{TimesheetShiftTypeStore}',
                     value: '{TimeShift.name}',
                 
                 }
@@ -105,6 +108,42 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddView', {
             // }
         }]
     },
+    {
+        layout: 'hbox',
+        width: '100%',
+        items: [
+            {
+                xtype: 'combobox',
+                margin: 5,
+                fieldLabel: 'Ca làm việc',
+                // reference: 'name',
+                // allowBlank: false,
+                flex:1,
+                labelWidth: 90,
+                displayField: 'name',
+                valueField: 'id',
+                queryMode: 'local',
+                bind: {
+                    store:'{TimesheetShiftTypeStore_LinkCaLamViec}',
+                    value: '{TimeShift.working_shift}',
+                    hidden: '{isLinkCaLamViecHidden}'
+                }
+            },
+            // {
+            //     xtype: 'checkbox',
+            //     reference: 'checkboxcaan',
+            //     fieldLabel: 'Ca ăn',
+            //     margin: 5,
+            //     labelWidth: 70,
+            //     width: 120,
+            //     inputValue:1,
+            //     uncheckedValue:-1,
+            //     // bind: {
+            //     //     value: '{checkboxto}'
+            //     // }
+            // }
+        ]
+    }
    
 ],
     dockedItems:[{

@@ -34,8 +34,11 @@ Ext.define('GSmartApp.view.salary.Salary_MainView_Model', {
             type:'TimesheetShiftTypeOrgStore'
         },
         TimesheetShiftTypeStore:{
-              type:'TimesheetShiftTypeStore'
-          }
+            type:'TimesheetShiftTypeStore'
+        },
+        TimesheetShiftTypeStore_LinkCaLamViec:{
+            type:'TimesheetShiftTypeOrgStore'
+      },
     },
     data: {
         selected_tab: null,
@@ -55,6 +58,19 @@ Ext.define('GSmartApp.view.salary.Salary_MainView_Model', {
             overtime_night: null,
         },
         TimeShift:null,
-        orgid_link:null
+        orgid_link:null,
+        tenLoaiCa: null
+    },
+    formulas: {
+        isLinkCaLamViecHidden: function (get) {
+            if (get('tenLoaiCa') != null) {
+                if (get('tenLoaiCa') == 'Ca ăn'){
+                    return false;
+                }
+                return true;
+            }
+
+            return true;
+        }
     }
 })

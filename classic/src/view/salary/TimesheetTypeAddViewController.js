@@ -13,6 +13,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
             var checkboxfrom = viewModel.get('checkboxfrom');
             var checkboxto = viewModel.get('checkboxto');
             // var is_ca_an = viewModel.get('is_ca_an');
+            var orgid_link = viewModel.get('orgid_link');
 
             var timefromfield = this.lookup('timefrom');
             var timetofield = this.lookup('timeto');
@@ -49,7 +50,10 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
         TimesheetShiftTypeStore.loadStorebyOrgid_link(id);
         // var TimesheetShiftTypeStore = viewmodel.getStore('TimesheetShiftTypeStore');
         // TimesheetShiftTypeStore.loadStore();
-      //  loadStore
+        //  loadStore
+        var TimesheetShiftTypeStore_LinkCaLamViec = viewmodel.getStore('TimesheetShiftTypeStore_LinkCaLamViec');
+        // TimesheetShiftTypeStore_LinkCaLamViec.loadStoreShiftbyOrgid_link(orgid_link);
+        TimesheetShiftTypeStore_LinkCaLamViec.getbyorgid_link_caLamViec(id);
     },
     onThoat: function () {
         this.getView().up('window').close();
@@ -68,6 +72,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
         var orgid = viewModel.get('TimeShift.orgid_link');
 
         var id = viewModel.get('id');
+        var working_shift = viewModel.get('TimeShift.working_shift');
         var timefrom = this.lookup('timefrom');
         var timeto = this.lookup('timeto');
         var checkboxfrom = this.lookup('checkboxfrom');
@@ -83,6 +88,8 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
         params.checkboxto = checkboxto.getValue();
         // params.is_ca_an = checkboxcaanfield.getValue();
         params.orgid_link = orgid == null ? orgid_link : orgid;
+        params.working_shift = working_shift;
+
 
         console.log(params);
         if(!params.orgid_link){
