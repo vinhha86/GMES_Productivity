@@ -63,104 +63,50 @@ Ext.define('GSmartApp.view.process_shipping.POLine.DanhSachLenhKeHoachView_Contr
         var me = this.getView();
         var viewModel = this.getViewModel();
 
-        return;
-
-        var action = viewModel.get('action');
-        if(action == 'confirm'){
-            m.onSelectConfirm();
-        }
-        if(action == 'autoGetInfo'){
-            m.onSelectAutoGetInfo();
-        }
-    },
-    onSelectConfirm: function(){
-        var m = this;
-        var me = this.getView();
-        var viewModel = this.getViewModel();
-
-        var TimesheetShiftTypeOrgStore = viewModel.getStore('TimesheetShiftTypeOrgStore');
         var select = me.getSelectionModel().getSelection();
-        var data = TimesheetShiftTypeOrgStore.getData().items;
-
-        // console.log(select);
-        // console.log(data);
-
-        var unselect = new Array();
-        for(var i = 0; i < data.length; i++){
-            var isSelect = false;
-            for(var j = 0; j < select.length; j++){
-                if(data[i].get('id') == select[j].get('id')){
-                    isSelect = true;
-                    break;
-                }
-            }
-            if(!isSelect){
-                unselect.push(data[i]);
-            }
-        }
-        // console.log(select);
-        // console.log(unselect);
-
-        m.fireEvent('SelectConfirm', select, unselect);
-    },
-    onSelectAutoGetInfo: function(){
-        var m = this;
-        var me = this.getView();
-        var viewModel = this.getViewModel();
-        var date = viewModel.get('date');
-        var orgid_link = viewModel.get('orgid_link');
-        var TimesheetShiftTypeOrgStore = viewModel.getStore('TimesheetShiftTypeOrgStore');
-        var select = me.getSelectionModel().getSelection();
-        if (select.length == 0) {
-            Ext.Msg.show({
-                title: "Thông báo",
-                msg: "Bạn phải chọn ít nhất một ca",
-                buttons: Ext.MessageBox.YES,
-                buttonText: {
-                    yes: 'Đóng',
-                }
-            });
-            return;
+        if(select.length > 0){
+            m.SelectPorderGrant(select);
         }else{
-            // console.log(select);
-            // console.log(date);
-            // console.log(orgid_link);
+            // console.log('not select');
+            m.SelectNoPorderGrant();
+        }
+    },
+    SelectPorderGrant: function(select){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
 
-            var listCa = new Array();
-            for(var i = 0; i < select.length; i++){
-                listCa.push(select[i].data);
-            }
+        var list_po = viewModel.get('list_po');
 
-            var params = new Object();
-            params.date = date;
-            params.orgid_link = orgid_link;
-            params.listCa = listCa;
+        console.log(list_po);
+        console.log(select);
 
-            GSmartApp.Ajax.post('/api/v1/timesheetlunch/getListCheckCaAnAuto', Ext.JSON.encode(params),
+        var pordergrant_id = select[0].get('id');
+        var list_pcontract_po = new Array();
+        for(var i=0; i<list_po.length; i++){
+            list_pcontract_po.push(list_po[i].data);
+        }
+
+        var params = new Object();
+        params.pordergrant_id = pordergrant_id;
+        params.list_pcontract_po = list_pcontract_po;
+        params.colorid_link = viewModel.get('colorid_link') == null ? 0 : viewModel.get('colorid_link');
+        params.sizesetid_link = viewModel.get('sizesetid_link') == null ? 0 : viewModel.get('sizesetid_link');
+
+        GSmartApp.Ajax.post('/api/v1/schedule/create_many_porder_and_grant_byLenhKeHoach', Ext.JSON.encode(params),
             function (success, response, options) {
-                var response = Ext.decode(response.responseText);
                 if (success) {
-                    // console.log(response.data);
-                    m.fireEvent('Select', listCa, response.data);
-                    Ext.Msg.show({
-                        title: 'Thông báo',
-                        msg: 'Lấy thông tin thành công',
-                        buttons: Ext.MessageBox.YES,
-                        buttonText: {
-                            yes: 'Đóng',
-                        }
-                    });
-                } else {
-                    Ext.Msg.show({
-                        title: 'Thông báo',
-                        msg: 'Lấy thông tin thất bại',
-                        buttons: Ext.MessageBox.YES,
-                        buttonText: {
-                            yes: 'Đóng',
-                        }
-                    });
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        // success fire event etc...
+                        console.log('successed');
+                    }
+                }else{
+                    console.log('failed');
                 }
             })
-        }
     },
+    SelectNoPorderGrant: function(){
+        console.log('SelectNoPorderGrant');
+    }
 })

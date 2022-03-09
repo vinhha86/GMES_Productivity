@@ -212,13 +212,14 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineView', {
             text: 'Maps',
             itemId: 'btnMap'
         }, 
-        // {
-        //     xtype: 'button',
-        //     margin: 2,
-        //     iconCls: 'x-fa fas fa-link brownIcon',
-        //     text: 'Maps New',
-        //     itemId: 'btnMapNew'
-        // }, 
+        {
+            xtype: 'button',
+            margin: 2,
+            iconCls: 'x-fa fas fa-link brownIcon',
+            text: 'Maps New',
+            itemId: 'btnMapNew',
+            hidden: true
+        }, 
         {
             xtype: 'button',
             margin: 2,
