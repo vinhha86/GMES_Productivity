@@ -157,7 +157,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
             height: 230,
             width: 400,
             closable: true,
-            title: rec == null ? 'Thêm mới ca làm việc' : 'Cập nhật ca mới làm việc',
+            title: rec == null ? 'Thêm mới ca làm việc/ăn' : 'Cập nhật ca mới làm việc/ăn',
             resizable: false,
             modal: true,
             border: false,
