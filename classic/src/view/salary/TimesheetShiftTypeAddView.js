@@ -63,7 +63,12 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddView', {
             // listeners: {
             //     change: 'onChange'
             // }
-        },{
+        },
+        {
+            margin: 5,
+            width: 120,
+        },
+        {
             xtype: 'checkbox',
             reference: 'checkboxfrom',
             fieldLabel: 'Hôm sau',
@@ -72,6 +77,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddView', {
             width: 120,
             inputValue:1,
             uncheckedValue:-1,
+            hidden: true,
             // bind: {
             //     value: '{checkboxfrom}'
             // },

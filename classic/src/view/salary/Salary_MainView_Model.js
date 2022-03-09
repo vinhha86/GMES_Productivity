@@ -59,7 +59,8 @@ Ext.define('GSmartApp.view.salary.Salary_MainView_Model', {
         },
         TimeShift:null,
         orgid_link:null,
-        tenLoaiCa: null
+        tenLoaiCa: null,
+        is_atnight: null,
     },
     formulas: {
         isLinkCaLamViecHidden: function (get) {

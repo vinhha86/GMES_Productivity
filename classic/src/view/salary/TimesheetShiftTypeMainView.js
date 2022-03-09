@@ -52,7 +52,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainView', {
     },{
         xtype: 'checkcolumn',
         text: 'Hôm sau',
-        dataIndex:'checkboxto',
+        dataIndex:'is_atnight',
         margin: 5,
         labelWidth: 70,
         width: 120,
