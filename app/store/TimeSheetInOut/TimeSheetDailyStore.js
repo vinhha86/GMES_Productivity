@@ -34,6 +34,7 @@ Ext.define('GSmartApp.store.TimeSheetInOut.TimeSheetDailyStore', {
                 destroy: 'POST'
             },
             url: config.getAppBaseUrl() + '/api/v1/timesheetinout/get_daily',
+            timeout: 120000,
             paramsAsJson: true,
             extraParams: params,
             noCache: false,
