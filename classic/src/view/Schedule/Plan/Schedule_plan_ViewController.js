@@ -42,13 +42,25 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
         }
     },
     onAddManyPlan: function (data, orgid_link, orggrantid_link, remove) {
+        // console.log('-----');
+        // console.log(data);
+        // console.log(orgid_link);
+        // console.log(orggrantid_link);
+        // console.log(remove);
+        // console.log('-----');
+
         var view = this.getView().down('#treeplan');
         var store = view.getCrudManager().getEventStore();
         var storeDV = view.getCrudManager().getResourceStore();
         var resourceid = 0;
+
+        // console.log(storeDV.data);
+        // console.log('-----');
+
         //lay id xuogn tu cay don vi
         for (var i = 0; i < storeDV.data.length; i++) {
             var rec = storeDV.data.items[i];
+            // console.log(rec.get('id_origin'));
             if (rec.get('id_origin') == orgid_link) {
                 for (var j = 0; j < rec.get('children').length; j++) {
                     var rec_chil = rec.get('children')[j];
@@ -174,6 +186,9 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             })
     },
     onContextMenu: function (scheduler, eventRecord, e, eOpts) {
+
+        // console.log(eventRecord);
+
         var me = this;
         var schedule = this.getView();
 

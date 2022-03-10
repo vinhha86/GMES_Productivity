@@ -25,7 +25,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         },
         '#btnHuyMap': {
             click: 'onHuyMap'
-        }
+        },
     },
     listen: {
         controller: {
@@ -35,11 +35,11 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         }
     },
     onReload: function () {
-        var viewmodel = this.getViewModel();
-        var productid_link = viewmodel.get('productid_link');
-        var POStore = viewmodel.getStore('POLineStore');
-        var colorid_link = viewmodel.get('colorid_link');
-        var sizesetid_link = viewmodel.get('sizesetid_link');
+        var viewModel = this.getViewModel();
+        var productid_link = viewModel.get('productid_link');
+        var POStore = viewModel.getStore('POLineStore');
+        var colorid_link = viewModel.get('colorid_link');
+        var sizesetid_link = viewModel.get('sizesetid_link');
 
         POStore.getby_shipping(productid_link, colorid_link, sizesetid_link);
     },
@@ -98,6 +98,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         var viewModel = this.getViewModel();
 
         var select = me.getSelectionModel().getSelection();
+        // console.log(select);
         if (select.length == 0) {
             Ext.MessageBox.show({
                 title: "Thông báo",
@@ -179,9 +180,21 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
             form.close();
         })
 
-        // form.down('#DanhSachLenhKeHoachView').getController().on('Thoat', function () {
-        //     form.close();
-        // })
+        form.down('#DanhSachLenhKeHoachView').getController().on('Create', function (data, orgid_link, orggrantid_link, remove) {
+            if (data != null)
+                m.fireEvent('AddManyPlan', data, orgid_link, orggrantid_link, remove);
+            var store = viewModel.getStore('POLineStore');
+            store.load();
+            form.close();
+        })
+
+        form.down('#DanhSachLenhKeHoachView').getController().on('AddManyPlan', function (data, orgid_link, orggrantid_link, remove) {
+            if (data != null)
+                m.fireEvent('AddManyPlan', data, orgid_link, orggrantid_link, remove);
+            var store = viewModel.getStore('POLineStore');
+            store.load();
+            form.close();
+        })
     },
     onMap: function () {
         var grid = this.getView();
@@ -222,55 +235,55 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         }
     },
     onClearFilterDaiCo: function () {
-        var viewmodel = this.getViewModel();
-        viewmodel.set('sizesetid_link', null);
-        var productid_link = viewmodel.get('productid_link');
-        var POStore = viewmodel.getStore('POLineStore');
-        var colorid_link = viewmodel.get('colorid_link');
-        var sizesetid_link = viewmodel.get('sizesetid_link');
+        var viewModel = this.getViewModel();
+        viewModel.set('sizesetid_link', null);
+        var productid_link = viewModel.get('productid_link');
+        var POStore = viewModel.getStore('POLineStore');
+        var colorid_link = viewModel.get('colorid_link');
+        var sizesetid_link = viewModel.get('sizesetid_link');
 
         POStore.getby_shipping(productid_link, colorid_link, sizesetid_link);
     },
     onClearFilter: function () {
-        var viewmodel = this.getViewModel();
-        viewmodel.set('colorid_link', null);
-        var productid_link = viewmodel.get('productid_link');
-        var POStore = viewmodel.getStore('POLineStore');
-        var colorid_link = viewmodel.get('colorid_link');
-        var sizesetid_link = viewmodel.get('sizesetid_link');
+        var viewModel = this.getViewModel();
+        viewModel.set('colorid_link', null);
+        var productid_link = viewModel.get('productid_link');
+        var POStore = viewModel.getStore('POLineStore');
+        var colorid_link = viewModel.get('colorid_link');
+        var sizesetid_link = viewModel.get('sizesetid_link');
 
         POStore.getby_shipping(productid_link, colorid_link, sizesetid_link);
     },
     onSelectMauSP: function () {
-        var viewmodel = this.getViewModel();
-        var productid_link = viewmodel.get('productid_link');
-        var POStore = viewmodel.getStore('POLineStore');
-        var colorid_link = viewmodel.get('colorid_link');
-        var sizesetid_link = viewmodel.get('sizesetid_link');
+        var viewModel = this.getViewModel();
+        var productid_link = viewModel.get('productid_link');
+        var POStore = viewModel.getStore('POLineStore');
+        var colorid_link = viewModel.get('colorid_link');
+        var sizesetid_link = viewModel.get('sizesetid_link');
 
         POStore.getby_shipping(productid_link, colorid_link, sizesetid_link);
     },
     onCheckChange: function () {
-        var viewmodel = this.getViewModel();
-        var productStore = viewmodel.getStore('ProductStore');
-        var is_pair = viewmodel.get('is_pair');
+        var viewModel = this.getViewModel();
+        var productStore = viewModel.getStore('ProductStore');
+        var is_pair = viewModel.get('is_pair');
         productStore.loadProductSingle("", is_pair);
     },
     onSelectProduct: function (cmb, rec, e) {
         var productid_link = rec.get('id');
         var attributeid_link = 4;
 
-        var viewmodel = this.getViewModel();
-        viewmodel.set('productid_link', productid_link);
-        var storeMauSP = viewmodel.getStore('MauSanPhamStore');
+        var viewModel = this.getViewModel();
+        viewModel.set('productid_link', productid_link);
+        var storeMauSP = viewModel.getStore('MauSanPhamStore');
         storeMauSP.loadByProductAndAttribute(productid_link, attributeid_link);
 
-        var DaiCoStore = viewmodel.getStore('DaiCoSanPhamStore');
+        var DaiCoStore = viewModel.getStore('DaiCoSanPhamStore');
         DaiCoStore.loadbyProduct(productid_link);
 
-        var POStore = viewmodel.getStore('POLineStore');
-        var colorid_link = viewmodel.get('colorid_link');
-        var sizesetid_link = viewmodel.get('sizesetid_link');
+        var POStore = viewModel.getStore('POLineStore');
+        var colorid_link = viewModel.get('colorid_link');
+        var sizesetid_link = viewModel.get('sizesetid_link');
 
         POStore.getby_shipping(productid_link, colorid_link, sizesetid_link);
     },
@@ -385,7 +398,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
             })
     },
     onShowPorderList: function (store, pcontract_poid_link, rec, productid_link) {
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
         var me = this;
         var form = Ext.create('Ext.window.Window', {
             closable: false,
@@ -420,7 +433,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         });
 
         form.down('#POrder_Offer_view').on('Chon', function () {
-            var store = viewmodel.getStore('POLineStore');
+            var store = viewModel.getStore('POLineStore');
             store.load();
             form.close();
         });
@@ -482,7 +495,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
             })
     },
     ShowCreatePorder: function (rec) {
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
         var me = this;
         var form = Ext.create('Ext.window.Window', {
             closable: true,
@@ -516,7 +529,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         form.down('#CreatePorderView').on('Create', function (data, orgid_link, orggrantid_link) {
             if (data != null)
                 me.fireEvent('AddPlan', data, orgid_link, orggrantid_link);
-            var store = viewmodel.getStore('POLineStore');
+            var store = viewModel.getStore('POLineStore');
             store.load();
             form.close();
         })
@@ -531,7 +544,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
     },
     ShowCreateManyPorder: function (productcode, select) {
         var me = this;
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
         var form = Ext.create('Ext.window.Window', {
             closable: true,
             resizable: false,
@@ -552,8 +565,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
                     data: {
                         productname: productcode,
                         list_po: select,
-                        colorid_link: viewmodel.get('colorid_link'),
-                        sizesetid_link: viewmodel.get('sizesetid_link')
+                        colorid_link: viewModel.get('colorid_link'),
+                        sizesetid_link: viewModel.get('sizesetid_link')
                     }
                 }
             }]
@@ -563,13 +576,13 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         form.down('#CreateManyPorderView').on('Create', function (data, orgid_link, orggrantid_link, remove) {
             if (data != null)
                 me.fireEvent('AddManyPlan', data, orgid_link, orggrantid_link, remove);
-            var store = viewmodel.getStore('POLineStore');
+            var store = viewModel.getStore('POLineStore');
             store.load();
             form.close();
         })
     },
     onCreateStockoutP: function (rec) {
-        // var viewmodel = this.getViewModel();
+        // var viewModel = this.getViewModel();
         // var grid = this.getView();
         // var me = this;
 
@@ -617,15 +630,15 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         });
     },
     // onReload: function () {
-    //     var viewmodel = this.getViewModel();
-    //     var ismap = viewmodel.get('ismap');
-    //     var store = viewmodel.getStore('POLineStore');
+    //     var viewModel = this.getViewModel();
+    //     var ismap = viewModel.get('ismap');
+    //     var store = viewModel.getStore('POLineStore');
     //     store.setGroupField('productbuyercode_parent');
-    //     store.getby_shipping(viewmodel.get('shipdate_from'), viewmodel.get('shipdate_to'), ismap);
+    //     store.getby_shipping(viewModel.get('shipdate_from'), viewModel.get('shipdate_to'), ismap);
     // },
     onFilterMaSPKeyup: function () {
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.get('POLineStore');
+        var viewModel = this.getViewModel();
+        var store = viewModel.get('POLineStore');
         var filterField = this.lookupReference('filterMaSP'),
             filters = store.getFilters();
 
@@ -644,8 +657,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
         }
     },
     onFilterPOKeyup: function () {
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.get('POLineStore');
+        var viewModel = this.getViewModel();
+        var store = viewModel.get('POLineStore');
         var filterField = this.lookupReference('filterPO'),
             filters = store.getFilters();
 
@@ -665,7 +678,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
     },
     onPOLineViewCellDblClick: function (view, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         // console.log(record);
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
         var clickedDataIndex = view.panel.headerCt.getHeaderAtIndex(cellIndex).dataIndex;
         var clickedColumnName = view.panel.headerCt.getHeaderAtIndex(cellIndex).text;
         var clickedCellValue = record.get(clickedDataIndex);

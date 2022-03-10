@@ -35,8 +35,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.DanhSachLenhKeHoachView_Contr
         // var colorid_link  = viewModel.get('colorid_link');
         // var sizesetid_link  = viewModel.get('sizesetid_link');
 
-        console.log(productbuyercode);
-        console.log(list_po);
+        // console.log(productbuyercode);
+        // console.log(list_po);
         // console.log(colorid_link);
         // console.log(sizesetid_link);
 
@@ -62,13 +62,15 @@ Ext.define('GSmartApp.view.process_shipping.POLine.DanhSachLenhKeHoachView_Contr
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
+        var productbuyercode = viewModel.get('productbuyercode');
+        var list_po = viewModel.get('list_po');
 
         var select = me.getSelectionModel().getSelection();
         if(select.length > 0){
             m.SelectPorderGrant(select);
         }else{
             // console.log('not select');
-            m.SelectNoPorderGrant();
+            m.SelectNoPorderGrant(productbuyercode, list_po);
         }
     },
     SelectPorderGrant: function(select){
@@ -78,8 +80,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.DanhSachLenhKeHoachView_Contr
 
         var list_po = viewModel.get('list_po');
 
-        console.log(list_po);
-        console.log(select);
+        // console.log(list_po);
+        // console.log(select);
 
         var pordergrant_id = select[0].get('id');
         var list_pcontract_po = new Array();
@@ -99,14 +101,54 @@ Ext.define('GSmartApp.view.process_shipping.POLine.DanhSachLenhKeHoachView_Contr
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         // success fire event etc...
-                        console.log('successed');
+                        // console.log('successed');
+                        m.fireEvent('Create', response.data, response.orgid_link, response.orggrantid_link, response.remove);
                     }
                 }else{
-                    console.log('failed');
+                    // console.log('failed');
                 }
             })
     },
-    SelectNoPorderGrant: function(){
-        console.log('SelectNoPorderGrant');
+    SelectNoPorderGrant: function(productname, list_po){
+        // console.log('SelectNoPorderGrant');
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var form = Ext.create('Ext.window.Window', {
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Tạo lệnh sản xuất',
+            closeAction: 'destroy',
+            height: 200,
+            width: 600,
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'CreateManyPorderView',
+                viewModel: {
+                    data: {
+                        productname: productname,
+                        list_po: list_po,
+                        colorid_link: viewModel.get('colorid_link'),
+                        sizesetid_link: viewModel.get('sizesetid_link')
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#CreateManyPorderView').on('Create', function (data, orgid_link, orggrantid_link, remove) {
+            if (data != null)
+                m.fireEvent('AddManyPlan', data, orgid_link, orggrantid_link, remove);
+            // var store = viewModel.getStore('POLineStore');
+            // store.load();
+            form.close();
+        })
     }
 })
