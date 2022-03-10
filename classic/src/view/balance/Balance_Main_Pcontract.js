@@ -41,7 +41,7 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract', {
             items:[
                 {
                     region: 'west',
-                    width: 200,
+                    width: 180,
                     xtype: 'PContractProductTreeView'
                 },
                 {

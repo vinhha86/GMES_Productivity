@@ -88,6 +88,12 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
             align: 'right',
             width: 70,
             summaryType: 'sum',
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                if (value == "0")
+                    return '<div style="align: right">-</div>';
+                else
+                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.00') + '</div>';
+            },
             summaryRenderer: function (value, summaryData, dataIndex) {
                 return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
             }
@@ -99,7 +105,10 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
             width: 70,
             summaryType: 'sum',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.00') + '</div>';
+                if (value == "0")
+                    return '<div style="align: right">-</div>';
+                else
+                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.00') + '</div>';
             },
             summaryRenderer: function (value, summaryData, dataIndex) {
                 return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
@@ -111,6 +120,12 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
             align: 'right',
             width: 70,
             summaryType: 'sum',
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                if (value == "0")
+                    return '<div style="align: right">-</div>';
+                else
+                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.00') + '</div>';
+            },
             summaryRenderer: function (value, summaryData, dataIndex) {
                 return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
             }
@@ -121,6 +136,12 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
             align: 'right',
             width: 70,
             summaryType: 'sum',
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                if (value == "0")
+                    return '<div style="align: right">-</div>';
+                else
+                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.00') + '</div>';
+            },
             summaryRenderer: function (value, summaryData, dataIndex) {
                 return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
             }
@@ -131,6 +152,12 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
             align: 'right',
             width: 70,
             summaryType: 'sum',
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                if (value == "0")
+                    return '<div style="align: right">-</div>';
+                else
+                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.00') + '</div>';
+            },
             summaryRenderer: function (value, summaryData, dataIndex) {
                 return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
             }
@@ -141,6 +168,12 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
             align: 'right',
             width: 70,
             summaryType: 'sum',
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                if (value == "0")
+                    return '<div style="align: right">-</div>';
+                else
+                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.00') + '</div>';
+            },
             summaryRenderer: function (value, summaryData, dataIndex) {
                 return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000') + '</div>';
             }
@@ -152,7 +185,10 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
             width: 70,
             summaryType: 'sum',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.00') + '</div>';
+                if (value == "0")
+                    return '<div style="align: right">-</div>';
+                else
+                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.00') + '</div>';
             },
             summaryRenderer: function (value, summaryData, dataIndex) {
                 return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.00') + '</div>';
@@ -171,7 +207,10 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                 width: 70,
                 summaryType: 'sum',
                 renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+                    if (value == "0")
+                        return '<div style="align: right">-</div>';
+                    else
+                        return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
                 },
                 summaryRenderer: function (value, summaryData, dataIndex) {
                     return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
@@ -231,7 +270,10 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                 width: 75,
                 summaryType: 'sum',
                 renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+                    if (value == "0")
+                        return '<div style="align: right">-</div>';
+                    else
+                        return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
                 },
                 summaryRenderer: function (value, summaryData, dataIndex) {
                     return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
@@ -246,7 +288,10 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                 width: 70,
                 summaryType: 'sum',
                 renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.00') + '</div>';
+                    if (value == "0")
+                        return '<div style="align: right">-</div>';
+                    else
+                        return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
                 },
                 summaryRenderer: function (value, summaryData, dataIndex) {
                     return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
@@ -366,7 +411,10 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                 width: 70,
                 summaryType: 'sum',
                 renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                    return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
+                    if (value == "0")
+                        return '<div style="align: right">-</div>';
+                    else
+                        return '<div style="align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';
                 },
                 summaryRenderer: function (value, summaryData, dataIndex) {
                     return '<div style="color:red; font-weight: bold; align: right">' + Ext.util.Format.number(value, '0,000.0') + '</div>';

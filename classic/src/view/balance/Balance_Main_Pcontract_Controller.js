@@ -76,7 +76,7 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract_Controller', {
     },
     onCellDblClick: function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         var viewmodel = this.getViewModel();
-        if (cellIndex == 8) {//Nhu cau
+        if (cellIndex == 9) {//Nhu cau
             var form = Ext.create('Ext.window.Window', {
                 closable: true,
                 resizable: false,

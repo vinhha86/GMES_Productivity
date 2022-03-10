@@ -27,9 +27,9 @@ Ext.define('GSmartApp.view.balance.PContractProductTreeView', {
                 xtype: 'textfield',
                 fieldStyle: "",
                 reference: 'styleCodeFilter',
-                width: '90%',
+                width: '95%',
                 margin: 2,
-                emptyText: 'Lọc mã sản phẩm',
+                emptyText: 'Lọc Mã SP',
                 enableKeyEvents: true,
                 listeners: {
                     keyup: 'onStyleCodeFilterKeyup',

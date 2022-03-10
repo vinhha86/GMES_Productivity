@@ -27,7 +27,7 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 	columns: [
 		{
 			text: 'Mã NPL',
-			width: 150,
+			width: 155,
 			dataIndex: 'mat_sku_code',
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -68,7 +68,7 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 		{
 			text: 'Cỡ khổ',
 			dataIndex: 'mat_sku_size_name',
-			width: 100,
+			width: 70,
 			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
 				metaData.tdAttr = 'data-qtip="' + value + '"';
 				return value == 'ALL' ? "" : value;
@@ -78,6 +78,24 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 			text: 'ĐVT',
 			dataIndex: 'mat_sku_unit_name',
 			width: 70
+		},
+		{
+			text: 'PO',
+			dataIndex: 'mat_sku_ls_pos',
+			width: 150,
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			}
+		},
+		{
+			text: 'Màu SP',
+			dataIndex: 'mat_sku_ls_prodcolors',
+			width: 150,
+			renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+				metaData.tdAttr = 'data-qtip="' + value + '"';
+				return value;
+			}
 		},
 		{
 			text: 'Định mức',
