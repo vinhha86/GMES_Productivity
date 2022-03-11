@@ -18,7 +18,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.DanhSachLenhKeHoachView', {
     },
     selModel: {
         selType: 'checkboxmodel',
-        mode: 'SINGLE'
+        mode: 'SINGLE',
+        allowDeselect: true
     },
     columns: [
         {
@@ -50,6 +51,7 @@ Ext.define('GSmartApp.view.process_shipping.POLine.DanhSachLenhKeHoachView', {
             text: 'Năng suất', 
             xtype: 'numbercolumn',
 			format:'0,000',
+			align: 'right',
             menuDisabled: true,
             sortable: false,
             dataIndex: 'productivity',

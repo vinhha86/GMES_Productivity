@@ -187,7 +187,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
     },
     onContextMenu: function (scheduler, eventRecord, e, eOpts) {
 
-        // console.log(eventRecord);
+        console.log(eventRecord);
 
         var me = this;
         var schedule = this.getView();
@@ -501,6 +501,7 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
                     if (response.respcode == 200) {
                         var eventStore = grid.down('#treeplan').getCrudManager().getEventStore();
                         eventStore.remove(rec);
+                        me.fireEvent('Delete_Porder_ReqDone')
                     }
                     else {
                         Ext.Msg.show({

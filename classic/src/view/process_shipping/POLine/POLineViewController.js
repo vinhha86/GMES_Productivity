@@ -30,7 +30,8 @@ Ext.define('GSmartApp.view.process_shipping.POLine.POLineViewController', {
     listen: {
         controller: {
             'Schedule_plan_ViewController': {
-                'CancelDone': 'onReload'
+                'CancelDone': 'onReload',
+                'Delete_Porder_ReqDone': 'onReload',
             }
         }
     },
