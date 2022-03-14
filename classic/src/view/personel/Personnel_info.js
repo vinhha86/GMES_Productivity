@@ -262,7 +262,7 @@ Ext.define('GSmartApp.view.personel.Personnel_info', {
                         fieldStyle: 'font-size:11px;',
                         displayField: 'name',
                         valueField: 'id',
-                        readOnly: true,
+                        // readOnly: true,
                         flex: 1,
                         margin: 1,
                         bind: {

@@ -11,6 +11,20 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
     var listid = '1,13';
     OrgManagerStore.loadStore(13,false);
 
+    var orgmanagerid_link = viewmodel.get('personnel.orgmanagerid_link');
+    if(orgmanagerid_link != null){
+      var listid = '';
+      if (orgmanagerid_link == 1) {
+        listid = "1";
+      }
+      else {
+        listid = '22,14,8,9,17,19,20,21,22,23,28,29,30,31,32,33,34,35,36,37,38,39,221';
+      }
+      var OrgStore = viewmodel.getStore('OrgStore');
+      OrgStore.getbyParentandType(orgmanagerid_link, listid);
+
+    }
+
     var OrgCountryStore = viewmodel.getStore('OrgCountryStore');
     OrgCountryStore.loadStore(24, false);
     //store chức vụ
@@ -254,6 +268,9 @@ Ext.define('GSmartApp.view.personel.Personnel_info_ViewController', {
     }
     console.log(newvalue);
     OrgStore.getbyParentandType(newvalue, listid);
+
+    // set giá tri to chuyen/ phong ban -> null
+    viewmodel.set('personnel.orgid_link', null);
   },
   onSelectQuocTich: function (combo, newvalue, oldValue, e) {
     var viewmodel = this.getViewModel();
