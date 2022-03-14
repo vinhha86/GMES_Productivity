@@ -8,6 +8,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         '#fileUploadBomSizeset': {
             change: 'onSelectFile_Sizeset'
         },
+
+        '#fileUploadBomNew': {
+            change: 'onSelectFileNew'
+        },
+
         '#cmbSanPham': {
             select: 'onChangeProduct'
         },
@@ -17,12 +22,22 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         '#btndownloadsizeset': {
             click: 'onDownTempSizeSet'
         },
+
+        '#btndownloadsize_new': {
+            click: 'onDownTempNew'
+        },
+
         '#btn_UploadBomSize': {
             click: 'onUpload'
         },
         '#btn_UploadBomSizeSet': {
             click: 'onUploadSizeset'
         },
+
+        '#btn_UploadBomSize_New': {
+            click: 'onUploadNew'
+        },
+
         '#btnConfirmBOM': {
             click: 'onConfirmBOM2'
         },
@@ -284,13 +299,22 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         })
     },
     onUpload: function (record) {
+        console.log('here yet bro 1');
         var me = this.getView();
         me.down('#fileUploadBom').fileInputEl.dom.click();
     },
     onUploadSizeset: function () {
+        console.log('here yet bro 2');
         var me = this.getView();
         me.down('#fileUploadBomSizeset').fileInputEl.dom.click();
     },
+
+    onUploadNew: function (record) { 
+        console.log('here yet bro 3');
+        var me = this.getView();
+        me.down('#fileUploadBomNew').fileInputEl.dom.click();
+    },
+
     onSelectFile: function (m, value) {
         var grid = this.getView();
         var viewmodel = this.getViewModel();
@@ -351,6 +375,38 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                 }
             })
     },
+
+    onSelectFileNew: function (m, value) {
+        var grid = this.getView();
+        var viewmodel = this.getViewModel();
+        var data = new FormData();
+        data.append('file', m.fileInputEl.dom.files[0]);
+        data.append('pcontractid_link', viewmodel.get('PContract.id'));
+        data.append('productid_link', viewmodel.get('IdProduct'));
+
+        grid.setLoading("Đang tải dữ liệu");
+        GSmartApp.Ajax.postUpload_timeout('/api/v1/uploadbom/bom_candoi_multicolor', data, 2 * 60 * 1000,
+            function (success, response, options) {
+                grid.setLoading(false);
+                m.reset();
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode != 200) {
+                        Ext.MessageBox.show({
+                            title: "Có lỗi trong quá trình tải định mức",
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                    var store = viewmodel.getStore('PContractBom2Store_New');
+                    store.load();
+                }
+            })
+    },
+
     onFilterValueKeyup: function () {
         var viewmodel = this.getViewModel();
         var store = viewmodel.get('PContractBom2Store_New');
@@ -461,6 +517,43 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
                         me.saveByteArray("Template_Bom_CanDoi_SizeSet.xlsx", response.data);
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: 'Thông báo',
+                            msg: 'Lấy thông tin thất bại',
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng'
+                            }
+                        });
+                    }
+
+                } else {
+                    Ext.Msg.show({
+                        title: 'Thông báo',
+                        msg: 'Lấy thông tin thất bại',
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng'
+                        }
+                    });
+                }
+            })
+    },
+    onDownTempNew: function () {
+        var me = this;
+        var viewmodel = this.getViewModel();
+        var params = new Object();
+        params.pcontractid_link = viewmodel.get('PContract.id');
+        params.productid_link = viewmodel.get('IdProduct');
+
+        GSmartApp.Ajax.post('/api/v1/report/download_temp_bom_candoi_new', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        me.saveByteArray("Template_Bom_CanDoi.xlsx", response.data);
                     }
                     else {
                         Ext.Msg.show({
