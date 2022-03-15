@@ -55,6 +55,19 @@ Ext.define('GSmartApp.view.attribute.attributeValueView', {
         dataIndex: 'value',
         // flex: 1,
         width: 150,
+        items: {
+            xtype: 'textfield',
+            fieldStyle: "",
+            reference: 'valueFilter',
+            width: '98%',
+            flex: 1,
+            margin: 2,
+            enableKeyEvents: true,
+            listeners: {
+                keyup: 'onValueKeyup',
+                buffer: 500
+            }
+        },
         editor: {
             completeOnEnter: true,
             field: {

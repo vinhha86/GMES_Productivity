@@ -488,5 +488,27 @@ Ext.define('GSmartApp.view.attribute.attributeValueController', {
         if(e.getKey() == e.ENTER) {
             m.onBtnAddAttributeValue();
         }
-    }
+    },
+
+    onValueKeyup:function(){
+        var grid = this.getView(),
+            // Access the field using its "reference" property name.
+            filterField = this.lookupReference('valueFilter'),
+            store = this.getViewModel().getStore('AttributeValueStore'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.valueFilter = filters.add({
+                id: 'valueFilter',
+                property: 'value',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.valueFilter) {
+            filters.remove(this.valueFilter);
+            this.valueFilter = null;
+        }
+    },
 })
