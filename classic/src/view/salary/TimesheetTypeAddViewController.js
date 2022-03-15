@@ -15,12 +15,14 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
             // var is_ca_an = viewModel.get('is_ca_an');
             var orgid_link = viewModel.get('orgid_link');
             var is_atnight = viewModel.get('is_atnight');
+            var is_active = viewModel.get('is_active');
 
             var timefromfield = this.lookup('timefrom');
             var timetofield = this.lookup('timeto');
             var checkboxfromfield = this.lookup('checkboxfrom');
             var checkboxtofield = this.lookup('checkboxto');
             var checkboxcaanfield = this.lookup('checkboxcaan');
+            var checkboxactive = this.lookup('checkboxactive');
 
             console.log(timefrom);
             console.log(timeto);
@@ -31,6 +33,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
             // checkboxtofield.setValue(checkboxto);
             checkboxtofield.setValue(is_atnight);
             // checkboxcaanfield.setValue(is_ca_an);
+            checkboxactive.setValue(is_active);
         }
     },
     control: {
@@ -79,6 +82,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
         var timeto = this.lookup('timeto');
         var checkboxfrom = this.lookup('checkboxfrom');
         var checkboxto = this.lookup('checkboxto');
+        var checkboxactive = this.lookup('checkboxactive');
         // var checkboxcaanfield = this.lookup('checkboxcaan');
         
         var params = new Object();
@@ -88,6 +92,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
         params.timeto = timeto.getValue();
         params.checkboxfrom = checkboxfrom.getValue();
         params.checkboxto = checkboxto.getValue();
+        params.checkboxactive = checkboxactive.getValue();
         // params.is_ca_an = checkboxcaanfield.getValue();
         params.orgid_link = orgid == null ? orgid_link : orgid;
         params.working_shift = working_shift;

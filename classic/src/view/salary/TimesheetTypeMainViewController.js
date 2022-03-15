@@ -38,6 +38,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
         var tenLoaiCa = data.tenLoaiCa;
         var working_shift = data.working_shift;
         var is_atnight = data.is_atnight;
+        var is_active = data.is_active;
 
         var title = '';
         if(tenLoaiCa == 'Ca ăn'){
@@ -82,6 +83,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
                         is_ca_an: is_ca_an,
                         tenLoaiCa: tenLoaiCa,
                         is_atnight: is_atnight,
+                        is_active: is_active,
                     }
                 },
             }]
@@ -154,7 +156,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
         var me =this;
       
         var form = Ext.create('Ext.window.Window', {
-            height: 230,
+            height: 260,
             width: 400,
             closable: true,
             title: rec == null ? 'Thêm mới ca làm việc/ăn' : 'Cập nhật ca mới làm việc/ăn',
@@ -181,7 +183,8 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
                         checkboxfrom: -1,
                         checkboxto: -1,
                         orgid_link:orgid_link,
-                        is_ca_an: false
+                        is_ca_an: false,
+                        is_active: true,
                         } 
                 },
             }]

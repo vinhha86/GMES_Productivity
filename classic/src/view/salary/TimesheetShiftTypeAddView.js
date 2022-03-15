@@ -42,7 +42,8 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddView', {
             //     // }
             // }
         ]
-    },{
+    },
+    {
         layout: 'hbox',
         width: '100%',
         items: [{
@@ -82,7 +83,8 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddView', {
             //     value: '{checkboxfrom}'
             // },
         }]
-    },{
+    },
+    {
         layout: 'hbox',
         width: '100%',
         items: [{
@@ -149,7 +151,26 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddView', {
             //     // }
             // }
         ]
-    }
+    },
+    {
+        layout: 'hbox',
+        width: '100%',
+        items: [
+        {
+            xtype: 'checkbox',
+            reference: 'checkboxactive',
+            fieldLabel: 'Hoạt động',
+            margin: 5,
+            labelWidth: 90,
+            width: 120,
+            inputValue:1,
+            uncheckedValue:-1,
+            // hidden: true,
+            // bind: {
+            //     value: '{checkboxfrom}'
+            // },
+        }]
+    },
    
 ],
     dockedItems:[{
