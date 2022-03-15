@@ -229,23 +229,27 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
                 bind: {
                     hidden: '{!allowUploadBom}'
                 },
-                menu: [{
-                    itemId: 'btndownloadsize',
-                    text: 'Tải file mẫu theo cỡ',
-                    iconCls: 'x-fa fa-download',
-                    weight: 30
-                },
-                {
-                    itemId: 'btndownloadsizeset',
-                    text: 'Tải file mẫu theo dải cỡ',
-                    iconCls: 'x-fa fa-download',
-                    weight: 30
-                // },{
-                //     itemId: 'btndownloadsize_new',
-                //     text: 'Tải file mẫu theo cỡ new',
-                //     iconCls: 'x-fa fa-download',
-                //     weight: 30
-                },]
+                menu: [
+                    {
+                        itemId: 'btndownloadsize',
+                        text: 'Tải file mẫu theo cỡ',
+                        iconCls: 'x-fa fa-download',
+                        weight: 30, 
+                        hidden: true
+                    },
+                    {
+                        itemId: 'btndownloadsize_new',
+                        text: 'Tải file mẫu theo cỡ',
+                        iconCls: 'x-fa fa-download',
+                        weight: 30
+                    },
+                    {
+                        itemId: 'btndownloadsizeset',
+                        text: 'Tải file mẫu theo dải cỡ',
+                        iconCls: 'x-fa fa-download',
+                        weight: 30
+                    }
+                ]
             },
             {
                 xtype: 'filefield',
@@ -259,16 +263,17 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
                 buttonText: 'Tải báo giá',
                 buttonOnly: true,
                 hidden: true,
+                itemId: 'fileUploadBomNew'
+            },
+            {
+                xtype: 'filefield',
+                buttonText: 'Tải báo giá',
+                buttonOnly: true,
+                hidden: true,
                 itemId: 'fileUploadBomSizeset'
             },
 
-            // {
-            //     xtype: 'filefield',
-            //     buttonText: 'Tải báo giá',
-            //     buttonOnly: true,
-            //     hidden: true,
-            //     itemId: 'fileUploadBomNew'
-            // },
+            
 
             {
                 xtype: 'button',
@@ -279,23 +284,27 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
                 bind: {
                     hidden: '{!allowUploadBom}'
                 },
-                menu: [{
-                    itemId: 'btn_UploadBomSize',
-                    text: 'Upload file theo cỡ',
-                    iconCls: 'x-fa fa-upload',
-                    weight: 30
-                },
-                {
-                    itemId: 'btn_UploadBomSizeSet',
-                    text: 'Upload file theo dải cỡ',
-                    iconCls: 'x-fa fa-upload',
-                    weight: 30
-                // },{
-                //     itemId: 'btn_UploadBomSize_New',
-                //     text: 'Upload file theo cỡ new',
-                //     iconCls: 'x-fa fa-upload',
-                //     weight: 30
-                },]
+                menu: [
+                    {
+                        itemId: 'btn_UploadBomSize',
+                        text: 'Upload file theo cỡ',
+                        iconCls: 'x-fa fa-upload',
+                        weight: 30, 
+                        hidden: true
+                    },
+                    {
+                        itemId: 'btn_UploadBomSize_New',
+                        text: 'Upload file theo cỡ',
+                        iconCls: 'x-fa fa-upload',
+                        weight: 30
+                    },
+                    {
+                        itemId: 'btn_UploadBomSizeSet',
+                        text: 'Upload file theo dải cỡ',
+                        iconCls: 'x-fa fa-upload',
+                        weight: 30
+                    },
+                ]
             },
             {
                 xtype: 'button',
