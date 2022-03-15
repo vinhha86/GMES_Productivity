@@ -16,11 +16,11 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.TongHopBaoAnViewModel', {
         org_name: '',
         orgid_link: 0,
         
-        column_Ca1_time: '',
-        column_Ca2_time: '',
-        column_Ca3_time: '',
-        column_Ca4_time: '',
-        column_Ca5_time: '',
+        column_Ca1_time: 'Ca 1',
+        column_Ca2_time: 'Ca 2',
+        column_Ca3_time: 'Ca 3',
+        column_Ca4_time: 'Ca 4',
+        column_Ca5_time: 'Ca 5',
     },
     formulas: {
         title_detail: function (data) {

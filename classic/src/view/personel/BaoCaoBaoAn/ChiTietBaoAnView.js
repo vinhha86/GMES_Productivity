@@ -35,7 +35,8 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
             return (value == null || value == 0) ? "" : value;
         },
         bind: {
-            text: '{column_Ca1_title}'
+            // text: '{column_Ca1_title}',
+            text: '{column_Ca1_time}'
         }
     }, {
         dataIndex: 'ca2',
@@ -47,7 +48,8 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
             return (value == null || value == 0) ? "" : value;
         },
         bind: {
-            text: '{column_Ca2_title}'
+            // text: '{column_Ca2_title}'
+            text: '{column_Ca2_time}'
         }
     }, {
         dataIndex: 'ca3',
@@ -59,7 +61,8 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
             return (value == null || value == 0) ? "" : value;
         },
         bind: {
-            text: '{column_Ca3_title}'
+            // text: '{column_Ca3_title}'
+            text: '{column_Ca3_time}'
         }
     }, {
         dataIndex: 'ca4',
@@ -71,7 +74,8 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
             return (value == null || value == 0) ? "" : value;
         },
         bind: {
-            text: '{column_Ca4_title}'
+            // text: '{column_Ca4_title}'
+            text: '{column_Ca4_time}'
         }
     }, {
         dataIndex: 'ca5',
@@ -83,7 +87,8 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
             return (value == null || value == 0) ? "" : value;
         },
         bind: {
-            text: '{column_Ca5_title}'
+            // text: '{column_Ca5_title}'
+            text: '{column_Ca5_time}'
         }
     }]
 });
