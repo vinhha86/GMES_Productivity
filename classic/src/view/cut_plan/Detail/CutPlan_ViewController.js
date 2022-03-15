@@ -194,7 +194,8 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         }
     },
     onEdit: function (editor, context, e) {
-        if (context.originalValue == context.value) return;
+        console.log(context.colIdx);
+        // if (context.originalValue == context.value) return;
         if (context.colIdx > 6) {
             this.UpdateSizeAmount(context);
         } else if (context.colIdx == 6) { // ngay
@@ -209,18 +210,20 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         var store = viewmodel.getStore('CutPlanRowStore');
 
         var params = new Object();
-        params.data = context.record.data;
+        params.row_id = context.record.data.id;
+        params.la_vai = context.record.data.la_vai;
+        params.daisodo = context.record.data.dai_so_do;
 
-        if (context.field != 'ngay') {
-            var arr = context.record.get('ngay').split('-');
-            var ngay = new Date(arr[2], parseInt(arr[0]) - 1, arr[1]);
+        // if (context.field != 'ngay') {
+        //     var arr = context.record.get('ngay').split('-');
+        //     var ngay = new Date(arr[2], parseInt(arr[0]) - 1, arr[1]);
 
-            params.data.ngay = ngay;
-        }
-        params.data.loaiphoimau = viewmodel.get('loaiphoimau');
+        //     params.data.ngay = ngay;
+        // }
+        // params.data.loaiphoimau = viewmodel.get('loaiphoimau');
 
 
-        GSmartApp.Ajax.post('/api/v1/cutplan/update_row', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/cutplan/update_lavai', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     var response = Ext.decode(response.responseText);
@@ -267,7 +270,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         params.amount_old = parseInt(context.originalValue);
         params.loaiphoi = viewmodel.get('loaiphoimau');
 
-        GSmartApp.Ajax.post('/api/v1/cutplan/update_size_amount', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/cutplan/update_size_amount_new', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     var response = Ext.decode(response.responseText);

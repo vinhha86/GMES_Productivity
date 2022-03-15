@@ -23,6 +23,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatViewContro
         }
     },
     onSelectSP: function (cmb, rec, e) {
+        //Lưu lại mã hàng để hiện lên pop-up Sơ đồ cắt
+        var viewmodel = this.getViewModel();
+        viewmodel.set('CodeProduct', rec.data.productBuyerCode);
+
         var me = this;
         me.CreateColumns();
         me.onReloadBOM();
@@ -87,13 +91,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatViewContro
         var viewmodel = this.getViewModel();
         var pcontractid_link = viewmodel.get('PContract.id');
         var productid_link = viewmodel.get('IdProduct');
+        var product_code = viewmodel.get('CodeProduct');
 
         var form = Ext.create('Ext.window.Window', {
             closable: false,
             resizable: false,
             modal: true,
             border: false,
-            title: 'Kế hoạch cắt',
+            title: 'Kế hoạch cắt - ' + product_code,
             closeAction: 'destroy',
             height: Ext.getBody().getViewSize().height * .95,
             width: Ext.getBody().getViewSize().width * .95,
