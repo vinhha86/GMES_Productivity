@@ -48,7 +48,12 @@ Ext.define('GSmartApp.view.baocao_ns.BaoCaoNS_View', {
             menuDisabled: true,
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                 if(!isNaN(value)) {
+                    if(value == 0){
+                        return '-';
+                    }
                     value = Ext.util.Format.number(value, '0,000');
+                }else{
+                    return '-';
                 }
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
@@ -65,7 +70,12 @@ Ext.define('GSmartApp.view.baocao_ns.BaoCaoNS_View', {
             menuDisabled: true,
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                 if(!isNaN(value)) {
+                    if(value == 0){
+                        return '-';
+                    }
                     value = Ext.util.Format.number(value, '0,000');
+                }else{
+                    return '-';
                 }
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
@@ -82,7 +92,12 @@ Ext.define('GSmartApp.view.baocao_ns.BaoCaoNS_View', {
             menuDisabled: true,
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                 if(!isNaN(value)) {
+                    if(value == 0){
+                        return '-';
+                    }
                     value = Ext.util.Format.number(value, '0,000');
+                }else{
+                    return '-';
                 }
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
@@ -99,7 +114,12 @@ Ext.define('GSmartApp.view.baocao_ns.BaoCaoNS_View', {
             menuDisabled: true,
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                 if(!isNaN(value)) {
+                    if(value == 0){
+                        return '-';
+                    }
                     value = Ext.util.Format.number(value, '0,000');
+                }else{
+                    return '-';
                 }
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
@@ -116,7 +136,12 @@ Ext.define('GSmartApp.view.baocao_ns.BaoCaoNS_View', {
             menuDisabled: true,
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                 if(!isNaN(value)) {
+                    if(value == 0){
+                        return '-';
+                    }
                     value = Ext.util.Format.number(value, '0,000');
+                }else{
+                    return '-';
                 }
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
@@ -133,7 +158,12 @@ Ext.define('GSmartApp.view.baocao_ns.BaoCaoNS_View', {
             menuDisabled: true,
             renderer: function(value, metaData, record, rowIdx, colIdx, store) {
                 if(!isNaN(value)) {
+                    if(value == 0){
+                        return '-';
+                    }
                     value = Ext.util.Format.number(value, '0,000');
+                }else{
+                    return '-';
                 }
                 metaData.tdAttr = 'data-qtip="' + value + '"';
                 return value;
@@ -150,7 +180,12 @@ Ext.define('GSmartApp.view.baocao_ns.BaoCaoNS_View', {
         //     menuDisabled: true,
         //     renderer: function(value, metaData, record, rowIdx, colIdx, store) {
         //         if(!isNaN(value)) {
+        //             if(value == 0){
+        //                 return '-';
+        //             }
         //             value = Ext.util.Format.number(value, '0,000');
+        //         }else{
+        //             return '-';
         //         }
         //         metaData.tdAttr = 'data-qtip="' + value + '"';
         //         return value;
