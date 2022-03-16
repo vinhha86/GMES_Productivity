@@ -56,6 +56,24 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainView', {
         margin: 5,
         labelWidth: 70,
         width: 120,
+        listeners: {
+            beforecheckchange: function() {
+                return false; // HERE
+            }
+        }
+    },
+    {
+        xtype: 'checkcolumn',
+        text: 'Hoạt động',
+        dataIndex:'is_active',
+        margin: 5,
+        labelWidth: 70,
+        width: 120,
+        listeners: {
+            beforecheckchange: function() {
+                return false; // HERE
+            }
+        }
     }
 ],
     dockedItems: [{
