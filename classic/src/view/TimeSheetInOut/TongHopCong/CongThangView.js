@@ -100,7 +100,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
         },
         {
             text: 'Làm thêm (h)',
-            dataIndex: 'time_plus',
+            dataIndex: 'time_over',
             align: 'right',
             width: 70,
             summaryType: 'sum',
@@ -116,7 +116,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
         },
         {
             text: 'Bổ sung (h)',
-            dataIndex: 'time_over',
+            dataIndex: 'time_plus',
             align: 'right',
             width: 70,
             summaryType: 'sum',
@@ -513,13 +513,13 @@ Ext.define('GSmartApp.view.TimeSheetInOut.TongHopCong.CongThangView', {
                     margin: 5,
                     handler: 'onExport'
                 },
-                {
-                    xtype: 'button',
-                    text: 'Tính toán dữ liệu',
-                    iconCls: 'x-fa fa-calculator',
-                    margin: 5,
-                    handler: 'onCalculate'
-                }
+                // {
+                //     xtype: 'button',
+                //     text: 'Tính toán dữ liệu',
+                //     iconCls: 'x-fa fa-calculator',
+                //     margin: 5,
+                //     handler: 'onCalculate'
+                // }
             ]
         }
     ]
