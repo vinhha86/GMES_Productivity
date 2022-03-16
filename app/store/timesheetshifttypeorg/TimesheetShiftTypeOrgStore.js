@@ -3,6 +3,10 @@ Ext.define('GSmartApp.store.timesheetshifttypeorg.TimesheetShiftTypeOrgStore', {
 	alias: 'store.TimesheetShiftTypeOrgStore',
 	storeId: 'TimesheetShiftTypeStore',
     groupField: 'tenLoaiCa',
+	sorters: {
+        direction: 'ASC',
+        property: 'gio'
+    },
 	fields: [
         {name: 'id', type: 'int'},
         {name: 'name', type: 'string'},
@@ -49,6 +53,23 @@ Ext.define('GSmartApp.store.timesheetshifttypeorg.TimesheetShiftTypeOrgStore', {
                     minute = '0' + minute;
                 }
                 result = hour + ':' + minute;
+                return result;
+            }
+        },
+		{
+            name    : 'nameCode', 
+            convert : function (value, rec) {
+                var result = '';
+                var name = rec.get('name');
+                var code = rec.get('code');
+
+				if(name != null && name != ''){
+					result += name;
+				}
+				if(code != null && code != ''){
+					result += ' (' + code + ')';
+				}
+
                 return result;
             }
         },

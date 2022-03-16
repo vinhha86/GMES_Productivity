@@ -2,6 +2,26 @@ Ext.define('GSmartApp.store.timesheetshifttype.TimesheetShiftTypeStore', {
     extend: 'Ext.data.Store',
 	alias: 'store.TimesheetShiftTypeStore',
 	storeId: 'TimesheetShiftTypeStore',
+	fields: [
+        {name: 'id', type: 'int'},
+		{
+            name    : 'nameCode', 
+            convert : function (value, rec) {
+                var result = '';
+                var name = rec.get('name');
+                var code = rec.get('code');
+
+				if(name != null && name != ''){
+					result += name;
+				}
+				if(code != null && code != ''){
+					result += ' (' + code + ')';
+				}
+
+                return result;
+            }
+        },
+	],
 	
 	loadStore:function(){
 		var me=this;

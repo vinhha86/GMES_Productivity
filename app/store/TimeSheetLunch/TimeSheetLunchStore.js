@@ -52,5 +52,32 @@ Ext.define('GSmartApp.store.TimeSheetLunch.TimeSheetLunchStore', {
 				}
 			}
 		});
+	},
+	loadStore_async: function (orgid_link, date) {
+		var me = this;
+		var params = new Object();
+		params.orgid_link = orgid_link;
+		params.date = date;
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl() + '/api/v1/timesheetlunch/getForTimeSheetLunch',
+			paramsAsJson: true,
+			extraParams: params,
+			noCache: false,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
 	}
 });

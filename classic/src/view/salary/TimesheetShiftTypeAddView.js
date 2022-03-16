@@ -19,7 +19,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddView', {
                 allowBlank: false,
                 flex:1,
                 labelWidth: 90,
-                displayField: 'name',
+                displayField: 'nameCode',
                 valueField: 'id',
                 queryMode: 'local',
                 bind: {

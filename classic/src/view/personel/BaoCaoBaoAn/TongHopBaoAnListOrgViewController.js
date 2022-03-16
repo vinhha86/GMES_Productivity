@@ -116,124 +116,124 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.TongHopBaoAnListOrgViewControlle
 
             
             if(data.timesheet_shift_type_id_link == 4){
-                str = 'Ca 1';
+                str = 'Ca ';
                 setCa1 = true;
                 viewModel.set('column_Ca1_time', str + time);
 
             }else if(data.timesheet_shift_type_id_link == 5){
-                str = 'Ca 2';
+                str = 'Ca ';
                 setCa2 = true;
                 viewModel.set('column_Ca2_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 6){
-                str = 'Ca 3';
+                str = 'Ca ';
                 setCa3 = true;
                 viewModel.set('column_Ca3_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 7){
-                str = 'Ca 4';
+                str = 'Ca ';
                 setCa4 = true;
                 viewModel.set('column_Ca4_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 8){
-                str = 'Ca 5';
+                str = 'Ca ';
                 setCa5 = true;
                 viewModel.set('column_Ca5_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 9){
-                str = 'Ca 6';
+                str = 'Ca ';
                 setCa6 = true;
                 viewModel.set('column_Ca6_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 10){
-                str = 'Ca 7';
+                str = 'Ca ';
                 setCa7 = true;
                 viewModel.set('column_Ca7_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 11){
-                str = 'Ca 8';
+                str = 'Ca ';
                 setCa8 = true;
                 viewModel.set('column_Ca8_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 12){
-                str = 'Ca 9';
+                str = 'Ca ';
                 setCa9 = true;
                 viewModel.set('column_Ca9_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 13){
-                str = 'Ca 10';
+                str = 'Ca ';
                 setCa10 = true;
                 viewModel.set('column_Ca10_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 14){
-                str = 'Ca 11';
+                str = 'Ca ';
                 setCa11 = true;
                 viewModel.set('column_Ca11_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 15){
-                str = 'Ca 12';
+                str = 'Ca ';
                 setCa12 = true;
                 viewModel.set('column_Ca12_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 16){
-                str = 'Ca 13';
+                str = 'Ca ';
                 setCa13 = true;
                 viewModel.set('column_Ca13_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 17){
-                str = 'Ca 14';
+                str = 'Ca ';
                 setCa14 = true;
                 viewModel.set('column_Ca14_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 18){
-                str = 'Ca 15';
+                str = 'Ca ';
                 setCa15 = true;
                 viewModel.set('column_Ca15_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 19){
-                str = 'Ca 16';
+                str = 'Ca ';
                 setCa16 = true;
                 viewModel.set('column_Ca16_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 20){
-                str = 'Ca 17';
+                str = 'Ca ';
                 setCa17 = true;
                 viewModel.set('column_Ca17_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 21){
-                str = 'Ca 18';
+                str = 'Ca ';
                 setCa18 = true;
                 viewModel.set('column_Ca18_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 22){
-                str = 'Ca 19';
+                str = 'Ca ';
                 setCa19 = true;
                 viewModel.set('column_Ca19_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 23){
-                str = 'Ca 20';
+                str = 'Ca ';
                 setCa20 = true;
                 viewModel.set('column_Ca20_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 24){
-                str = 'Ca 21';
+                str = 'Ca ';
                 setCa21 = true;
                 viewModel.set('column_Ca21_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 25){
-                str = 'Ca 22';
+                str = 'Ca ';
                 setCa22 = true;
                 viewModel.set('column_Ca22_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 26){
-                str = 'Ca 23';
+                str = 'Ca ';
                 setCa23 = true;
                 viewModel.set('column_Ca23_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 27){
-                str = 'Ca 24';
+                str = 'Ca ';
                 setCa24 = true;
                 viewModel.set('column_Ca24_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 28){
-                str = 'Ca 25';
+                str = 'Ca ';
                 setCa25 = true;
                 viewModel.set('column_Ca25_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 29){
-                str = 'Ca 26';
+                str = 'Ca ';
                 setCa26 = true;
                 viewModel.set('column_Ca26_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 30){
-                str = 'Ca 27';
+                str = 'Ca ';
                 setCa27 = true;
                 viewModel.set('column_Ca27_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 31){
-                str = 'Ca 28';
+                str = 'Ca ';
                 setCa28 = true;
                 viewModel.set('column_Ca28_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 32){
-                str = 'Ca 29';
+                str = 'Ca ';
                 setCa29 = true;
                 viewModel.set('column_Ca29_time', str + time);
             }else if(data.timesheet_shift_type_id_link == 33){
-                str = 'Ca 30';
+                str = 'Ca ';
                 setCa30 = true;
                 viewModel.set('column_Ca30_time', str + time);
             }

@@ -15,7 +15,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.Shift_List.cancelApprove.HuyXacNhanVie
         xtype: 'combo',
         fieldLabel: 'Ca ăn',
         valueField: 'timesheet_shift_type_id_link',
-        displayField: 'name',
+        displayField: 'gio',
         bind: {
             value: '{record.shifttypeid_link}',
             store: '{TimesheetShiftTypeOrgStore}'

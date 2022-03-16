@@ -22,7 +22,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.Shift_List.Shift_List_View', {
     columns: [
         {
             text: 'Ca', 
-            dataIndex: 'name', 
+            dataIndex: 'gio', 
             flex: 1,
         },
     ],

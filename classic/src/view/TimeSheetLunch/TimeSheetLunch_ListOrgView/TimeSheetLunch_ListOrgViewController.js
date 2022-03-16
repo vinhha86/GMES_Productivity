@@ -12,6 +12,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
     onloadDetail: function (grid, record, item, index, e, eOpts) {
         // console.log(record);
         this.fireEvent('SelectOrg', record);
+        var m = this;
         var viewModel = this.getViewModel();
         var TimeSheetLunchStore = viewModel.getStore('TimeSheetLunchStore');
 
@@ -36,8 +37,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
         // if(TimeSheetLunch_ListView) TimeSheetLunch_ListView.setLoading(true);
         var TimeSheetLunchStore = viewModel.getStore('TimeSheetLunchStore');
         TimeSheetLunchStore.removeAll();
-        TimeSheetLunchStore.loadStore(orgid_link, date);
-
+        // TimeSheetLunchStore.loadStore(orgid_link, date);
+        
         // set color
         TimeSheetLunch_MainView.down('#sumCa1').setFieldStyle('background-color: white;');
         TimeSheetLunch_MainView.down('#sumCa2').setFieldStyle('background-color: white;');
@@ -75,6 +76,45 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
 
         //
         viewModel.set('selectedRecord_Donvi', record);
+    },
+    setDataLunchShift: function(records){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var TimeSheetLunch_MainView = me.up('#TimeSheetLunch_MainView');
+        if(TimeSheetLunch_MainView){
+            var TimeSheetLunch_ListView = TimeSheetLunch_MainView.down('#TimeSheetLunch_ListView');
+            if(TimeSheetLunch_ListView){
+                var TimeSheetLunchStore = viewModel.getStore('TimeSheetLunchStore');
+                // records = TimeSheetLunchStore.getData().items;
+                var columns = TimeSheetLunch_ListView.getColumns();
+        
+                console.log(records);
+                console.log(columns);
+        
+                var storeData = new Array();
+                for(var i=0;i<records.length;i++){
+                    var record = records[i];
+                    var timesheet_shift_id_list = record.get('timesheet_shift_id_list');
+
+                    for(var j=0;j<timesheet_shift_id_list.length;j++){
+                        var timesheet_shift_id = timesheet_shift_id_list[j];
+                        for(var k=0;j<columns.length;k++){
+                            var column = columns[k];
+                            if(column.timesheet_shift_id == timesheet_shift_id){
+                                record.set(column.dataIndex, true);
+                            }
+                        }
+                    }
+                    storeData.push(record.data);
+                }
+                TimeSheetLunchStore.setData(storeData)
+                TimeSheetLunchStore.commitChanges();
+            }
+        }
+
+        
     },
     setShiftColumnConfirm: function () {
         var m = this;

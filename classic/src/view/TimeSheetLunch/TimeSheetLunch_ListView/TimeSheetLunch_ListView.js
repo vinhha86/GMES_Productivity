@@ -134,7 +134,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
                     store:'{TimesheetShiftTypeOrgStore}',
                     // value: '{data.type}'
                 },
-                displayField: 'name',
+                displayField: 'gio',
                 valueField: 'id',
                 // editable: false,
                 allowBlank: true,
@@ -167,6 +167,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
                 text: 'Tự động lấy dữ liệu',
                 iconCls: 'x-fa fa-sync',
                 itemId: 'btnAutoGetInfo',
+                hidden: true,
             },
             {
                 xtype: 'button',
