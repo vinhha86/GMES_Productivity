@@ -23,82 +23,85 @@ Ext.define('GSmartApp.view.timesheetshifttype.TimesheetShiftTypeView', {
     bind: {
         store: '{TimesheetShiftTypeStore}'
     },
-    columns: [{
-        xtype: 'actioncolumn',
-        width: 60,
-        menuDisabled: true,
-        sortable: false,
-        align: 'center',
-        items: [{
-            iconCls: 'x-fa fas fa-trash',
-            tooltip:"Xóa",
-            handler: 'onXoa'
-        }]
-    },{
-        text: 'STT',
-        width: 50,
-        xtype: 'rownumberer',
-        align: 'center'
-    }, {
-        text: 'Tên ca làm việc',
-        dataIndex: 'name',
-        sortable: false,
-        menuDisabled: true,
-        flex: 1,
-        items: {
-            xtype: 'textfield',
-            fieldStyle: "",
-            reference: 'NameFilter',
-            width: '99%',
+    columns: [
+        // {
+        //     xtype: 'actioncolumn',
+        //     width: 60,
+        //     menuDisabled: true,
+        //     sortable: false,
+        //     align: 'center',
+        //     items: [{
+        //         iconCls: 'x-fa fas fa-trash',
+        //         tooltip:"Xóa",
+        //         handler: 'onXoa'
+        //     }]
+        // },
+        {
+            text: 'STT',
+            width: 50,
+            xtype: 'rownumberer',
+            align: 'center'
+        }, {
+            text: 'Tên ca làm việc',
+            dataIndex: 'name',
+            sortable: false,
+            menuDisabled: true,
             flex: 1,
-            margin: 2,
-            enableKeyEvents: true,
-            listeners: {
-                keyup: 'onNameFilter',
-                buffer: 500
-            }
-        },
-        editor: {
-            xtype: 'textfield',
-            selectOnFocus: true,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'NameFilter',
+                width: '99%',
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onNameFilter',
+                    buffer: 500
+                }
+            },
+            editor: {
+                xtype: 'textfield',
+                selectOnFocus: true,
 
-        },
-    }, {
-        text: 'Mã ca làm việc',
-        dataIndex: 'code',
-        sortable: false,
-        menuDisabled: true,
-        flex: 1,
-        items: {
-            xtype: 'textfield',
-            fieldStyle: "",
-            reference: 'CodeFilter',
-            width: '99%',
+            },
+        }, {
+            text: 'Mã ca làm việc',
+            dataIndex: 'code',
+            sortable: false,
+            menuDisabled: true,
             flex: 1,
-            margin: 2,
-            enableKeyEvents: true,
-            listeners: {
-                keyup: 'onCodeFilter',
-                buffer: 500
-            }
-        },
-        editor: {
-            xtype: 'textfield',
-            selectOnFocus: true,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                reference: 'CodeFilter',
+                width: '99%',
+                flex: 1,
+                margin: 2,
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onCodeFilter',
+                    buffer: 500
+                }
+            },
+            editor: {
+                xtype: 'textfield',
+                selectOnFocus: true,
 
-        },
-    }, {
-        xtype: 'checkcolumn',
-        dataIndex: 'is_ca_an',
-        width: 50,
-        headerCheckbox: false,
-        sortable: false,
-        menuDisabled: true,
-        text: 'Ca ăn',
-        listeners: {
-            checkchange: 'onCheckcolumnCheckChange',
+            },
+        }, {
+            xtype: 'checkcolumn',
+            dataIndex: 'is_ca_an',
+            width: 50,
+            headerCheckbox: false,
+            sortable: false,
+            menuDisabled: true,
+            text: 'Ca ăn',
+            listeners: {
+                checkchange: 'onCheckcolumnCheckChange',
+            }
         }
-    }],
+    ],
     dockedItems: [{
         dock: 'bottom',
         layout: 'hbox',

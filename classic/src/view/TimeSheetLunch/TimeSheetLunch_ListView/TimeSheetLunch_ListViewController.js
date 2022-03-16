@@ -381,6 +381,9 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         var th = this;
         var TimeSheetLunchStore = viewModel.get('TimeSheetLunchStore');
 
+        // console.log(data);
+        // return;
+
         var params = new Object();
         params.data = data;
         // params.dataIndex = dataIndex;
@@ -1002,6 +1005,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         // console.log(storeData);
         // console.log(modifiers); 
 
+        // return;
+
         for (var i = 0; i < modifiers.length; i++) {
             var recData = modifiers[i].data;
             var nolunch_shift_idlink = recData.nolunch_shift_idlink;
@@ -1015,31 +1020,216 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
             // console.log(modified);
             var arr = new Array();
 
-            var o = new Object();
-            o.dataIndex = 1;
-            o.lunchShift = modified.lunchShift1;
-            o.nolunch_shift_idlink = nolunch_shift_idlink;
-            arr.push(o);
-            var o = new Object();
-            o.dataIndex = 2;
-            o.lunchShift = modified.lunchShift2;
-            o.nolunch_shift_idlink = nolunch_shift_idlink;
-            arr.push(o);
-            var o = new Object();
-            o.dataIndex = 3;
-            o.lunchShift = modified.lunchShift3;
-            o.nolunch_shift_idlink = nolunch_shift_idlink;
-            arr.push(o);
-            var o = new Object();
-            o.dataIndex = 4;
-            o.lunchShift = modified.lunchShift4;
-            o.nolunch_shift_idlink = nolunch_shift_idlink;
-            arr.push(o);
-            var o = new Object();
-            o.dataIndex = 5;
-            o.lunchShift = modified.lunchShift5;
-            o.nolunch_shift_idlink = nolunch_shift_idlink;
-            arr.push(o);
+            if(modified.lunchShift1 != null){
+                var o = new Object();
+                o.dataIndex = 1;
+                o.lunchShift = modified.lunchShift1;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift2 != null){
+                var o = new Object();
+                o.dataIndex = 2;
+                o.lunchShift = modified.lunchShift2;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift3 != null){
+                var o = new Object();
+                o.dataIndex = 3;
+                o.lunchShift = modified.lunchShift3;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift4 != null){
+                var o = new Object();
+                o.dataIndex = 4;
+                o.lunchShift = modified.lunchShift4;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift5 != null){
+                var o = new Object();
+                o.dataIndex = 5;
+                o.lunchShift = modified.lunchShift5;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift6 != null){
+                var o = new Object();
+                o.dataIndex = 6;
+                o.lunchShift = modified.lunchShift6;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift7 != null){
+                var o = new Object();
+                o.dataIndex = 7;
+                o.lunchShift = modified.lunchShift7;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift8 != null){
+                var o = new Object();
+                o.dataIndex = 8;
+                o.lunchShift = modified.lunchShift8;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift9 != null){
+                var o = new Object();
+                o.dataIndex = 9;
+                o.lunchShift = modified.lunchShift9;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift10 != null){
+                var o = new Object();
+                o.dataIndex = 10;
+                o.lunchShift = modified.lunchShift10;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift11 != null){
+                var o = new Object();
+                o.dataIndex = 11;
+                o.lunchShift = modified.lunchShift11;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift12 != null){
+                var o = new Object();
+                o.dataIndex = 12;
+                o.lunchShift = modified.lunchShift12;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift13 != null){
+                var o = new Object();
+                o.dataIndex = 13;
+                o.lunchShift = modified.lunchShift13;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift14 != null){
+                var o = new Object();
+                o.dataIndex = 14;
+                o.lunchShift = modified.lunchShift14;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift15 != null){
+                var o = new Object();
+                o.dataIndex = 15;
+                o.lunchShift = modified.lunchShift15;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift16 != null){
+                var o = new Object();
+                o.dataIndex = 16;
+                o.lunchShift = modified.lunchShift16;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift17 != null){
+                var o = new Object();
+                o.dataIndex = 17;
+                o.lunchShift = modified.lunchShift17;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift18 != null){
+                var o = new Object();
+                o.dataIndex = 18;
+                o.lunchShift = modified.lunchShift18;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift19 != null){
+                var o = new Object();
+                o.dataIndex = 19;
+                o.lunchShift = modified.lunchShift19;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift20 != null){
+                var o = new Object();
+                o.dataIndex = 20;
+                o.lunchShift = modified.lunchShift20;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift21 != null){
+                var o = new Object();
+                o.dataIndex = 21;
+                o.lunchShift = modified.lunchShift21;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift22 != null){
+                var o = new Object();
+                o.dataIndex = 22;
+                o.lunchShift = modified.lunchShift22;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift23 != null){
+                var o = new Object();
+                o.dataIndex = 23;
+                o.lunchShift = modified.lunchShift23;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift24 != null){
+                var o = new Object();
+                o.dataIndex = 24;
+                o.lunchShift = modified.lunchShift24;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift25 != null){
+                var o = new Object();
+                o.dataIndex = 25;
+                o.lunchShift = modified.lunchShift25;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift26 != null){
+                var o = new Object();
+                o.dataIndex = 26;
+                o.lunchShift = modified.lunchShift26;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift27 != null){
+                var o = new Object();
+                o.dataIndex = 27;
+                o.lunchShift = modified.lunchShift27;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift28 != null){
+                var o = new Object();
+                o.dataIndex = 28;
+                o.lunchShift = modified.lunchShift28;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift29 != null){
+                var o = new Object();
+                o.dataIndex = 29;
+                o.lunchShift = modified.lunchShift29;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
+            if(modified.lunchShift30 != null){
+                var o = new Object();
+                o.dataIndex = 30;
+                o.lunchShift = modified.lunchShift30;
+                o.nolunch_shift_idlink = nolunch_shift_idlink;
+                arr.push(o);
+            }
 
             // console.log(arr.length);
             // console.log(arr);
@@ -1058,21 +1248,11 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                 obj.orgid_link = recData.orgid_link;
                 obj.orgmanagerid_link = recData.orgmanagerid_link;
                 obj.nolunch_shift_idlink = arr[j].nolunch_shift_idlink;
+
+
+
                 data.push(obj);
             }
-
-            // for (var j = 1; j <= col; j++) {
-            //     var lunchShift = "lunchShift" + j;
-            //     var workingShift = "workingShift" + j;
-            //     obj.lunchShift = recData[lunchShift];
-            //     obj.workingShift = recData[workingShift];
-            // }
-            // obj.personnelCode = recData.personnelCode;
-            // obj.personnelFullname = recData.personnelFullname;
-            // obj.personnelid_link = recData.personnelid_link;
-            // obj.workingdate = recData.workingdate;
-            // obj.dataIndex = col;
-            // data.push(obj);
         }
 
         // dataIndex: "1"

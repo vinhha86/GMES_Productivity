@@ -44,6 +44,31 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
         TimeSheetLunch_MainView.down('#sumCa3').setFieldStyle('background-color: white;');
         TimeSheetLunch_MainView.down('#sumCa4').setFieldStyle('background-color: white;');
         TimeSheetLunch_MainView.down('#sumCa5').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa6').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa7').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa8').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa9').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa10').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa11').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa12').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa13').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa14').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa15').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa16').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa17').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa18').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa19').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa20').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa21').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa22').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa23').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa24').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa25').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa26').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa27').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa28').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa29').setFieldStyle('background-color: white;');
+        TimeSheetLunch_MainView.down('#sumCa30').setFieldStyle('background-color: white;');
 
         // check status xác nhận của ngày và của đơn vị
         this.setShiftColumnConfirm();
@@ -305,6 +330,109 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
                         TimeSheetLunch_MainView.down('#sumCa5').setFieldStyle('background-color: lightblue;');
                     else
                         TimeSheetLunch_MainView.down('#sumCa5').setFieldStyle('background-color: white;');
+
+                    if (viewModel.get('isCa6Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa6').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa6').setFieldStyle('background-color: white;');
+                    if (viewModel.get('isCa7Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa7').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa7').setFieldStyle('background-color: white;');
+                    if (viewModel.get('isCa8Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa8').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa8').setFieldStyle('background-color: white;');
+                    if (viewModel.get('isCa9Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa9').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa9').setFieldStyle('background-color: white;');
+                    if (viewModel.get('isCa10Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa10').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa10').setFieldStyle('background-color: white;');
+                    if (viewModel.get('isCa11Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa11').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa11').setFieldStyle('background-color: white;');
+                    if (viewModel.get('isCa12Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa12').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa12').setFieldStyle('background-color: white;');
+                    if (viewModel.get('isCa13Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa13').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa13').setFieldStyle('background-color: white;');
+                    if (viewModel.get('isCa14Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa14').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa14').setFieldStyle('background-color: white;');
+                    if (viewModel.get('isCa15Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa15').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa15').setFieldStyle('background-color: white;');
+
+                    if (viewModel.get('isCa16Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa16').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa16').setFieldStyle('background-color: white;');
+                    if (viewModel.get('isCa17Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa17').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa17').setFieldStyle('background-color: white;');
+                    if (viewModel.get('isCa18Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa18').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa18').setFieldStyle('background-color: white;');
+                    if (viewModel.get('isCa19Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa19').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa19').setFieldStyle('background-color: white;');
+                    if (viewModel.get('isCa20Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa20').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa20').setFieldStyle('background-color: white;');
+                    if (viewModel.get('isCa21Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa21').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa21').setFieldStyle('background-color: white;');
+                    if (viewModel.get('isCa22Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa22').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa22').setFieldStyle('background-color: white;');
+                    if (viewModel.get('isCa23Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa23').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa23').setFieldStyle('background-color: white;');
+                    if (viewModel.get('isCa24Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa24').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa24').setFieldStyle('background-color: white;');
+                    if (viewModel.get('isCa25Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa25').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa25').setFieldStyle('background-color: white;');
+
+                    if (viewModel.get('isCa26Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa26').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa26').setFieldStyle('background-color: white;');
+                    if (viewModel.get('isCa27Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa27').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa27').setFieldStyle('background-color: white;');
+                    if (viewModel.get('isCa28Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa28').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa28').setFieldStyle('background-color: white;');
+                    if (viewModel.get('isCa29Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa29').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa29').setFieldStyle('background-color: white;');
+                    if (viewModel.get('isCa30Confirm') == true)
+                        TimeSheetLunch_MainView.down('#sumCa30').setFieldStyle('background-color: lightblue;');
+                    else
+                        TimeSheetLunch_MainView.down('#sumCa30').setFieldStyle('background-color: white;');
                 }
             })
     },
