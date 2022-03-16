@@ -78,35 +78,211 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
                             } else {
                                 viewModel.set('isCa1Confirm', false);
                             }
-                        }
+                        }else
                         if (data[i].name == 'Ca ăn 2') {
                             if (data[i].isConfirm == true) {
                                 viewModel.set('isCa2Confirm', true);
                             } else {
                                 viewModel.set('isCa2Confirm', false);
                             }
-                        }
+                        }else
                         if (data[i].name == 'Ca ăn 3') {
                             if (data[i].isConfirm == true) {
                                 viewModel.set('isCa3Confirm', true);
                             } else {
                                 viewModel.set('isCa3Confirm', false);
                             }
-                        }
+                        }else
                         if (data[i].name == 'Ca ăn 4') {
                             if (data[i].isConfirm == true) {
                                 viewModel.set('isCa4Confirm', true);
                             } else {
                                 viewModel.set('isCa4Confirm', false);
                             }
-                        }
+                        }else
                         if (data[i].name == 'Ca ăn 5') {
                             if (data[i].isConfirm == true) {
                                 viewModel.set('isCa5Confirm', true);
                             } else {
                                 viewModel.set('isCa5Confirm', false);
                             }
+                        }else
+                        if (data[i].name == 'Ca ăn 6') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa6Confirm', true);
+                            } else {
+                                viewModel.set('isCa6Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 7') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa7Confirm', true);
+                            } else {
+                                viewModel.set('isCa7Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 8') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa8Confirm', true);
+                            } else {
+                                viewModel.set('isCa8Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 9') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa9Confirm', true);
+                            } else {
+                                viewModel.set('isCa9Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 10') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa10Confirm', true);
+                            } else {
+                                viewModel.set('isCa10Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 11') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa11Confirm', true);
+                            } else {
+                                viewModel.set('isCa11Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 12') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa12Confirm', true);
+                            } else {
+                                viewModel.set('isCa12Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 13') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa13Confirm', true);
+                            } else {
+                                viewModel.set('isCa13Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 14') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa14Confirm', true);
+                            } else {
+                                viewModel.set('isCa14Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 15') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa15Confirm', true);
+                            } else {
+                                viewModel.set('isCa15Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 16') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa16Confirm', true);
+                            } else {
+                                viewModel.set('isCa16Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 17') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa17Confirm', true);
+                            } else {
+                                viewModel.set('isCa17Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 18') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa18Confirm', true);
+                            } else {
+                                viewModel.set('isCa18Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 19') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa19Confirm', true);
+                            } else {
+                                viewModel.set('isCa19Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 20') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa20Confirm', true);
+                            } else {
+                                viewModel.set('isCa20Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 21') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa21Confirm', true);
+                            } else {
+                                viewModel.set('isCa21Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 22') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa22Confirm', true);
+                            } else {
+                                viewModel.set('isCa22Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 23') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa23Confirm', true);
+                            } else {
+                                viewModel.set('isCa23Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 24') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa24Confirm', true);
+                            } else {
+                                viewModel.set('isCa24Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 25') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa25Confirm', true);
+                            } else {
+                                viewModel.set('isCa25Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 26') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa26Confirm', true);
+                            } else {
+                                viewModel.set('isCa26Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 27') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa27Confirm', true);
+                            } else {
+                                viewModel.set('isCa27Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 28') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa28Confirm', true);
+                            } else {
+                                viewModel.set('isCa28Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 29') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa29Confirm', true);
+                            } else {
+                                viewModel.set('isCa29Confirm', false);
+                            }
+                        }else
+                        if (data[i].name == 'Ca ăn 30') {
+                            if (data[i].isConfirm == true) {
+                                viewModel.set('isCa30Confirm', true);
+                            } else {
+                                viewModel.set('isCa30Confirm', false);
+                            }
                         }
+
                     }
 
                     if (viewModel.get('isCa1Confirm') == true)

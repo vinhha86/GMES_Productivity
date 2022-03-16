@@ -112,8 +112,6 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.TongHopBaoAnListOrgViewControlle
                 viewModel.set('column_Ca5_time', str + time);
             }
             console.log(str + time);
-            // listtitle.push(str);
-
         }
 
         if(!setCa1){

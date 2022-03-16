@@ -73,7 +73,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         var params = new Object();
         params.orgid_link = data;
         params.is_ca_an = true;
-        GSmartApp.Ajax.post('/api/v1/timesheetshifttypeorg/getbyorgid_link_caAn', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/timesheetshifttypeorg/getbyorgid_link_caAn_All', Ext.JSON.encode(params),
             function (success, response, options) {
                 grid.setLoading(false);
                 if (success) {
@@ -81,7 +81,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                     if (response.respcode == 200) {
                         for (var i = 0; i < response.data.length; i++) {
                             var data = response.data[i];
-                            // console.log(data);
+                            console.log(data);
                             var str = data.name.trim() + ' ';
                             var time = '<br>';
                             time += data.from_hour < 10 ? '0' + data.from_hour : data.from_hour;
@@ -90,15 +90,32 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                             time += data.to_hour < 10 ? '0' + data.to_hour : data.to_hour;
                             time += data.to_minute < 10 ? ':0' + data.to_minute : ':' + data.to_minute;
                             str += time;
-                            listtitle.push(str);
+
+                            var is_active = data.is_active;
+                            var timesheet_shift_type_id_link = data.timesheet_shift_type_id_link;
+                            var timesheet_shift_id = data.id;
+
+                            var columnObj = new Object();
+                            columnObj.text = str;
+                            columnObj.is_active = is_active;
+                            columnObj.timesheet_shift_type_id_link = timesheet_shift_type_id_link;
+                            columnObj.timesheet_shift_id = timesheet_shift_id;
+
+                            // listtitle.push(str);
+                            listtitle.push(columnObj);
 
                         }
                         viewmodel.set('numberShift', response.data.length);
                         for (var i = 0; i < listtitle.length; i++) {
-                            if ("" + listtitle[i] == "") continue;
+                            if ("" + listtitle[i].text == "") continue;
 
                             var column = Ext.create('Ext.grid.column.Check', {
-                                text: listtitle[i],
+                                text: listtitle[i].text,
+                                hidden: !listtitle[i].is_active,
+                                isShiftColumn: true, // de biet day la column ca an
+                                timesheet_shift_type_id_link: listtitle[i].timesheet_shift_type_id_link,
+                                timesheet_shift_id: listtitle[i].timesheet_shift_id,
+
                                 sortable: false,
                                 menuDisabled: true,
                                 dataIndex: 'lunchShift' + (i + 1),
@@ -112,55 +129,6 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                                     // headerclick: 'onHeaderClick',
                                     headercheckchange: 'onHeaderClick',
                                 },
-                                // renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                                //     // console.log(metaData.column.text);
-                                //     // var val = value == 'null' ? "" : value;
-                                //     // metaData.tdAttr = 'data-qtip="' + val + '"';
-
-                                //     // style
-                                //     if(metaData.column.text.includes('Ca ăn 1 ')){
-                                //         var isCa1Confirm = viewmodel.get('isCa1Confirm');
-                                //         if(isCa1Confirm == true){
-                                //             metaData.tdCls = 'greenCell';
-                                //         }else{
-                                //             metaData.tdCls = 'whiteCell';
-                                //         }
-                                //     }
-                                //     if(metaData.column.text.includes('Ca ăn 2 ')){
-                                //         var isCa2Confirm = viewmodel.get('isCa2Confirm');
-                                //         if(isCa2Confirm == true){
-                                //             metaData.tdCls = 'greenCell';
-                                //         }else{
-                                //             metaData.tdCls = 'whiteCell';
-                                //         }
-                                //     }
-                                //     if(metaData.column.text.includes('Ca ăn 3 ')){
-                                //         var isCa3Confirm = viewmodel.get('isCa3Confirm');
-                                //         if(isCa3Confirm == true){
-                                //             metaData.tdCls = 'greenCell';
-                                //         }else{
-                                //             metaData.tdCls = 'whiteCell';
-                                //         }
-                                //     }
-                                //     if(metaData.column.text.includes('Ca ăn 4 ')){
-                                //         var isCa4Confirm = viewmodel.get('isCa4Confirm');
-                                //         if(isCa4Confirm == true){
-                                //             metaData.tdCls = 'greenCell';
-                                //         }else{
-                                //             metaData.tdCls = 'whiteCell';
-                                //         }
-                                //     }
-                                //     if(metaData.column.text.includes('Ca ăn 5 ')){
-                                //         var isCa5Confirm = viewmodel.get('isCa5Confirm');
-                                //         if(isCa5Confirm == true){
-                                //             metaData.tdCls = 'greenCell';
-                                //         }else{
-                                //             metaData.tdCls = 'whiteCell';
-                                //         }
-                                //     }
-
-                                //     return "<input type='checkbox'" + (value ? "checked='checked'" : "") + ">";
-                                // },
                             })
 
                             grid.headerCt.insert(length, column);
@@ -870,8 +838,16 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
     },
     sumInfo: function () {
         var viewmodel = this.getViewModel();
+        var me = this.getView();
         var store = viewmodel.getStore('TimeSheetLunchStore');
+
         var ca1 = 0, ca2 = 0, ca3 = 0, ca4 = 0, ca5 = 0;
+        var ca6 = 0, ca7 = 0, ca8 = 0, ca9 = 0, ca10 = 0;
+        var ca11 = 0, ca12 = 0, ca13 = 0, ca14 = 0, ca15 = 0;
+        var ca16 = 0, ca17 = 0, ca18 = 0, ca19 = 0, ca20 = 0;
+        var ca21 = 0, ca22 = 0, ca23 = 0, ca24 = 0, ca25 = 0;
+        var ca26 = 0, ca27 = 0, ca28 = 0, ca29 = 0, ca30 = 0;
+
         for (var i = 0; i < store.data.length; i++) {
             var rec = store.data.items[i].data;
             if (rec.lunchShift1)
@@ -884,12 +860,133 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                 ca4++;
             if (rec.lunchShift5)
                 ca5++;
+            if (rec.lunchShift6)
+                ca6++;
+            if (rec.lunchShift7)
+                ca7++;
+            if (rec.lunchShift8)
+                ca8++;
+            if (rec.lunchShift9)
+                ca9++;
+            if (rec.lunchShift10)
+                ca10++;
+            if (rec.lunchShift11)
+                ca11++;
+            if (rec.lunchShift12)
+                ca12++;
+            if (rec.lunchShift13)
+                ca13++;
+            if (rec.lunchShift14)
+                ca14++;
+            if (rec.lunchShift15)
+                ca15++;
+            if (rec.lunchShift16)
+                ca16++;
+            if (rec.lunchShift17)
+                ca17++;
+            if (rec.lunchShift18)
+                ca18++;
+            if (rec.lunchShift19)
+                ca19++;
+            if (rec.lunchShift20)
+                ca20++;
+            if (rec.lunchShift21)
+                ca21++;
+            if (rec.lunchShift22)
+                ca22++;
+            if (rec.lunchShift23)
+                ca23++;
+            if (rec.lunchShift24)
+                ca24++;
+            if (rec.lunchShift25)
+                ca25++;
+            if (rec.lunchShift26)
+                ca26++;
+            if (rec.lunchShift27)
+                ca27++;
+            if (rec.lunchShift28)
+                ca28++;
+            if (rec.lunchShift29)
+                ca29++;
+            if (rec.lunchShift30)
+                ca30++;
         }
         viewmodel.set('sumCa1', ca1);
         viewmodel.set('sumCa2', ca2);
         viewmodel.set('sumCa3', ca3);
         viewmodel.set('sumCa4', ca4);
         viewmodel.set('sumCa5', ca5);
+        viewmodel.set('sumCa6', ca6);
+        viewmodel.set('sumCa7', ca7);
+        viewmodel.set('sumCa8', ca8);
+        viewmodel.set('sumCa9', ca9);
+        viewmodel.set('sumCa10', ca10);
+        viewmodel.set('sumCa11', ca11);
+        viewmodel.set('sumCa12', ca12);
+        viewmodel.set('sumCa13', ca13);
+        viewmodel.set('sumCa14', ca14);
+        viewmodel.set('sumCa15', ca15);
+        viewmodel.set('sumCa16', ca16);
+        viewmodel.set('sumCa17', ca17);
+        viewmodel.set('sumCa18', ca18);
+        viewmodel.set('sumCa19', ca19);
+        viewmodel.set('sumCa20', ca20);
+        viewmodel.set('sumCa21', ca21);
+        viewmodel.set('sumCa22', ca22);
+        viewmodel.set('sumCa23', ca23);
+        viewmodel.set('sumCa24', ca24);
+        viewmodel.set('sumCa25', ca25);
+        viewmodel.set('sumCa26', ca26);
+        viewmodel.set('sumCa27', ca27);
+        viewmodel.set('sumCa28', ca28);
+        viewmodel.set('sumCa29', ca29);
+        viewmodel.set('sumCa30', ca30);
+
+        // set cac sum textfield hidden
+        viewmodel.set('isCa1Hidden', true);
+        viewmodel.set('isCa2Hidden', true);
+        viewmodel.set('isCa3Hidden', true);
+        viewmodel.set('isCa4Hidden', true);
+        viewmodel.set('isCa5Hidden', true);
+        viewmodel.set('isCa6Hidden', true);
+        viewmodel.set('isCa7Hidden', true);
+        viewmodel.set('isCa8Hidden', true);
+        viewmodel.set('isCa9Hidden', true);
+        viewmodel.set('isCa10Hidden', true);
+        viewmodel.set('isCa11Hidden', true);
+        viewmodel.set('isCa12Hidden', true);
+        viewmodel.set('isCa13Hidden', true);
+        viewmodel.set('isCa14Hidden', true);
+        viewmodel.set('isCa15Hidden', true);
+        viewmodel.set('isCa16Hidden', true);
+        viewmodel.set('isCa17Hidden', true);
+        viewmodel.set('isCa18Hidden', true);
+        viewmodel.set('isCa19Hidden', true);
+        viewmodel.set('isCa20Hidden', true);
+        viewmodel.set('isCa21Hidden', true);
+        viewmodel.set('isCa22Hidden', true);
+        viewmodel.set('isCa23Hidden', true);
+        viewmodel.set('isCa24Hidden', true);
+        viewmodel.set('isCa25Hidden', true);
+        viewmodel.set('isCa26Hidden', true);
+        viewmodel.set('isCa27Hidden', true);
+        viewmodel.set('isCa28Hidden', true);
+        viewmodel.set('isCa29Hidden', true);
+        viewmodel.set('isCa30Hidden', true);
+
+        // loop qua danh sach ca cot cua bang, cot nao hidden thi set hidden cho textfield sum tuong ung
+        // console.log(store);
+        // console.log(me);
+        var columns = me.getColumns();
+        console.log(columns);
+
+        for(var i=0; i<columns.length; i++){
+            if(columns[i].isShiftColumn && !columns[i].hidden){
+                var fullColumnIndex = columns[i].fullColumnIndex;
+                // fullColumnIndex = 5 -> ca 1, 6 -> 2 ...
+                viewmodel.set('isCa' + (fullColumnIndex - 4) + 'Hidden', false);
+            }
+        }
     },
     onSave: function () {
         var m = this;
@@ -917,41 +1014,6 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
             var modified = modifiers[i].modified;
             // console.log(modified);
             var arr = new Array();
-            // if (modified.lunchShift1 != null) {
-            //     var o = new Object();
-            //     o.dataIndex = 1;
-            //     o.lunchShift = modified.lunchShift1;
-            //     o.nolunch_shift_idlink = nolunch_shift_idlink;
-            //     arr.push(o);
-            // }
-            // if (modified.lunchShift2 != null) {
-            //     var o = new Object();
-            //     o.dataIndex = 2;
-            //     o.lunchShift = modified.lunchShift2;
-            //     o.nolunch_shift_idlink = nolunch_shift_idlink;
-            //     arr.push(o);
-            // }
-            // if (modified.lunchShift3 != null) {
-            //     var o = new Object();
-            //     o.dataIndex = 3;
-            //     o.lunchShift = modified.lunchShift3;
-            //     o.nolunch_shift_idlink = nolunch_shift_idlink;
-            //     arr.push(o);
-            // }
-            // if (modified.lunchShift4 != null) {
-            //     var o = new Object();
-            //     o.dataIndex = 4;
-            //     o.lunchShift = modified.lunchShift4;
-            //     o.nolunch_shift_idlink = nolunch_shift_idlink;
-            //     arr.push(o);
-            // }
-            // if (modified.lunchShift5 != null) {
-            //     var o = new Object();
-            //     o.dataIndex = 5;
-            //     o.lunchShift = modified.lunchShift5;
-            //     o.nolunch_shift_idlink = nolunch_shift_idlink;
-            //     arr.push(o);
-            // }
 
             var o = new Object();
             o.dataIndex = 1;

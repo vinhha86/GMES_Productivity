@@ -145,102 +145,6 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
             }
         }
     },
-        // {
-        //     text: 'Ca 1',
-        //     flex: 1,
-        //     columns: [
-        //         {
-        //             xtype: 'checkcolumn',
-        //             text: 'Đi làm',
-        //             dataIndex: 'workingShift1',
-        //             headerCheckbox: true,
-        //             flex: 1,
-        //             // width: 75,
-        //             listeners: {
-        //                 beforecheckchange: 'onBeforecheckchange',
-        //                 checkchange: 'onCheckchange',
-        //                 headerclick: 'onHeaderClick'
-        //             }
-        //         },
-        //         {
-        //             xtype: 'checkcolumn',
-        //             text: 'Ăn',
-        //             dataIndex: 'lunchShift1',
-        //             // headerCheckbox: true,
-        //             flex: 1,
-        //             // width: 50,
-        //             listeners: {
-        //                 beforecheckchange: 'onBeforecheckchange',
-        //                 checkchange: 'onCheckchange',
-        //                 // headerclick: 'onHeaderClick'
-        //             }
-        //         }
-        //     ]
-        // },
-        // {
-        //     text: 'Ca 2',
-        //     flex: 1,
-        //     columns: [
-        //         {
-        //             xtype: 'checkcolumn',
-        //             text: 'Đi làm',
-        //             dataIndex: 'workingShift2',
-        //             headerCheckbox: true,
-        //             flex: 1,
-        //             // width: 75,
-        //             listeners: {
-        //                 beforecheckchange: 'onBeforecheckchange',
-        //                 checkchange: 'onCheckchange',
-        //                 headerclick: 'onHeaderClick'
-        //             }
-        //         },
-        //         {
-        //             xtype: 'checkcolumn',
-        //             text: 'Ăn',
-        //             dataIndex: 'lunchShift2',
-        //             // headerCheckbox: true,
-        //             flex: 1,
-        //             // width: 50,
-        //             listeners: {
-        //                 beforecheckchange: 'onBeforecheckchange',
-        //                 checkchange: 'onCheckchange',
-        //                 // headerclick: 'onHeaderClick'
-        //             }
-        //         }
-        //     ]
-        // },
-        // {
-        //     text: 'Ca 3',
-        //     flex: 1,
-        //     columns: [
-        //         {
-        //             xtype: 'checkcolumn',
-        //             text: 'Đi làm',
-        //             dataIndex: 'workingShift3',
-        //             headerCheckbox: true,
-        //             flex: 1,
-        //             // width: 75,
-        //             listeners: {
-        //                 beforecheckchange: 'onBeforecheckchange',
-        //                 checkchange: 'onCheckchange',
-        //                 headerclick: 'onHeaderClick'
-        //             }
-        //         },
-        //         {
-        //             xtype: 'checkcolumn',
-        //             text: 'Ăn',
-        //             dataIndex: 'lunchShift3',
-        //             // headerCheckbox: true,
-        //             flex: 1,
-        //             // width: 50,
-        //             listeners: {
-        //                 beforecheckchange: 'onBeforecheckchange',
-        //                 checkchange: 'onCheckchange',
-        //                 // headerclick: 'onHeaderClick'
-        //             }
-        //         }
-        //     ]
-        // }
     ],
     dockedItems: [{
         dock: 'bottom',
@@ -292,6 +196,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
             editable: false,
             bind: {
                 value: '{sumCa1}',
+                hidden: '{isCa1Hidden}'
             }
         }, {
             xtype: 'textfield',
@@ -302,7 +207,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
             labelWidth: 50,
             editable: false,
             bind: {
-                value: '{sumCa2}'
+                value: '{sumCa2}',
+                hidden: '{isCa2Hidden}'
             }
         }, {
             xtype: 'textfield',
@@ -313,7 +219,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
             labelWidth: 50,
             editable: false,
             bind: {
-                value: '{sumCa3}'
+                value: '{sumCa3}',
+                hidden: '{isCa3Hidden}'
             }
         }, {
             xtype: 'textfield',
@@ -324,7 +231,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
             labelWidth: 50,
             editable: false,
             bind: {
-                value: '{sumCa4}'
+                value: '{sumCa4}',
+                hidden: '{isCa4Hidden}'
             }
         }, {
             xtype: 'textfield',
@@ -335,9 +243,312 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
             labelWidth: 50,
             editable: false,
             bind: {
-                value: '{sumCa5}'
+                value: '{sumCa5}',
+                hidden: '{isCa5Hidden}'
             }
-        }]
+        },{
+            xtype: 'textfield',
+            itemId: 'sumCa6',
+            fieldLabel: 'Ca 6',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa6}',
+                hidden: '{isCa6Hidden}'
+            }
+        }, {
+            xtype: 'textfield',
+            itemId: 'sumCa7',
+            fieldLabel: 'Ca 7',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa7}',
+                hidden: '{isCa7Hidden}'
+            }
+        }, {
+            xtype: 'textfield',
+            itemId: 'sumCa8',
+            fieldLabel: 'Ca 8',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa8}',
+                hidden: '{isCa8Hidden}'
+            }
+        }, {
+            xtype: 'textfield',
+            itemId: 'sumCa9',
+            fieldLabel: 'Ca 9',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa9}',
+                hidden: '{isCa9Hidden}'
+            }
+        }, {
+            xtype: 'textfield',
+            itemId: 'sumCa10',
+            fieldLabel: 'Ca 10',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa10}',
+                hidden: '{isCa10Hidden}'
+            }
+        },{
+            xtype: 'textfield',
+            itemId: 'sumCa11',
+            fieldLabel: 'Ca 11',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa11}',
+                hidden: '{isCa11Hidden}'
+            }
+        }, {
+            xtype: 'textfield',
+            itemId: 'sumCa12',
+            fieldLabel: 'Ca 12',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa12}',
+                hidden: '{isCa12Hidden}'
+            }
+        }, {
+            xtype: 'textfield',
+            itemId: 'sumCa13',
+            fieldLabel: 'Ca 13',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa13}',
+                hidden: '{isCa13Hidden}'
+            }
+        }, {
+            xtype: 'textfield',
+            itemId: 'sumCa14',
+            fieldLabel: 'Ca 14',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa14}',
+                hidden: '{isCa14Hidden}'
+            }
+        }, {
+            xtype: 'textfield',
+            itemId: 'sumCa15',
+            fieldLabel: 'Ca 15',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa15}',
+                hidden: '{isCa15Hidden}'
+            }
+        },{
+            xtype: 'textfield',
+            itemId: 'sumCa16',
+            fieldLabel: 'Ca 16',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa16}',
+                hidden: '{isCa16Hidden}'
+            }
+        }, {
+            xtype: 'textfield',
+            itemId: 'sumCa17',
+            fieldLabel: 'Ca 17',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa17}',
+                hidden: '{isCa17Hidden}'
+            }
+        }, {
+            xtype: 'textfield',
+            itemId: 'sumCa18',
+            fieldLabel: 'Ca 18',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa18}',
+                hidden: '{isCa18Hidden}'
+            }
+        }, {
+            xtype: 'textfield',
+            itemId: 'sumCa19',
+            fieldLabel: 'Ca 19',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa19}',
+                hidden: '{isCa19Hidden}'
+            }
+        }, {
+            xtype: 'textfield',
+            itemId: 'sumCa20',
+            fieldLabel: 'Ca 20',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa20}',
+                hidden: '{isCa20Hidden}'
+            }
+        },{
+            xtype: 'textfield',
+            itemId: 'sumCa21',
+            fieldLabel: 'Ca 21',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa21}',
+                hidden: '{isCa21Hidden}'
+            }
+        }, {
+            xtype: 'textfield',
+            itemId: 'sumCa22',
+            fieldLabel: 'Ca 22',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa22}',
+                hidden: '{isCa22Hidden}'
+            }
+        }, {
+            xtype: 'textfield',
+            itemId: 'sumCa23',
+            fieldLabel: 'Ca 23',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa23}',
+                hidden: '{isCa23Hidden}'
+            }
+        }, {
+            xtype: 'textfield',
+            itemId: 'sumCa24',
+            fieldLabel: 'Ca 24',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa24}',
+                hidden: '{isCa24Hidden}'
+            }
+        }, {
+            xtype: 'textfield',
+            itemId: 'sumCa25',
+            fieldLabel: 'Ca 25',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa25}',
+                hidden: '{isCa25Hidden}'
+            }
+        },
+        //
+        {
+            xtype: 'textfield',
+            itemId: 'sumCa26',
+            fieldLabel: 'Ca 26',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa26}',
+                hidden: '{isCa26Hidden}'
+            }
+        }, {
+            xtype: 'textfield',
+            itemId: 'sumCa27',
+            fieldLabel: 'Ca 27',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa27}',
+                hidden: '{isCa27Hidden}'
+            }
+        }, {
+            xtype: 'textfield',
+            itemId: 'sumCa28',
+            fieldLabel: 'Ca 28',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa28}',
+                hidden: '{isCa28Hidden}'
+            }
+        }, {
+            xtype: 'textfield',
+            itemId: 'sumCa29',
+            fieldLabel: 'Ca 29',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa29}',
+                hidden: '{isCa29Hidden}'
+            }
+        }, {
+            xtype: 'textfield',
+            itemId: 'sumCa30',
+            fieldLabel: 'Ca 30',
+            margin: 3,
+            width: 120,
+            labelWidth: 50,
+            editable: false,
+            bind: {
+                value: '{sumCa30}',
+                hidden: '{isCa30Hidden}'
+            }
+        },]
     }]
 });
 
