@@ -81,7 +81,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                     if (response.respcode == 200) {
                         for (var i = 0; i < response.data.length; i++) {
                             var data = response.data[i];
-                            console.log(data);
+                            // console.log(data);
                             var str = data.name.trim() + ' ';
                             var time = '<br>';
                             time += data.from_hour < 10 ? '0' + data.from_hour : data.from_hour;

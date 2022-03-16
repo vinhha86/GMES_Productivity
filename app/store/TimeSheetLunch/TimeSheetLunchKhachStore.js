@@ -10,13 +10,13 @@ Ext.define('GSmartApp.store.TimeSheetLunch.TimeSheetLunchKhachStore', {
         { name: 'status', type: 'int' },
         { name: 'amount', type: 'int' }, 'orgtypeid_link'
     ],
-    sorters: [{
-        property: 'orgtypeid_link',
-        direction: 'DESC'
-    }, {
-        property: 'shifttype_name',
-        direction: 'ASC'
-    }],
+    // sorters: [{
+    //     property: 'orgtypeid_link',
+    //     direction: 'DESC'
+    // }, {
+    //     property: 'shifttype_name',
+    //     direction: 'ASC'
+    // }],
     loadStore: function (orgid_link, date) {
         var params = new Object();
         params.orgid_link = orgid_link;

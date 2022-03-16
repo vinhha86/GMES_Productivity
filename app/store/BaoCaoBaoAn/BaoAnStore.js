@@ -17,12 +17,12 @@ Ext.define('GSmartApp.store.BaoCaoBaoAn.BaoAnStore', {
             name: 'ca4', type: 'int'
         }
     ],
-    sorters: [
-        {
-            property: 'orgtypeid_link',
-            direction: 'DESC'
-        }
-    ],
+    // sorters: [
+    //     {
+    //         property: 'orgtypeid_link',
+    //         direction: 'DESC'
+    //     }
+    // ],
     loadStore: function (orgid_link, date_from, date_to) {
         var params = new Object();
         params.orgid_link = orgid_link;
