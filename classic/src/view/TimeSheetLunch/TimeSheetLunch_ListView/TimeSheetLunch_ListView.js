@@ -147,6 +147,14 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
     },
     ],
     dockedItems: [{
+        dock: 'top',
+        layout: 'hbox',
+        border: false,
+        itemId: 'sumFieldContainer',
+        items: [
+            
+        ]
+    },{
         dock: 'bottom',
         layout: 'hbox',
         border: false,

@@ -54,7 +54,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
     },
     onTimeSheetLunchStore_Done: function () {
         var me = this;
-        // me.sumInfo();
+        me.sumInfo();
         this.getView().setLoading(false);
     },
     CreateColumns: function (data) {
@@ -99,12 +99,14 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                             // console.log(data);
                             
                             var str = data.name.trim() + ' ';
-                            var time = '<br>';
+                            var br = '<br>';
+                            var time = '';
                             time += data.from_hour < 10 ? '0' + data.from_hour : data.from_hour;
                             time += data.from_minute < 10 ? ':0' + data.from_minute : ':' + data.from_minute;
                             time += ' - ';
                             time += data.to_hour < 10 ? '0' + data.to_hour : data.to_hour;
                             time += data.to_minute < 10 ? ':0' + data.to_minute : ':' + data.to_minute;
+                            str += br;
                             str += time;
 
                             var is_active = data.is_active;
@@ -112,8 +114,9 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                             var timesheet_shift_id = data.id;
 
                             var columnObj = new Object();
-                            columnObj.text = 'Ca ăn' + time;
+                            columnObj.text = 'Ca ăn' + br + time;
                             columnObj.textTrue = str;
+                            columnObj.textHour = time;
                             columnObj.is_active = is_active;
                             columnObj.timesheet_shift_type_id_link = timesheet_shift_type_id_link;
                             columnObj.timesheet_shift_id = timesheet_shift_id;
@@ -134,6 +137,9 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                                 isShiftColumn: true, // de biet day la column ca an
                                 timesheet_shift_type_id_link: listtitle[i].timesheet_shift_type_id_link,
                                 timesheet_shift_id: listtitle[i].timesheet_shift_id,
+                                textTrue: listtitle[i].textTrue,
+                                textHour: listtitle[i].textHour,
+                                is_active: listtitle[i].is_active,
 
                                 sortable: false,
                                 menuDisabled: true,
@@ -156,6 +162,22 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
 
                             grid.headerCt.insert(length, column);
                             length++;
+                        }
+
+                        // thêm cac textfield sum
+                        var sumFieldContainer = grid.down('#sumFieldContainer');
+                        sumFieldContainer.removeAll()
+                        for (var i = 0; i < listtitle.length; i++) {
+                            // console.log(listtitle[i]);
+                            var textfield = Ext.create('Ext.form.field.Text', {
+                                fieldLabel: listtitle[i].textHour,
+                                margin: 3,
+                                width: 120,
+                                labelWidth: 60,
+                                editable: false,
+                                readOnly: true,
+                            })
+                            sumFieldContainer.add(textfield);
                         }
 
                         m.loadTimesheetLunchStore();
@@ -219,7 +241,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         // TimeSheetLunchStore.setData(storeData)
         TimeSheetLunchStore.commitChanges();
 
-        
+        m.sumInfo();
     },
 
     onEditCheckBox: function (editor, context, e) { },
@@ -475,7 +497,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                         TimeSheetLunchStore.commitChanges();
                     }
                     me.setLoading(false);
-                    // th.sumInfo();
+                    th.sumInfo();
                 } else {
                     var response = Ext.decode(response.responseText);
                     Ext.MessageBox.show({
@@ -917,160 +939,200 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
             this.personnelFullnameFilter = null;
         }
     },
-    sumInfo: function () {
-        var viewmodel = this.getViewModel();
+    sumInfo: function(){
+        var m = this;
         var me = this.getView();
-        var store = viewmodel.getStore('TimeSheetLunchStore');
+        var viewModel = this.getViewModel();
 
-        var ca1 = 0, ca2 = 0, ca3 = 0, ca4 = 0, ca5 = 0;
-        var ca6 = 0, ca7 = 0, ca8 = 0, ca9 = 0, ca10 = 0;
-        var ca11 = 0, ca12 = 0, ca13 = 0, ca14 = 0, ca15 = 0;
-        var ca16 = 0, ca17 = 0, ca18 = 0, ca19 = 0, ca20 = 0;
-        var ca21 = 0, ca22 = 0, ca23 = 0, ca24 = 0, ca25 = 0;
-        var ca26 = 0, ca27 = 0, ca28 = 0, ca29 = 0, ca30 = 0;
-
-        console.log(store.data);
-
-        for (var i = 0; i < store.data.length; i++) {
-            var rec = store.data.items[i].data;
-            if (rec.lunchShift1)
-                ca1++;
-            if (rec.lunchShift2)
-                ca2++;
-            if (rec.lunchShift3)
-                ca3++;
-            if (rec.lunchShift4)
-                ca4++;
-            if (rec.lunchShift5)
-                ca5++;
-            if (rec.lunchShift6)
-                ca6++;
-            if (rec.lunchShift7)
-                ca7++;
-            if (rec.lunchShift8)
-                ca8++;
-            if (rec.lunchShift9)
-                ca9++;
-            if (rec.lunchShift10)
-                ca10++;
-            if (rec.lunchShift11)
-                ca11++;
-            if (rec.lunchShift12)
-                ca12++;
-            if (rec.lunchShift13)
-                ca13++;
-            if (rec.lunchShift14)
-                ca14++;
-            if (rec.lunchShift15)
-                ca15++;
-            if (rec.lunchShift16)
-                ca16++;
-            if (rec.lunchShift17)
-                ca17++;
-            if (rec.lunchShift18)
-                ca18++;
-            if (rec.lunchShift19)
-                ca19++;
-            if (rec.lunchShift20)
-                ca20++;
-            if (rec.lunchShift21)
-                ca21++;
-            if (rec.lunchShift22)
-                ca22++;
-            if (rec.lunchShift23)
-                ca23++;
-            if (rec.lunchShift24)
-                ca24++;
-            if (rec.lunchShift25)
-                ca25++;
-            if (rec.lunchShift26)
-                ca26++;
-            if (rec.lunchShift27)
-                ca27++;
-            if (rec.lunchShift28)
-                ca28++;
-            if (rec.lunchShift29)
-                ca29++;
-            if (rec.lunchShift30)
-                ca30++;
-        }
-        viewmodel.set('sumCa1', ca1);
-        viewmodel.set('sumCa2', ca2);
-        viewmodel.set('sumCa3', ca3);
-        viewmodel.set('sumCa4', ca4);
-        viewmodel.set('sumCa5', ca5);
-        viewmodel.set('sumCa6', ca6);
-        viewmodel.set('sumCa7', ca7);
-        viewmodel.set('sumCa8', ca8);
-        viewmodel.set('sumCa9', ca9);
-        viewmodel.set('sumCa10', ca10);
-        viewmodel.set('sumCa11', ca11);
-        viewmodel.set('sumCa12', ca12);
-        viewmodel.set('sumCa13', ca13);
-        viewmodel.set('sumCa14', ca14);
-        viewmodel.set('sumCa15', ca15);
-        viewmodel.set('sumCa16', ca16);
-        viewmodel.set('sumCa17', ca17);
-        viewmodel.set('sumCa18', ca18);
-        viewmodel.set('sumCa19', ca19);
-        viewmodel.set('sumCa20', ca20);
-        viewmodel.set('sumCa21', ca21);
-        viewmodel.set('sumCa22', ca22);
-        viewmodel.set('sumCa23', ca23);
-        viewmodel.set('sumCa24', ca24);
-        viewmodel.set('sumCa25', ca25);
-        viewmodel.set('sumCa26', ca26);
-        viewmodel.set('sumCa27', ca27);
-        viewmodel.set('sumCa28', ca28);
-        viewmodel.set('sumCa29', ca29);
-        viewmodel.set('sumCa30', ca30);
-
-        // set cac sum textfield hidden
-        viewmodel.set('isCa1Hidden', true);
-        viewmodel.set('isCa2Hidden', true);
-        viewmodel.set('isCa3Hidden', true);
-        viewmodel.set('isCa4Hidden', true);
-        viewmodel.set('isCa5Hidden', true);
-        viewmodel.set('isCa6Hidden', true);
-        viewmodel.set('isCa7Hidden', true);
-        viewmodel.set('isCa8Hidden', true);
-        viewmodel.set('isCa9Hidden', true);
-        viewmodel.set('isCa10Hidden', true);
-        viewmodel.set('isCa11Hidden', true);
-        viewmodel.set('isCa12Hidden', true);
-        viewmodel.set('isCa13Hidden', true);
-        viewmodel.set('isCa14Hidden', true);
-        viewmodel.set('isCa15Hidden', true);
-        viewmodel.set('isCa16Hidden', true);
-        viewmodel.set('isCa17Hidden', true);
-        viewmodel.set('isCa18Hidden', true);
-        viewmodel.set('isCa19Hidden', true);
-        viewmodel.set('isCa20Hidden', true);
-        viewmodel.set('isCa21Hidden', true);
-        viewmodel.set('isCa22Hidden', true);
-        viewmodel.set('isCa23Hidden', true);
-        viewmodel.set('isCa24Hidden', true);
-        viewmodel.set('isCa25Hidden', true);
-        viewmodel.set('isCa26Hidden', true);
-        viewmodel.set('isCa27Hidden', true);
-        viewmodel.set('isCa28Hidden', true);
-        viewmodel.set('isCa29Hidden', true);
-        viewmodel.set('isCa30Hidden', true);
-
-        // loop qua danh sach ca cot cua bang, cot nao hidden thi set hidden cho textfield sum tuong ung
-        // console.log(store);
-        // console.log(me);
+        var TimeSheetLunchStore = viewModel.getStore('TimeSheetLunchStore');
+        var items = TimeSheetLunchStore.getData().items;
         var columns = me.getColumns();
-        console.log(columns);
 
-        for(var i=0; i<columns.length; i++){
-            if(columns[i].isShiftColumn && !columns[i].hidden){
-                var fullColumnIndex = columns[i].fullColumnIndex;
-                // fullColumnIndex = 5 -> ca 1, 6 -> 2 ...
-                viewmodel.set('isCa' + (fullColumnIndex - 4) + 'Hidden', false);
+        var sumFieldContainer = me.down('#sumFieldContainer');
+        // console.log(sumFieldContainer);
+        // console.log(columns);
+        // console.log(items);
+
+        var textfields = sumFieldContainer.items.items;
+        // console.log(textfields);
+        
+        for(var i=0;i<columns.length;i++){
+            var column = columns[i];
+            var dataIndex = column.dataIndex;
+
+            var textHour = column.textHour;
+            for(var j=0;j<textfields.length;j++){
+                var textfield = textfields[j];
+                var fieldLabel = textfield.fieldLabel;
+                if(fieldLabel == textHour){
+                    // console.log(fieldLabel);
+                    var total = 0;
+                    for(var k=0;k<items.length;k++){
+                        var item = items[k];
+                        var isCheck = item.get(dataIndex);
+                        if(isCheck){
+                            total++;
+                        }
+                    }
+                    textfield.setValue(total);
+                }
             }
         }
     },
+    // sumInfo: function () {
+    //     var viewmodel = this.getViewModel();
+    //     var me = this.getView();
+    //     var store = viewmodel.getStore('TimeSheetLunchStore');
+
+    //     var ca1 = 0, ca2 = 0, ca3 = 0, ca4 = 0, ca5 = 0;
+    //     var ca6 = 0, ca7 = 0, ca8 = 0, ca9 = 0, ca10 = 0;
+    //     var ca11 = 0, ca12 = 0, ca13 = 0, ca14 = 0, ca15 = 0;
+    //     var ca16 = 0, ca17 = 0, ca18 = 0, ca19 = 0, ca20 = 0;
+    //     var ca21 = 0, ca22 = 0, ca23 = 0, ca24 = 0, ca25 = 0;
+    //     var ca26 = 0, ca27 = 0, ca28 = 0, ca29 = 0, ca30 = 0;
+
+    //     console.log(store.data);
+
+    //     for (var i = 0; i < store.data.length; i++) {
+    //         var rec = store.data.items[i].data;
+    //         if (rec.lunchShift1)
+    //             ca1++;
+    //         if (rec.lunchShift2)
+    //             ca2++;
+    //         if (rec.lunchShift3)
+    //             ca3++;
+    //         if (rec.lunchShift4)
+    //             ca4++;
+    //         if (rec.lunchShift5)
+    //             ca5++;
+    //         if (rec.lunchShift6)
+    //             ca6++;
+    //         if (rec.lunchShift7)
+    //             ca7++;
+    //         if (rec.lunchShift8)
+    //             ca8++;
+    //         if (rec.lunchShift9)
+    //             ca9++;
+    //         if (rec.lunchShift10)
+    //             ca10++;
+    //         if (rec.lunchShift11)
+    //             ca11++;
+    //         if (rec.lunchShift12)
+    //             ca12++;
+    //         if (rec.lunchShift13)
+    //             ca13++;
+    //         if (rec.lunchShift14)
+    //             ca14++;
+    //         if (rec.lunchShift15)
+    //             ca15++;
+    //         if (rec.lunchShift16)
+    //             ca16++;
+    //         if (rec.lunchShift17)
+    //             ca17++;
+    //         if (rec.lunchShift18)
+    //             ca18++;
+    //         if (rec.lunchShift19)
+    //             ca19++;
+    //         if (rec.lunchShift20)
+    //             ca20++;
+    //         if (rec.lunchShift21)
+    //             ca21++;
+    //         if (rec.lunchShift22)
+    //             ca22++;
+    //         if (rec.lunchShift23)
+    //             ca23++;
+    //         if (rec.lunchShift24)
+    //             ca24++;
+    //         if (rec.lunchShift25)
+    //             ca25++;
+    //         if (rec.lunchShift26)
+    //             ca26++;
+    //         if (rec.lunchShift27)
+    //             ca27++;
+    //         if (rec.lunchShift28)
+    //             ca28++;
+    //         if (rec.lunchShift29)
+    //             ca29++;
+    //         if (rec.lunchShift30)
+    //             ca30++;
+    //     }
+    //     viewmodel.set('sumCa1', ca1);
+    //     viewmodel.set('sumCa2', ca2);
+    //     viewmodel.set('sumCa3', ca3);
+    //     viewmodel.set('sumCa4', ca4);
+    //     viewmodel.set('sumCa5', ca5);
+    //     viewmodel.set('sumCa6', ca6);
+    //     viewmodel.set('sumCa7', ca7);
+    //     viewmodel.set('sumCa8', ca8);
+    //     viewmodel.set('sumCa9', ca9);
+    //     viewmodel.set('sumCa10', ca10);
+    //     viewmodel.set('sumCa11', ca11);
+    //     viewmodel.set('sumCa12', ca12);
+    //     viewmodel.set('sumCa13', ca13);
+    //     viewmodel.set('sumCa14', ca14);
+    //     viewmodel.set('sumCa15', ca15);
+    //     viewmodel.set('sumCa16', ca16);
+    //     viewmodel.set('sumCa17', ca17);
+    //     viewmodel.set('sumCa18', ca18);
+    //     viewmodel.set('sumCa19', ca19);
+    //     viewmodel.set('sumCa20', ca20);
+    //     viewmodel.set('sumCa21', ca21);
+    //     viewmodel.set('sumCa22', ca22);
+    //     viewmodel.set('sumCa23', ca23);
+    //     viewmodel.set('sumCa24', ca24);
+    //     viewmodel.set('sumCa25', ca25);
+    //     viewmodel.set('sumCa26', ca26);
+    //     viewmodel.set('sumCa27', ca27);
+    //     viewmodel.set('sumCa28', ca28);
+    //     viewmodel.set('sumCa29', ca29);
+    //     viewmodel.set('sumCa30', ca30);
+
+    //     // set cac sum textfield hidden
+    //     viewmodel.set('isCa1Hidden', true);
+    //     viewmodel.set('isCa2Hidden', true);
+    //     viewmodel.set('isCa3Hidden', true);
+    //     viewmodel.set('isCa4Hidden', true);
+    //     viewmodel.set('isCa5Hidden', true);
+    //     viewmodel.set('isCa6Hidden', true);
+    //     viewmodel.set('isCa7Hidden', true);
+    //     viewmodel.set('isCa8Hidden', true);
+    //     viewmodel.set('isCa9Hidden', true);
+    //     viewmodel.set('isCa10Hidden', true);
+    //     viewmodel.set('isCa11Hidden', true);
+    //     viewmodel.set('isCa12Hidden', true);
+    //     viewmodel.set('isCa13Hidden', true);
+    //     viewmodel.set('isCa14Hidden', true);
+    //     viewmodel.set('isCa15Hidden', true);
+    //     viewmodel.set('isCa16Hidden', true);
+    //     viewmodel.set('isCa17Hidden', true);
+    //     viewmodel.set('isCa18Hidden', true);
+    //     viewmodel.set('isCa19Hidden', true);
+    //     viewmodel.set('isCa20Hidden', true);
+    //     viewmodel.set('isCa21Hidden', true);
+    //     viewmodel.set('isCa22Hidden', true);
+    //     viewmodel.set('isCa23Hidden', true);
+    //     viewmodel.set('isCa24Hidden', true);
+    //     viewmodel.set('isCa25Hidden', true);
+    //     viewmodel.set('isCa26Hidden', true);
+    //     viewmodel.set('isCa27Hidden', true);
+    //     viewmodel.set('isCa28Hidden', true);
+    //     viewmodel.set('isCa29Hidden', true);
+    //     viewmodel.set('isCa30Hidden', true);
+
+    //     // loop qua danh sach ca cot cua bang, cot nao hidden thi set hidden cho textfield sum tuong ung
+    //     // console.log(store);
+    //     // console.log(me);
+    //     var columns = me.getColumns();
+    //     console.log(columns);
+
+    //     for(var i=0; i<columns.length; i++){
+    //         if(columns[i].isShiftColumn && !columns[i].hidden){
+    //             var fullColumnIndex = columns[i].fullColumnIndex;
+    //             // fullColumnIndex = 5 -> ca 1, 6 -> 2 ...
+    //             viewmodel.set('isCa' + (fullColumnIndex - 4) + 'Hidden', false);
+    //         }
+    //     }
+    // },
     onSave: function () {
         var m = this;
         var me = this.getView();
