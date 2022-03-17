@@ -24,11 +24,15 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
     columns: [{
         dataIndex: 'org_name',
         text: 'Tổ',
+        is_shift_column: 0,
         flex: 1
     }, {
         dataIndex: 'ca1',
         // text: 'Ca 1',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -43,6 +47,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca2',
         // text: 'Ca 2',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -57,6 +64,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca3',
         // text: 'Ca 3',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -71,6 +81,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca4',
         // text: 'Ca 4',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -85,6 +98,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca5',
         // text: 'Ca 5',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -99,6 +115,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca6',
         // text: 'Ca 1',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -113,6 +132,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca7',
         // text: 'Ca 2',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -127,6 +149,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca8',
         // text: 'Ca 3',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -141,6 +166,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca9',
         // text: 'Ca 4',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -155,6 +183,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca10',
         // text: 'Ca 5',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -169,6 +200,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca11',
         // text: 'Ca 1',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -183,6 +217,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca12',
         // text: 'Ca 2',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -197,6 +234,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca13',
         // text: 'Ca 3',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -211,6 +251,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca14',
         // text: 'Ca 4',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -225,6 +268,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca15',
         // text: 'Ca 5',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -239,6 +285,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca16',
         // text: 'Ca 1',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -253,6 +302,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca17',
         // text: 'Ca 2',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -267,6 +319,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca18',
         // text: 'Ca 3',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -281,6 +336,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca19',
         // text: 'Ca 4',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -295,6 +353,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca20',
         // text: 'Ca 5',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -309,6 +370,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca21',
         // text: 'Ca 1',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -323,6 +387,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca22',
         // text: 'Ca 2',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -337,6 +404,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca23',
         // text: 'Ca 3',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -351,6 +421,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca24',
         // text: 'Ca 4',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -365,6 +438,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca25',
         // text: 'Ca 5',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -379,6 +455,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca26',
         // text: 'Ca 1',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -393,6 +472,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca27',
         // text: 'Ca 2',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -407,6 +489,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca28',
         // text: 'Ca 3',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -421,6 +506,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca29',
         // text: 'Ca 4',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -435,6 +523,9 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.ChiTietBaoAnView', {
         dataIndex: 'ca30',
         // text: 'Ca 5',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
+        is_shift_column: 1,
         summaryType: 'sum',
         summaryRenderer: 'renderSum',
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {

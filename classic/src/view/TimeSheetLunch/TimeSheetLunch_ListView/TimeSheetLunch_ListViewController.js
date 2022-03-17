@@ -206,7 +206,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     var data = response.data;
-                    console.log(data);
+                    // console.log(data);
 
                     var sumFieldContainer = me.down('#sumFieldContainer');
                     var textfields = sumFieldContainer.items.items;
@@ -1306,8 +1306,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         });
 
         form.down('#Shift_List_View').getController().on('Select', function (listCa, data) {
-            // console.log(listCa);
-            // console.log(data);
+            console.log(listCa);
+            console.log(data);
             viewModel.set('personnelCodeFilterValue', null);
             viewModel.set('personnelRegCodeFilterValue', null);
             viewModel.set('personnelFullnameFilterValue', null);
@@ -1320,33 +1320,35 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
             TimeSheetLunchStore.rejectChanges();
             var items = TimeSheetLunchStore.getData().items;
 
-            for (var i = 0; i < items.length; i++) {
-                for (var j = 0; j < listCa.length; j++) {
-                    if (listCa[j].name == 'Ca ăn 1' && viewModel.get('isCa1Confirm') != true) {
-                        items[i].set('lunchShift1', true);
-                    }
-                    if (listCa[j].name == 'Ca ăn 2' && viewModel.get('isCa2Confirm') != true) {
-                        items[i].set('lunchShift2', true);
-                    }
-                    if (listCa[j].name == 'Ca ăn 3' && viewModel.get('isCa3Confirm') != true) {
-                        items[i].set('lunchShift3', true);
-                    }
-                    if (listCa[j].name == 'Ca ăn 4' && viewModel.get('isCa4Confirm') != true) {
-                        items[i].set('lunchShift4', true);
-                    }
-                    if (listCa[j].name == 'Ca ăn 5' && viewModel.get('isCa5Confirm') != true) {
-                        items[i].set('lunchShift5', true);
-                    }
-                }
-            }
 
-            for (var i = 0; i < data.length; i++) {
-                var gridRecord = TimeSheetLunchStore.findRecord('personnelid_link', data[i].personnelid_link, 0, false, false, true);
-                // console.log(gridRecord);
-                if (gridRecord) {
-                    gridRecord.set('lunchShift' + data[i].lunchShift, false);
-                }
-            }
+
+            // for (var i = 0; i < items.length; i++) {
+            //     for (var j = 0; j < listCa.length; j++) {
+            //         if (listCa[j].name == 'Ca ăn 1' && viewModel.get('isCa1Confirm') != true) {
+            //             items[i].set('lunchShift1', true);
+            //         }
+            //         if (listCa[j].name == 'Ca ăn 2' && viewModel.get('isCa2Confirm') != true) {
+            //             items[i].set('lunchShift2', true);
+            //         }
+            //         if (listCa[j].name == 'Ca ăn 3' && viewModel.get('isCa3Confirm') != true) {
+            //             items[i].set('lunchShift3', true);
+            //         }
+            //         if (listCa[j].name == 'Ca ăn 4' && viewModel.get('isCa4Confirm') != true) {
+            //             items[i].set('lunchShift4', true);
+            //         }
+            //         if (listCa[j].name == 'Ca ăn 5' && viewModel.get('isCa5Confirm') != true) {
+            //             items[i].set('lunchShift5', true);
+            //         }
+            //     }
+            // }
+
+            // for (var i = 0; i < data.length; i++) {
+            //     var gridRecord = TimeSheetLunchStore.findRecord('personnelid_link', data[i].personnelid_link, 0, false, false, true);
+            //     // console.log(gridRecord);
+            //     if (gridRecord) {
+            //         gridRecord.set('lunchShift' + data[i].lunchShift, false);
+            //     }
+            // }
 
             form.close();
         });

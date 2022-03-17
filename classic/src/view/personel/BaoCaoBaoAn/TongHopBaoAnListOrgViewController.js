@@ -420,5 +420,324 @@ Ext.define('GSmartApp.view.personel.BaoCaoBaoAn.TongHopBaoAnListOrgViewControlle
         }else{
             viewModel.set('column_Ca30_hidden', false);
         }
+
+        // m.sortColumns();
+    },
+
+    // setShiftTime: function(response){
+    //     var m = this;
+    //     var me = this.getView();
+    //     var viewModel = this.getViewModel();
+
+    //     var obj = new Object();
+    //     obj.setCa1 = false;
+    //     obj.setCa2 = false;
+    //     obj.setCa3 = false;
+    //     obj.setCa4 = false;
+    //     obj.setCa5 = false;
+    //     obj.setCa6 = false;
+    //     obj.setCa7 = false;
+    //     obj.setCa8 = false;
+    //     obj.setCa9 = false;
+    //     obj.setCa10 = false;
+    //     obj.setCa11 = false;
+    //     obj.setCa12 = false;
+    //     obj.setCa13 = false;
+    //     obj.setCa14 = false;
+    //     obj.setCa15 = false;
+    //     obj.setCa16 = false;
+    //     obj.setCa17 = false;
+    //     obj.setCa18 = false;
+    //     obj.setCa19 = false;
+    //     obj.setCa20 = false;
+    //     obj.setCa21 = false;
+    //     obj.setCa22 = false;
+    //     obj.setCa23 = false;
+    //     obj.setCa24 = false;
+    //     obj.setCa25 = false;
+    //     obj.setCa26 = false;
+    //     obj.setCa27 = false;
+    //     obj.setCa28 = false;
+    //     obj.setCa29 = false;
+    //     obj.setCa30 = false;
+
+    //     for (var i = 0; i < response.data.length; i++) {
+    //         var data = response.data[i];
+    //         // console.log(data);
+    //         // var str = data.name.trim() + ' ';
+    //         var str = '';
+    //         var time = '<br>';
+    //         time += data.from_hour < 10 ? '0' + data.from_hour : data.from_hour;
+    //         time += data.from_minute < 10 ? ':0' + data.from_minute : ':' + data.from_minute;
+    //         time += ' - ';
+    //         time += data.to_hour < 10 ? '0' + data.to_hour : data.to_hour;
+    //         time += data.to_minute < 10 ? ':0' + data.to_minute : ':' + data.to_minute;
+    //         // str += time;
+
+    //         response.data[i].time = time;
+    //         response.data[i].str = 'Ca ' + str + time;
+            
+    //         // if(data.timesheet_shift_type_id_link == 4){
+    //         //     str = 'Ca ';
+    //         //     setCa1 = true;
+    //         //     viewModel.set('column_Ca1_time', str + time);
+
+    //         // }
+    //     }
+
+    //     // console.log(response.data);
+    //     response.data.sort(function(a, b){
+    //         if(a.from_hour > b.from_hour) return 1;
+    //         if(a.from_hour < b.from_hour) return -1;
+    //         if(a.from_minute > b.from_minute) return 1;
+    //         if(a.from_minute < b.from_minute) return -1;
+    //         return 0;
+    //     });
+        
+    //     for(var i = 0; i < response.data.length; i++){
+    //         var data = response.data[i];
+    //         var str = 'Ca ';
+    //         var time = response.data[i].time;
+
+    //         obj['setCa' + (i+1)] = true;
+    //         viewModel.set('column_Ca'+(i+1)+'_time', str + time);
+    //     }
+
+    //     // return;
+
+    //     if(!obj.setCa1){
+    //         viewModel.set('column_Ca1_time', 'Ca 1');
+    //         viewModel.set('column_Ca1_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca1_hidden', false);
+    //     }
+    //     if(!obj.setCa2){
+    //         viewModel.set('column_Ca2_time', 'Ca 2');
+    //         viewModel.set('column_Ca2_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca2_hidden', false);
+    //     }
+    //     if(!obj.setCa3){
+    //         viewModel.set('column_Ca3_time', 'Ca 3');
+    //         viewModel.set('column_Ca3_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca3_hidden', false);
+    //     }
+    //     if(!obj.setCa4){
+    //         viewModel.set('column_Ca4_time', 'Ca 4');
+    //         viewModel.set('column_Ca4_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca4_hidden', false);
+    //     }
+    //     if(!obj.setCa5){
+    //         viewModel.set('column_Ca5_time', 'Ca 5');
+    //         viewModel.set('column_Ca5_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca5_hidden', false);
+    //     }
+    //     if(!obj.setCa6){
+    //         viewModel.set('column_Ca6_time', 'Ca 6');
+    //         viewModel.set('column_Ca6_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca6_hidden', false);
+    //     }
+    //     if(!obj.setCa7){
+    //         viewModel.set('column_Ca7_time', 'Ca 7');
+    //         viewModel.set('column_Ca7_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca7_hidden', false);
+    //     }
+    //     if(!obj.setCa8){
+    //         viewModel.set('column_Ca8_time', 'Ca 8');
+    //         viewModel.set('column_Ca8_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca8_hidden', false);
+    //     }
+    //     if(!obj.setCa9){
+    //         viewModel.set('column_Ca9_time', 'Ca 9');
+    //         viewModel.set('column_Ca9_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca9_hidden', false);
+    //     }
+    //     if(!obj.setCa10){
+    //         viewModel.set('column_Ca10_time', 'Ca 10');
+    //         viewModel.set('column_Ca10_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca10_hidden', false);
+    //     }
+    //     if(!obj.setCa11){
+    //         viewModel.set('column_Ca11_time', 'Ca 11');
+    //         viewModel.set('column_Ca11_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca11_hidden', false);
+    //     }
+    //     if(!obj.setCa12){
+    //         viewModel.set('column_Ca12_time', 'Ca 12');
+    //         viewModel.set('column_Ca12_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca12_hidden', false);
+    //     }
+    //     if(!obj.setCa13){
+    //         viewModel.set('column_Ca13_time', 'Ca 13');
+    //         viewModel.set('column_Ca13_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca13_hidden', false);
+    //     }
+    //     if(!obj.setCa14){
+    //         viewModel.set('column_Ca14_time', 'Ca 14');
+    //         viewModel.set('column_Ca14_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca14_hidden', false);
+    //     }
+    //     if(!obj.setCa15){
+    //         viewModel.set('column_Ca15_time', 'Ca 15');
+    //         viewModel.set('column_Ca15_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca15_hidden', false);
+    //     }
+    //     if(!obj.setCa16){
+    //         viewModel.set('column_Ca16_time', 'Ca 16');
+    //         viewModel.set('column_Ca16_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca16_hidden', false);
+    //     }
+    //     if(!obj.setCa17){
+    //         viewModel.set('column_Ca17_time', 'Ca 17');
+    //         viewModel.set('column_Ca17_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca17_hidden', false);
+    //     }
+    //     if(!obj.setCa18){
+    //         viewModel.set('column_Ca18_time', 'Ca 18');
+    //         viewModel.set('column_Ca18_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca18_hidden', false);
+    //     }
+    //     if(!obj.setCa19){
+    //         viewModel.set('column_Ca19_time', 'Ca 19');
+    //         viewModel.set('column_Ca19_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca19_hidden', false);
+    //     }
+    //     if(!obj.setCa20){
+    //         viewModel.set('column_Ca20_time', 'Ca 20');
+    //         viewModel.set('column_Ca20_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca20_hidden', false);
+    //     }
+    //     if(!obj.setCa21){
+    //         viewModel.set('column_Ca21_time', 'Ca 21');
+    //         viewModel.set('column_Ca21_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca21_hidden', false);
+    //     }
+    //     if(!obj.setCa22){
+    //         viewModel.set('column_Ca22_time', 'Ca 22');
+    //         viewModel.set('column_Ca22_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca22_hidden', false);
+    //     }
+    //     if(!obj.setCa23){
+    //         viewModel.set('column_Ca23_time', 'Ca 23');
+    //         viewModel.set('column_Ca23_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca23_hidden', false);
+    //     }
+    //     if(!obj.setCa24){
+    //         viewModel.set('column_Ca24_time', 'Ca 24');
+    //         viewModel.set('column_Ca24_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca24_hidden', false);
+    //     }
+    //     if(!obj.setCa25){
+    //         viewModel.set('column_Ca25_time', 'Ca 25');
+    //         viewModel.set('column_Ca25_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca25_hidden', false);
+    //     }
+    //     if(!obj.setCa26){
+    //         viewModel.set('column_Ca26_time', 'Ca 26');
+    //         viewModel.set('column_Ca26_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca26_hidden', false);
+    //     }
+    //     if(!obj.setCa27){
+    //         viewModel.set('column_Ca27_time', 'Ca 27');
+    //         viewModel.set('column_Ca27_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca27_hidden', false);
+    //     }
+    //     if(!obj.setCa28){
+    //         viewModel.set('column_Ca28_time', 'Ca 28');
+    //         viewModel.set('column_Ca28_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca28_hidden', false);
+    //     }
+    //     if(!obj.setCa29){
+    //         viewModel.set('column_Ca29_time', 'Ca 29');
+    //         viewModel.set('column_Ca29_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca29_hidden', false);
+    //     }
+    //     if(!obj.setCa30){
+    //         viewModel.set('column_Ca30_time', 'Ca 30');
+    //         viewModel.set('column_Ca30_hidden', true);
+    //     }else{
+    //         viewModel.set('column_Ca30_hidden', false);
+    //     }
+
+    //     // m.sortColumns();
+    // },
+
+    sortColumns: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var ChiTietBaoAnView = Ext.getCmp('ChiTietBaoAnView');
+        var headerCt = ChiTietBaoAnView.headerCt;
+        var columns = headerCt.items.getRange();
+
+        Ext.Array.sort(columns,function(col1,col2) {
+            // if(record.get(col1.dataIndex) < record.get(col2.dataIndex)) return -1;
+            // if(record.get(col1.dataIndex) > record.get(col2.dataIndex)) return 1;
+            if(col1.is_shift_column < col2.is_shift_column) return -1;
+            if(col1.is_shift_column > col2.is_shift_column) return 1;
+
+            var col1Text = col1.text;
+            var col2Text = col2.text;
+
+            
+            if(col1Text.length > col2Text.length){
+                return -1;
+            }
+            if(col1Text.length < col2Text.length){
+                return 1;
+            }
+
+            if(col1Text.length > 6 && col2Text.length > 6){
+                // Ca <br>00:30 - 01:15
+                var col1TextSub = col1Text.substring(7, 3);
+                var col2TextSub = col2Text.substring(7, 3);
+                var col1TextSub2 = col1Text.substring(10, 3);
+                var col2TextSub2 = col2Text.substring(10, 3);
+
+                if(col1TextSub < col2TextSub) return -1;
+                if(col1TextSub > col2TextSub) return 1;
+                if(col1TextSub2 < col2TextSub2) return -1;
+                if(col1TextSub2 > col2TextSub2) return 1;
+            }
+
+            return 0;
+        });
+        
+        headerCt.suspendLayouts();
+        for(var i=0;i<columns.length;i++)
+        {
+            headerCt.moveAfter(columns[i],(columns[i-1] || null));
+        }
+        headerCt.resumeLayouts(true);
+
+        console.log(columns);
     }
 })
