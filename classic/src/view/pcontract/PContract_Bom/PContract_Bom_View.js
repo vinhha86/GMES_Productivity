@@ -248,6 +248,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
                         text: 'Tải file mẫu theo dải cỡ',
                         iconCls: 'x-fa fa-download',
                         weight: 30
+                    },
+                    {
+                        itemId: 'btndownloadsizeset_new',
+                        text: 'Tải file mẫu theo dải cỡ new',
+                        iconCls: 'x-fa fa-download',
+                        weight: 30
                     }
                 ]
             },
@@ -271,6 +277,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
                 buttonOnly: true,
                 hidden: true,
                 itemId: 'fileUploadBomSizeset'
+            },
+            {
+                xtype: 'filefield',
+                buttonText: 'Tải báo giá new',
+                buttonOnly: true,
+                hidden: true,
+                itemId: 'fileUploadBomSizesetNew'
             },
 
             
@@ -301,6 +314,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
                     {
                         itemId: 'btn_UploadBomSizeSet',
                         text: 'Upload file theo dải cỡ',
+                        iconCls: 'x-fa fa-upload',
+                        weight: 30
+                    },
+                    {
+                        itemId: 'btn_UploadBomSizeSet_New',
+                        text: 'Upload file theo dải cỡ new',
                         iconCls: 'x-fa fa-upload',
                         weight: 30
                     },

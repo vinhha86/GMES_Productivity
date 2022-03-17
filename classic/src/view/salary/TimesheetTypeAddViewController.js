@@ -51,8 +51,10 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
         var viewmodel = this.getViewModel();
         // var is_ca_an = viewmodel.get('is_ca_an');
         var id = viewmodel.get('orgid_link')
+        var timesheet_shift_type_id_link = viewmodel.get('TimeShift.timesheet_shift_type_id_link')
         var TimesheetShiftTypeStore = viewmodel.getStore('TimesheetShiftTypeStore');
         TimesheetShiftTypeStore.loadStorebyOrgid_link(id);
+        TimesheetShiftTypeStore.loadStorebyOrgid_link_shift_type_org(id, null, timesheet_shift_type_id_link);
         // var TimesheetShiftTypeStore = viewmodel.getStore('TimesheetShiftTypeStore');
         // TimesheetShiftTypeStore.loadStore();
         //  loadStore

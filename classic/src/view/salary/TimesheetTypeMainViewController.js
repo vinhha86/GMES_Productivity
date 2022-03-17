@@ -22,6 +22,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
         var orgid_link = viewmodel.get('selected_orgid');
         var rec = grid.getStore().getAt(rowIndex);
         this.itemDetail(rec.data,orgid_link);
+        // console.log(rec);
     },
    
     itemDetail: function(data,orgid_link){
