@@ -181,13 +181,65 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                         }
 
                         m.loadTimesheetLunchStore();
+                        m.setShiftColumnConfirm();
                     }
                 }
             })
 
 
     },
+    setShiftColumnConfirm: function () {
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
 
+        var orgid_link = viewModel.get('orgid_link');
+        var TimeSheetLunch_MainView = Ext.getCmp('TimeSheetLunch_MainView');
+        var date = TimeSheetLunch_MainView.down('#txtdatefield').getValue();
+
+        var params = new Object();
+        params.orgid_link = orgid_link;
+        params.date = date;
+
+        GSmartApp.Ajax.post('/api/v1/timesheetshifttypeorg/getbyorgid_link_caAn_forConfirm', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    var data = response.data;
+                    console.log(data);
+
+                    var sumFieldContainer = me.down('#sumFieldContainer');
+                    var textfields = sumFieldContainer.items.items;
+                    
+                    for(var i=0;i<data.length;i++){
+                        var gio = data[i].gio;
+                        var isConfirm = data[i].isConfirm;
+                        if(isConfirm){
+                            for(var j=0;j<textfields.length;j++){
+                                var textfield = textfields[j];
+                                var fieldLabel = textfield.fieldLabel;
+                                if(fieldLabel == gio){
+                                    textfield.setFieldStyle('background-color: lightblue;');
+                                }
+                            }
+                        }else{
+                            for(var j=0;j<textfields.length;j++){
+                                var textfield = textfields[j];
+                                var fieldLabel = textfield.fieldLabel;
+                                if(fieldLabel == gio){
+                                    textfield.setFieldStyle('background-color: white;');
+                                }
+                            }
+                        }
+                    }
+                    
+                    // if (viewModel.get('isCa30Confirm') == true)
+                    //     TimeSheetLunch_MainView.down('#sumCa30').setFieldStyle('background-color: lightblue;');
+                    // else
+                    //     TimeSheetLunch_MainView.down('#sumCa30').setFieldStyle('background-color: white;');
+                }
+            })
+    },
     loadTimesheetLunchStore: function(){
         var m = this;
         var me = this.getView();
@@ -206,6 +258,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                     // this.fireEvent('logout');
                 } else {
                     // console.log(records);
+                    TimeSheetLunchStore.fireEvent('TimeSheetLunchStore_Done');
                     m.setDataLunchShift(records);
                 }
             }
@@ -589,7 +642,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                             });
                         }
                         form.close();
-                        // m.setShiftColumnConfirm();
+                        m.setShiftColumnConfirm();
                         m.reloadStore();
                         me.setLoading(false);
                     } else {
@@ -736,90 +789,90 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
             TimeSheetLunch_MainView.down('#sumCa5').setFieldStyle('background-color: white;');
         }
     },
-    setShiftColumnConfirm: function () {
-        var m = this;
-        var me = this.getView();
-        var viewModel = this.getViewModel();
+    // setShiftColumnConfirm: function () {
+    //     var m = this;
+    //     var me = this.getView();
+    //     var viewModel = this.getViewModel();
 
-        var orgid_link = viewModel.get('orgid_link');
-        var TimeSheetLunch_MainView = Ext.getCmp('TimeSheetLunch_MainView');
-        var date = TimeSheetLunch_MainView.down('#txtdatefield').getValue();
+    //     var orgid_link = viewModel.get('orgid_link');
+    //     var TimeSheetLunch_MainView = Ext.getCmp('TimeSheetLunch_MainView');
+    //     var date = TimeSheetLunch_MainView.down('#txtdatefield').getValue();
 
-        var params = new Object();
-        params.orgid_link = orgid_link;
-        params.date = date;
+    //     var params = new Object();
+    //     params.orgid_link = orgid_link;
+    //     params.date = date;
 
-        GSmartApp.Ajax.post('/api/v1/timesheetshifttypeorg/getbyorgid_link_caAn_forConfirm', Ext.JSON.encode(params),
-            function (success, response, options) {
-                if (success) {
-                    var response = Ext.decode(response.responseText);
-                    // console.log(response);
+    //     GSmartApp.Ajax.post('/api/v1/timesheetshifttypeorg/getbyorgid_link_caAn_forConfirm', Ext.JSON.encode(params),
+    //         function (success, response, options) {
+    //             if (success) {
+    //                 var response = Ext.decode(response.responseText);
+    //                 // console.log(response);
 
-                    var data = response.data;
-                    // console.log(data);
-                    for (var i = 0; i < data.length; i++) {
-                        // console.log(data[i].name);
-                        // console.log(data[i].isConfirm);
-                        if (data[i].name == 'Ca ăn 1') {
-                            if (data[i].isConfirm == true) {
-                                viewModel.set('isCa1Confirm', true);
-                            } else {
-                                viewModel.set('isCa1Confirm', false);
-                            }
-                        }
-                        if (data[i].name == 'Ca ăn 2') {
-                            if (data[i].isConfirm == true) {
-                                viewModel.set('isCa2Confirm', true);
-                            } else {
-                                viewModel.set('isCa2Confirm', false);
-                            }
-                        }
-                        if (data[i].name == 'Ca ăn 3') {
-                            if (data[i].isConfirm == true) {
-                                viewModel.set('isCa3Confirm', true);
-                            } else {
-                                viewModel.set('isCa3Confirm', false);
-                            }
-                        }
-                        if (data[i].name == 'Ca ăn 4') {
-                            if (data[i].isConfirm == true) {
-                                viewModel.set('isCa4Confirm', true);
-                            } else {
-                                viewModel.set('isCa4Confirm', false);
-                            }
-                        }
-                        if (data[i].name == 'Ca ăn 5') {
-                            if (data[i].isConfirm == true) {
-                                viewModel.set('isCa5Confirm', true);
-                            } else {
-                                viewModel.set('isCa5Confirm', false);
-                            }
-                        }
-                    }
+    //                 var data = response.data;
+    //                 // console.log(data);
+    //                 for (var i = 0; i < data.length; i++) {
+    //                     // console.log(data[i].name);
+    //                     // console.log(data[i].isConfirm);
+    //                     if (data[i].name == 'Ca ăn 1') {
+    //                         if (data[i].isConfirm == true) {
+    //                             viewModel.set('isCa1Confirm', true);
+    //                         } else {
+    //                             viewModel.set('isCa1Confirm', false);
+    //                         }
+    //                     }
+    //                     if (data[i].name == 'Ca ăn 2') {
+    //                         if (data[i].isConfirm == true) {
+    //                             viewModel.set('isCa2Confirm', true);
+    //                         } else {
+    //                             viewModel.set('isCa2Confirm', false);
+    //                         }
+    //                     }
+    //                     if (data[i].name == 'Ca ăn 3') {
+    //                         if (data[i].isConfirm == true) {
+    //                             viewModel.set('isCa3Confirm', true);
+    //                         } else {
+    //                             viewModel.set('isCa3Confirm', false);
+    //                         }
+    //                     }
+    //                     if (data[i].name == 'Ca ăn 4') {
+    //                         if (data[i].isConfirm == true) {
+    //                             viewModel.set('isCa4Confirm', true);
+    //                         } else {
+    //                             viewModel.set('isCa4Confirm', false);
+    //                         }
+    //                     }
+    //                     if (data[i].name == 'Ca ăn 5') {
+    //                         if (data[i].isConfirm == true) {
+    //                             viewModel.set('isCa5Confirm', true);
+    //                         } else {
+    //                             viewModel.set('isCa5Confirm', false);
+    //                         }
+    //                     }
+    //                 }
 
-                    if (viewModel.get('isCa1Confirm') == true)
-                        TimeSheetLunch_MainView.down('#sumCa1').setFieldStyle('background-color: lightblue;');
-                    else
-                        TimeSheetLunch_MainView.down('#sumCa1').setFieldStyle('background-color: white;');
-                    if (viewModel.get('isCa2Confirm') == true)
-                        TimeSheetLunch_MainView.down('#sumCa2').setFieldStyle('background-color: lightblue;');
-                    else
-                        TimeSheetLunch_MainView.down('#sumCa2').setFieldStyle('background-color: white;');
-                    if (viewModel.get('isCa3Confirm') == true)
-                        TimeSheetLunch_MainView.down('#sumCa3').setFieldStyle('background-color: lightblue;');
-                    else
-                        TimeSheetLunch_MainView.down('#sumCa3').setFieldStyle('background-color: white;');
-                    if (viewModel.get('isCa4Confirm') == true)
-                        TimeSheetLunch_MainView.down('#sumCa4').setFieldStyle('background-color: lightblue;');
-                    else
-                        TimeSheetLunch_MainView.down('#sumCa4').setFieldStyle('background-color: white;');
-                    if (viewModel.get('isCa5Confirm') == true)
-                        TimeSheetLunch_MainView.down('#sumCa5').setFieldStyle('background-color: lightblue;');
-                    else
-                        TimeSheetLunch_MainView.down('#sumCa5').setFieldStyle('background-color: white;');
-                }
-            })
-    },
+    //                 if (viewModel.get('isCa1Confirm') == true)
+    //                     TimeSheetLunch_MainView.down('#sumCa1').setFieldStyle('background-color: lightblue;');
+    //                 else
+    //                     TimeSheetLunch_MainView.down('#sumCa1').setFieldStyle('background-color: white;');
+    //                 if (viewModel.get('isCa2Confirm') == true)
+    //                     TimeSheetLunch_MainView.down('#sumCa2').setFieldStyle('background-color: lightblue;');
+    //                 else
+    //                     TimeSheetLunch_MainView.down('#sumCa2').setFieldStyle('background-color: white;');
+    //                 if (viewModel.get('isCa3Confirm') == true)
+    //                     TimeSheetLunch_MainView.down('#sumCa3').setFieldStyle('background-color: lightblue;');
+    //                 else
+    //                     TimeSheetLunch_MainView.down('#sumCa3').setFieldStyle('background-color: white;');
+    //                 if (viewModel.get('isCa4Confirm') == true)
+    //                     TimeSheetLunch_MainView.down('#sumCa4').setFieldStyle('background-color: lightblue;');
+    //                 else
+    //                     TimeSheetLunch_MainView.down('#sumCa4').setFieldStyle('background-color: white;');
+    //                 if (viewModel.get('isCa5Confirm') == true)
+    //                     TimeSheetLunch_MainView.down('#sumCa5').setFieldStyle('background-color: lightblue;');
+    //                 else
+    //                     TimeSheetLunch_MainView.down('#sumCa5').setFieldStyle('background-color: white;');
+    //             }
+    //         })
+    // },
     // onConfirm: function () {
     //     var status = 1;
     //     this.updateStatus(status);
@@ -830,6 +883,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
     },
     updateStatus: function (status) {
         var viewModel = this.getViewModel();
+        var m = this;
         var me = this.getView();
         var TimeSheetLunch_MainView = Ext.getCmp('TimeSheetLunch_MainView');
         var workingdate = TimeSheetLunch_MainView.down('#txtdatefield').getValue();
@@ -856,6 +910,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                         });
                         var TimeSheetLunchStore = viewModel.get('TimeSheetLunchStore');
                         TimeSheetLunchStore.load();
+                        m.setShiftColumnConfirm();
 
                         // set hidden btnConfirm
                         if (status == 1) {
@@ -949,12 +1004,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         var columns = me.getColumns();
 
         var sumFieldContainer = me.down('#sumFieldContainer');
-        // console.log(sumFieldContainer);
-        // console.log(columns);
-        // console.log(items);
-
         var textfields = sumFieldContainer.items.items;
-        // console.log(textfields);
         
         for(var i=0;i<columns.length;i++){
             var column = columns[i];
