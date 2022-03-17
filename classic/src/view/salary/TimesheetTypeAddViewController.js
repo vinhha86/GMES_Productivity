@@ -6,6 +6,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
         this.onload();
         var viewModel = this.getViewModel();
         var id = viewModel.get('id');
+
         if(id != null || id != 0){
             var name = viewModel.get('name');
             var timefrom = viewModel.get('timefrom');
@@ -24,9 +25,6 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
             var checkboxcaanfield = this.lookup('checkboxcaan');
             var checkboxactive = this.lookup('checkboxactive');
 
-            console.log(timefrom);
-            console.log(timeto);
-
             timefromfield.setValue(timefrom);
             timetofield.setValue(timeto);
             checkboxfromfield.setValue(checkboxfrom);
@@ -35,6 +33,8 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
             // checkboxcaanfield.setValue(is_ca_an);
             checkboxactive.setValue(is_active);
         }
+
+        // this.test();
     },
     control: {
         '#btnThoat': {
@@ -47,18 +47,26 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeAddViewController', {
     // onChange: function (t, newValue, oldValue, eOpts){
     //     console.log(newValue);
     // },
+    test: function(){
+        var m= this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var TimeShift = viewModel.get('TimeShift');
+        var recData  = viewModel.get('recData');
+        console.log(TimeShift);
+        console.log(recData);
+    },
     onload: function () {
-        var viewmodel = this.getViewModel();
-        // var is_ca_an = viewmodel.get('is_ca_an');
-        var id = viewmodel.get('orgid_link')
-        var timesheet_shift_type_id_link = viewmodel.get('TimeShift.timesheet_shift_type_id_link')
-        var TimesheetShiftTypeStore = viewmodel.getStore('TimesheetShiftTypeStore');
-        TimesheetShiftTypeStore.loadStorebyOrgid_link(id);
+        var viewModel = this.getViewModel();
+        // var is_ca_an = viewModel.get('is_ca_an');
+        var id = viewModel.get('orgid_link')
+        var timesheet_shift_type_id_link = viewModel.get('TimeShift.timesheet_shift_type_id_link')
+        var TimesheetShiftTypeStore = viewModel.getStore('TimesheetShiftTypeStore');
+        // TimesheetShiftTypeStore.loadStorebyOrgid_link(id);
         TimesheetShiftTypeStore.loadStorebyOrgid_link_shift_type_org(id, null, timesheet_shift_type_id_link);
-        // var TimesheetShiftTypeStore = viewmodel.getStore('TimesheetShiftTypeStore');
-        // TimesheetShiftTypeStore.loadStore();
         //  loadStore
-        var TimesheetShiftTypeStore_LinkCaLamViec = viewmodel.getStore('TimesheetShiftTypeStore_LinkCaLamViec');
+        var TimesheetShiftTypeStore_LinkCaLamViec = viewModel.getStore('TimesheetShiftTypeStore_LinkCaLamViec');
         // TimesheetShiftTypeStore_LinkCaLamViec.loadStoreShiftbyOrgid_link(orgid_link);
         TimesheetShiftTypeStore_LinkCaLamViec.getbyorgid_link_caLamViec(id);
     },

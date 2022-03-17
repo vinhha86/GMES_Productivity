@@ -26,7 +26,7 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
     },
    
     itemDetail: function(data,orgid_link){
-        console.log(data);
+        // console.log(data);
         var me =this;
         var id = data.id;
         var name = data.name;
@@ -85,6 +85,9 @@ Ext.define('GSmartApp.view.salary.TimesheetShiftTypeMainViewController', {
                         tenLoaiCa: tenLoaiCa,
                         is_atnight: is_atnight,
                         is_active: is_active,
+
+                        //
+                        recData: data,
                     }
                 },
             }]
