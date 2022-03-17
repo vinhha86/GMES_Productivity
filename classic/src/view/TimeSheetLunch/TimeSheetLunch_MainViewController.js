@@ -14,11 +14,16 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_MainViewController', {
         //     return;
         // }
 
-        var TimeSheetLunchStore = viewModel.getStore('TimeSheetLunchStore');
-        TimeSheetLunchStore.removeAll();
-        TimeSheetLunchStore.loadStore(orgid_link, newValue);
+        // var TimeSheetLunchStore = viewModel.getStore('TimeSheetLunchStore');
+        // TimeSheetLunchStore.removeAll();
+        // TimeSheetLunchStore.loadStore(orgid_link, newValue);
 
-        this.setShiftColumnConfirm();
+        var record = viewModel.get('selectedRecord_Donvi');
+        if(record != null){
+            var controler = Ext.getCmp('TimeSheetLunch_ListView').getController();
+            controler.CreateColumns(record.get('id'));
+        }
+        // this.setShiftColumnConfirm();
 
         var today = new Date();
         if (newValue.toDateString() == today.toDateString() || newValue > today) {
