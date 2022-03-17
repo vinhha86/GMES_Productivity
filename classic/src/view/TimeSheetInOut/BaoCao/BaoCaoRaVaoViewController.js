@@ -330,6 +330,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
         var month = timesheetdaily.month;
         var year = timesheetdaily.year;
         var grantid_link= timesheetdaily.grantid_link;
+        var personnel_code = timesheetdaily.personnel_code;
 
         // if(day == null || day == ''){
         //     Ext.Msg.show({
@@ -386,6 +387,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
                     data: {
                         orgid_link_phanxuong: orgid_link_phanxuong,
                         grantid_link: grantid_link,
+                        personnel_code: personnel_code,
                         row_day: 1,
                         row_month: month,
                         row_year: year,
@@ -399,9 +401,12 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
             form.close();
         })
 
-        form.down('#BaoCaoRaVao_SearchView').getController().on('LuuThanhCong', function (responseObj) {
+        form.down('#BaoCaoRaVao_SearchView').getController().on('LuuThanhCong', function (params) {
             console.log('LuuThanhCong');
-            // form.close();
+            var store = viewModel.getStore('TimeSheetDailyStore');
+            // console.log(params);
+            store.loadStore(params.month, params.year, params.orgid_link, params.grantid_link, params.personnel_code, params.day);
+            form.close();
         })
     },
 

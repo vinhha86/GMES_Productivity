@@ -65,7 +65,8 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVao_SearchViewControlle
         var row_month = viewModel.get('row_month');
         var row_year = viewModel.get('row_year');
         var orgid_link_phanxuong = viewModel.get('orgid_link_phanxuong');
-        var grantid_link = viewModel.get('grantid_link');
+        var grantid_link = viewModel.get('grantid_link'); 
+        var personnel_code = viewModel.get('personnel_code');
         var date_to_calculate = viewModel.get('date_to_calculate');
 
         var month = date_to_calculate.getMonth() + 1;	// Month	[mm]	(1 - 12)
@@ -80,29 +81,25 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVao_SearchViewControlle
 
         var params = new Object();
         params.orgid_link = orgid_link_phanxuong;
+        params.grantid_link = grantid_link;
+        params.personnel_code = personnel_code;
         params.day = day;
         params.month = month;
         params.year = year;
 
-        // GSmartApp.Ajax.post('/api/v1/timesheetinout/update_daily_allrow', Ext.JSON.encode(params),
+        m.fireEvent('LuuThanhCong', params);
+
+        // GSmartApp.Ajax.post('/api/v1/timesheetinout/calculate_daily', Ext.JSON.encode(params),
         // function (success, response, options) {
-        //     me.setLoading(false);
+        //     // me.setLoading(false);
         //     var response = Ext.decode(response.responseText);
         //     if (success) {
         //         if (response.respcode == 200) {
-        //             Ext.Msg.show({
-        //                 title: 'Thông báo',
-        //                 msg: 'Lưu thành công',
-        //                 buttons: Ext.MessageBox.YES,
-        //                 buttonText: {
-        //                     yes: 'Đóng',
-        //                 }
-        //             });
         //             m.fireEvent('LuuThanhCong', response);
         //         }
         //         else {
         //             Ext.Msg.show({
-        //                 title: 'Lưu thất bại',
+        //                 title: 'Tính toán thất bại',
         //                 msg: response.message,
         //                 buttons: Ext.MessageBox.YES,
         //                 buttonText: {
@@ -113,7 +110,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVao_SearchViewControlle
 
         //     } else {
         //         Ext.Msg.show({
-        //             title: 'Lưu thất bại',
+        //             title: 'Tính toán thất bại',
         //             msg: response.message,
         //             buttons: Ext.MessageBox.YES,
         //             buttonText: {
