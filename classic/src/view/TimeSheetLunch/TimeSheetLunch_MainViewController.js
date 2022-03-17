@@ -18,6 +18,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_MainViewController', {
         TimeSheetLunchStore.removeAll();
         TimeSheetLunchStore.loadStore(orgid_link, newValue);
 
+        this.setShiftColumnConfirm();
+
         var today = new Date();
         if (newValue.toDateString() == today.toDateString() || newValue > today) {
             viewModel.set('isToday', true);
@@ -72,5 +74,57 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_MainViewController', {
                 }
             })
 
+    },
+    setShiftColumnConfirm: function () {
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var orgid_link = viewModel.get('orgid_link');
+        var TimeSheetLunch_MainView = Ext.getCmp('TimeSheetLunch_MainView');
+        var date = TimeSheetLunch_MainView.down('#txtdatefield').getValue();
+
+        var params = new Object();
+        params.orgid_link = orgid_link;
+        params.date = date;
+
+        GSmartApp.Ajax.post('/api/v1/timesheetshifttypeorg/getbyorgid_link_caAn_forConfirm', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    var data = response.data;
+                    console.log(data);
+
+                    var sumFieldContainer = me.down('#sumFieldContainer');
+                    var textfields = sumFieldContainer.items.items;
+                    
+                    for(var i=0;i<data.length;i++){
+                        var gio = data[i].gio;
+                        var isConfirm = data[i].isConfirm;
+                        if(isConfirm){
+                            for(var j=0;j<textfields.length;j++){
+                                var textfield = textfields[j];
+                                var fieldLabel = textfield.fieldLabel;
+                                if(fieldLabel == gio){
+                                    textfield.setFieldStyle('background-color: lightblue;');
+                                }
+                            }
+                        }else{
+                            for(var j=0;j<textfields.length;j++){
+                                var textfield = textfields[j];
+                                var fieldLabel = textfield.fieldLabel;
+                                if(fieldLabel == gio){
+                                    textfield.setFieldStyle('background-color: white;');
+                                }
+                            }
+                        }
+                    }
+                    
+                    // if (viewModel.get('isCa30Confirm') == true)
+                    //     TimeSheetLunch_MainView.down('#sumCa30').setFieldStyle('background-color: lightblue;');
+                    // else
+                    //     TimeSheetLunch_MainView.down('#sumCa30').setFieldStyle('background-color: white;');
+                }
+            })
     },
 })
