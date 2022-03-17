@@ -403,9 +403,9 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
 
         form.down('#BaoCaoRaVao_SearchView').getController().on('LuuThanhCong', function (params) {
             console.log('LuuThanhCong');
-            var store = viewModel.getStore('TimeSheetDailyStore');
+            // var store = viewModel.getStore('TimeSheetDailyStore');
             // console.log(params);
-            store.loadStore(params.month, params.year, params.orgid_link, params.grantid_link, params.personnel_code, params.day);
+            // store.loadStore(params.month, params.year, params.orgid_link, params.grantid_link, params.personnel_code, params.day);
             form.close();
         })
     },

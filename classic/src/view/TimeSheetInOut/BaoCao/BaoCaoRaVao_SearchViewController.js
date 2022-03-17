@@ -87,37 +87,37 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVao_SearchViewControlle
         params.month = month;
         params.year = year;
 
-        m.fireEvent('LuuThanhCong', params);
+        // m.fireEvent('LuuThanhCong', params);
 
-        // GSmartApp.Ajax.post('/api/v1/timesheetinout/calculate_daily', Ext.JSON.encode(params),
-        // function (success, response, options) {
-        //     // me.setLoading(false);
-        //     var response = Ext.decode(response.responseText);
-        //     if (success) {
-        //         if (response.respcode == 200) {
-        //             m.fireEvent('LuuThanhCong', response);
-        //         }
-        //         else {
-        //             Ext.Msg.show({
-        //                 title: 'Tính toán thất bại',
-        //                 msg: response.message,
-        //                 buttons: Ext.MessageBox.YES,
-        //                 buttonText: {
-        //                     yes: 'Đóng',
-        //                 }
-        //             });
-        //         }
+        GSmartApp.Ajax.post('/api/v1/timesheetinout/calculate_daily', Ext.JSON.encode(params),
+        function (success, response, options) {
+            // me.setLoading(false);
+            var response = Ext.decode(response.responseText);
+            if (success) {
+                if (response.respcode == 200) {
+                    m.fireEvent('LuuThanhCong', response);
+                }
+                else {
+                    Ext.Msg.show({
+                        title: 'Tính toán thất bại',
+                        msg: response.message,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
 
-        //     } else {
-        //         Ext.Msg.show({
-        //             title: 'Tính toán thất bại',
-        //             msg: response.message,
-        //             buttons: Ext.MessageBox.YES,
-        //             buttonText: {
-        //                 yes: 'Đóng',
-        //             }
-        //         });
-        //     }
-        // })
+            } else {
+                Ext.Msg.show({
+                    title: 'Tính toán thất bại',
+                    msg: response.message,
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    }
+                });
+            }
+        })
     },
 })
