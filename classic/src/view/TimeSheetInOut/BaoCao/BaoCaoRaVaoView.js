@@ -1003,10 +1003,11 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
                 },
                 {
                     xtype: 'button',
+                    itemId: 'btnTinhToanDuLieu',
                     text: 'Tính toán dữ liệu',
                     iconCls: 'x-fa fa-calculator',
                     margin: 5,
-                    handler: 'onCalculate'
+                    // handler: 'onCalculate'
                 }
             ]
         }

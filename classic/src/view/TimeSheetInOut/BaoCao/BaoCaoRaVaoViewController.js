@@ -22,6 +22,10 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
         },
         '#cmbDonVi': {
             select: 'onSelectDonVi'
+        },
+        '#btnTinhToanDuLieu': {
+            // click: 'onCalculate',
+            click: 'onToSearchView'
         }
     },
     listen: {
@@ -297,6 +301,108 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
             
             form.close();
         });
+    },
+
+    // 
+    onToSearchView: function(header, column, e, t,eOpts){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var timesheetdaily = viewModel.get('timesheetdaily');
+        if(timesheetdaily == null){
+            return;
+        }
+        var orgid_link_phanxuong = timesheetdaily.orgid_link; // id px
+        if(orgid_link_phanxuong == null || orgid_link_phanxuong == ''){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn cần chọn phân xưởng',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
+
+        // var day = column.text;
+        var month = timesheetdaily.month;
+        var year = timesheetdaily.year;
+        var grantid_link= timesheetdaily.grantid_link;
+
+        // if(day == null || day == ''){
+        //     Ext.Msg.show({
+        //         title: 'Thông báo',
+        //         msg: 'Bạn cần chọn ngày',
+        //         buttons: Ext.MessageBox.YES,
+        //         buttonText: {
+        //             yes: 'Đóng',
+        //         }
+        //     });
+        //     return;
+        // }
+        if(month == null || month == ''){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn cần chọn tháng',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
+        if(year == null || year == ''){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn cần chọn năm',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            return;
+        }
+        // return;
+
+        var form = Ext.create('Ext.window.Window', {
+            // height: 200,
+            width: 280,
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: 'Chọn ngày cần tính',
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'BaoCaoRaVao_SearchView',
+                viewModel: {
+                    data: {
+                        orgid_link_phanxuong: orgid_link_phanxuong,
+                        grantid_link: grantid_link,
+                        row_day: 1,
+                        row_month: month,
+                        row_year: year,
+                    }
+                }
+            }]
+        });
+        form.show();
+
+		form.down('#BaoCaoRaVao_SearchView').getController().on('Thoat', function () {
+            form.close();
+        })
+
+        form.down('#BaoCaoRaVao_SearchView').getController().on('LuuThanhCong', function (responseObj) {
+            console.log('LuuThanhCong');
+            // form.close();
+        })
     },
 
     // click on header
