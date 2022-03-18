@@ -253,7 +253,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
                         itemId: 'btndownloadsizeset_new',
                         text: 'Tải file mẫu theo dải cỡ new',
                         iconCls: 'x-fa fa-download',
-                        weight: 30
+                        weight: 30, 
+                        hidden: true,
                     }
                 ]
             },
@@ -321,7 +322,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
                         itemId: 'btn_UploadBomSizeSet_New',
                         text: 'Upload file theo dải cỡ new',
                         iconCls: 'x-fa fa-upload',
-                        weight: 30
+                        weight: 30,
+                        hidden: true,
                     },
                 ]
             },

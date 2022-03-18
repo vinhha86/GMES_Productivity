@@ -630,7 +630,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         params.pcontractid_link = viewmodel.get('PContract.id');
         params.productid_link = viewmodel.get('IdProduct');
 
-        GSmartApp.Ajax.post('/api/v1/report/download_temp_bom_candoi_sizeset_multicolor', Ext.JSON.encode(params),
+        GSmartApp.Ajax.post('/api/v1/report/download_temp_bom_candoi_sizeset_new', Ext.JSON.encode(params),
             function (success, response, options) {
                 if (success) {
                     var response = Ext.decode(response.responseText);
