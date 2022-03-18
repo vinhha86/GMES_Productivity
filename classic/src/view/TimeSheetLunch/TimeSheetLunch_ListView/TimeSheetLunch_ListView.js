@@ -151,6 +151,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListView', {
         layout: 'hbox',
         border: false,
         itemId: 'sumFieldContainer',
+        autoScroll: true,
         items: [
             
         ]
