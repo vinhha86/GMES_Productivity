@@ -4,26 +4,23 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_MainViewController', {
     init: function () {
 
     },
+    control: {
+        '#txtdatefield': {
+            change: 'onChange'
+        }
+    },
     onChange: function (datefield, newValue, oldValue, eOpts) {
         // console.log(newValue);
         var viewModel = this.getViewModel();
 
         var orgtypeid_link = viewModel.get('orgtypeid_link');
         var orgid_link = viewModel.get('orgid_link');
-        // if(orgtypeid_link == 1 || orgtypeid_link == 13){
-        //     return;
-        // }
-
-        // var TimeSheetLunchStore = viewModel.getStore('TimeSheetLunchStore');
-        // TimeSheetLunchStore.removeAll();
-        // TimeSheetLunchStore.loadStore(orgid_link, newValue);
-
+        
         var record = viewModel.get('selectedRecord_Donvi');
         if(record != null){
             var controler = Ext.getCmp('TimeSheetLunch_ListView').getController();
             controler.CreateColumns(record.get('id'));
         }
-        // this.setShiftColumnConfirm();
 
         var today = new Date();
         if (newValue.toDateString() == today.toDateString() || newValue > today) {
@@ -31,12 +28,12 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_MainViewController', {
         } else {
             viewModel.set('isToday', false);
         }
-
-        // console.log(newValue);
-        // console.log(today);
-        // console.log(newValue > today);
-        if (orgid_link != null)
+        
+        if (orgid_link != null){
             this.checkStatus(orgid_link, newValue);
+        }
+
+        this.fireEvent('ChangeDate');
     },
     checkStatus: function (orgid_link, date) {
         var viewModel = this.getViewModel();

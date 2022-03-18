@@ -37,9 +37,9 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_MainView', {
                 width: 300,
                 itemId: 'txtdatefield',
                 labelWidth: 100,
-                listeners: {
-                    change: 'onChange'
-                },
+                // listeners: {
+                //     change: 'onChange'
+                // },
                 bind: {
                     value: '{current}'
                 }
