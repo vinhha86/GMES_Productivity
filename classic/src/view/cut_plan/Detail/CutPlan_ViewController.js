@@ -69,13 +69,13 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         }
         else {
             var form = Ext.create('Ext.window.Window', {
-                height: 200,
-                width: 300,
+                height: 150,
+                width: 320,
                 closable: true,
                 resizable: false,
                 modal: true,
                 border: false,
-                title: "Thêm loại phối màu",
+                title: "Thêm kế hoạch cắt",
                 closeAction: 'destroy',
                 bodyStyle: 'background-color: transparent',
                 layout: {
@@ -317,7 +317,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         if (viewmodel.get('loaiphoimau') == "" || viewmodel.get('loaiphoimau') == null) {
             Ext.Msg.alert({
                 title: "Thông báo",
-                msg: 'Bạn chưa chọn loại phối màu',
+                msg: 'Bạn chưa chọn kế hoạch cắt',
                 buttons: Ext.MessageBox.YES,
                 buttonText: {
                     yes: 'Đóng'

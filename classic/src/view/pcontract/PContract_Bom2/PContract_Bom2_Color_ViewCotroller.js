@@ -325,7 +325,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom2_Color_ViewCotroller', {
                     if (response.respcode != 200) {
                         Ext.Msg.show({
                             title: "Thông báo",
-                            msg: 'Lưu thất bại',
+                            msg: response.message,
                             buttons: Ext.MessageBox.YES,
                             buttonText: {
                                 yes: 'Đóng',

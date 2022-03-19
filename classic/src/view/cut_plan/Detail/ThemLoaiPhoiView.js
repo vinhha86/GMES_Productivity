@@ -5,7 +5,9 @@ Ext.define('GSmartApp.view.cut_plan.Detail.ThemLoaiPhoiView', {
     controller: 'ThemLoaiPhoiViewController',
     items: [{
         xtype: 'textfield',
-        fieldLabel: 'Loại phối màu',
+        fieldLabel: 'Tên kế hoạch cắt',
+        flex:1,
+        labelWidth: 110,
         margin: 5,
         bind: {
             value: '{loaiphoi}'

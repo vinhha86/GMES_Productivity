@@ -51,7 +51,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
             }
         ]
     }, {
-        text: 'Sơ đồ',
+        text: 'Sơ đồ cắt',
         dataIndex: 'name',
         width: 120,
         sortable: false,
@@ -172,40 +172,47 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
         xtype: 'toolbar',
         padding: '0 0 10 5',
         height: 38,
-        items: [{
-            xtype: 'button',
-            itemId: 'btnAdd_CutPlan',
-            ui: 'header',
-            margin: 2,
-            text: 'Tạo kế hoạch',
-            iconCls: 'x-fa fa-plus'
-        }, {
-            xtype: 'button',
-            margin: 2,
-            ui: 'header',
-            text: 'Thêm sơ đồ',
-            itemId: 'btnThemSoDo',
-            iconCls: 'x-fa fa-plus'
-        }, {
-            xtype: 'button',
-            margin: 2,
-            ui: 'header',
-            hidden: true,
-            text: 'Thêm loại phối',
-            itemId: 'btnThemLoaiPhoi',
-            iconCls: 'x-fa fa-plus'
-        }, {
-            xtype: 'combo',
-            bind: {
-                store: '{LoaiPhoiStore}',
-                value: '{loaiphoimau}'
-            },
-            valueField: 'name',
-            displayField: 'name',
-            margin: 2,
-            editable: false,
-            itemId: 'cmbLoaiPhoi'
-        }]
+        items: [
+            {
+                xtype: 'combo',
+                bind: {
+                    store: '{LoaiPhoiStore}',
+                    value: '{loaiphoimau}'
+                },
+                valueField: 'name',
+                displayField: 'name',
+                margin: 2,
+                editable: false,
+                itemId: 'cmbLoaiPhoi',
+                fieldLabel: 'Kế hoạch cắt'
+            },     
+            {
+                xtype: 'button',
+                itemId: 'btnAdd_CutPlan',
+                ui: 'header',
+                margin: 2,
+                text: 'Tạo kế hoạch cắt mới',
+                iconCls: 'x-fa fa-folder-open-o'
+            }, 
+            '->',
+            {
+                xtype: 'button',
+                margin: 2,
+                ui: 'header',
+                text: 'Thêm sơ đồ cắt mới',
+                itemId: 'btnThemSoDo',
+                iconCls: 'x-fa fa-scissors'
+            }, 
+            {
+                xtype: 'button',
+                margin: 2,
+                ui: 'header',
+                hidden: true,
+                text: 'Thêm loại phối',
+                itemId: 'btnThemLoaiPhoi',
+                iconCls: 'x-fa fa-plus'
+            }
+    ]
     }]
 });
 
