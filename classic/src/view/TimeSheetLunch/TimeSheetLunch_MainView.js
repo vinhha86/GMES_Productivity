@@ -9,7 +9,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_MainView', {
     layout: 'border',
     items: [{
         region: 'west',
-        width: '30%',
+        // width: '30%',
+        width: 260,
         title: 'Danh sách đơn vị',
         xtype: 'TimeSheetLunch_ListOrgView',
         border: true,
@@ -17,7 +18,8 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_MainView', {
 
     }, {
         region: 'center',
-        width: '70%',
+        // width: '70%',
+        flex: 1,
         xtype: 'ChitietTabView',
         border: true,
         margin: 1
