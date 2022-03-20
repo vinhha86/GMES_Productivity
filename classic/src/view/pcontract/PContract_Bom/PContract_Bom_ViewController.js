@@ -421,7 +421,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                 }
             })
     },
-    onSelectFile_SizesetNew: function(){
+    onSelectFile_SizesetNew: function(m, value){
         var grid = this.getView();
         var viewmodel = this.getViewModel();
         var data = new FormData();
