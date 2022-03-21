@@ -23,6 +23,9 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
         '#cmbDonVi': {
             select: 'onSelectDonVi'
         },
+        '#btnSearch': {
+            click: 'Search'
+        },
         '#btnTinhToanDuLieu': {
             // click: 'onCalculate',
             click: 'onToSearchView'
@@ -512,6 +515,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoViewController', {
 
         form.down('#AbsentView').getController().on('LuuThanhCong', function (responseObj) {
             console.log('LuuThanhCong');
+            m.Search();
             // form.close();
         })
     },

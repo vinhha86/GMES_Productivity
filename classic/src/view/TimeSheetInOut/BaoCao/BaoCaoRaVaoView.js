@@ -992,7 +992,7 @@ Ext.define('GSmartApp.view.TimeSheetInOut.BaoCao.BaoCaoRaVaoView', {
                     iconCls: 'x-fa fa-filter',
                     itemId: 'btnSearch',
                     margin: 5,
-                    handler: 'Search'
+                    // handler: 'Search'
                 },
                 {
                     xtype: 'button',
