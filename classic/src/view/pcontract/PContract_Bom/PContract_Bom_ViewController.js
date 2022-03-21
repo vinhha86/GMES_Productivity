@@ -748,7 +748,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                                 }
                                 else {
                                     grid.getStore().removeAt(rowIndex);
-                                    var storebom = viewmodel.getStore('PContractProductBom2Store');
+                                    // var storebom = viewmodel.getStore('PContractProductBom2Store');
+                                    var storebom = viewmodel.getStore('PContractBom2Store_New');
                                     storebom.load();
                                 }
                             }
