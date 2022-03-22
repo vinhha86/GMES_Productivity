@@ -731,6 +731,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                     params.pcontractid_link = viewmodel.get('PContract').id;
                     params.productid_link = viewmodel.get('IdProduct');
                     params.materialid_link = rec.data.materialid_link;
+                    params.colorid_link = rec.data.colorid_link;
+
+                    // console.log(rec);
 
                     GSmartApp.Ajax.post('/api/v1/pcontractproductbom2/deletematerial', Ext.JSON.encode(params),
                         function (success, response, options) {
