@@ -902,6 +902,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         var data = context.record.data;
         var params = new Object();
         params.data = data;
+        params.colorid_link = data.colorid_link;
         params.isUpdateBOM = false;
 
         GSmartApp.Ajax.post('/api/v1/pcontractproductbom2/update_pcontract_productbom', Ext.JSON.encode(params),
