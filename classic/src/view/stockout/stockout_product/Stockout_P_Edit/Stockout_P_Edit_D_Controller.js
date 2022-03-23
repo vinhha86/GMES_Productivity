@@ -602,6 +602,8 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 					// } else { // đã có trong db
 					// 	me.deleteRowDb_Stockout_D(data);
 					// }
+					// console.log(data);
+					// return;
 					me.deleteRow_Stockout_D(data);
 				}
 			}
@@ -613,13 +615,14 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		var stockout = viewModel.get('stockout');
 		var stockout_d = viewModel.get('stockout.stockout_d');
 		var id = data.get('id');
-
+		var skuid_link =  data.get('skuid_link');
 		for (var i = 0; i < stockout_d.length; i++) {
-			if (stockout_d[i].id == id) {
+			if (stockout_d[i].skuid_link == skuid_link) {
 				stockout_d.splice(i, 1);
 				break;
 			}
 		}
+		
 		var StockoutD_Store = viewModel.getStore('StockoutD_Store');
 		if (StockoutD_Store) {
 			StockoutD_Store.removeAll();

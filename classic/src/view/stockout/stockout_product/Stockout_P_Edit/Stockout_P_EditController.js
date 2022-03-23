@@ -264,7 +264,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 				// loaiThanhPham, totalSLTon, totalpackage, totalpackagecheck
 				var stockout_dObj = new Object();
 				stockout_dObj.stockout_packinglist = [];
-				stockout_dObj.skuid_link = stockout_order_d.material_skuid_link;
+				stockout_dObj.skuid_link = stockout_order_d.material_skuid_link == null ? stockout_order_d.p_skuid_link : stockout_order_d.material_skuid_link;
 				stockout_dObj.p_skuid_link = stockout_order_d.p_skuid_link;
 				stockout_dObj.porderid_link = stockout_order.porderid_link;
 				stockout_dObj.skucode = stockout_order_d.skucode_product;
@@ -341,6 +341,9 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			var params = new Object();
 			params.data = [];
 			params.data.push(stockout);
+
+			// console.log(stockout);
+			// return;
 
 			var mainView = Ext.getCmp('stockout_p_edit');
         	if(mainView) mainView.setLoading(true);

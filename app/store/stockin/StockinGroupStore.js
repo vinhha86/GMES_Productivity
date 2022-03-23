@@ -4,11 +4,15 @@ Ext.define('GSmartApp.store.stockin.StockinGroupStore', {
 	fields: [
 		'id', 'name'
 	],
-    data: [{
-        id: 1, name: 'Thủ công'
-    },{
-        id: 2, name: 'Mã NPL'
-    },{
-        id: 3, name: 'Ống đọc RFID'
-    }]
+    data: [
+        {
+            id: 1, name: 'Thủ công'
+        },
+        // {
+        //     id: 2, name: 'Mã NPL'
+        // },
+        // {
+        //     id: 3, name: 'Ống đọc RFID'
+        // }
+    ]
 });
