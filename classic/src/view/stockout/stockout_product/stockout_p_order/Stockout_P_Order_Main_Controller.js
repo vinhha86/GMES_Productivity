@@ -107,5 +107,27 @@ Ext.define('GSmartApp.view.stockout_product.stockout_p_order.Stockout_P_Order_Ma
         var stockout_order = record.data;
 
         viewModel.set('stockout_order', stockout_order);
-    }
+    },
+    onProductStringFilterKeyup: function(){
+        var viewModel = this.getViewModel();
+        var filterValue = viewModel.get('productStringFilterValue_order');
+        var store = viewModel.getStore('Stockout_P_Order_Store');
+        var filters = store.getFilters();
+
+        if (filterValue != null) {
+            this.productStringFilter = filters.add({
+                id: 'productStringFilter',
+                property: 'productbuyercode',
+                value: filterValue,
+                // exactMatch: true,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.productStringFilter) {
+            filters.remove(this.productStringFilter);
+            this.productStringFilter = null;
+        }
+    },
+
 })
