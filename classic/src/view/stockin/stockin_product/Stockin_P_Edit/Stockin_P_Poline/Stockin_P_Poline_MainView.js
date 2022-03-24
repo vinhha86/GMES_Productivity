@@ -1,5 +1,5 @@
 Ext.define('GSmartApp.view.stockin.Stockin_P_Poline_MainView', {
-    extend: 'Ext.form.Panel',
+    extend: 'Ext.grid.Panel',
     xtype: 'Stockin_P_Poline_MainView',
     itemId: 'Stockin_P_Poline_MainView',
     layout: 'border',
@@ -7,21 +7,30 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Poline_MainView', {
     viewModel: {
         type: 'Stockin_P_Poline_MainViewModel'
     },
-    items: [
+    viewConfig: {
+        stripeRows: false,
+        enableTextSelection: true,
+        columnLines: true,
+        rowLines: true
+    },
+    selModel: {
+        //selType: 'checkboxmodel',
+        mode: 'MULTI'
+    },
+    bind: {
+        store: '{PContract_PO}'
+    },
+    columns: [
         {
-            region: 'west',
-            // xtype: 'Stockout_order_pkl_View',
-            border: true,
-            margin: 1,
-            width: '50%',
-        },
-        {
-            region: 'center',
-            // xtype: 'Stockout_order_warehouse_View',
-            border: true,
-            margin: 1,
-            width: '50%',
-        },
+            text: 'PO Line', 
+            dataIndex: 'stockout_order_code', 
+            flex: 1,
+            // renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            //     var val = value == 'null' ? "" : value;
+            //     metaData.tdAttr = 'data-qtip="' + val + '"';
+            //     return val;
+            // },
+        },  
     ],
     dockedItems: [{
         dock: 'bottom',

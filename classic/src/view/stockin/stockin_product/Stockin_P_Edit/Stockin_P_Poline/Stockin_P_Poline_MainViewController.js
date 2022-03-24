@@ -29,5 +29,8 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Poline_MainViewController', {
 
         var stockin = viewModel.get('stockin');
         console.log(stockin);
+
+        var PContract_PO = viewModel.getStore('PContract_PO');
+        PContract_PO.loadStoreByStockin(stockin.id);
     }
 })

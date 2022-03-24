@@ -534,7 +534,7 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Edit_Controller', {
         var me = this.getView();
         var viewModel = this.getViewModel();
 
-        var stockin = viewModel.set('stockin');
+        var stockin = viewModel.get('stockin');
 
         var form = Ext.create('Ext.window.Window', {
             height: '90%',
