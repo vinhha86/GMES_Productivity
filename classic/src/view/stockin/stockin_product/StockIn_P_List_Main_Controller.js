@@ -132,7 +132,25 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List_Main_Controller', {
                             var response = Ext.decode(response.responseText);
                             if (response.respcode == 200) {
                                 grid.getStore().remove(rec);
+                            }else{
+                                Ext.Msg.show({
+                                    title: 'Thông báo',
+                                    msg: response.message,
+                                    buttons: Ext.MessageBox.YES,
+                                    buttonText: {
+                                        yes: 'Đóng',
+                                    }
+                                });
                             }
+                        }else{
+                            Ext.Msg.show({
+                                title: 'Thông báo',
+                                msg: 'Xoá phiếu nhập kho thất bại',
+                                buttons: Ext.MessageBox.YES,
+                                buttonText: {
+                                    yes: 'Đóng',
+                                }
+                            });
                         }
                 })
                 }

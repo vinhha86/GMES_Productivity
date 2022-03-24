@@ -58,8 +58,8 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List', {
         },
         {header: 'Loại phiếu', dataIndex: 'stockintype_name', width: 150},    
         {header: 'Ngày nhập', dataIndex: 'stockindate', renderer: Ext.util.Format.dateRenderer('d/m/Y'), width: 90 },
-        {header: 'Nơi xuất', dataIndex: 'orgfrom_name', flex: 1},    
-        {header: 'Nơi nhận', dataIndex: 'orgto_name', flex: 1 },
+        {header: 'Nơi xuất', dataIndex: 'orgfrom_name_parent', flex: 1},    
+        {header: 'Nơi nhận', dataIndex: 'orgto_name_parent', flex: 1 },
         {header: 'Trạng thái', dataIndex: 'statusString', width: 120}, 
         {header: 'Người lập phiếu', dataIndex: 'usercreate_name', width: 120},    
     ],
@@ -125,7 +125,7 @@ Ext.define('GSmartApp.view.stockin.StockIn_P_List', {
                 queryMode: 'local',
 				anyMatch: true,
                 margin: 3,
-                displayField: 'name',
+                displayField: 'name_andParent',
                 valueField: 'id'
             },{
                 itemId: 'cbo_StockinTypeStore',
