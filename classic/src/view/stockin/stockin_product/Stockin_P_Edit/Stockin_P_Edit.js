@@ -67,9 +67,9 @@ Ext.define('GSmartApp.view.stockout.Stockin_P_Edit', {
                 itemId: 'btnDSPoline',
                 bind: {
                     // disabled: '{isStart}',
-                    // hidden: '{isBtnLuuHidden}'
+                    hidden: '{isbtnDSPolineHidden}',
                 },
-                hidden: true
+                // hidden: true
             },
             {
                 margin: '0 5 5 0',

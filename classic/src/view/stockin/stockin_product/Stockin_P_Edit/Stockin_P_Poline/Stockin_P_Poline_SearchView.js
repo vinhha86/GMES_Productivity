@@ -1,11 +1,11 @@
-Ext.define('GSmartApp.view.stockin.Stockin_P_Poline_MainView', {
+Ext.define('GSmartApp.view.stockin.Stockin_P_Poline_SearchView', {
     extend: 'Ext.grid.Panel',
-    xtype: 'Stockin_P_Poline_MainView',
-    itemId: 'Stockin_P_Poline_MainView',
+    xtype: 'Stockin_P_Poline_SearchView',
+    itemId: 'Stockin_P_Poline_SearchView',
     // layout: 'border',
-    controller: 'Stockin_P_Poline_MainViewController',
+    controller: 'Stockin_P_Poline_SearchViewController',
     viewModel: {
-        type: 'Stockin_P_Poline_MainViewModel'
+        type: 'Stockin_P_Poline_SearchViewModel'
     },
     viewConfig: {
         stripeRows: false,
@@ -132,6 +132,91 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Poline_MainView', {
         }
     ],
     dockedItems: [{
+        dock: 'top',
+        layout: 'hbox',
+        items: [
+            {
+                xtype: 'textfield',
+                itemId: 'po_buyer',
+                // fieldStyle: "",
+                fieldLabel: 'PO Buyer',
+                reference: 'po_buyer',
+				labelWidth: 65,
+                width: 215,
+                margin: 2,
+                bind: {
+                    value:'{objSearch.po_buyer}'
+                },
+                enableKeyEvents: true,
+            },
+            {
+                xtype: 'textfield',
+                itemId: 'productbuyercode',
+                // fieldStyle: "",
+                fieldLabel: 'Mã SP(Buyer)',
+                reference: 'productbuyercode',
+				labelWidth: 90,
+                width: 240,
+                margin: 2,
+                bind: {
+                    value:'{objSearch.productbuyercode}'
+                },
+                enableKeyEvents: true,
+            },
+            {
+                xtype: 'textfield',
+                itemId: 'pcontractcode',
+                // fieldStyle: "",
+                fieldLabel: 'Đơn hàng',
+                reference: 'pcontractcode',
+				labelWidth: 70,
+                width: 220,
+                margin: 2,
+                bind: {
+                    value:'{objSearch.pcontractcode}'
+                },
+                enableKeyEvents: true,
+            },
+            {
+                xtype: 'datefield',
+                itemId: 'shipdateFrom',
+                format:'d/m/y',
+                // fieldStyle: "",
+                fieldLabel: 'GH từ',
+                reference: 'shipdateFrom',
+				labelWidth: 65,
+                width: 185,
+                margin: 2,
+                bind: {
+                    value:'{objSearch.shipdateFrom}'
+                },
+                enableKeyEvents: true,
+            },
+            {
+                xtype: 'datefield',
+                itemId: 'shipdateTo',
+                format:'d/m/y',
+                // fieldStyle: "",
+                fieldLabel: 'đến',
+                reference: 'shipdateTo',
+				labelWidth: 35,
+                width: 155,
+                margin: 2,
+                bind: {
+                    value:'{objSearch.shipdateTo}'
+                },
+                enableKeyEvents: true,
+            },
+            // {flex: 1},
+            {
+                xtype: 'button',
+                // text: 'Tìm kiếm',
+                itemId: 'btnSearch',
+                iconCls: 'x-fa fa-search',
+                margin: 2,
+            },
+        ]
+    },{
         dock: 'bottom',
         layout: 'hbox',
         items: [
@@ -145,16 +230,9 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Poline_MainView', {
             // {flex: 1},
             {
                 xtype: 'button',
-                text: 'Xoá PO Line',
-                itemId: 'btnDelete',
-                iconCls: 'x-fa fa-trash',
-                margin: 5
-            },
-            {
-                xtype: 'button',
-                text: 'Thêm PO Line',
+                text: 'Lưu',
                 itemId: 'btnAdd',
-                iconCls: 'x-fa fa-plus',
+                iconCls: 'x-fa fa-save',
                 margin: 5
             },
         ]

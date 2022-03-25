@@ -1,21 +1,36 @@
-Ext.define('GSmartApp.view.stockin.Stockin_P_Poline_MainViewController', {
+Ext.define('GSmartApp.view.stockin.Stockin_P_Poline_SearchViewController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Stockin_P_Poline_MainViewController',
+    alias: 'controller.Stockin_P_Poline_SearchViewController',
     init: function () {
 
     },
     control: {
-        '#Stockin_P_Poline_MainView':{
+        '#Stockin_P_Poline_SearchView':{
             afterrender: 'onAfterrender',
         },
         '#btnThoat': {
             click: 'onThoat'
         },
-        '#btnDelete': {
-            click: 'onDelete'
-        },
         '#btnAdd': {
             click: 'onAdd'
+        },
+        '#btnSearch': {
+            click: 'onSearch'
+        },
+        '#po_buyer': {
+            keypress: 'onPressEnterSearch',
+        },
+        '#productbuyercode': {
+            keypress: 'onPressEnterSearch',
+        },
+        '#pcontractcode': {
+            keypress: 'onPressEnterSearch',
+        },
+        '#shipdateFrom': {
+            keypress: 'onPressEnterSearch',
+        },
+        '#shipdateTo': {
+            keypress: 'onPressEnterSearch',
         },
     },
     listen : {
@@ -32,6 +47,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Poline_MainViewController', {
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
+
+        // set default cac truong date
+        var today = new Date();
+        var dateFrom = new Date(Date.now() - 0 * 24 * 60 * 60 * 1000);
+        var dateTo = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000);
+        viewModel.set('objSearch.shipdateFrom', dateFrom);
+        viewModel.set('objSearch.shipdateTo', dateTo);
 
         //
         var PContract_PO = viewModel.getStore('PContract_PO');
@@ -52,17 +74,27 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Poline_MainViewController', {
             property: 'po_quantity',
             direction: 'ASC'
         });
-
-        this.loadData();
+        // this.loadData();
     },
     loadData: function(){
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
-        
+
         var stockin = viewModel.get('stockin');
+        var stockinId = viewModel.get('stockinId');
+        var objSearch = viewModel.get('objSearch');
+        objSearch.stockinid_link = stockinId;
+
         var PContract_PO = viewModel.getStore('PContract_PO');
-        PContract_PO.loadStoreByStockin(stockin.id);
+        PContract_PO.loadStoreBySearch_POLine(objSearch);
+    },
+    onSearch: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        this.loadData();
     },
     onDelete: function(){
         var m = this;
@@ -81,43 +113,48 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Poline_MainViewController', {
             });
         }
         else {
-            Ext.MessageBox.show({
-                title: "Thông báo",
-                msg: "Bạn có chắc chắn xoá các PO Line này",
-                buttons: Ext.MessageBox.YESNO,
-                buttonText: {
-                    yes: 'Có',
-                    no: 'Không'
-                },
-                fn: function (btn) {
-                    if (btn === 'yes') {
-                        var listPoId = new Array();
-                        for(var i=0; i<select.length;i++){
-                            var pcontract_poid_link = select[i].get('id');
-                            listPoId.push(pcontract_poid_link);
-                        }
-                        m.deleteStockinPoline(listPoId);
-                    }
-                }
-            });
-           
+
         }
     },
-    deleteStockinPoline: function(listPoId){
+    onAdd: function(){
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
 
-        var PContract_PO = viewModel.getStore('PContract_PO');
-        var stockin = viewModel.get('stockin');
-        var stockinid_link = stockin.id;
+        var select = me.getSelectionModel().getSelection();
+        if (select.length == 0) {
+            Ext.MessageBox.show({
+                title: "Thông báo",
+                msg: "Bạn chưa chọn PO Line để thêm vào phiếu",
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+        }
+        else {
+            var listPoId = new Array();
+            for(var i=0; i<select.length;i++){
+                var pcontract_poid_link = select[i].get('id');
+                listPoId.push(pcontract_poid_link);
+            }
+
+            m.saveStockinPoline(listPoId);
+        }
+    },
+    saveStockinPoline: function(listPoId){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var stockinId = viewModel.get('stockinId');
 
         var params = new Object();
-        params.stockinid_link = stockinid_link;
+        params.stockinid_link = stockinId;
         params.listPoId = listPoId;
 
         me.setLoading("Đang lưu dữ liệu");
-		GSmartApp.Ajax.post('/api/v1/stockin_poline/stockin_poline_delete', Ext.JSON.encode(params),
+		GSmartApp.Ajax.post('/api/v1/stockin_poline/stockin_poline_create', Ext.JSON.encode(params),
 			function (success, response, options) {
 				me.setLoading(false);
 				if (success) {
@@ -125,20 +162,19 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Poline_MainViewController', {
 					if (response.respcode == 200) {
 						Ext.MessageBox.show({
 							title: "Thông báo",
-							msg: 'Xoá thành công',
+							msg: 'Lưu thành công',
 							buttons: Ext.MessageBox.YES,
 							buttonText: {
 								yes: 'Đóng',
 							}
 						});
-                        PContract_PO.load();
                         m.fireEvent('LuuThanhCong');
 					}
 				} else {
 					var response = Ext.decode(response.responseText);
 					Ext.MessageBox.show({
 						title: "Thông báo",
-						msg: 'Xoá thất bại',
+						msg: 'Lưu thất bại',
 						buttons: Ext.MessageBox.YES,
 						buttonText: {
 							yes: 'Đóng',
@@ -148,50 +184,14 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Poline_MainViewController', {
 			})
     },
 
-    onAdd: function(){
-        var m = this;
-        var me = this.getView();
-        var viewModel = this.getViewModel();
-
-        var stockin = viewModel.get('stockin');
-        var stockinId = stockin.id;
-
-        var form = Ext.create('Ext.window.Window', {
-            height: '90%',
-            width: '90%',
-            closable: true,
-            resizable: false,
-            modal: true,
-            border: false,
-            title: "Tìm kiếm PO Line",
-            closeAction: 'destroy',
-            bodyStyle: 'background-color: transparent',
-            layout: {
-                type: 'fit', // fit screen for window
-                padding: 5
-            },
-            items: [{
-                xtype: 'Stockin_P_Poline_SearchView',
-                viewModel: {
-                    data: {
-                        stockin: stockin,
-                        stockinId: stockinId
-                    }
-                }
-            }]
-        });
-        form.show();
-
-        form.down('#Stockin_P_Poline_SearchView').getController().on('Thoat', function () {
-            form.close();
-        })
-
-        form.down('#Stockin_P_Poline_SearchView').getController().on('LuuThanhCong', function () {
-            var PContract_PO = viewModel.getStore('PContract_PO');
-            PContract_PO.load();
-            form.close();
-        })
-    },
+    // enter to search
+    onPressEnterSearch: function (textfield, e, eOpts) {
+		var m = this;
+		if (e.getKey() == e.ENTER) {
+			// Ext.Msg.alert('Keys','You pressed the Enter key');
+			m.onSearch();
+		}
+	},
 
     // filter
     onpoBuyerFilterKeyup: function () {
