@@ -36,6 +36,9 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 		'#btnConfirm':{
             click: 'onBtnConfirm'
         },
+        '#btnDSPoline': {
+            click: 'onBtnDSPoline'
+        },
 		// window
 		'#btnThoatWindow': {
 			click: 'onBtnThoatWindow'
@@ -464,7 +467,7 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 			params.stockoutId = stockoutId;
 			params.approver_userid_link = approver_userid_link;
 			params.isAutoChecked = true; 
-			// isAutoChecked = true -> stockin pklist sinh ra để status là ok
+			// isAutoChecked = true -> stockout pklist sinh ra để status là ok
 			// dha mạc định là ok (checked)
 
 			var mainView = Ext.getCmp('stockout_p_edit');
@@ -644,5 +647,42 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                     }
                 }
             })
+    },
+
+	onBtnDSPoline: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var stockout = viewModel.get('stockout');
+
+        var form = Ext.create('Ext.window.Window', {
+            height: '90%',
+            width: '90%',
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: "Danh sách PO Line",
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Stockout_P_Poline_MainView',
+                viewModel: {
+                    data: {
+                        stockout: stockout
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#Stockout_P_Poline_MainView').getController().on('Thoat', function () {
+            form.close();
+        })
     }
 });

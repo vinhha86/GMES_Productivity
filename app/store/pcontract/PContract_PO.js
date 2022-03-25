@@ -180,7 +180,7 @@ Ext.define('GSmartApp.store.pcontract.PContract_PO', {
 		});
 		this.load();
 	},
-	loadStoreBySearch_POLine: function(objSearch){
+	loadStoreBySearch_POLine_Stockin: function(objSearch){
 		var me=this;
 		var params = new Object();
         params.stockinid_link = objSearch.stockinid_link;
@@ -198,7 +198,68 @@ Ext.define('GSmartApp.store.pcontract.PContract_PO', {
 				update : 'POST',
 				destroy: 'POST'
 			},
-			url: config.getAppBaseUrl()+'/api/v1/pcontract_po/getBySearch_POLine',
+			url: config.getAppBaseUrl()+'/api/v1/pcontract_po/getBySearch_POLine_Stockin',
+			paramsAsJson:true,
+			noCache: false,
+			extraParams : params,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.load();
+	},
+	loadStoreByStockout: function(stockoutid_link){
+		var me=this;
+		var params = new Object();
+        params.id = stockoutid_link;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl()+'/api/v1/pcontract_po/getByStockout',
+			paramsAsJson:true,
+			noCache: false,
+			extraParams : params,
+			headers :{
+				'Accept': "application/json", 
+				'Content-Type':"application/json"
+			 },
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.load();
+	},
+	loadStoreBySearch_POLine_Stockout: function(objSearch){
+		var me=this;
+		var params = new Object();
+        params.stockoutid_link = objSearch.stockoutid_link;
+        params.po_buyer = objSearch.po_buyer;
+        params.productbuyercode = objSearch.productbuyercode;
+		params.pcontractcode = objSearch.pcontractcode;
+		params.shipdateFrom = objSearch.shipdateFrom;
+		params.shipdateTo = objSearch.shipdateTo;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create : 'POST',
+				read   : 'POST',
+				update : 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl()+'/api/v1/pcontract_po/getBySearch_POLine_Stockout',
 			paramsAsJson:true,
 			noCache: false,
 			extraParams : params,

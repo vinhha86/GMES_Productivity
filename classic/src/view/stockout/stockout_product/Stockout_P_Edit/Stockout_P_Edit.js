@@ -53,6 +53,18 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
                     flex:1
                 },
                 {
+                    margin: '0 5 5 0',
+                    xtype:'button',
+                    text:  'Danh sách PO Line',
+                    iconCls: 'x-fa fa-calendar-minus-o',
+                    itemId: 'btnDSPoline',
+                    bind: {
+                        // disabled: '{isStart}',
+                        hidden: '{isbtnDSPolineHidden}',
+                    },
+                    // hidden: true
+                },
+                {
                     width:80,
                     margin: '0 5 5 0',
                     xtype:'button',

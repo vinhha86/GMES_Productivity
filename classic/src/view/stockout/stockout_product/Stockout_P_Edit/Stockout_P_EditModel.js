@@ -148,5 +148,12 @@ Ext.define('GSmartApp.view.stockout.stockout_product.Stockout_P_Edit.Stockout_P_
 				return true;
 			}
 		},
+		isbtnDSPolineHidden: function(get){
+			var stockout = get('stockout');
+			if(stockout.id == null || stockout.id == 0){
+				return true;
+			}
+			return false;
+		},
     }
 });

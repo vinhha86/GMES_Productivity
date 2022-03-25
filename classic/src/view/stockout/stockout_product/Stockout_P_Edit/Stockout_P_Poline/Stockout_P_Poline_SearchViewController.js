@@ -1,11 +1,11 @@
-Ext.define('GSmartApp.view.stockin.Stockin_P_Poline_SearchViewController', {
+Ext.define('GSmartApp.view.stockout.Stockout_P_Poline_SearchViewController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.Stockin_P_Poline_SearchViewController',
+    alias: 'controller.Stockout_P_Poline_SearchViewController',
     init: function () {
 
     },
     control: {
-        '#Stockin_P_Poline_SearchView':{
+        '#Stockout_P_Poline_SearchView':{
             afterrender: 'onAfterrender',
         },
         '#btnThoat': {
@@ -81,13 +81,13 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Poline_SearchViewController', {
         var me = this.getView();
         var viewModel = this.getViewModel();
 
-        var stockin = viewModel.get('stockin');
-        var stockinId = viewModel.get('stockinId');
+        var stockout = viewModel.get('stockout');
+        var stockoutId = viewModel.get('stockoutId');
         var objSearch = viewModel.get('objSearch');
-        objSearch.stockinid_link = stockinId;
+        objSearch.stockoutid_link = stockoutId;
 
         var PContract_PO = viewModel.getStore('PContract_PO');
-        PContract_PO.loadStoreBySearch_POLine_Stockin(objSearch);
+        PContract_PO.loadStoreBySearch_POLine_Stockout(objSearch);
     },
     onSearch: function(){
         var m = this;
@@ -139,22 +139,22 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Poline_SearchViewController', {
                 listPoId.push(pcontract_poid_link);
             }
 
-            m.saveStockinPoline(listPoId);
+            m.saveStockoutPoline(listPoId);
         }
     },
-    saveStockinPoline: function(listPoId){
+    saveStockoutPoline: function(listPoId){
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
 
-        var stockinId = viewModel.get('stockinId');
+        var stockoutId = viewModel.get('stockoutId');
 
         var params = new Object();
-        params.stockinid_link = stockinId;
+        params.stockoutid_link = stockoutId;
         params.listPoId = listPoId;
 
         me.setLoading("Đang lưu dữ liệu");
-		GSmartApp.Ajax.post('/api/v1/stockin_poline/stockin_poline_create', Ext.JSON.encode(params),
+		GSmartApp.Ajax.post('/api/v1/stockout_poline/stockout_poline_create', Ext.JSON.encode(params),
 			function (success, response, options) {
 				me.setLoading(false);
 				if (success) {
