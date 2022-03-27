@@ -44,6 +44,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
     }, {
         text: 'Mã NPL',
         dataIndex: 'materialCode',
+        menuDisabled: true,
+        sortable: false,
         width: 120,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             var val = value == 'null' ? "" : value;
@@ -65,6 +67,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
     }, {
         text: 'Nguyên phụ liệu',
         dataIndex: 'materialName',
+        menuDisabled: true,
+        sortable: false,
         width: 150,
         enableTextSelection: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -87,6 +91,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
     }, {
         text: 'Thành phần vải',
         dataIndex: 'thanhPhanVai',
+        menuDisabled: true,
+        sortable: false,
         width: 200,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             var val = value == 'null' ? "" : value;
@@ -96,6 +102,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
     }, {
         text: 'Nhà CC',
         dataIndex: 'nhacungcap',
+        menuDisabled: true,
+        sortable: false,
         width: 120,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             var val = value == 'null' ? "" : value;
@@ -105,6 +113,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
     }, {
         text: 'Màu NPL',
         dataIndex: 'tenMauNPL',
+        menuDisabled: true,
+        sortable: false,
         width: 120,
         enableTextSelection: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -115,6 +125,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
     }, {
         text: 'Cỡ/khổ',
         dataIndex: 'coKho',
+        menuDisabled: true,
+        sortable: false,
         width: 70,
         enableTextSelection: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -125,6 +137,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
     }, {
         text: 'PO',
         dataIndex: 'po_line',
+        menuDisabled: true,
+        sortable: false,
         width: 150,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             var val = value == 'null' ? "" : value;
@@ -134,6 +148,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
     }, {
         text: 'Màu SP',
         dataIndex: 'color_name',
+        menuDisabled: true,
+        sortable: false,
         width: 150,
         enableTextSelection: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -156,6 +172,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
     }, {
         text: 'ĐVT',
         dataIndex: 'unitid_link',
+        menuDisabled: true,
+        sortable: false,
         width: 70,
         getEditor: function (record) {
             return Ext.create('Ext.grid.CellEditor', {
@@ -174,6 +192,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
     }, {
         text: 'Tiêu hao',
         dataIndex: 'lost_ratio',
+        menuDisabled: true,
+        sortable: false,
         width: 70,
         xtype: 'numbercolumn',
         format: '0.000',

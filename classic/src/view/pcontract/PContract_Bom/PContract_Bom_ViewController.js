@@ -70,6 +70,19 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         }
     },
     init: function () {
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var PContractBom2Store_New = viewModel.getStore('PContractBom2Store_New');
+        PContractBom2Store_New.getSorters().removeAll();
+        PContractBom2Store_New.getSorters().add({
+            property: 'materialid_link',
+            direction: 'ASC'
+        },{
+            property: 'colorid_link',
+            direction: 'ASC'
+        });
     },
     onDeleteBom: function () {
         var viewmodel = this.getViewModel();
