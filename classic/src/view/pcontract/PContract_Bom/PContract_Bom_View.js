@@ -40,9 +40,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
             iconCls: 'x-fa fas fa-trash',
             tooltip: GSmartApp.Locales.btn_xoa[GSmartApp.Locales.currentLocale],
             handler: 'onXoa'
-        }]
+        }],
+        // hidden: true
     }, {
-        text: 'Mã NPL',
+        text: 'Mã NPL 2222',
         dataIndex: 'materialCode',
         menuDisabled: true,
         sortable: false,
@@ -365,8 +366,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
                 text: 'Xóa định mức',
                 iconCls: 'x-fa fa-trash redIcon',
                 bind: {
-                    disabled: '{disabled_chotdinhmuc}',
-                    hidden: '{hidden_chotdinhmuc}'
+                    // disabled: '{disabled_chotdinhmuc}',
+                    // hidden: '{hidden_chotdinhmuc}'
                 }
             }
         ]

@@ -143,10 +143,66 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatViewContro
             this.ValueFilterFieldMaNPL = null;
         }
     },
+
+    onXoa: function (grid, rowIndex, colIndex) {
+        var me = this.getView();
+        var viewmodel = this.getViewModel();
+        var rec = grid.getStore().getAt(rowIndex);
+
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn xóa nguyên phụ liệu "' + rec.data.materialCode + '" ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'no') {
+                    return;
+                }
+                else {
+                    var params = new Object();
+                    params.pcontractid_link = viewmodel.get('PContract').id;
+                    params.productid_link = viewmodel.get('IdProduct');
+                    params.materialid_link = rec.data.materialid_link;
+                    params.colorid_link = rec.data.colorid_link;
+
+                    console.log(rec);
+                    console.log(params);
+
+                    GSmartApp.Ajax.post('/api/v1/porderbom/deletebom', Ext.JSON.encode(params),
+                        function (success, response, options) {
+                            if (success) {
+                                var response = Ext.decode(response.responseText);
+                                if (response.respcode != 200) {
+                                    Ext.Msg.show({
+                                        title: "Thông báo",
+                                        msg: 'Xóa thất bại',
+                                        buttons: Ext.MessageBox.YES,
+                                        buttonText: {
+                                            yes: 'Đóng',
+                                        }
+                                    });
+                                }
+                                else {
+                                    grid.getStore().removeAt(rowIndex);
+                                    // var storebom = viewmodel.getStore('PContractProductBom2Store');
+                                    var storebom = viewmodel.getStore('POrderBom2Store');
+                                    storebom.load();
+                                }
+                            }
+                        })
+                }
+            }
+        });
+    },
+
     CreateColumns: function () {
         var viewmodel = this.getViewModel();
         var grid = this.getView();
-        var length = 5;
+        var length = 7;
         for (var i = 0; i < grid.headerCt.items.length; i++) {
             if (i > length - 1) {
                 grid.headerCt.remove(i);

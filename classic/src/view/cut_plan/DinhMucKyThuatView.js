@@ -58,5 +58,9 @@ Ext.define('GSmartApp.view.cut_plan.DinhMucKyThuatView', {
         menuDisabled: true,
         xtype: 'numbercolumn',
         format: '0.000'
+    }, {
+        text: 'ĐVT',
+        dataIndex: 'unitName',
+        width: 70,
     }]
 })

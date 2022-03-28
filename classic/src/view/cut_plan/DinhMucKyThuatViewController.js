@@ -7,7 +7,7 @@ Ext.define('GSmartApp.view.cut_plan.DinhMucKyThuatViewController', {
     CreateColumns: function () {
         var viewmodel = this.getViewModel();
         var grid = this.getView();
-        var length = 5;
+        var length = 6;
         for (var i = 0; i < grid.headerCt.items.length; i++) {
             if (i > length - 1) {
                 grid.headerCt.remove(i);

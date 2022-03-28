@@ -23,83 +23,103 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatView', {
             }
         }
     },
-    columns: [{
-        text: 'Mã NPL',
-        dataIndex: 'materialCode',
-        width: 120,
-        sortable: false,
-        menuDisabled: true,
-        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            var val = value == 'null' ? "" : value;
-            metaData.tdAttr = 'data-qtip="' + val + '"';
-            return val;
-        },
-        items: {
-            xtype: 'textfield',
-            fieldStyle: "",
-            margin: 1,
-            reference: 'ValueFilterFieldMaNPL',
-            width: '99%',
-            enableKeyEvents: true,
-            listeners: {
-                keyup: 'onFilterValueMaNPLKeyup',
-                buffer: 500
+    columns: [
+        {
+            xtype: 'actioncolumn',
+            width: 30,
+            menuDisabled: true,
+            sortable: false,
+            align: 'center',
+            items: [{
+                itemId: 'btnDeleteMaterial_BomKyThuat',
+                // isActionDisabled: 'checkActionColumnPermission',
+                iconCls: 'x-fa fas fa-trash',
+                tooltip: 'Xóa',
+                handler: 'onXoa'
+            }]
+        }, 
+        {
+            text: 'Mã NPL',
+            dataIndex: 'materialCode',
+            width: 120,
+            sortable: false,
+            menuDisabled: true,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            },
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                margin: 1,
+                reference: 'ValueFilterFieldMaNPL',
+                width: '99%',
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onFilterValueMaNPLKeyup',
+                    buffer: 500
+                }
             }
-        }
-    }, {
-        text: 'Màu SP',
-        dataIndex: 'color_name',
-        width: 150,
-        sortable: false,
-        menuDisabled: true,
-        items: {
-            xtype: 'textfield',
-            fieldStyle: "",
-            margin: 1,
-            reference: 'ValueFilterField',
-            width: '99%',
-            enableKeyEvents: true,
-            listeners: {
-                keyup: 'onFilterValueKeyup',
-                buffer: 500
+        }, {
+            text: 'Màu SP',
+            dataIndex: 'color_name',
+            width: 150,
+            sortable: false,
+            menuDisabled: true,
+            items: {
+                xtype: 'textfield',
+                fieldStyle: "",
+                margin: 1,
+                reference: 'ValueFilterField',
+                width: '99%',
+                enableKeyEvents: true,
+                listeners: {
+                    keyup: 'onFilterValueKeyup',
+                    buffer: 500
+                }
             }
+        }, {
+            text: 'Nguyên phụ liệu',
+            dataIndex: 'materialName',
+            width: 150,
+            sortable: false,
+            menuDisabled: true,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            }
+        }, {
+            text: 'TP vải',
+            dataIndex: 'thanhPhanVai',
+            width: 200,
+            sortable: false,
+            menuDisabled: true,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            }
+        }, {
+            text: 'Tiêu hao',
+            dataIndex: 'lost_ratio',
+            width: 70,
+            sortable: false,
+            menuDisabled: true,
+            xtype: 'numbercolumn',
+            format: '0.000',
+            editor: {
+                xtype: 'textfield',
+                maskRe: /[0-9.]/,
+                selectOnFocus: true
+            }
+        }, {
+            text: 'ĐVT',
+            dataIndex: 'unitName',
+            width: 70,
         }
-    }, {
-        text: 'Nguyên phụ liệu',
-        dataIndex: 'materialName',
-        width: 150,
-        sortable: false,
-        menuDisabled: true,
-        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            var val = value == 'null' ? "" : value;
-            metaData.tdAttr = 'data-qtip="' + val + '"';
-            return val;
-        }
-    }, {
-        text: 'TP vải',
-        dataIndex: 'thanhPhanVai',
-        width: 200,
-        sortable: false,
-        menuDisabled: true,
-        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            var val = value == 'null' ? "" : value;
-            metaData.tdAttr = 'data-qtip="' + val + '"';
-            return val;
-        }
-    }, {
-        text: 'Tiêu hao',
-        dataIndex: 'lost_ratio',
-        width: 70,
-        sortable: false,
-        menuDisabled: true,
-        xtype: 'numbercolumn',
-        format: '0.000',
-        editor: {
-            xtype: 'textfield',
-            maskRe: /[0-9.]/,
-            selectOnFocus: true
-        }
-    }],
+    ],
     dockedItems: [{
         dock: 'top',
         xtype: 'toolbar',
@@ -109,7 +129,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatView', {
         items: [
             {
                 xtype: 'button',
-                text: 'Đồng bộ định mức cân đối',
+                text: 'Đồng bộ định mức cân đối 1111',
                 margin: 3,
                 itemId: 'btnDongBo',
                 iconCls: 'x-fa fa-refresh',
