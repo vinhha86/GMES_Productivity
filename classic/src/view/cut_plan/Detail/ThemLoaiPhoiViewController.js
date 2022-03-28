@@ -16,6 +16,9 @@ Ext.define('GSmartApp.view.cut_plan.Detail.ThemLoaiPhoiViewController', {
     },
     onChon: function () {
         var loaiphoi = this.getViewModel().get('loaiphoi');
-        this.fireEvent('ThemLoaiPhoi', loaiphoi);
+        var isVien = this.getViewModel().get('isvien');
+        var typephoimau = 0;
+        if (isVien) typephoimau =1;
+        this.fireEvent('ThemLoaiPhoi', loaiphoi,typephoimau);
     }
 })

@@ -2,7 +2,8 @@ Ext.define('GSmartApp.store.cutplan.LoaiPhoiStore', {
     extend: 'Ext.data.Store',
     alias: 'store.LoaiPhoiStore',
     fields: [
-        { name: 'name', type: 'string' }
+        { name: 'name', type: 'string' },
+        { name: 'typephoimau', type: 'integer' }
     ],
     loadStore: function (pcontractid_link, productid_link, material_skuid_link) {
         var me = this;

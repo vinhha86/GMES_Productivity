@@ -177,9 +177,9 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_View', {
                 xtype: 'combo',
                 bind: {
                     store: '{LoaiPhoiStore}',
-                    value: '{loaiphoimau}'
+                    value: '{typephoimau}'
                 },
-                valueField: 'name',
+                valueField: 'typephoimau',
                 displayField: 'name',
                 margin: 2,
                 editable: false,

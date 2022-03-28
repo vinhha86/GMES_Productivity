@@ -69,7 +69,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         }
         else {
             var form = Ext.create('Ext.window.Window', {
-                height: 150,
+                height: 160,
                 width: 320,
                 closable: true,
                 resizable: false,
@@ -88,7 +88,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
             });
             form.show();
 
-            form.down('#ThemLoaiPhoiView').getController().on('ThemLoaiPhoi', function (loaiphoi) {
+            form.down('#ThemLoaiPhoiView').getController().on('ThemLoaiPhoi', function (loaiphoi, typephoimau) {
                 form.close();
                 var params = new Object();
                 params.material_skuid_link = npl.id;
@@ -97,6 +97,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
                 params.pcontractid_link = viewmodel.get('pcontractid_link');
                 params.colorid_link = viewmodel.get('colorid_link_active');
                 params.loaiphoi = loaiphoi;
+                params.typephoimau = typephoimau;
 
                 GSmartApp.Ajax.post('/api/v1/cutplan/create', Ext.JSON.encode(params),
                     function (success, response, options) {
@@ -334,6 +335,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         params.pcontractid_link = viewmodel.get('pcontractid_link');
         params.colorid_link = viewmodel.get('colorid_link_active');
         params.loaiphoi = viewmodel.get('loaiphoimau');
+        params.typephoimau = viewmodel.get('typephoimau');
 
         GSmartApp.Ajax.post('/api/v1/cutplan/add_row', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -439,6 +441,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         var productid_link = viewmodel.get('productid_link');
         var npl = viewmodel.get('npl');
         var loaiphoi = rec.get('name');
+        viewmodel.set('loaiphoimau',loaiphoi);
 
         var store = viewmodel.getStore('CutPlanRowStore');
         store.loadStore_byloaiphoi(colorid_link, porderid_link, npl.id, productid_link,
