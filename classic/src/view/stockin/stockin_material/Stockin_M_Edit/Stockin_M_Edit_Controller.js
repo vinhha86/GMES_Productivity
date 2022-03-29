@@ -48,6 +48,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         '#btnChiTietCayVai': {
             click: 'onbtnChiTietCayVai'
         },
+        '#btnDSPoline': {
+            click: 'onBtnDSPoline'
+        }
         // '#btnTestRedirect': {
 		// 	click: 'onBtnTestRedirect'
 		// }
@@ -673,6 +676,42 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             // getInfo
         });
     },
+    onBtnDSPoline: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var stockin = viewModel.get('stockin');
+
+        var form = Ext.create('Ext.window.Window', {
+            height: '90%',
+            width: '90%',
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: "Danh sách PO Line",
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Stockin_P_Poline_MainView',
+                viewModel: {
+                    data: {
+                        stockin: stockin
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#Stockin_P_Poline_MainView').getController().on('Thoat', function () {
+            form.close();
+        })
+    }
     // onBtnTestRedirect:function(){
 	// 	console.log('click redirect');
 	// 	var m = this;

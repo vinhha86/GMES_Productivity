@@ -50,6 +50,9 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 		'#btnPackinglistPrint': {
 			click: 'onBtnPackinglistPrint'
 		},
+		'#btnDSPoline': {
+            click: 'onBtnDSPoline'
+        }
 		// '#btnTestRedirect': {
 		// 	click: 'onBtnTestRedirect'
 		// }
@@ -1862,4 +1865,41 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditController', {
 			// form.close();
 		})
 	},
+
+	onBtnDSPoline: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var stockout = viewModel.get('stockout');
+
+        var form = Ext.create('Ext.window.Window', {
+            height: '90%',
+            width: '90%',
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: "Danh sách PO Line",
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Stockout_P_Poline_MainView',
+                viewModel: {
+                    data: {
+                        stockout: stockout
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#Stockout_P_Poline_MainView').getController().on('Thoat', function () {
+            form.close();
+        })
+    }
 });

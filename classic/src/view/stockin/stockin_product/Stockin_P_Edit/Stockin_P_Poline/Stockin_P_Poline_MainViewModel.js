@@ -11,5 +11,21 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Poline_MainViewModel', {
     },
     data: {
         stockin: null,
+    },
+    formulas: {
+        isBtnDeleteDisable: function(get){
+			var stockin = get('stockin');
+			if(stockin.status != null && stockin.status >= 1){
+				return true;
+			}
+			return false;
+		},
+        isBtnAddDisable: function(get){
+			var stockin = get('stockin');
+			if(stockin.status != null && stockin.status >= 1){
+				return true;
+			}
+			return false;
+		},
     }
 })

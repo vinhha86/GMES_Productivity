@@ -190,5 +190,13 @@ Ext.define('GSmartApp.view.stockout.Stockout_M_EditModel', {
             }
             return true;
         },
+        
+		isbtnDSPolineHidden: function(get){
+			var stockout = get('stockout');
+			if(stockout.id == null || stockout.id == 0){
+				return true;
+			}
+			return false;
+		},
     }
 });

@@ -11,5 +11,21 @@ Ext.define('GSmartApp.view.stockout.Stockout_P_Poline_MainViewModel', {
     },
     data: {
         stockout: null,
+    },
+    formulas: {
+        isBtnDeleteDisable: function(get){
+			var stockout = get('stockout');
+			if(stockout.status != null && stockout.status >= 1){
+				return true;
+			}
+			return false;
+		},
+        isBtnAddDisable: function(get){
+			var stockout = get('stockout');
+			if(stockout.status != null && stockout.status >= 1){
+				return true;
+			}
+			return false;
+		},
     }
 })

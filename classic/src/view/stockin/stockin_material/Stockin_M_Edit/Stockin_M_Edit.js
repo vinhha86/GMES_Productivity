@@ -96,6 +96,18 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                 // },
                 {
                     margin: '0 5 5 0',
+                    xtype:'button',
+                    text:  'Danh sách PO Line',
+                    iconCls: 'x-fa fa-calendar-minus-o',
+                    itemId: 'btnDSPoline',
+                    bind: {
+                        // disabled: '{isStart}',
+                        hidden: '{isbtnDSPolineHidden}',
+                    },
+                    // hidden: true
+                },
+                {
+                    margin: '0 5 5 0',
                     xtype: 'button',
                     text: 'Lưu',
                     iconCls: 'x-fa fa-floppy-o',

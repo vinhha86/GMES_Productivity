@@ -148,14 +148,20 @@ Ext.define('GSmartApp.view.stockin.Stockin_P_Poline_MainView', {
                 text: 'Xoá PO Line',
                 itemId: 'btnDelete',
                 iconCls: 'x-fa fa-trash',
-                margin: 5
+                margin: 5,
+                bind: {
+                    disabled: '{isBtnDeleteDisable}'
+                }
             },
             {
                 xtype: 'button',
                 text: 'Thêm PO Line',
                 itemId: 'btnAdd',
                 iconCls: 'x-fa fa-plus',
-                margin: 5
+                margin: 5,
+                bind: {
+                    disabled: '{isBtnAddDisable}'
+                }
             },
         ]
     }]

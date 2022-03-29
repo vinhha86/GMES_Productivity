@@ -300,5 +300,12 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
 			}
             return false;
 		},
+		isbtnDSPolineHidden: function(get){
+			var stockin = get('stockin');
+			if(stockin.id == null || stockin.id == 0){
+				return true;
+			}
+			return false;
+		},
     }
 })
