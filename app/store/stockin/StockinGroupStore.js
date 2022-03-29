@@ -8,9 +8,9 @@ Ext.define('GSmartApp.store.stockin.StockinGroupStore', {
         {
             id: 1, name: 'Thủ công'
         },
-        // {
-        //     id: 2, name: 'Mã NPL'
-        // },
+        {
+            id: 2, name: 'Mã NPL'
+        },
         // {
         //     id: 3, name: 'Ống đọc RFID'
         // }

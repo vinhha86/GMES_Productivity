@@ -8,9 +8,9 @@ Ext.define('GSmartApp.store.stockout.StockoutGroupStore', {
         {
             id: 1, name: 'Thủ công'
         },
-        // {
-        //     id: 2, name: 'Mã vạch'
-        // },
+        {
+            id: 2, name: 'Mã vạch'
+        },
         // {
         //     id: 3, name: 'Ống đọc RFID'
         // }

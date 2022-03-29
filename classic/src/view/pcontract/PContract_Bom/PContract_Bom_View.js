@@ -43,7 +43,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
         }],
         // hidden: true
     }, {
-        text: 'Mã NPL 2222',
+        text: 'Mã NPL',
         dataIndex: 'materialCode',
         menuDisabled: true,
         sortable: false,

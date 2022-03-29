@@ -98,13 +98,22 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
     },
     {
         text: 'Thị trường',
-        dataIndex: 'marketTypeName',
+        dataIndex: 'marketTypeString',
         width: 70,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
         }
     },
+    // {
+    //     text: 'Thị trường',
+    //     dataIndex: 'marketTypeName',
+    //     width: 70,
+    //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+    //         metaData.tdAttr = 'data-qtip="' + value + '"';
+    //         return value;
+    //     }
+    // },
     // {
     //     text: 'PO Buyer',
     //     dataIndex: 'polist',
@@ -175,6 +184,7 @@ Ext.define('GSmartApp.view.pcontract.PContractMainView', {
             margin: '5 1 5 0',
             emptyText: "PO Buyer",
             itemId: 'po_code',
+            width: 120,
             width: 120,
             bind: {
                 value: '{value.po_code}'

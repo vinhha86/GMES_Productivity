@@ -14,7 +14,7 @@ Ext.define('GSmartApp.view.cut_plan.DinhMucKyThuatView', {
     columns: [{
         text: 'Mã NPL',
         dataIndex: 'materialCode',
-        width: 120,
+        width: 110,
         sortable: false,
         menuDisabled: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -25,13 +25,13 @@ Ext.define('GSmartApp.view.cut_plan.DinhMucKyThuatView', {
     }, {
         text: 'Màu SP',
         dataIndex: 'color_name',
-        width: 150,
+        width: 110,
         sortable: false,
         menuDisabled: true,
     }, {
         text: 'Nguyên phụ liệu',
         dataIndex: 'materialName',
-        width: 150,
+        width: 120,
         sortable: false,
         menuDisabled: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -42,7 +42,7 @@ Ext.define('GSmartApp.view.cut_plan.DinhMucKyThuatView', {
     }, {
         text: 'TP vải',
         dataIndex: 'thanhPhanVai',
-        width: 200,
+        width: 150,
         sortable: false,
         menuDisabled: true,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -53,7 +53,7 @@ Ext.define('GSmartApp.view.cut_plan.DinhMucKyThuatView', {
     }, {
         text: 'Tiêu hao',
         dataIndex: 'lost_ratio',
-        width: 70,
+        width: 90,
         sortable: false,
         menuDisabled: true,
         xtype: 'numbercolumn',
