@@ -15,19 +15,19 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract_Controller', {
         //Xoa các mã hàng đã chọn
         Ext.getCmp('PContractProductTreeView').getSelectionModel().deselectAll();
 
-        var viewmodel = this.getViewModel();
-        store = viewmodel.getStore('PContractProductTreeStoreBalance');
+        var viewModel = this.getViewModel();
+        store = viewModel.getStore('PContractProductTreeStoreBalance');
         store.filterer = 'bottomup';
         store.getRoot().expandChildren(true);
         
         // console.log(newValue);
-        // console.log(viewmodel.get('Balance.materialid_link'));
-        if (viewmodel.get('Balance.materialid_link') > 0){
+        // console.log(viewModel.get('Balance.materialid_link'));
+        if (viewModel.get('Balance.materialid_link') > 0){
             //Cho phép chọn nhiều Mã hàng để tính toán
-            viewmodel.set('Balance.p_selection_mode', 'MULTI');
+            viewModel.set('Balance.p_selection_mode', 'MULTI');
 
-            var product_bymaterial = viewmodel.getStore('Product_ByMaterial_Store');
-            product_bymaterial.loadProductListByMaterial(viewmodel.get('PContract.id'), viewmodel.get('Balance.materialid_link'));
+            var product_bymaterial = viewModel.getStore('Product_ByMaterial_Store');
+            product_bymaterial.loadProductListByMaterial(viewModel.get('PContract.id'), viewModel.get('Balance.materialid_link'));
             product_bymaterial.loadPage(1, {
                 scope: this,
                 callback: function (records, operation, success) {
@@ -71,11 +71,11 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract_Controller', {
         } else {
             store.clearFilter();
             //Không chọn NPL -> Chỉ được chọn 1 mã hàng để tính toán
-            viewmodel.set('Balance.p_selection_mode', 'SINGLE');
+            viewModel.set('Balance.p_selection_mode', 'SINGLE');
         }
     },
     onCellDblClick: function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
         if (cellIndex == 9) {//Nhu cau
             var form = Ext.create('Ext.window.Window', {
                 closable: true,
@@ -133,7 +133,7 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract_Controller', {
             });
             form.show();
         } else if (cellIndex == 11) {//Yeu cau xuat
-            // var porderid_link = viewmodel.get('porderid_link');
+            // var porderid_link = viewModel.get('porderid_link');
 
             var form = Ext.create('Ext.window.Window', {
                 closable: true,
@@ -157,7 +157,7 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract_Controller', {
                             isload: true, //them bien de load du lieu len hay khong
                             // porderid_link: porderid_link,
                             material_skuid_link: record.get('mat_skuid_link'),
-                            pcontractid_link: viewmodel.get('pcontractid_link'),
+                            pcontractid_link: viewModel.get('pcontractid_link'),
                         }
                     }
                 }]
@@ -196,14 +196,14 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract_Controller', {
     },
     onCalBalance_OneProduct: function () {
         var me = this.getView();
-        var viewmodel = this.getViewModel();
-        var SKUBalanceStore = viewmodel.getStore('SKUBalanceStore');
+        var viewModel = this.getViewModel();
+        var SKUBalanceStore = viewModel.getStore('SKUBalanceStore');
 
         var params = new Object();
-        params.pcontractid_link = viewmodel.get('PContract.id');
-        // params.pcontract_poid_link = viewmodel.get('pcontract_poid_link');
+        params.pcontractid_link = viewModel.get('PContract.id');
+        // params.pcontract_poid_link = viewModel.get('pcontract_poid_link');
         params.pcontract_poid_link = null;
-        params.list_productid = viewmodel.get('IdProduct');
+        params.list_productid = viewModel.get('IdProduct');
 
         me.setLoading("Đang tính cân đối");
         if (null != params.pcontract_poid_link && 0 != params.pcontract_poid_link) {
@@ -236,8 +236,8 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract_Controller', {
     },
 
     onFilterValueMaNPLKeyup: function () {
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.get('SKUBalanceStore');
+        var viewModel = this.getViewModel();
+        var store = viewModel.get('SKUBalanceStore');
         var filterField = this.lookupReference('ValueFilterFieldMaNPL'),
             filters = store.getFilters();
 

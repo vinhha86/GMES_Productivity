@@ -4,13 +4,25 @@ Ext.define('GSmartApp.view.balance.PContractProductTreeViewController', {
     init: function () {
     },
     control: {
-
+        '#PContractProductTreeView': {
+            itemclick: 'onItemclick'
+        }
     },
 
+    onItemclick: function(grid, record, item, index, e, eOpts){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var PContract_PO = viewModel.getStore('PContract_PO');
+
+        // console.log(record);
+        var pcontract_product_id = record.get('pcontract_product_id');
+        PContract_PO.loadPolineByPcontractProduct(pcontract_product_id);
+    },
     onStyleCodeFilterKeyup: function () {
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
         var filterField = this.lookupReference('styleCodeFilter');
-        store = viewmodel.getStore('PContractProductTreeStoreBalance'),
+        store = viewModel.getStore('PContractProductTreeStoreBalance'),
             filters = store.getFilters();
 
         store.filterer = 'bottomup';
@@ -33,11 +45,11 @@ Ext.define('GSmartApp.view.balance.PContractProductTreeViewController', {
     onCalBalance_ManyProduct: function () {
         var me = this.getView();
         var select = me.getSelectionModel().getSelection();
-        var viewmodel = this.getViewModel();
-        var SKUBalanceStore = viewmodel.getStore('SKUBalanceStore');
+        var viewModel = this.getViewModel();
+        var SKUBalanceStore = viewModel.getStore('SKUBalanceStore');
 
         //Nếu không chọn NPL --> Chỉ cho tính riêng từng mã hàng
-        if (viewmodel.get('Balance.p_selection_mode') == 'SINGLE' && select.length > 1){
+        if (viewModel.get('Balance.p_selection_mode') == 'SINGLE' && select.length > 1){
             Ext.Msg.show({
                 title: 'Thông báo',
                 msg: 'Nếu không chọn Nguyên phụ liệu, bạn chỉ được chọn 1 mã hàng để tính cân đối',
@@ -49,10 +61,31 @@ Ext.define('GSmartApp.view.balance.PContractProductTreeViewController', {
             return;
         }
 
+        // lấy danh sách poline, nếu có, type string poline1, poline2...
+        var ls_po = '';
+        var PContractView = Ext.getCmp('PContractView');
+        if(PContractView){
+            var PContractProduct_PoLineView = PContractView.down('#PContractProduct_PoLineView');
+            if(PContractProduct_PoLineView){
+                var selectPoLine = PContractProduct_PoLineView.getSelectionModel().getSelection();
+                for(var i=0; i<selectPoLine.length; i++){
+                    if(ls_po == ''){
+                        ls_po+=selectPoLine[i].get('po_buyer');
+                    }else{
+                        ls_po+=','+selectPoLine[i].get('po_buyer');
+                    }
+                }
+            }
+        }
+
+        // console.log(ls_po);
+        // return;
+
         var params = new Object();
-        params.pcontractid_link = viewmodel.get('PContract.id');
+        params.pcontractid_link = viewModel.get('PContract.id');
         params.pcontract_poid_link = null;
-        params.materialid_link =viewmodel.get('Balance.materialid_link');
+        params.materialid_link =viewModel.get('Balance.materialid_link');
+        params.ls_po = ls_po;
         if (params.materialid_link < 0) params.materialid_link = null;
 
         var list_id_product = '';
@@ -73,7 +106,7 @@ Ext.define('GSmartApp.view.balance.PContractProductTreeViewController', {
                 list_id_product +=  p_select.get('productid_link') + ";";
             }
         }
-        console.log(list_id_product);
+        // console.log(list_id_product);
         params.list_productid = list_id_product;
 
         me.setLoading("Đang tính cân đối");

@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.balance.PContractProductTreeView', {
     extend: 'Ext.tree.Panel',
     xtype: 'PContractProductTreeView',
     id: 'PContractProductTreeView',
+    itemId: 'PContractProductTreeView',
     controller: 'PContractProductTreeViewController',
     viewConfig: {
         enableTextSelection: true,

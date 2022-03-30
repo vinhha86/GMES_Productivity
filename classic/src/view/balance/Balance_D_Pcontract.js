@@ -7,7 +7,7 @@ Ext.define('GSmartApp.view.balance.Balance_D_Pcontract', {
 	],
 	columnLines: true,
 	rowLines: true,
-	border: true,
+	// border: true,
 	features: [{
 		ftype: 'grouping',
 		groupHeaderTpl: '{name}',

@@ -159,7 +159,10 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         },	
 		Product_ByMaterial_Store: {
             type: 'PContractProductBom2Store'
-        },		
+        },
+        PContract_PO: {
+            type: 'PContract_PO'
+        },
     },
     data: {
         markettypeArray: new Array(),
