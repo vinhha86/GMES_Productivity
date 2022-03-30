@@ -48,7 +48,7 @@ Ext.define('GSmartApp.view.balance.Balance_Main_Pcontract', {
                 },
                 {
                     region: 'west',
-                    width: 360,
+                    width: 250,
                     xtype: 'PContractProduct_PoLineView',
                     border: true,
                     margin: 1,

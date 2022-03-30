@@ -70,14 +70,15 @@ Ext.define('GSmartApp.view.balance.PContractProductTreeViewController', {
                 var selectPoLine = PContractProduct_PoLineView.getSelectionModel().getSelection();
                 for(var i=0; i<selectPoLine.length; i++){
                     if(ls_po == ''){
-                        ls_po+=selectPoLine[i].get('po_buyer');
+                        ls_po+=selectPoLine[i].get('id');
                     }else{
-                        ls_po+=','+selectPoLine[i].get('po_buyer');
+                        ls_po+=','+selectPoLine[i].get('id');
                     }
                 }
             }
         }
 
+        // console.log(selectPoLine);
         // console.log(ls_po);
         // return;
 

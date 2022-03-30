@@ -26,5 +26,7 @@ Ext.define('GSmartApp.view.balance.PContractProduct_PoLineViewController', {
             property: 'po_buyer',
             direction: 'ASC'
         });
+
+        PContract_PO.setGroupField('shipmonth');
     }
 })

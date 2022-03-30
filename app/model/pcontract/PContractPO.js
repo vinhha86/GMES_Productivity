@@ -15,6 +15,26 @@ Ext.define('GSmartApp.model.pcontract.PContractPO', {
 		{ name: 'unitid_link', type: 'int' },
 		{ name: 'shipdate', type: 'date', dateFormat: 'c' },
 		{
+			name: 'shipmonth', type: 'string',
+			convert: function (value, rec) {
+				var shipdate = rec.get('shipdate');
+				if(shipdate != null){
+					var date = new Date(shipdate);
+					var day = date.getDate();
+					var month = date.getMonth()+1;
+					var year = date.getYear() % 100;
+					// var year = date.getYear();
+
+					if(day < 10) day = '0' + day;
+					if(month < 10) month = '0' + month;
+
+					var result = '20' + year + '/' + month;
+					return result;
+				}
+				return '';
+			}
+		},
+		{
 			name: 'shipdateString', type: 'string',
 			convert: function (value, rec) {
 				var shipdate = rec.get('shipdate');
