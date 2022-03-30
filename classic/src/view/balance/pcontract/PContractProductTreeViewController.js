@@ -72,7 +72,7 @@ Ext.define('GSmartApp.view.balance.PContractProductTreeViewController', {
                     if(ls_po == ''){
                         ls_po+=selectPoLine[i].get('id');
                     }else{
-                        ls_po+=','+selectPoLine[i].get('id');
+                        ls_po+=';'+selectPoLine[i].get('id');
                     }
                 }
             }
