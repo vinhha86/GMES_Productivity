@@ -35,8 +35,9 @@ Ext.define('GSmartApp.view.balance.PContractProduct_PoLineView', {
                 }
             }
         ],
+        collapsible: false,
         collapseTip: "",
-        expandTip: ""
+        expandTip: "",
     }],
     bind: {
         store: '{PContract_PO}'
@@ -66,5 +67,49 @@ Ext.define('GSmartApp.view.balance.PContractProduct_PoLineView', {
             },
         }
     ],
+    dockedItems: [
+        {
+            dock: 'top',
+            xtype: 'toolbar',
+            height: 40,
+            padding: 2,
+            // layout: 'hbox',
+            items: [
+                {
+                    xtype: 'combo',
+                    labelWidth: 50,
+                    fieldLabel: 'Tháng',
+                    emptyText:'Tháng',
+                    bind: {
+                        store : '{monthBalanceArray}'
+                    },
+                    // valueField: 'yearMonth',
+                    // displayField: 'monthYear',
+                    itemId: 'monthBalanceArray',
+                    margin: 1,
+                    // width: 100,
+                    flex: 1,
+                    editable: false,
+                    readOnly: false,
+                    enableKeyEvents : true,
+                },
+            ]
+        },
+        // {
+        //     dock: 'bottom',
+        //     xtype: 'toolbar',
+        //     height: 40,
+        //     padding: 2,
+        //     // layout: 'hbox',
+        //     items: [
+        //         {
+        //             xtype: 'button',
+        //             text: 'test popup chart',
+        //             iconCls: 'x-fa fa-calculator',
+        //             handler: 'test_popup_chart'
+        //         }
+        //     ]
+        // },
+    ]
 });
 

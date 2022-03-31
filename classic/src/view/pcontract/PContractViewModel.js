@@ -218,6 +218,9 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         // tab chi tiet po -> update sl po parent va po line sau update
         poLine: null,
         poParent: null,
+
+        // tab cân đối npl
+        monthBalanceArray: new Array(),
     },
     formulas: {
         ishidden_addproduct: function (get) {

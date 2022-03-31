@@ -17,7 +17,34 @@ Ext.define('GSmartApp.view.balance.PContractProductTreeViewController', {
 
         // console.log(record);
         var pcontract_product_id = record.get('pcontract_product_id');
-        PContract_PO.loadPolineByPcontractProduct(pcontract_product_id);
+        // PContract_PO.loadPolineByPcontractProduct(pcontract_product_id);
+        PContract_PO.loadPolineByPcontractProduct_async(pcontract_product_id);
+        PContract_PO.load({
+			scope: PContract_PO,
+			callback: function(records, operation, success) {
+				if(!success){
+				} else {
+                    //set gia tri cho combo thang (poline)
+                    // console.log(records);
+                    var monthArr = new Array();
+                    for(var i=0;i<records.length;i++){
+                        var shipmonth = records[i].get('shipmonth');
+                        if(shipmonth != null && !monthArr.includes(shipmonth)){
+                            monthArr.push(shipmonth);
+                        }
+                    }
+                    monthArr.sort();
+                    for(var i=0;i<monthArr.length;i++){
+                        var monthYearArr = monthArr[i].split('/');
+                        var monthYear = monthYearArr[1] + '/' + monthYearArr[0];
+                        monthArr[i] = monthYear;
+                    }
+                    monthArr.unshift('Tất cả');
+                    viewModel.set('monthBalanceArray', monthArr);
+                    // console.log(monthArr);
+				}
+			}
+        });
     },
     onStyleCodeFilterKeyup: function () {
         var viewModel = this.getViewModel();
