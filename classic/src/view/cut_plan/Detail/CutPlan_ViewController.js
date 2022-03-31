@@ -28,10 +28,10 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         }
     },
     onLoadLoaiPhoiDone: function (record) {
-        console.log(record);
         if (record != null) {
             var viewmodel = this.getViewModel();
-            viewmodel.set('loaiphoimau', record.get('name'));
+            viewmodel.set('typephoimau', record.get('name'));
+            // console.log(viewmodel.get('typephoimau'));
             this.onSelectLoaiPhoi(null, record, null);
         }
     },
@@ -214,6 +214,7 @@ Ext.define('GSmartApp.view.cut_plan.Detail.CutPlan_ViewController', {
         params.row_id = context.record.data.id;
         params.la_vai = context.record.data.la_vai;
         params.daisodo = context.record.data.dai_so_do;
+        params.kho_vai = context.record.data.kho;
 
         // if (context.field != 'ngay') {
         //     var arr = context.record.get('ngay').split('-');

@@ -202,7 +202,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatViewContro
     CreateColumns: function () {
         var viewmodel = this.getViewModel();
         var grid = this.getView();
-        var length = 7;
+        var length = 8;
         for (var i = 0; i < grid.headerCt.items.length; i++) {
             if (i > length - 1) {
                 grid.headerCt.remove(i);
@@ -244,9 +244,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatViewContro
                                 sortable: false,
                                 menuDisabled: true,
                                 columns: [{
-                                    text: 'CĐ',
+                                    text: 'Cân đối',
                                     dataIndex: listid[i].toString(),
-                                    width: 90,
+                                    width: 70,
                                     sortable: false,
                                     menuDisabled: true,
                                     format: '0.0000',
@@ -256,14 +256,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatViewContro
                                         return Ext.util.Format.number(value, '0.0000')
                                     }
                                 }, {
-                                    text: 'KT',
+                                    text: 'Kỹ thuật',
                                     sortable: false,
                                     menuDisabled: true,
                                     columns: [{
                                         text: 'Viền',
                                         dataIndex: listid[i] + "_Vien",
                                         cls: 'titleRed',
-                                        width: 90,
+                                        width: 70,
                                         sortable: false,
                                         menuDisabled: true,
                                         format: '0.0000',
@@ -282,10 +282,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatViewContro
                                             })
                                         },
                                     }, {
-                                        text: 'SĐ',
+                                        text: 'Sơ đồ',
                                         dataIndex: listid[i] + "_KT",
                                         cls: 'titleRed',
-                                        width: 90,
+                                        width: 70,
                                         sortable: false,
                                         menuDisabled: true,
                                         format: '0.0000',
@@ -294,11 +294,26 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatViewContro
                                             if (value == 0) return "";
                                             return Ext.util.Format.number(value, '0.0000')
                                         }
-                                    },{
-                                        text: '% C/lệch',
+                                    },
+                                    {
+                                        text: 'Tổng',
+                                        dataIndex: listid[i] + "_Tong",
+                                        cls: 'titleRed',
+                                        width: 70,
+                                        sortable: false,
+                                        menuDisabled: true,
+                                        format: '0.0000',
+                                        align: 'right',
+                                        renderer: function (value, metaData, record) {
+                                            if (value == 0) return "";
+                                            return Ext.util.Format.number(value, '0.0000')
+                                        }
+                                    },
+                                    {
+                                        text: '% CĐ',
                                         dataIndex: listid[i] + "_PhanTramChenhLech",
                                         // cls: 'titleRed',
-                                        width: 90,
+                                        width: 70,
                                         sortable: false,
                                         menuDisabled: true,
                                         // format: '0.00',
@@ -308,25 +323,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatViewContro
                                             return value;
                                             // return Ext.util.Format.number(value, '0.0000');
                                         }
-                                    }, {
-                                        text: 'Tổng',
-                                        dataIndex: listid[i] + "_Tong",
-                                        cls: 'titleRed',
-                                        width: 90,
-                                        sortable: false,
-                                        menuDisabled: true,
-                                        format: '0.0000',
-                                        align: 'right',
-                                        renderer: function (value, metaData, record) {
-                                            if (value == 0) return "";
-                                            return Ext.util.Format.number(value, '0.0000')
-                                        }
-                                    }]
+                                    }
+                                    ]
                                 }, {
-                                    text: 'SX',
+                                    text: 'Cắt',
                                     dataIndex: listid[i] + "_SX",
                                     cls: 'titleRed',
-                                    width: 90,
+                                    width: 70,
                                     sortable: false,
                                     menuDisabled: true,
                                     format: '0.0000',

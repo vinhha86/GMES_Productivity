@@ -4,6 +4,44 @@ Ext.define('GSmartApp.view.cut_plan.DinhMucKyThuatViewController', {
     init: function () {
         this.CreateColumns();
     },
+    listen: {
+        controller: {
+            'CutPlan_ViewController': {
+                'ReloadBOM': 'onReloadBOM'
+            }
+        }
+    },
+    onReloadBOM: function(){
+        //load dinh muc
+        var viewmodel = this.getViewModel();
+
+        var pcontractid_link = viewmodel.get('pcontractid_link');
+        var productid_link = viewmodel.get('productid_link');
+        var npl = viewmodel.get('npl');
+
+        var storeBom = viewmodel.getStore('POrderBom2Store');
+        storeBom.getbom_by_porder_mat(null, pcontractid_link, productid_link, npl.id);
+    },
+    onFilterValueMaNPLKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.getStore('POrderBom2Store');
+        var filterField = this.lookupReference('ValueFilterFieldMaNPL'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldMaNPL = filters.add({
+                id: 'ValueFilterFieldMaNPL',
+                property: 'materialCode',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldMaNPL) {
+            filters.remove(this.ValueFilterFieldMaNPL);
+            this.ValueFilterFieldMaNPL = null;
+        }
+    },
     CreateColumns: function () {
         var viewmodel = this.getViewModel();
         var grid = this.getView();
@@ -49,9 +87,9 @@ Ext.define('GSmartApp.view.cut_plan.DinhMucKyThuatViewController', {
                                 sortable: false,
                                 menuDisabled: true,
                                 columns: [{
-                                    text: 'CĐ',
+                                    text: 'Cân đối',
                                     dataIndex: listid[i].toString(),
-                                    width: 90,
+                                    width: 70,
                                     sortable: false,
                                     menuDisabled: true,
                                     format: '0.0000',
@@ -61,14 +99,14 @@ Ext.define('GSmartApp.view.cut_plan.DinhMucKyThuatViewController', {
                                         return Ext.util.Format.number(value, '0.0000')
                                     }
                                 }, {
-                                    text: 'KT',
+                                    text: 'Kỹ thuật',
                                     sortable: false,
                                     menuDisabled: true,
                                     columns: [{
                                         text: 'Viền',
                                         dataIndex: listid[i] + "_Vien",
                                         cls: 'titleRed',
-                                        width: 90,
+                                        width: 70,
                                         sortable: false,
                                         menuDisabled: true,
                                         format: '0.0000',
@@ -78,21 +116,19 @@ Ext.define('GSmartApp.view.cut_plan.DinhMucKyThuatViewController', {
                                             return Ext.util.Format.number(value, '0.0000')
                                         },
                                         getEditor: function (record) {
-                                            if (record.get('type') == 0) {
-                                                return Ext.create('Ext.grid.CellEditor', {
-                                                    field: {
-                                                        xtype: 'textfield',
-                                                        selectOnFocus: true,
-                                                        maskRe: /[0-9]/
-                                                    }
-                                                })
-                                            }
+                                            return Ext.create('Ext.grid.CellEditor', {
+                                                field: {
+                                                    xtype: 'textfield',
+                                                    selectOnFocus: true,
+                                                    maskRe: /[0-9.]/
+                                                }
+                                            })
                                         },
                                     }, {
-                                        text: 'SĐ',
+                                        text: 'Sơ đồ',
                                         dataIndex: listid[i] + "_KT",
                                         cls: 'titleRed',
-                                        width: 90,
+                                        width: 70,
                                         sortable: false,
                                         menuDisabled: true,
                                         format: '0.0000',
@@ -101,11 +137,26 @@ Ext.define('GSmartApp.view.cut_plan.DinhMucKyThuatViewController', {
                                             if (value == 0) return "";
                                             return Ext.util.Format.number(value, '0.0000')
                                         }
-                                    },{
-                                        text: '% C/lệch',
+                                    },
+                                    {
+                                        text: 'Tổng',
+                                        dataIndex: listid[i] + "_Tong",
+                                        cls: 'titleRed',
+                                        width: 70,
+                                        sortable: false,
+                                        menuDisabled: true,
+                                        format: '0.0000',
+                                        align: 'right',
+                                        renderer: function (value, metaData, record) {
+                                            if (value == 0) return "";
+                                            return Ext.util.Format.number(value, '0.0000')
+                                        }
+                                    },
+                                    {
+                                        text: '% CĐ',
                                         dataIndex: listid[i] + "_PhanTramChenhLech",
                                         // cls: 'titleRed',
-                                        width: 90,
+                                        width: 70,
                                         sortable: false,
                                         menuDisabled: true,
                                         // format: '0.00',
@@ -115,25 +166,13 @@ Ext.define('GSmartApp.view.cut_plan.DinhMucKyThuatViewController', {
                                             return value;
                                             // return Ext.util.Format.number(value, '0.0000');
                                         }
-                                    }, {
-                                        text: 'Tổng',
-                                        dataIndex: listid[i] + "_Tong",
-                                        cls: 'titleRed',
-                                        width: 90,
-                                        sortable: false,
-                                        menuDisabled: true,
-                                        format: '0.0000',
-                                        align: 'right',
-                                        renderer: function (value, metaData, record) {
-                                            if (value == 0) return "";
-                                            return Ext.util.Format.number(value, '0.0000')
-                                        }
-                                    }]
+                                    }
+                                    ]
                                 }, {
-                                    text: 'SX',
+                                    text: 'Cắt',
                                     dataIndex: listid[i] + "_SX",
                                     cls: 'titleRed',
-                                    width: 90,
+                                    width: 70,
                                     sortable: false,
                                     menuDisabled: true,
                                     format: '0.0000',
@@ -142,7 +181,7 @@ Ext.define('GSmartApp.view.cut_plan.DinhMucKyThuatViewController', {
                                         if (value == 0) return "";
                                         return Ext.util.Format.number(value, '0.0000')
                                     }
-                                }, ]
+                                }]
                             })
                             grid.headerCt.insert(length, column);
                             length++;

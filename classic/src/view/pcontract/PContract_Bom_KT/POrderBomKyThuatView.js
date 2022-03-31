@@ -41,7 +41,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatView', {
         {
             text: 'Mã NPL',
             dataIndex: 'materialCode',
-            width: 110,
+            width: 80,
             sortable: false,
             menuDisabled: true,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -54,14 +54,65 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatView', {
                 fieldStyle: "",
                 margin: 1,
                 reference: 'ValueFilterFieldMaNPL',
-                width: '99%',
+                width: '98%',
                 enableKeyEvents: true,
                 listeners: {
                     keyup: 'onFilterValueMaNPLKeyup',
                     buffer: 500
                 }
             }
-        }, {
+        }, 
+        {
+            text: 'Nguyên phụ liệu',
+            dataIndex: 'materialName',
+            width: 120,
+            sortable: false,
+            menuDisabled: true,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            }
+        }, 
+        {
+            text: 'Màu NPL',
+            dataIndex: 'tenMauNPL',
+            menuDisabled: true,
+            sortable: false,
+            width: 120,
+            enableTextSelection: true,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            }
+        }, 
+        {
+            text: 'Cỡ/khổ',
+            dataIndex: 'coKho',
+            menuDisabled: true,
+            sortable: false,
+            width: 70,
+            enableTextSelection: true,
+            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                var val = value == 'null' ? "" : value;
+                metaData.tdAttr = 'data-qtip="' + val + '"';
+                return val;
+            }
+        }, 
+        // {
+        //     text: 'Thành phần vải',
+        //     dataIndex: 'thanhPhanVai',
+        //     width: 150,
+        //     sortable: false,
+        //     menuDisabled: true,
+        //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+        //         var val = value == 'null' ? "" : value;
+        //         metaData.tdAttr = 'data-qtip="' + val + '"';
+        //         return val;
+        //     }
+        // }, 
+        {
             text: 'Màu SP',
             dataIndex: 'color_name',
             width: 110,
@@ -79,45 +130,28 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_KT.POrderBomKyThuatView', {
                     buffer: 500
                 }
             }
-        }, {
-            text: 'Nguyên phụ liệu',
-            dataIndex: 'materialName',
-            width: 120,
-            sortable: false,
-            menuDisabled: true,
-            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                var val = value == 'null' ? "" : value;
-                metaData.tdAttr = 'data-qtip="' + val + '"';
-                return val;
-            }
-        }, {
-            text: 'TP vải',
-            dataIndex: 'thanhPhanVai',
-            width: 150,
-            sortable: false,
-            menuDisabled: true,
-            renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-                var val = value == 'null' ? "" : value;
-                metaData.tdAttr = 'data-qtip="' + val + '"';
-                return val;
-            }
-        }, {
+        }, 
+        {
+            text: 'ĐVT',
+            dataIndex: 'unitName',
+            width: 70,
+        },
+        {
             text: 'Tiêu hao',
             dataIndex: 'lost_ratio',
-            width: 90,
-            sortable: false,
             menuDisabled: true,
+            sortable: false,
+            width: 70,
             xtype: 'numbercolumn',
             format: '0.000',
             editor: {
                 xtype: 'textfield',
                 maskRe: /[0-9.]/,
                 selectOnFocus: true
+            },
+            renderer: function (value, metaData, record) {
+                return value;
             }
-        }, {
-            text: 'ĐVT',
-            dataIndex: 'unitName',
-            width: 70,
         }
     ],
     dockedItems: [{
