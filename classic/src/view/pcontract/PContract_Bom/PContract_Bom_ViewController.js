@@ -15,8 +15,6 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         '#fileUploadBomSizesetNew': {
             change: 'onSelectFile_SizesetNew'
         },
-
-
         '#cmbSanPham': {
             select: 'onChangeProduct'
         },
@@ -777,7 +775,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
     CreateColumns: function () {
         var viewmodel = this.getViewModel();
         var grid = this.getView();
-        var length = 11;
+        var length = 9;
         for (var i = 0; i < grid.headerCt.items.length; i++) {
             if (i > length - 1) {
                 grid.headerCt.remove(i);
