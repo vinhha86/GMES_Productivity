@@ -27,54 +27,15 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListOrgViewController',
 
         //load danh sách ca của đơn vị
         var TimesheetShiftTypeOrgStore = viewModel.getStore('TimesheetShiftTypeOrgStore');
-        TimesheetShiftTypeOrgStore.getbyorgid_link_caAn(record.get('id'), true);
+        TimesheetShiftTypeOrgStore.getbyorgid_link_caAn(record.get('id'), true, date);
 
         //gọi function CreateColumns
         var controler = Ext.getCmp('TimeSheetLunch_ListView').getController();
         controler.CreateColumns(record.get('id'));
         // load danh sách nhân viên và ca
-        // var TimeSheetLunch_ListView = Ext.getCmp('TimeSheetLunch_ListView');
-        // if(TimeSheetLunch_ListView) TimeSheetLunch_ListView.setLoading(true);
         var TimeSheetLunchStore = viewModel.getStore('TimeSheetLunchStore');
         TimeSheetLunchStore.removeAll();
-        // TimeSheetLunchStore.loadStore(orgid_link, date);
         
-        // set color
-        // TimeSheetLunch_MainView.down('#sumCa1').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa2').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa3').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa4').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa5').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa6').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa7').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa8').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa9').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa10').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa11').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa12').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa13').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa14').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa15').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa16').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa17').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa18').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa19').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa20').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa21').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa22').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa23').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa24').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa25').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa26').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa27').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa28').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa29').setFieldStyle('background-color: white;');
-        // TimeSheetLunch_MainView.down('#sumCa30').setFieldStyle('background-color: white;');
-
-        // check status xác nhận của ngày và của đơn vị
-        // this.setShiftColumnConfirm();
-
-        //
         viewModel.set('selectedRecord_Donvi', record);
     },
     setDataLunchShift: function(records){

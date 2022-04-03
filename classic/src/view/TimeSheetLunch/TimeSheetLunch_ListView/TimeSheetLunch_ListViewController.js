@@ -72,17 +72,23 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
         }
 
         var TimeSheetLunch_MainView = Ext.getCmp('TimeSheetLunch_MainView');
+        var date = null;
         if(TimeSheetLunch_MainView){
             TimeSheetLunch_MainView.setLoading(true);
+            date = TimeSheetLunch_MainView.down('#txtdatefield').getValue();
         }
 
         var listtitle = [];
         var params = new Object();
         params.orgid_link = data;
         params.is_ca_an = true;
+        params.date = date;
+
+        // console.log("create columns");
+        // console.log(params.date);
+
         GSmartApp.Ajax.post('/api/v1/timesheetshifttypeorg/getbyorgid_link_caAn_All', Ext.JSON.encode(params),
             function (success, response, options) {
-                
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
@@ -127,9 +133,10 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
                             columnObj.timesheet_shift_id = timesheet_shift_id;
 
                             // listtitle.push(str);
-                            if(columnObj.is_active){
-                                listtitle.push(columnObj);
-                            }
+                            // if(columnObj.is_active){
+                            //     listtitle.push(columnObj);
+                            // }
+                            listtitle.push(columnObj);
 
                         }
                         viewmodel.set('numberShift', response.data.length);
@@ -138,7 +145,7 @@ Ext.define('GSmartApp.view.TimeSheetLunch.TimeSheetLunch_ListViewController', {
 
                             var column = Ext.create('Ext.grid.column.Check', {
                                 text: listtitle[i].text,
-                                hidden: !listtitle[i].is_active,
+                                // hidden: !listtitle[i].is_active,
                                 isShiftColumn: true, // de biet day la column ca an
                                 timesheet_shift_type_id_link: listtitle[i].timesheet_shift_type_id_link,
                                 timesheet_shift_id: listtitle[i].timesheet_shift_id,

@@ -27,7 +27,7 @@ Ext.define('GSmartApp.view.personel.TimeSheetLunch_MainViewModel', {
         isToday: true,
         isEditable: null,
         isHidden_khach: true,
-        current: new Date(),
+        current: new Date(), // ngay hien tai
         // confirm hidden, disabled,
         isBtnConfirmHidden: true,
         isBtnConfirmHiddenDisabled: true,
