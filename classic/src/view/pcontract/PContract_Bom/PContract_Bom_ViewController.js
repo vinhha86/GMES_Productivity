@@ -133,7 +133,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         });
     },
     onCellMenu: function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
-        if (cellIndex == 7) {
+        if (cellIndex == 5) {
             var me = this;
             var viewmodel = this.getViewModel();
             var hiddenPaste = viewmodel.get('obj_copy_poline') == null ? true : false;
@@ -205,7 +205,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
     },
     onCellDblClick: function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         var me = this;
-        if (cellIndex == 7) {
+        if (cellIndex == 5) {
             me.ShowPO(record);
         }
     },
