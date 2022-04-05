@@ -8,8 +8,13 @@ Ext.define('GSmartApp.view.DashboardMer.BarChartProductShipDate.BarChartProductS
     items: [
     {
         xtype: 'cartesian',
+        itemId: 'BarChartProductShipDateView_Chart',
         width: '100%',
         height: '100%',
+        plugins: {
+            ptype: 'chartitemevents',
+            moveEvents: true
+        },
         captions: {
             // title: {
             //     text: 'Số lượng ra chuyền/ngày tháng hiện tại',

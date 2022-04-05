@@ -508,4 +508,38 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 		});
 		this.load();
 	},
+	loadStoreForDashboardMer: function(obj){
+		var params = new Object();
+		params.productIdList = obj.productIdList;
+		params.status = obj.status;
+		params.contract_code = obj.objSearch.contract_code;
+		params.product_code = obj.objSearch.product_code;
+		params.po_code = obj.objSearch.po_code;
+		params.buyer = obj.objSearch.buyer;
+		params.vendor = obj.objSearch.vendor;
+
+		this.setProxy({
+			type: 'ajax',
+			actionMethods: {
+				create: 'POST',
+				read: 'POST',
+				update: 'POST',
+				destroy: 'POST'
+			},
+			url: config.getAppBaseUrl() + '/api/v1/pcontract_po/getForDashboardMer',
+			paramsAsJson: true,
+			noCache: false,
+			extraParams: params,
+			timeout: 60000,
+			headers: {
+				'Accept': "application/json",
+				'Content-Type': "application/json"
+			},
+			reader: {
+				type: 'json',
+				rootProperty: 'data'
+			}
+		});
+		this.load();
+	}
 });

@@ -50,10 +50,13 @@ Ext.define('GSmartApp.view.DashboardMer.Dashboard_Mer_ViewController', {
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
+        var dashboard_mer = Ext.getCmp('dashboard_mer');
 
+        // load biểu đồ theo dõi mã hàng sắp cần giao
         var objSearch = viewModel.get('objSearch');
         var ProductShipDateChartStore = viewModel.getStore('ProductShipDateChartStore');
         ProductShipDateChartStore.loadStore(objSearch);
+        m.fireEvent('dashboard_search');
     },
     onPressEnterSearch: function (textfield, e, eOpts) {
 		var m = this;

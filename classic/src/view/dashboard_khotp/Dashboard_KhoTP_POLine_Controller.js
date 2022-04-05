@@ -2,9 +2,17 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.Dashboard_KhoTP_POLine_Controller',
     init: function () {
-        this.loadBuyer();
-        this.loadShipmode();
-        this.loadPO_HavetoShip();
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var isFromDashBoardMer = viewModel.get('isFromDashBoardMer');
+        if(!isFromDashBoardMer){
+            // neu la tu view dashboard mer thi ko load
+            // load cho view lenh xuat kho
+            m.loadBuyer();
+            m.loadShipmode();
+            m.loadPO_HavetoShip();
+        }
     },
     control: {
         '#Dashboard_KhoTP_POLine_List': {
@@ -17,39 +25,60 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
             click: 'loadPO_HavetoShip'
         }
     },
+    listen: {
+        controller: {
+            'Dashboard_Mer_ViewController': {
+                'dashboard_search': 'on_dashboard_search'
+            },
+            'BarChartProductShipDateViewController': {
+                'dashboard_loadPoLineList': 'on_dashboard_loadPoLineList'
+            },
+            
+        }
+    },
     loadBuyer: function(){
-        var viewmodel = this.getViewModel();
-        var EndBuyer = viewmodel.getStore('EndBuyer');
+        var viewModel = this.getViewModel();
+        var EndBuyer = viewModel.getStore('EndBuyer');
         EndBuyer.loadStore(12);
     },
     loadShipmode: function(){
-        var viewmodel = this.getViewModel();
-        var ShipModeStore = viewmodel.getStore('ShipModeStore');
+        var viewModel = this.getViewModel();
+        var ShipModeStore = viewModel.getStore('ShipModeStore');
         if (null != ShipModeStore) {
             ShipModeStore.loadStore();
             ShipModeStore.getSorters().add('name');
         }
     },
     loadPO_HavetoShip: function () {
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('POLineStore');
-        store.getpo_havetoship(viewmodel.get('shipdate_from'), viewmodel.get('shipdate_to'), viewmodel.get('orgbuyerid_link'));
+        var viewModel = this.getViewModel();
+        var store = viewModel.getStore('POLineStore');
+        store.getpo_havetoship(viewModel.get('shipdate_from'), viewModel.get('shipdate_to'), viewModel.get('orgbuyerid_link'));
+    },
+    loadPO_HavetoShip_dashboard: function(){
+        console.log('loadPO_HavetoShip_dashboard');
     },
     onSelectProduct: function (t, record, index, eOpts) {
         var m = this;
         var me = this.getView();
-        var viewmodel = this.getViewModel();
-        var storeSku = viewmodel.getStore('PContractSKUStore');
-        var pcontract_poid_link = record.data.id;
-        storeSku.load_by_pcontract_po_avail(pcontract_poid_link, 1);
-
-        var storePo_Orgs = viewmodel.getStore('POLine_Orgs_Store');
-        storePo_Orgs.loadStore_Preview_ByPO(pcontract_poid_link);
-
-        // console.log(record);
-        var pcontract_poid = record.data.id;
-        viewmodel.set('porderGrant', null);
-        m.getPorderGrantInfo(pcontract_poid);
+        var viewModel = this.getViewModel();
+        var isFromDashBoardMer = viewModel.get('isFromDashBoardMer');
+        if(isFromDashBoardMer){
+            // fire event cho view DashboardMer_PoLineSKUView (dashboard mer) hứng
+            m.fireEvent('dashboard_select_poline', record);
+        }else{
+            var storeSku = viewModel.getStore('PContractSKUStore');
+            var pcontract_poid_link = record.data.id;
+            storeSku.load_by_pcontract_po_avail(pcontract_poid_link, 1);
+    
+            var storePo_Orgs = viewModel.getStore('POLine_Orgs_Store');
+            storePo_Orgs.loadStore_Preview_ByPO(pcontract_poid_link);
+    
+            // console.log(record);
+            var pcontract_poid = record.data.id;
+            viewModel.set('porderGrant', null);
+            m.getPorderGrantInfo(pcontract_poid);
+        }
+        
     },
     onStockoutOrder_Create: function(){
         //Lấy danh sách các PO Line được chọn --> Gửi lên để tạo Stockout_order
@@ -120,8 +149,8 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
     renderShipping: function (val, metaData, record, rindex, cindex, store) {
         metaData.tdCls = 'po_linekh';
         if (null != val) {
-            var viewmodel = this.getViewModel();
-            var ShipModeStore = viewmodel.getStore('ShipModeStore');
+            var viewModel = this.getViewModel();
+            var ShipModeStore = viewModel.getStore('ShipModeStore');
             if (null != ShipModeStore) {
                 var objUnit = ShipModeStore.data.find('id', val);
                 // console.log(objUnit.data);
@@ -134,8 +163,8 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
 		return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';
     },
     onFilterPOKeyup: function () {
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.get('POLineStore');
+        var viewModel = this.getViewModel();
+        var store = viewModel.get('POLineStore');
         var filterField = this.lookupReference('filterPO'),
             filters = store.getFilters();
 
@@ -154,8 +183,8 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
         }
     },
     onFilterMaSPKeyup: function () {
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.get('POLineStore');
+        var viewModel = this.getViewModel();
+        var store = viewModel.get('POLineStore');
         var filterField = this.lookupReference('filterMaSP'),
             filters = store.getFilters();
 
@@ -334,4 +363,30 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
             })
         }
     },
+
+    //
+    on_dashboard_search: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var POLineStore = viewModel.getStore('POLineStore');
+        POLineStore.removeAll();
+        me.down('#Dashboard_KhoTP_POLine_List').setDisabled(true);
+    },
+    on_dashboard_loadPoLineList: function(productIdList, status, objSearch){
+        // console.log('on_dashboard_loadPoLineList');
+        // console.log(productIdList);
+        // console.log(status);
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var obj = new Object();
+        obj.productIdList = productIdList;
+        obj.status = status;
+        obj.objSearch = objSearch;
+
+        var POLineStore = viewModel.getStore('POLineStore');
+        POLineStore.loadStoreForDashboardMer(obj);
+    }
 });

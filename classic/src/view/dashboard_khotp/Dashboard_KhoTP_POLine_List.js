@@ -33,7 +33,10 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
                 iconCls: 'x-fa fas fa-bars violetIcon',
                 handler: 'onMenuShow'
             },
-        ]
+        ],
+        bind: {
+            hidden: '{isFromDashBoardMer}'
+        }
     }, 
     {
         text: 'Ngày giao',
@@ -44,7 +47,10 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
     {
         text: 'Mã SP (Buyer)',
         dataIndex: 'productbuyercode',
-        width: 120,
+        // width: 120,
+        flex: 1,
+        menuDisabled: true,
+        sortable: false,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
             return value;
@@ -59,13 +65,19 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
             listeners: {
                 keyup: 'onFilterMaSPKeyup',
                 buffer: 500
-            }
+            },
         },
+        bind: {
+            hidden: '{isFromDashBoardMer}'
+        }
     },
     {
         text: 'PO Buyer',
         dataIndex: 'po_buyer',
-        width: 150,
+        width: 100,
+        // flex: 1,
+        menuDisabled: true,
+        sortable: false,
         renderer: function (value, metaData, record, rowIdx, colIdx, store) {
             metaData.tdAttr = 'data-qtip="' + value + '"';
 
@@ -84,18 +96,62 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
             listeners: {
                 keyup: 'onFilterPOKeyup',
                 buffer: 500
-            }
+            },
         },
         summaryType: 'count',
         summaryRenderer: function (value, record) {
             if (null == value) value = 0;
             return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + ' (line)</div>';
+        },
+        bind: {
+            hidden: '{isFromDashBoardMer}'
+        }
+    }, 
+    {
+        text: 'Mã SP (Buyer)',
+        dataIndex: 'productbuyercode',
+        // width: 120,
+        flex: 1,
+        menuDisabled: true,
+        sortable: false,
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+            return value;
+        },
+        bind: {
+            hidden: '{!isFromDashBoardMer}'
+        }
+    },
+    {
+        text: 'PO Buyer',
+        dataIndex: 'po_buyer',
+        width: 100,
+        // flex: 1,
+        menuDisabled: true,
+        sortable: false,
+        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+            metaData.tdAttr = 'data-qtip="' + value + '"';
+
+            if (record.data.ismap) {
+                metaData.tdCls = "po_offer";
+            }
+            return value;
+        },
+        summaryType: 'count',
+        summaryRenderer: function (value, record) {
+            if (null == value) value = 0;
+            return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + ' (line)</div>';
+        },
+        bind: {
+            hidden: '{!isFromDashBoardMer}'
         }
     }, 
     {
         text: 'PT vận chuyển',
         dataIndex: 'shipmodeid_link',
         flex: 1,
+        menuDisabled: true,
+        sortable: false,
         hideable: false,
         editor: {
             completeOnEnter: true,
@@ -113,7 +169,10 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
                 queryMode: 'local'
             }
         },
-        renderer: 'renderShipping'
+        renderer: 'renderShipping',
+        bind: {
+            hidden: '{isFromDashBoardMer}'
+        }
     },
     // {
     //     text: 'Cảng xếp hàng',
@@ -124,8 +183,13 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
         text: 'ĐVT',
         dataIndex: 'totalpair',
         width: 60,
+        menuDisabled: true,
+        sortable: false,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 1 ? "Chiếc" : "Bộ (" + value + ")";
+        },
+        bind: {
+            hidden: '{isFromDashBoardMer}'
         }
     },
     {
@@ -133,6 +197,8 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
         align: 'right',
         dataIndex: 'po_quantity',
         width: 70,
+        menuDisabled: true,
+        sortable: false,
         renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
             return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
         },
@@ -140,25 +206,6 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
         summaryRenderer: 'renderSum'
     }
     ],
-    // dockedItems: [{
-    //     dock: 'top',
-    //     layout: 'vbox',
-    //     items: [{
-    //         layout: 'hbox',
-    //         xtype: 'toolbar',
-    //         padding: 5,
-    //         height: 40,
-    //         items: [
-    //             {
-    //                 xtype: 'button',
-    //                 itemId:'btnStockoutOrder_Create',
-    //                 text: 'Tạo Lệnh xuất kho'
-    //             },
-    //         ]
-    //     }
-    //     ]
-    // },
-    // ]
     dockedItems: [{
 		dock: 'top',
 		xtype:'toolbar',
@@ -168,22 +215,24 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
 			emptyText: 'Từ ngày',
 			itemId: 'shipdate_from',
 			editable: false,
-			margin: '5 5 5 5',
+			margin: 1,
             bind: {
-                value: '{shipdate_from}'
+                value: '{shipdate_from}',
+                hidden: '{isFromDashBoardMer}'
             },
 			width: 110,
-            format:'d/m/y'
+            format:'d/m/y',
 		},{
 			xtype:'datefield',
 			labelWidth: 0,
 			emptyText: 'Đến ngày',
 			itemId: 'shipdate_to',
 			editable: false,
-			margin: '5 5 5 0',
+			margin: 1,
 			width: 110,
             bind: {
-                value: '{shipdate_to}'
+                value: '{shipdate_to}',
+                hidden: '{isFromDashBoardMer}'
             },
             format:'d/m/y'
 		},
@@ -193,27 +242,44 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
             emptyText: 'Buyer',
             bind: {
                 store: '{EndBuyer}',
-                value: '{orgbuyerid_link}'
+                value: '{orgbuyerid_link}',
+                hidden: '{isFromDashBoardMer}'
             },
             valueField: 'id',
             displayField: 'code',
             queryMode: 'local',
             anyMatch: true,
             itemId: 'orgbuyerid_link',
-            margin: '5 1 5 0'
+			margin: 1,
         },
 		{
             xtype: 'button',
-            margin: 5,
+			margin: 1,
             iconCls: 'x-fa fa-search',
-            itemId: 'btnTimKiem'
+            itemId: 'btnTimKiem',
+            bind: {
+                hidden: '{isFromDashBoardMer}'
+            },
+        },
+        {
+            xtype: 'displayfield',
+            fieldStyle: "font-weight: 500; font-size: 14px; color: black;",
+            labelWidth: 0,
+			margin: 1,
+            value: ' DS PO Line',
+            bind: {
+                hidden: '{!isFromDashBoardMer}'
+            }
         },
         '->',
         {
             xtype: 'button',
-            margin: '5 5 5 0',
+			margin: 1,
             itemId:'btnStockoutOrder_Create',
-            text: 'Tạo Lệnh xuất kho'
+            text: 'Tạo Lệnh xuất kho',
+            bind: {
+                hidden: '{isFromDashBoardMer}'
+            }
         },
     ]
 	}]

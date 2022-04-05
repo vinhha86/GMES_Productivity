@@ -20,17 +20,28 @@ Ext.define('GSmartApp.view.DashboardMer.Dashboard_Mer_View', {
         items: [
             {
                 xtype: 'BarChartProductShipDateView',
+                itemId: 'BarChartProductShipDateView',
                 border: true,
                 margin: 1,
                 height: '100%',
                 flex: 1,
             },
             {
-                // xtype: 'POrderStatusChart',
+                xtype: 'Dashboard_KhoTP_POLine_Main',
+                itemId: 'Dashboard_KhoTP_POLine_Main',
                 border: true,
                 margin: 1,
                 height: '100%',
+                width: '100%',
                 flex: 1,
+                disabled: true, // mặc định là hidden, khi ấn lên BarChartProductShipDateView item -> hidden: false
+                // style: 'visibility:hidden;',
+                viewModel: {
+                    type: 'Dashboard_KhoTP_POLine_ViewModel',
+                    data: {
+                        isFromDashBoardMer: true,
+                    }
+                }
             },
             {
                 // xtype: 'PieChartMarketType',
@@ -38,6 +49,8 @@ Ext.define('GSmartApp.view.DashboardMer.Dashboard_Mer_View', {
                 margin: 1,
                 height: '100%',
                 flex: 1,
+                disabled: true,
+                // style: 'visibility:hidden;',
             }
         ]
     }, {
@@ -47,17 +60,21 @@ Ext.define('GSmartApp.view.DashboardMer.Dashboard_Mer_View', {
         margin: 1,
         layout: 'hbox',
         items: [{
-            // xtype: 'PContractChartView',
+            xtype: 'DashboardMer_PoLineSKUView',
             border: true,
             margin: 1,
             height: '100%',
-            flex: 2
+            flex: 2,
+            disabled: true,
+            // style: 'visibility:hidden;',
         }, {
             // xtype: 'LineChartRegisterCodeCount',
             border: true,
             margin: 1,
             height: '100%',
-            flex: 1
+            flex: 1,
+            disabled: true,
+            // style: 'visibility:hidden;',
         }]
     }],
 

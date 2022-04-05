@@ -28,7 +28,10 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Main', {
                     height: '30%',
                     xtype: 'Dashboard_KhoTP_POLine_Orgs'
                 }
-            ]
+            ],
+            bind: {
+                hidden: '{isDashboard_KhoTP_POLine_D_Hidden}'
+            }
         }
     ],
     // listeners: {

@@ -3,6 +3,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
     xtype: 'PContract_PO_Edit_Price',
     id: 'PContract_PO_Edit_Price',
     controller: 'PContract_PO_Edit_PriceController',
+    cls: 'PContract_PO_Edit_Price',
     viewConfig: {
         stripeRows: false,
         enableTextSelection: true,
@@ -166,13 +167,25 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Price', {
         format: '0.0000',
         editor: {
             xtype: 'textfield',
-            maskRe: /[0-9.]/,
+            maskRe: /[0-9.-]/,
             selectOnFocus: true
         },
         renderer: function (value, metaData, record) {
             if (value == 0) return "";
             metaData.tdAttr = 'data-qtip="' + Ext.util.Format.number(value, '0.0000') + '"';
-            return Ext.util.Format.number(value, '0.0000')
+
+            var isNegative = false;
+            if(!isNaN(value)){
+                if(value < 0){
+                    isNegative = true;
+                }
+            }
+            if(isNegative){
+                metaData.tdCls = 'clsRedColor';
+                return '(' + Ext.util.Format.number(value * -1, '0.0000') + ')';
+            }
+            metaData.tdCls = 'clsBlackColor';
+            return Ext.util.Format.number(value, '0.0000');
         }
     },
     {

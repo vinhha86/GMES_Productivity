@@ -11,17 +11,20 @@ Ext.define('GSmartApp.view.DashboardMer.Dashboard_Mer_ViewModel', {
         // 'GSmartApp.store.pcontract.PContractChartStore',
     ],
     stores: {
+        // combo search
         EndBuyerStore: {
             type: 'ListOrgStore'
         },
         VendorStore: {
             type: 'ListOrgStore'
         },
+        // biểu đồ theo dõi mã hàng
         ProductShipDateChartStore: {
             type: 'ProductShipDateChartStore'
         },
-        POrderStatusChartStore: {
-            type: 'POrderStatusChartStore'
+        // ds mà cỡ poline
+        PContractProduct_PO_Store: {
+            type: 'PContractProductStore'
         },
     },
     data: {

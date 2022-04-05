@@ -334,12 +334,30 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_PriceController', {
 
         //SUM FOB Price
         Price_DStore.filter('isfob', true);
-        var fobSum = Price_DStore.sum('price');
+        // var fobSum = Price_DStore.sum('price');
+        var fobSum = 0;
+        var advancePayment = 0;
+        var Price_DStoreData = Price_DStore.getData().items;
+        
+        // console.log(Price_DStoreData);
+        for(var i=0; i<Price_DStoreData.length; i++){
+            var fobpriceid_link = Price_DStoreData[i].get('fobpriceid_link');
+            var price = Price_DStoreData[i].get('price') == null ? 0 : Price_DStoreData[i].get('price');
+            if(fobpriceid_link == 119){ // Advance Payment
+                advancePayment = price;
+                continue;
+            }
+            fobSum+=price;
+        }
+
         Price_DStore.clearFilter();
         price_data.price_fob = fobSum;
-        var totalprice = (price_data.price_cmp + price_data.price_fob);
+        var totalprice = (price_data.price_cmp + price_data.price_fob + advancePayment);
         price_data.totalprice = totalprice;
-        // console.log(totalprice);
+        console.log(totalprice);
+        console.log(price_data.price_cmp);
+        console.log(price_data.price_fob);
+        console.log(advancePayment);
 
         viewmodel.set('po_price', price_data);
 

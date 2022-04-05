@@ -9,6 +9,11 @@ Ext.define('GSmartApp.view.DashboardMer.BarChartProductShipDate.BarChartProductS
     },
 
     //___________________________________________
+    control: {
+        '#BarChartProductShipDateView_Chart': {
+            itemclick: 'onItemclick'
+        }
+    },
 
     onAxisLabelRender: function(axis, label, layoutContext) {
         // Custom renderer overrides the native axis label renderer.
@@ -29,7 +34,7 @@ Ext.define('GSmartApp.view.DashboardMer.BarChartProductShipDate.BarChartProductS
         return Ext.util.Format.number(v, '0,000');
     },
     onTooltipRender: function(toolTip, record, ctx){
-        console.log(record);
+        // console.log(record);
         var productBuyerCodeList = record.get('productBuyerCodeList');
         var html = '';
         for(var i=0; i<productBuyerCodeList.length; i++){
@@ -71,5 +76,36 @@ Ext.define('GSmartApp.view.DashboardMer.BarChartProductShipDate.BarChartProductS
         return Ext.apply(rendererData, {
             fill: fillStyle
          });
-    }
+    },
+
+    onItemclick: function(chart, item, event, eOpts){
+        // console.log(chart);
+        // console.log(item);
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var dashboard_mer = Ext.getCmp('dashboard_mer');
+        var Dashboard_KhoTP_POLine_Main = dashboard_mer.down('#Dashboard_KhoTP_POLine_Main');
+        if(Dashboard_KhoTP_POLine_Main){
+            Dashboard_KhoTP_POLine_Main.setDisabled(false);
+            // load ds poline theo cot tuong ung
+            var productIdList = item.record.get('productIdList');
+            var status = item.record.get('status');
+            var statusName = item.record.get('statusName');
+
+            //
+            if(productIdList != null && productIdList.length > 0){
+                m.loadPoLineList(productIdList, status);
+            }
+        }
+    },
+    loadPoLineList: function(productIdList, status){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var objSearch = viewModel.get('objSearch');
+
+        m.fireEvent('dashboard_loadPoLineList', productIdList, status, objSearch);
+    },
 });
