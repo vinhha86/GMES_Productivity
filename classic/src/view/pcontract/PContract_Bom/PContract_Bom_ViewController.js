@@ -523,6 +523,26 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
             this.ValueFilterFieldTenNPL = null;
         }
     },
+    onFilterValuePoLineKeyup: function () {
+        var viewmodel = this.getViewModel();
+        var store = viewmodel.get('PContractBom2Store_New');
+        var filterField = this.lookupReference('ValueFilterFieldPoLine'),
+            filters = store.getFilters();
+
+        if (filterField.value) {
+            this.ValueFilterFieldPoLine = filters.add({
+                id: 'ValueFilterFieldPoLine',
+                property: 'po_line',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.ValueFilterFieldPoLine) {
+            filters.remove(this.ValueFilterFieldPoLine);
+            this.ValueFilterFieldPoLine = null;
+        }
+    },
     onDownTemp: function () {
         var me = this;
         var viewmodel = this.getViewModel();
