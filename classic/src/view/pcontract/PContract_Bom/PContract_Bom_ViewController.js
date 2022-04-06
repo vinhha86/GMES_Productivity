@@ -58,7 +58,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         },
         '#btnDeleteBOM': {
             click: 'onDeleteBom'
-        }
+        },
     },
     listen: {
         store: {
@@ -82,9 +82,93 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
             direction: 'ASC'
         });
     },
+    onSelectCellmodel: function(cellModel, record, row, column, eOpts){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        // console.log(record);
+        // console.log(row);
+        // console.log(column);
+
+        if(column == 5){
+            viewModel.set('recordToSelect', record);
+            viewModel.set('recordToSelectCol', column);
+        }else{
+            viewModel.set('recordToSelect', record);
+            viewModel.set('recordToSelectCol', null);
+            // recordToSelect: null,
+            // recordToSelectCol: null,
+            // recordToCopy: null,
+            // recordToCopyCol: null,
+            // recordToPaste: null,
+            // recordToPasteCol: null,
+        }
+    },
+    doCopy: function(){
+        // console.log('ctrl c');
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var recordToSelect = viewModel.get('recordToSelect');
+        var recordToSelectCol = viewModel.get('recordToSelectCol');
+
+        if(recordToSelectCol!=5){ // PO
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn phải chọn cột PO',
+                buttons: Ext.Msg.YES,
+                buttonText: {
+                    yes: 'Có',
+                },
+            });
+            return;
+        }else{
+            viewModel.set('recordToCopy', recordToSelect);
+            viewModel.set('recordToCopyCol', recordToSelectCol);
+            Ext.toast('Data copied');
+        }
+    },
+    doPaste: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var recordToSelect = viewModel.get('recordToSelect');
+        var recordToSelectCol = viewModel.get('recordToSelectCol');
+        var recordToCopy = viewModel.get('recordToCopy');
+        var recordToCopyCol = viewModel.get('recordToCopyCol');
+
+        if(recordToSelect.get('id') == recordToCopy.get('id')){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn phải chọn NPL khác',
+                buttons: Ext.Msg.YES,
+                buttonText: {
+                    yes: 'Có',
+                },
+            });
+            return;
+        }
+
+        if(recordToSelectCol!=5){ // PO
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn phải chọn cột PO',
+                buttons: Ext.Msg.YES,
+                buttonText: {
+                    yes: 'Có',
+                },
+            });
+            return;
+        }else{
+            viewModel.set('recordToPaste', recordToSelect);
+            viewModel.set('recordToPasteCol', recordToSelectCol);
+            Ext.toast('Data pasted');
+            m.onPaste_CtrlV();
+        }
+    },
     onDeleteBom: function () {
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('PContractBom2Store_New');
+        var viewModel = this.getViewModel();
+        var store = viewModel.getStore('PContractBom2Store_New');
         Ext.Msg.show({
             title: 'Thông báo',
             msg: 'Bạn có chắc chắn xóa định mức ?',
@@ -97,8 +181,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
             fn: function (btn) {
                 if (btn === 'yes') {
                     var params = new Object();
-                    params.pcontractid_link = viewmodel.get('PContract.id');
-                    params.productid_link = viewmodel.get('IdProduct');
+                    params.pcontractid_link = viewModel.get('PContract.id');
+                    params.productid_link = viewModel.get('IdProduct');
                     GSmartApp.Ajax.post('/api/v1/pcontractproductbom2/delete_bom', Ext.JSON.encode(params),
                         function (success, response, options) {
                             if (success) {
@@ -135,8 +219,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
     onCellMenu: function (grid, td, cellIndex, record, tr, rowIndex, e, eOpts) {
         if (cellIndex == 5) {
             var me = this;
-            var viewmodel = this.getViewModel();
-            var hiddenPaste = viewmodel.get('obj_copy_poline') == null ? true : false;
+            var viewModel = this.getViewModel();
+            var hiddenPaste = viewModel.get('obj_copy_poline') == null ? true : false;
 
             var menu_grid = new Ext.menu.Menu({
                 xtype: 'menu',
@@ -171,15 +255,52 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         }
     },
     onCopy: function (record) {
-        var viewmodel = this.getViewModel();
-        viewmodel.set('obj_copy_poline', record);
+        var viewModel = this.getViewModel();
+        viewModel.set('obj_copy_poline', record);
+    },
+    onPaste_CtrlV: function () {
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var pcontractid_link = viewModel.get('PContract.id');
+        var recordToCopy = viewModel.get('recordToCopy');
+        var recordToPaste = viewModel.get('recordToPaste');
+        var material_skuid_link = recordToCopy.get('materialid_link');
+        var material_skuid_link_des = recordToPaste.get('materialid_link');
+
+        var params = new Object();
+        params.pcontractid_link = pcontractid_link;
+        params.material_skuid_link = material_skuid_link;
+        params.material_skuid_link_des = material_skuid_link_des;
+
+        me.setLoading("Đang tải dữ liệu");
+        GSmartApp.Ajax.post('/api/v1/pcontractproductbom2/copy_poline', Ext.JSON.encode(params),
+            function (success, response, options) {
+                me.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        var store = viewModel.getStore('PContractBom2Store_New');
+                        var po_line = viewModel.get('recordToCopy').get('po_line');
+                        for (var i = 0; i < store.data.length; i++) {
+                            var rec = store.data.items[i];
+                            if (rec.get('materialid_link') == recordToPaste.get('materialid_link')) {
+                                rec.set('po_line', po_line);
+                            }
+                        }
+                        store.commitChanges();
+                        // viewModel.set('obj_copy_poline', null);
+                    }
+                }
+            })
     },
     onPaste: function (record) {
         var grid = this.getView();
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
         var params = new Object();
-        params.pcontractid_link = viewmodel.get('PContract.id');
-        params.material_skuid_link = viewmodel.get('obj_copy_poline').get('materialid_link');
+        params.pcontractid_link = viewModel.get('PContract.id');
+        params.material_skuid_link = viewModel.get('obj_copy_poline').get('materialid_link');
         params.material_skuid_link_des = record.get('materialid_link');
 
         grid.setLoading("Đang tải dữ liệu");
@@ -189,8 +310,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                 if (success) {
                     var response = Ext.decode(response.responseText);
                     if (response.respcode == 200) {
-                        var store = viewmodel.getStore('PContractBom2Store_New');
-                        var po_line = viewmodel.get('obj_copy_poline').get('po_line');
+                        var store = viewModel.getStore('PContractBom2Store_New');
+                        var po_line = viewModel.get('obj_copy_poline').get('po_line');
                         for (var i = 0; i < store.data.length; i++) {
                             var rec = store.data.items[i];
                             if (rec.get('materialid_link') == record.get('materialid_link')) {
@@ -198,7 +319,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                             }
                         }
                         store.commitChanges();
-                        viewmodel.set('obj_copy_poline', null);
+                        viewModel.set('obj_copy_poline', null);
                     }
                 }
             })
@@ -210,8 +331,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         }
     },
     ShowPO: function (record) {
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('PContractBom2Store_New');
+        var viewModel = this.getViewModel();
+        var store = viewModel.getStore('PContractBom2Store_New');
 
         var form = Ext.create('Ext.window.Window', {
             closable: true,
@@ -231,8 +352,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                 xtype: 'PContract_Bom_PO_MainView',
                 viewModel: {
                     data: {
-                        pcontractid_link: viewmodel.get('PContract.id'),
-                        productid_link: viewmodel.get('IdProduct'),
+                        pcontractid_link: viewModel.get('PContract.id'),
+                        productid_link: viewModel.get('IdProduct'),
                         material_skuid_link: record.get('materialid_link')
                     }
                 }
@@ -280,9 +401,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
     onThemMoiNPL: function () {
         var me = this.getView();
         var t = this;
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
 
-        var productid_link = viewmodel.get('IdProduct');
+        var productid_link = viewModel.get('IdProduct');
 
         if (productid_link == 0) {
             Ext.Msg.alert({
@@ -308,7 +429,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                 data: {
                     sourceview: 'PContract_Bom_View',
                     searchtype: 5,
-                    pcontractid_link: viewmodel.get('PContract.id'),
+                    pcontractid_link: viewModel.get('PContract.id'),
                     productid_link_notsearch: productid_link,
                     isAddNPL: true,
                     isHiddenSkuSearchCriteria_Attr_actioncolumn: true,
@@ -319,7 +440,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         form.show();
 
         form.getController().on('reload', function () {
-            var store = viewmodel.getStore('PContractBom2Store_New');
+            var store = viewModel.getStore('PContractBom2Store_New');
             store.load();
         })
     },
@@ -347,11 +468,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
 
     onSelectFile: function (m, value) {
         var grid = this.getView();
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
         var data = new FormData();
         data.append('file', m.fileInputEl.dom.files[0]);
-        data.append('pcontractid_link', viewmodel.get('PContract.id'));
-        data.append('productid_link', viewmodel.get('IdProduct'));
+        data.append('pcontractid_link', viewModel.get('PContract.id'));
+        data.append('productid_link', viewModel.get('IdProduct'));
 
         grid.setLoading("Đang tải dữ liệu");
         GSmartApp.Ajax.postUpload_timeout('/api/v1/uploadbom/bom_candoi', data, 2 * 60 * 1000,
@@ -370,18 +491,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                             }
                         });
                     }
-                    var store = viewmodel.getStore('PContractBom2Store_New');
+                    var store = viewModel.getStore('PContractBom2Store_New');
                     store.load();
                 }
             })
     },
     onSelectFile_Sizeset: function (m, value) {
         var grid = this.getView();
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
         var data = new FormData();
         data.append('file', m.fileInputEl.dom.files[0]);
-        data.append('pcontractid_link', viewmodel.get('PContract.id'));
-        data.append('productid_link', viewmodel.get('IdProduct'));
+        data.append('pcontractid_link', viewModel.get('PContract.id'));
+        data.append('productid_link', viewModel.get('IdProduct'));
 
         grid.setLoading("Đang tải dữ liệu");
         GSmartApp.Ajax.postUpload_timeout('/api/v1/uploadbom_sizeset/bom_candoi_sizeset', data, 2 * 60 * 1000,
@@ -400,7 +521,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                             }
                         });
                     }
-                    var store = viewmodel.getStore('PContractBom2Store_New');
+                    var store = viewModel.getStore('PContractBom2Store_New');
                     store.load();
                 }
             })
@@ -408,11 +529,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
 
     onSelectFileNew: function (m, value) {
         var grid = this.getView();
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
         var data = new FormData();
         data.append('file', m.fileInputEl.dom.files[0]);
-        data.append('pcontractid_link', viewmodel.get('PContract.id'));
-        data.append('productid_link', viewmodel.get('IdProduct'));
+        data.append('pcontractid_link', viewModel.get('PContract.id'));
+        data.append('productid_link', viewModel.get('IdProduct'));
 
         grid.setLoading("Đang tải dữ liệu");
         GSmartApp.Ajax.postUpload_timeout('/api/v1/uploadbom/bom_candoi_multicolor', data, 2 * 60 * 1000,
@@ -431,18 +552,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                             }
                         });
                     }
-                    var store = viewmodel.getStore('PContractBom2Store_New');
+                    var store = viewModel.getStore('PContractBom2Store_New');
                     store.load();
                 }
             })
     },
     onSelectFile_SizesetNew: function(m, value){
         var grid = this.getView();
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
         var data = new FormData();
         data.append('file', m.fileInputEl.dom.files[0]);
-        data.append('pcontractid_link', viewmodel.get('PContract.id'));
-        data.append('productid_link', viewmodel.get('IdProduct'));
+        data.append('pcontractid_link', viewModel.get('PContract.id'));
+        data.append('productid_link', viewModel.get('IdProduct'));
 
         grid.setLoading("Đang tải dữ liệu");
         GSmartApp.Ajax.postUpload_timeout('/api/v1/uploadbom_sizeset/bom_candoi_sizeset_multicolor', data, 2 * 60 * 1000,
@@ -461,15 +582,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                             }
                         });
                     }
-                    var store = viewmodel.getStore('PContractBom2Store_New');
+                    var store = viewModel.getStore('PContractBom2Store_New');
                     store.load();
                 }
             })
     },
 
     onFilterValueKeyup: function () {
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.get('PContractBom2Store_New');
+        var viewModel = this.getViewModel();
+        var store = viewModel.get('PContractBom2Store_New');
         var filterField = this.lookupReference('ValueFilterField'),
             filters = store.getFilters();
 
@@ -488,8 +609,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         }
     },
     onFilterValueMaNPLKeyup: function () {
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.getStore('PContractBom2Store_New');
+        var viewModel = this.getViewModel();
+        var store = viewModel.getStore('PContractBom2Store_New');
         var filterField = this.lookupReference('ValueFilterFieldMaNPL'),
             filters = store.getFilters();
 
@@ -508,8 +629,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         }
     },
     onFilterValueTenNPLKeyup: function () {
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.get('PContractBom2Store_New');
+        var viewModel = this.getViewModel();
+        var store = viewModel.get('PContractBom2Store_New');
         var filterField = this.lookupReference('ValueFilterFieldTenNPL'),
             filters = store.getFilters();
 
@@ -528,8 +649,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         }
     },
     onFilterValuePoLineKeyup: function () {
-        var viewmodel = this.getViewModel();
-        var store = viewmodel.get('PContractBom2Store_New');
+        var viewModel = this.getViewModel();
+        var store = viewModel.get('PContractBom2Store_New');
         var filterField = this.lookupReference('ValueFilterFieldPoLine'),
             filters = store.getFilters();
 
@@ -549,10 +670,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
     },
     onDownTemp: function () {
         var me = this;
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
         var params = new Object();
-        params.pcontractid_link = viewmodel.get('PContract.id');
-        params.productid_link = viewmodel.get('IdProduct');
+        params.pcontractid_link = viewModel.get('PContract.id');
+        params.productid_link = viewModel.get('IdProduct');
 
         GSmartApp.Ajax.post('/api/v1/report/download_temp_bom_candoi', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -586,10 +707,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
     },
     onDownTempSizeSet: function () {
         var me = this;
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
         var params = new Object();
-        params.pcontractid_link = viewmodel.get('PContract.id');
-        params.productid_link = viewmodel.get('IdProduct');
+        params.pcontractid_link = viewModel.get('PContract.id');
+        params.productid_link = viewModel.get('IdProduct');
 
         GSmartApp.Ajax.post('/api/v1/report/download_temp_bom_candoi_sizeset', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -623,10 +744,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
     },
     onDownTempNew: function () {
         var me = this;
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
         var params = new Object();
-        params.pcontractid_link = viewmodel.get('PContract.id');
-        params.productid_link = viewmodel.get('IdProduct');
+        params.pcontractid_link = viewModel.get('PContract.id');
+        params.productid_link = viewModel.get('IdProduct');
 
         GSmartApp.Ajax.post('/api/v1/report/download_temp_bom_candoi_new', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -660,10 +781,10 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
     },
     onDownTempSizeSetNew: function(){
         var me = this;
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
         var params = new Object();
-        params.pcontractid_link = viewmodel.get('PContract.id');
-        params.productid_link = viewmodel.get('IdProduct');
+        params.pcontractid_link = viewModel.get('PContract.id');
+        params.productid_link = viewModel.get('IdProduct');
 
         GSmartApp.Ajax.post('/api/v1/report/download_temp_bom_candoi_sizeset_new', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -717,12 +838,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         return bytes;
     },
     onChangeProduct: function (combo, rec, eOpts) {
-        var viewmodel = this.getViewModel();
-        if (viewmodel.get('IdProduct') > 0) {
+        var viewModel = this.getViewModel();
+        if (viewModel.get('IdProduct') > 0) {
             var me = this;
             me.CreateColumns();
-            viewmodel.set('hidden_chotdinhmuc', false);
-            viewmodel.set('disabled_chotdinhmuc', true);
+            viewModel.set('hidden_chotdinhmuc', false);
+            viewModel.set('disabled_chotdinhmuc', true);
         }
 
     },
@@ -745,7 +866,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
     },
     onXoa: function (grid, rowIndex, colIndex) {
         var me = this.getView();
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
         var rec = grid.getStore().getAt(rowIndex);
 
         Ext.Msg.show({
@@ -763,8 +884,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                 }
                 else {
                     var params = new Object();
-                    params.pcontractid_link = viewmodel.get('PContract').id;
-                    params.productid_link = viewmodel.get('IdProduct');
+                    params.pcontractid_link = viewModel.get('PContract').id;
+                    params.productid_link = viewModel.get('IdProduct');
                     params.materialid_link = rec.data.materialid_link;
                     params.colorid_link = rec.data.colorid_link;
 
@@ -786,8 +907,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                                 }
                                 else {
                                     grid.getStore().removeAt(rowIndex);
-                                    // var storebom = viewmodel.getStore('PContractProductBom2Store');
-                                    var storebom = viewmodel.getStore('PContractBom2Store_New');
+                                    // var storebom = viewModel.getStore('PContractProductBom2Store');
+                                    var storebom = viewModel.getStore('PContractBom2Store_New');
                                     storebom.load();
                                 }
                             }
@@ -797,7 +918,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         });
     },
     CreateColumns: function () {
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
         var grid = this.getView();
         var length = 9;
         for (var i = 0; i < grid.headerCt.items.length; i++) {
@@ -809,8 +930,8 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         var listtitle = [];
         var listid = [];
 
-        var productid_link = viewmodel.get('IdProduct');
-        var pcontractid_link = viewmodel.get('PContract.id');
+        var productid_link = viewModel.get('IdProduct');
+        var pcontractid_link = viewModel.get('PContract.id');
 
         //kiem tra mau co trong sku khong thi moi sinh tab 
         var params = new Object();
@@ -881,12 +1002,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
     },
     onConfirmBOM2: function () {
         var me = this.getView();
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
 
-        var productid_link = viewmodel.get('IdProduct');
+        var productid_link = viewModel.get('IdProduct');
         me.setLoading('Đang xử lý dữ liệu');
         var params = new Object();
-        params.pcontractid_link = viewmodel.get('PContract.id');
+        params.pcontractid_link = viewModel.get('PContract.id');
         params.productid_link = productid_link;
 
         GSmartApp.Ajax.post('/api/v1/pcontractproductbom2/confim_bom2', Ext.JSON.encode(params),
@@ -903,25 +1024,25 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                                 yes: 'Đóng',
                             }
                         });
-                        viewmodel.set('disabled_chotdinhmuc', true);
-                        viewmodel.set('text_chotdinhmuc', 'Định mức đã chốt');
+                        viewModel.set('disabled_chotdinhmuc', true);
+                        viewModel.set('text_chotdinhmuc', 'Định mức đã chốt');
                     }
                 }
             })
     },
     onLoadBomDone: function (isbomdone) {
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
         if (!isbomdone)
-            viewmodel.set('text_chotdinhmuc', 'Chốt định mức');
+            viewModel.set('text_chotdinhmuc', 'Chốt định mức');
         else
-            viewmodel.set('text_chotdinhmuc', 'Định mức đã chốt');
-        viewmodel.set('disabled_chotdinhmuc', isbomdone);
+            viewModel.set('text_chotdinhmuc', 'Định mức đã chốt');
+        viewModel.set('disabled_chotdinhmuc', isbomdone);
     },
     onEdit: function (editor, context, e) {
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
 
         if (context.value == context.originalValue) {
-            var store = viewmodel.getStore('PContractBom2ColorStore');
+            var store = viewModel.getStore('PContractBom2ColorStore');
             store.rejectChanges();
             return;
         }
@@ -936,7 +1057,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         }
     },
     updateMaterial: function (context) {
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
         var data = context.record.data;
         var params = new Object();
         params.data = data;
@@ -958,7 +1079,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                         });
                     }
                     else {
-                        var storebom = viewmodel.getStore('PContractBom2Store_New');
+                        var storebom = viewModel.getStore('PContractBom2Store_New');
 
                         for (var i = 0; i < storebom.data.length; i++) {
                             var rec = storebom.data.items[i];
@@ -973,7 +1094,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
             })
     },
     updateSKU: function (record) {
-        var viewmodel = this.getViewModel();
+        var viewModel = this.getViewModel();
         var params = new Object();
         params.data = record.record.data;
         params.colorid_link = record.record.data.colorid_link;
@@ -984,7 +1105,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
             function (success, response, options) {
                 if (success) {
                     var response = Ext.decode(response.responseText);
-                    var store = viewmodel.getStore('PContractBom2Store_New');
+                    var store = viewModel.getStore('PContractBom2Store_New');
                     if (response.respcode != 200) {
                         Ext.Msg.show({
                             title: "Thông báo",

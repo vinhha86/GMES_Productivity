@@ -26,7 +26,37 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
         }
     },
     selModel: {
-        type: 'cellmodel'
+        type: 'cellmodel',
+        listeners: {
+            select: 'onSelectCellmodel'
+        }
+    },
+
+    keyMapEnabled: true,
+    keyMap: {
+        // ENTER: 'onEnterKey',
+
+        // "ALT+PRINT_SCREEN": 'doScreenshot',
+
+        // Cmd on Mac OS X, Ctrl on Windows/Linux.
+        "CmdOrCtrl+C": 'doCopy',
+        "CmdOrCtrl+V": 'doPaste',
+
+        // This one is handled by a class method.
+        // ESC: {
+        //     handler: 'destroy',
+        //     scope: 'this',
+        //     event: 'keypress'  // default would be keydown
+        // },
+
+        // "ALT+DOWN": 'openExpander',
+
+        // Match any key modifiers and invoke before any other DOWN keys
+        // handlers with lower or default priority.
+        // "*+DOWN": {
+        //     handler: 'preprocessDownKey',
+        //     priority: 100
+        // }
     },
     columns: [{
         xtype: 'actioncolumn',

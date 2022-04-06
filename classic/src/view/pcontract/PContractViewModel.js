@@ -221,6 +221,14 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
 
         // tab cân đối npl
         monthBalanceArray: new Array(),
+
+        // tab dinh muc can doi
+        recordToSelect: null,
+        recordToSelectCol: null,
+        recordToCopy: null,
+        recordToCopyCol: null,
+        recordToPaste: null,
+        recordToPasteCol: null,
     },
     formulas: {
         ishidden_addproduct: function (get) {
