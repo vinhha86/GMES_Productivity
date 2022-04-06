@@ -14,11 +14,36 @@ Ext.define('GSmartApp.view.balance.PContractProductTreeViewController', {
         var me = this.getView();
         var viewModel = this.getViewModel();
         var PContract_PO = viewModel.getStore('PContract_PO');
-
-        // console.log(record);
+        var PContract = viewModel.get('PContract');
+        var pcontractid_link = PContract.id;
+        
+        var parent_id = record.get('parent_id')
+        var children = record.get('children')
+        var isSpBo = false;
+        if(parent_id == 0){
+            // sp don hoac sp bo
+            if(children.length == 0){
+                // sp don
+                isSpBo = false;
+            }else{
+                // sp bo
+                isSpBo = true;
+            }
+        }else{
+            // sp don nam trong sp bo
+            isSpBo = true;
+        }
+        
         var pcontract_product_id = record.get('pcontract_product_id');
-        // PContract_PO.loadPolineByPcontractProduct(pcontract_product_id);
-        PContract_PO.loadPolineByPcontractProduct_async(pcontract_product_id);
+        if(pcontract_product_id == null){
+            pcontract_product_id = record.get('productid_link');
+        }
+        var obj = new Object();
+        obj.pcontract_product_id = pcontract_product_id;
+        obj.pcontractid_link = pcontractid_link;
+        obj.isSpBo = isSpBo;
+
+        PContract_PO.loadPolineByPcontractProduct_async(obj);
         PContract_PO.load({
 			scope: PContract_PO,
 			callback: function(records, operation, success) {

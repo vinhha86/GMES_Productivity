@@ -274,10 +274,12 @@ Ext.define('GSmartApp.store.pcontract.PContract_PO', {
 		});
 		this.load();
 	},
-	loadPolineByPcontractProduct: function(pcontract_product_id){
+	loadPolineByPcontractProduct: function(obj){
 		var me=this;
 		var params = new Object();
-        params.pcontract_product_id = pcontract_product_id;
+        params.pcontract_product_id = obj.pcontract_product_id;
+		params.pcontractid_link = obj.pcontractid_link;
+		params.isSpBo = obj.isSpBo;
 
 		this.setProxy({
 			type: 'ajax',
@@ -302,10 +304,12 @@ Ext.define('GSmartApp.store.pcontract.PContract_PO', {
 		});
 		this.load();
 	},
-	loadPolineByPcontractProduct_async: function(pcontract_product_id){
+	loadPolineByPcontractProduct_async: function(obj){
 		var me=this;
 		var params = new Object();
-        params.pcontract_product_id = pcontract_product_id;
+        params.pcontract_product_id = obj.pcontract_product_id;
+		params.pcontractid_link = obj.pcontractid_link;
+		params.isSpBo = obj.isSpBo;
 
 		this.setProxy({
 			type: 'ajax',
