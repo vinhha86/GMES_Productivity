@@ -75,24 +75,33 @@ Ext.define("GSmartApp.view.personel.BaoCaoBaoAn.TongHopBaoAnListOrgView", {
                     width: "98%",
                 },
 
-                // {
-                //     xtype: "button",
-                //     text: "Xuất dữ liệu cơm khách",
-                //     itemId: "exportGuestRiceData",
-                //     width: "95%",
-                // },
-                // {
-                //     xtype: "button",
-                //     text: "Xuất dữ liệu tổng hợp cơm ca",
-                //     itemId: "exportRiceData",
-                //     width: "95%",
-                // },
-                // {
-                //     xtype: "button",
-                //     text: "Xuất dữ liệu tổng hợp cơm tăng ca",
-                //     itemId: "exportExtraRiceData",
-                //     width: "95%",
-                // },
+                {
+                    xytpe: "button",
+                    text: "Xuất dữ liệu",
+                    iconCls: "x-fa fa-bars",
+                    menu: [
+                        {
+                            itemId: "exportComCa",
+                            text: "Cơm ca",
+                        },
+                        {
+                            itemId: "exportRiceData",
+                            text: "Tổng hợp cơm ca",
+                        }, 
+                        {
+                            itemId: "exportComTangCa",
+                            text: "Cơm tăng ca",
+                        }, 
+                        {
+                            itemId: "exportExtraRiceData",
+                            text: "Tổng hợp cơm tăng ca",
+                        },
+                        {
+                            itemId: "exportGuestRiceData",
+                            text: "Cơm khách",
+                        },
+                    ],
+                }
             ],
         },
     ],
