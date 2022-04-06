@@ -245,32 +245,36 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         });
 
         form.down('PContract_Bom_PO_MainView').on('SelectDone', function (data) {
-            var po_line = record.get('po_line');
-            po_line += ", " + data;
-            if (po_line[0] == ",")
-                po_line = po_line.substr(1);
-            // record.set('po_line', po_line);
-            for (var i = 0; i < store.data.length; i++) {
-                var rec = store.data.items[i];
-                if (rec.get('materialid_link') == record.get('materialid_link')) {
-                    rec.set('po_line', po_line);
-                }
-            }
-            store.commitChanges();
+            // var po_line = record.get('po_line');
+            // po_line += ", " + data;
+            // if (po_line[0] == ",")
+            //     po_line = po_line.substr(1);
+            // // record.set('po_line', po_line);
+            // for (var i = 0; i < store.data.length; i++) {
+            //     var rec = store.data.items[i];
+            //     if (rec.get('materialid_link') == record.get('materialid_link')) {
+            //         rec.set('po_line', po_line);
+            //     }
+            // }
+            // store.commitChanges();
+
+            store.load();
         });
 
         form.down('PContract_Bom_PO_MainView').on('DeSelectDone', function (data) {
-            var po_line = record.get('po_line');
-            po_line = po_line.replace(', ' + data, '').replace(data + ", ", '').replace(data, '');
-            // record.set('po_line', po_line);
+            // var po_line = record.get('po_line');
+            // po_line = po_line.replace(', ' + data, '').replace(data + ", ", '').replace(data, '');
+            // // record.set('po_line', po_line);
 
-            for (var i = 0; i < store.data.length; i++) {
-                var rec = store.data.items[i];
-                if (rec.get('materialid_link') == record.get('materialid_link')) {
-                    rec.set('po_line', po_line);
-                }
-            }
-            store.commitChanges();
+            // for (var i = 0; i < store.data.length; i++) {
+            //     var rec = store.data.items[i];
+            //     if (rec.get('materialid_link') == record.get('materialid_link')) {
+            //         rec.set('po_line', po_line);
+            //     }
+            // }
+            // store.commitChanges();
+
+            store.load();
         })
     },
     onThemMoiNPL: function () {
