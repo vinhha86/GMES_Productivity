@@ -229,6 +229,7 @@ Ext.define('GSmartApp.view.pcontract.PContractViewModel', {
         recordToCopyCol: null,
         recordToPaste: null,
         recordToPasteCol: null,
+        toolbarFocused: false,
     },
     formulas: {
         ishidden_addproduct: function (get) {

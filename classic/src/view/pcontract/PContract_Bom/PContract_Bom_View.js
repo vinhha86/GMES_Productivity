@@ -284,6 +284,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
     dockedItems: [{
         dock: 'top',
         xtype: 'toolbar',
+        itemId: 'toolbar',
         border: true,
         height: 45,
         style: "background-color : white",

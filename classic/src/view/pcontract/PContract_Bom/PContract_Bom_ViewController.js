@@ -54,11 +54,15 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         },
         '#PContract_Bom_View': {
             celldblclick: 'onCellDblClick',
-            cellcontextmenu: 'onCellMenu'
+            cellcontextmenu: 'onCellMenu',
         },
         '#btnDeleteBOM': {
             click: 'onDeleteBom'
         },
+        '#toolbar': {
+            focusenter: 'onToolbarFocusenter',
+            focusleave: 'onToolbarFocusleave',
+        }
     },
     listen: {
         store: {
@@ -81,6 +85,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
             property: 'colorid_link',
             direction: 'ASC'
         });
+    },
+    onToolbarFocusenter: function(){
+        var viewModel = this.getViewModel();
+        viewModel.set('toolbarFocused', true);
+    },
+    onToolbarFocusleave: function(){
+        var viewModel = this.getViewModel();
+        viewModel.set('toolbarFocused', false);
     },
     onSelectCellmodel: function(cellModel, record, row, column, eOpts){
         var m = this;
@@ -111,6 +123,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         var viewModel = this.getViewModel();
         var recordToSelect = viewModel.get('recordToSelect');
         var recordToSelectCol = viewModel.get('recordToSelectCol');
+        
+        var toolbarFocused = viewModel.get('toolbarFocused');
+        if(toolbarFocused){
+            return;
+        }
 
         if(recordToSelectCol!=5){ // PO
             // Ext.Msg.show({
@@ -136,6 +153,11 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         var recordToSelectCol = viewModel.get('recordToSelectCol');
         var recordToCopy = viewModel.get('recordToCopy');
         var recordToCopyCol = viewModel.get('recordToCopyCol');
+
+        var toolbarFocused = viewModel.get('toolbarFocused');
+        if(toolbarFocused){
+            return;
+        }
 
         if(recordToSelect.get('id') == recordToCopy.get('id')){
             // Ext.Msg.show({
