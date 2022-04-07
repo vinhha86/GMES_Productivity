@@ -113,14 +113,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         var recordToSelectCol = viewModel.get('recordToSelectCol');
 
         if(recordToSelectCol!=5){ // PO
-            Ext.Msg.show({
-                title: 'Thông báo',
-                msg: 'Bạn phải chọn cột PO',
-                buttons: Ext.Msg.YES,
-                buttonText: {
-                    yes: 'Có',
-                },
-            });
+            // Ext.Msg.show({
+            //     title: 'Thông báo',
+            //     msg: 'Bạn phải chọn cột PO',
+            //     buttons: Ext.Msg.YES,
+            //     buttonText: {
+            //         yes: 'Có',
+            //     },
+            // });
             return;
         }else{
             viewModel.set('recordToCopy', recordToSelect);
@@ -138,26 +138,26 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         var recordToCopyCol = viewModel.get('recordToCopyCol');
 
         if(recordToSelect.get('id') == recordToCopy.get('id')){
-            Ext.Msg.show({
-                title: 'Thông báo',
-                msg: 'Bạn phải chọn NPL khác',
-                buttons: Ext.Msg.YES,
-                buttonText: {
-                    yes: 'Có',
-                },
-            });
+            // Ext.Msg.show({
+            //     title: 'Thông báo',
+            //     msg: 'Bạn phải chọn NPL khác',
+            //     buttons: Ext.Msg.YES,
+            //     buttonText: {
+            //         yes: 'Có',
+            //     },
+            // });
             return;
         }
 
         if(recordToSelectCol!=5){ // PO
-            Ext.Msg.show({
-                title: 'Thông báo',
-                msg: 'Bạn phải chọn cột PO',
-                buttons: Ext.Msg.YES,
-                buttonText: {
-                    yes: 'Có',
-                },
-            });
+            // Ext.Msg.show({
+            //     title: 'Thông báo',
+            //     msg: 'Bạn phải chọn cột PO',
+            //     buttons: Ext.Msg.YES,
+            //     buttonText: {
+            //         yes: 'Có',
+            //     },
+            // });
             return;
         }else{
             viewModel.set('recordToPaste', recordToSelect);
