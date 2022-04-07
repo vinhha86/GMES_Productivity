@@ -283,10 +283,12 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
                     if (response.respcode == 200) {
                         var store = viewModel.getStore('PContractBom2Store_New');
                         var po_line = viewModel.get('recordToCopy').get('po_line');
+                        var sldh = viewModel.get('recordToCopy').get('sldh');
                         for (var i = 0; i < store.data.length; i++) {
                             var rec = store.data.items[i];
                             if (rec.get('materialid_link') == recordToPaste.get('materialid_link')) {
                                 rec.set('po_line', po_line);
+                                rec.set('sldh', sldh);
                             }
                         }
                         store.commitChanges();
@@ -920,7 +922,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
     CreateColumns: function () {
         var viewModel = this.getViewModel();
         var grid = this.getView();
-        var length = 9;
+        var length = 10;
         for (var i = 0; i < grid.headerCt.items.length; i++) {
             if (i > length - 1) {
                 grid.headerCt.remove(i);

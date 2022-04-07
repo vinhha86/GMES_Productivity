@@ -195,9 +195,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                     selectOnFocus: false
                 }
             },{
-                text: 'DC',
+                text: 'DC#',
                 dataIndex: 'dc',
-                width: 40,
+                width: 45,
                 hideable: false,
                 renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                     metaData.tdAttr = 'data-qtip="' + value + '"';

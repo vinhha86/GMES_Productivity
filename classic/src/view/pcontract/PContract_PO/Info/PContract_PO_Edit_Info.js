@@ -767,7 +767,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_PO_Edit_Info', {
                             labelWidth: 78,
                             margin: 1,
                             flex: 1,
-                            fieldLabel: 'DC',
+                            fieldLabel: 'DC#',
                             // readOnly: true,
                             bind : {
                                 value: '{po.dc}'
