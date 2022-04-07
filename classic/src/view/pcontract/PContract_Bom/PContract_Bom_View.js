@@ -217,31 +217,31 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_View', {
             }
         }
     }, 
-    {
-        text: 'SL ĐH',
-        dataIndex: 'sldh',
-        menuDisabled: true,
-        sortable: false,
-        width: 110,
-        enableTextSelection: true,
-        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            var val = value == 'null' ? "" : value;
-            metaData.tdAttr = 'data-qtip="' + val + '"';
-            return val;
-        },
-        // items: {
-        //     xtype: 'textfield',
-        //     fieldStyle: "",
-        //     margin: 1,
-        //     reference: 'ValueFilterField',
-        //     width: '99%',
-        //     enableKeyEvents: true,
-        //     listeners: {
-        //         keyup: 'onFilterValueKeyup',
-        //         buffer: 500
-        //     }
-        // }
-    }, 
+    // {
+    //     text: 'SL ĐH',
+    //     dataIndex: 'sldh',
+    //     menuDisabled: true,
+    //     sortable: false,
+    //     width: 110,
+    //     enableTextSelection: true,
+    //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+    //         var val = value == 'null' ? "" : value;
+    //         metaData.tdAttr = 'data-qtip="' + val + '"';
+    //         return val;
+    //     },
+    //     // items: {
+    //     //     xtype: 'textfield',
+    //     //     fieldStyle: "",
+    //     //     margin: 1,
+    //     //     reference: 'ValueFilterField',
+    //     //     width: '99%',
+    //     //     enableKeyEvents: true,
+    //     //     listeners: {
+    //     //         keyup: 'onFilterValueKeyup',
+    //     //         buffer: 500
+    //     //     }
+    //     // }
+    // }, 
     {
         text: 'ĐVT',
         dataIndex: 'unitid_link',

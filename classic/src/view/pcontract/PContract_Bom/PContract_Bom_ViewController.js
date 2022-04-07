@@ -944,7 +944,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
     CreateColumns: function () {
         var viewModel = this.getViewModel();
         var grid = this.getView();
-        var length = 10;
+        var length = 9;
         for (var i = 0; i < grid.headerCt.items.length; i++) {
             if (i > length - 1) {
                 grid.headerCt.remove(i);
