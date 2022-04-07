@@ -160,12 +160,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                         handler: 'onMenu_PO'
                     }
                 ]
-            }, {
-                text: 'STT',
-                width: 40,
-                xtype: 'rownumberer',
-                align: 'center'
-            }, {
+            }, 
+            // {
+            //     text: 'STT',
+            //     width: 40,
+            //     xtype: 'rownumberer',
+            //     align: 'center'
+            // },
+            {
                 text: 'PO Buyer',
                 dataIndex: 'po_buyer',
                 sortable: true,
@@ -193,9 +195,18 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                     selectOnFocus: false
                 }
             },{
+                text: 'DC',
+                dataIndex: 'dc',
+                width: 40,
+                hideable: false,
+                renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+                    metaData.tdAttr = 'data-qtip="' + value + '"';
+                    return value;
+                },
+            }, {
                 text: 'PT đóng gói',
                 dataIndex: 'phuongThucDongGoi',
-                width: 85,
+                width: 60,
                 hideable: false,
                 renderer: function (value, metaData, record, rowIdx, colIdx, store) {
                     metaData.tdAttr = 'data-qtip="' + value + '"';
@@ -204,7 +215,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
             }, {
                 text: 'Ship Mode',
                 dataIndex: 'shipmodeid_link',
-                width: 75,
+                width: 60,
                 hideable: false,
                 editor: {
                     completeOnEnter: true,
@@ -234,7 +245,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                     var date = Ext.Date.parse(value, 'c');
                     return Ext.Date.format(date, 'd/m/y');
                 },
-                width: 75,
+                width: 72,
                 editor: {
                     xtype: 'datefield',
                     fieldStyle: 'font-size:11px;',
@@ -257,7 +268,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_POList', {
                     var date = Ext.Date.parse(value, 'c');
                     return Ext.Date.format(date, 'd/m/y');
                 },
-                width: 75,
+                width: 72,
                 editor: {
                     xtype: 'datefield',
                     fieldStyle: 'font-size:11px;',
