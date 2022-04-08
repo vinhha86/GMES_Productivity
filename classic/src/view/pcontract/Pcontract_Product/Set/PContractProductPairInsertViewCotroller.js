@@ -8,10 +8,15 @@ Ext.define('GSmartApp.view.pcontract.PContractProductPairInsertViewCotroller', {
         var storeNotIn = viewmodel.getStore('PContractProductNotPairStore');
         var pcontractid_link = viewmodel.get('pcontractid_link');
 
-        if (viewmodel.get('id') != 0)
-             store.load_product_pair_detail(pcontractid_link, viewmodel.get('id'));
+        if (viewmodel.get('id') != 0 && viewmodel.get('id') != null){
+            store.load_product_pair_detail(pcontractid_link, viewmodel.get('id'));
+            storeNotIn.load_product_not_pair(pcontractid_link, viewmodel.get('id'));
+        }else{
+            store.removeAll();
+            storeNotIn.load_product_not_pair(pcontractid_link, viewmodel.get('id'));
+        }
 
-             storeNotIn.load_product_not_pair(pcontractid_link, viewmodel.get('id'));
+             
     },
     control: {
         '#btnChon': {
