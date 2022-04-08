@@ -35,7 +35,29 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_PoLineSKU.DashboardMer_PoLi
         var me = this.getView();
         var viewModel = this.getViewModel();
         me.setDisabled(false);
-        console.log(record);
+        // console.log(record);
+
+        var productid_link = record.get('productid_link');
+        var pcontractid_link = record.get('pcontractid_link');
+
+        var PContractProduct_PO_Store = viewModel.getStore('PContractProduct_PO_Store');
+        PContractProduct_PO_Store.loadStore_bypairid_Async(productid_link, record.get('po_quantity'), true, pcontractid_link);
+        PContractProduct_PO_Store.load({
+            scope: this,
+            callback: function (records, operation, success) {
+
+                var firstRecord = PContractProduct_PO_Store.getAt(0);
+                var cmbSanPham = me.down('#cmbSanPham');
+                cmbSanPham.select(firstRecord);
+                // viewModel.set('IdProduct', record.get('id'));
+                // viewModel.set('Product_pquantity', firstRecord.get('pquantity'));
+                // console.log(record);
+                //clear sku list
+                var PContractSKUStore = viewModel.getStore('PContractSKUStore');
+                PContractSKUStore.removeAll();
+                PContractSKUStore.loadStoreByPO_and_Product(firstRecord.get('id'), record.get('id'));
+            }
+        });
     },
     onSelectSanPham: function (combo, record, eOpts) {
         var viewmodel = this.getViewModel();

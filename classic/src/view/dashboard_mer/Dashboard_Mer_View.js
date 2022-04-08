@@ -44,7 +44,7 @@ Ext.define('GSmartApp.view.DashboardMer.Dashboard_Mer_View', {
                 }
             },
             {
-                // xtype: 'PieChartMarketType',
+                xtype: 'DashboardMer_BalanceView',
                 border: true,
                 margin: 1,
                 height: '100%',
@@ -68,7 +68,7 @@ Ext.define('GSmartApp.view.DashboardMer.Dashboard_Mer_View', {
             disabled: true,
             // style: 'visibility:hidden;',
         }, {
-            // xtype: 'LineChartRegisterCodeCount',
+            xtype: 'DashboardMer_ProgressView',
             border: true,
             margin: 1,
             height: '100%',

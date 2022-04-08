@@ -6,6 +6,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
         var me = this.getView();
         var viewModel = this.getViewModel();
         var isFromDashBoardMer = viewModel.get('isFromDashBoardMer');
+        console.log('isFromDashBoardMer ' + isFromDashBoardMer);
         if(!isFromDashBoardMer){
             // neu la tu view dashboard mer thi ko load
             // load cho view lenh xuat kho
@@ -31,7 +32,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
                 'dashboard_search': 'on_dashboard_search'
             },
             'BarChartProductShipDateViewController': {
-                'dashboard_loadPoLineList': 'on_dashboard_loadPoLineList'
+                'dashboard_loadPoLineList': 'on_dashboard_loadPoLineList',
             },
             
         }
@@ -78,7 +79,6 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
             viewModel.set('porderGrant', null);
             m.getPorderGrantInfo(pcontract_poid);
         }
-        
     },
     onStockoutOrder_Create: function(){
         //Lấy danh sách các PO Line được chọn --> Gửi lên để tạo Stockout_order
@@ -371,10 +371,15 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
         var viewModel = this.getViewModel();
         var POLineStore = viewModel.getStore('POLineStore');
         POLineStore.removeAll();
-        me.down('#Dashboard_KhoTP_POLine_List').setDisabled(true);
+        me.setDisabled(true);
     },
     on_dashboard_loadPoLineList: function(productIdList, status, objSearch){
-        // console.log('on_dashboard_loadPoLineList');
+        console.log('get on_dashboard_loadPoLineList');
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        me.setDisabled(false);
+
         // console.log(productIdList);
         // console.log(status);
         var m = this;
@@ -388,5 +393,5 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
 
         var POLineStore = viewModel.getStore('POLineStore');
         POLineStore.loadStoreForDashboardMer(obj);
-    }
+    },
 });

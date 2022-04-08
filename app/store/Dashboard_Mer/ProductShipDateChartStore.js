@@ -4,6 +4,17 @@ Ext.define('GSmartApp.store.Dashboard_Mer.ProductShipDateChartStore', {
 	storeId: 'ProductShipDateChartStore',
 	fields: ['status', 'sum'],
 
+	fields: [
+        {
+            name: 'sum2',
+            convert : function (value, rec) {
+                var sum = rec.get('sum');
+				var sum2 = 100 - sum;
+            	return sum2;
+            }
+        },
+    ],
+
     // data : [
 	// 	{status: 1, statusName: '3 ngày F', sum: 40},
 	// 	{status: 2, statusName: '5 ngày F', sum: 30},

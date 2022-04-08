@@ -11,21 +11,40 @@ Ext.define('GSmartApp.view.DashboardMer.Dashboard_Mer_ViewModel', {
         // 'GSmartApp.store.pcontract.PContractChartStore',
     ],
     stores: {
-        // combo search
+        // combo search (toolbar)
         EndBuyerStore: {
             type: 'ListOrgStore'
         },
         VendorStore: {
             type: 'ListOrgStore'
         },
-        // biểu đồ theo dõi mã hàng
+        // biểu đồ theo dõi mã hàng (pos1)
         ProductShipDateChartStore: {
             type: 'ProductShipDateChartStore'
         },
-        // ds mà cỡ poline
-        PContractProduct_PO_Store: {
+        // ds poline (pos2) -> dùng view sẵn có viewModel riêng 
+        // Dashboard_KhoTP_POLine_Main -> Dashboard_KhoTP_POLine_ViewModel
+
+        // bảng cân đối npl (pos3)
+        SKUBalanceStore: {
+            type: 'SKUBalanceStore'
+        },
+
+        // ds màu cỡ poline (pos4), ds san pham cua po (combo)
+        PContractSKUStore: { // danh sach sku
+            type: 'PContractSKUStore'
+        },
+        PContractProduct_PO_Store: { // combo san pham
             type: 'PContractProductStore'
         },
+
+        // biểu đồ tiến độ sx (pos5)
+        ChartsStore: {
+            type: 'ChartsStore'
+        },
+        ProductShipDateChartStore2: {
+            type: 'ProductShipDateChartStore'
+        }
     },
     data: {
         objSearch: {

@@ -56,7 +56,7 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_PoLineSKU.DashboardMer_PoLi
             menuDisabled: true,
             sortable: false,
             // width: 150,
-            minWidth: 120,
+            // minWidth: 120,
             summaryType: 'count',
             summaryRenderer: 'renderSum',
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {

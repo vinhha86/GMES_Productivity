@@ -1,11 +1,11 @@
-Ext.define('GSmartApp.view.DashboardMer.BarChartProductShipDate.BarChartProductShipDateViewController', {
+Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Progress.DashboardMer_ProgressViewController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.BarChartProductShipDateViewController',
+    alias: 'controller.DashboardMer_ProgressViewController',
     init: function () {
         var viewModel = this.getViewModel();
         var objSearch = viewModel.get('objSearch');
-        var ProductShipDateChartStore = viewModel.getStore('ProductShipDateChartStore');
-        ProductShipDateChartStore.loadStore(objSearch);
+        var ProductShipDateChartStore2 = viewModel.getStore('ProductShipDateChartStore2');
+        ProductShipDateChartStore2.loadStore(objSearch);
     },
 
     //___________________________________________
@@ -13,6 +13,55 @@ Ext.define('GSmartApp.view.DashboardMer.BarChartProductShipDate.BarChartProductS
         '#BarChartProductShipDateView_Chart': {
             itemclick: 'onItemclick'
         }
+    },
+
+    listen: {
+        controller: {
+            'Dashboard_Mer_ViewController': {
+                'dashboard_search': 'on_dashboard_search'
+            },
+            'Dashboard_KhoTP_POLine_Controller': {
+                'dashboard_select_poline': 'on_dashboard_select_poline'
+            }
+        }
+    },
+
+    on_dashboard_search: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        // var SKUBalanceStore = viewModel.getStore('SKUBalanceStore');
+        // SKUBalanceStore.removeAll();
+        me.setDisabled(true);
+    },
+    on_dashboard_select_poline: function(record){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        me.setDisabled(false);
+        // console.log(record);
+
+        // var productid_link = record.get('productid_link');
+        // var pcontractid_link = record.get('pcontractid_link');
+
+        // var PContractProduct_PO_Store = viewModel.getStore('PContractProduct_PO_Store');
+        // PContractProduct_PO_Store.loadStore_bypairid_Async(productid_link, record.get('po_quantity'), true, pcontractid_link);
+        // PContractProduct_PO_Store.load({
+        //     scope: this,
+        //     callback: function (records, operation, success) {
+
+        //         var firstRecord = PContractProduct_PO_Store.getAt(0);
+        //         var cmbSanPham = me.down('#cmbSanPham');
+        //         cmbSanPham.select(firstRecord);
+        //         // viewModel.set('IdProduct', record.get('id'));
+        //         // viewModel.set('Product_pquantity', firstRecord.get('pquantity'));
+        //         // console.log(record);
+        //         //clear sku list
+        //         var PContractSKUStore = viewModel.getStore('PContractSKUStore');
+        //         PContractSKUStore.removeAll();
+        //         PContractSKUStore.loadStoreByPO_and_Product(firstRecord.get('id'), record.get('id'));
+        //     }
+        // });
     },
 
     onAxisLabelRender: function(axis, label, layoutContext) {
@@ -88,7 +137,7 @@ Ext.define('GSmartApp.view.DashboardMer.BarChartProductShipDate.BarChartProductS
         var dashboard_mer = Ext.getCmp('dashboard_mer');
         var Dashboard_KhoTP_POLine_Main = dashboard_mer.down('#Dashboard_KhoTP_POLine_Main');
         if(Dashboard_KhoTP_POLine_Main){
-            // Dashboard_KhoTP_POLine_Main.setDisabled(false);
+            Dashboard_KhoTP_POLine_Main.setDisabled(false);
             // load ds poline theo cot tuong ung
             var productIdList = item.record.get('productIdList');
             var status = item.record.get('status');

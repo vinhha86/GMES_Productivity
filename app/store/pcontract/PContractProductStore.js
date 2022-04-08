@@ -64,7 +64,7 @@ Ext.define('GSmartApp.store.pcontract.PContractProductStore', {
 	},
 	loadStore_bypairid_Async: function (id, po_quantity, ishidden, pcontractid_link) {
 		var me = this;
-		console.log(pcontractid_link);
+		// console.log(pcontractid_link);
 		var params = new Object();
 		params.product_pairid_link = id;
 		params.ishidden_pair = ishidden;
