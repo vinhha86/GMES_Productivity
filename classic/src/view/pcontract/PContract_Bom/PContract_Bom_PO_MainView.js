@@ -33,8 +33,14 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom.PContract_Bom_PO_MainView', {
             xtype: 'button',
             text: 'Bỏ chọn PO Line',
             margin: 5,
-            // iconCls: 'x-fa fa-window-close',
+            iconCls: 'x-fa fa-calendar-minus-o',
             itemId: 'btnDeselectAll'
+        }, {
+            xtype: 'button',
+            text: 'Chọn hết PO Line',
+            margin: 5,
+            iconCls: 'x-fa fa-calendar-plus-o',
+            itemId: 'btnSelectAll'
         }]
     }]
 })

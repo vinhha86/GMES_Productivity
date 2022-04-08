@@ -392,6 +392,9 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_ViewController', {
         form.down('PContract_Bom_PO_MainView').getController().on('DeselectAllPoLine', function () {
             store.load();
         });
+        form.down('PContract_Bom_PO_MainView').getController().on('selectAllPoLine', function () {
+            store.load();
+        });
 
         form.down('PContract_Bom_PO_MainView').on('SelectDone', function (data) {
             // var po_line = record.get('po_line');
