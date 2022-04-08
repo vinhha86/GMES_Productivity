@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_PO_VIew', {
     extend: 'Ext.grid.Panel',
     xtype: 'PContract_Bom_PO_VIew',
     id: 'PContract_Bom_PO_VIew',
+    cls: 'PContract_Bom_PO_VIew',
     controller: 'PContract_Bom_PO_VIewController',
     bind: {
         store: '{PContractBom_PO_Store}'
@@ -70,12 +71,13 @@ Ext.define('GSmartApp.view.pcontract.PContract_Bom_PO_VIew', {
         xtype: 'toolbar',
         padding: '0 0 10 5',
         height: 40,
-        items: [{
-            xtype: 'displayfield',
-            fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
-            labelWidth: 0,
-            value: 'Danh sách PO Line'
-        }
+        items: [
+            {
+                xtype: 'displayfield',
+                fieldStyle: "font-weight: bold; font-size: 14px; color: black;",
+                labelWidth: 0,
+                value: 'Danh sách PO Line'
+            }
         ]
     }]
 })
