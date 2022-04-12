@@ -30,12 +30,18 @@ Ext.define('GSmartApp.view.main.MainController', {
         var session = data ? GSmartApp.model.Session.loadData(data) : null;
         viewmodel.set('avatar', session.get('avatar'));
 
+        // console.log(session.get('roles')[0].name);
+
         var tbname = this.lookup('tbname');
         // var tbavatar = this.lookup('tbavatar');
         tbname.text = config.getFname();
         // tbavatar.src = config.getAvatar();
         if ('' == window.location.hash) {
-            this.redirectTo('dashboard');
+            // var role_name = session.get('roles')[0].name;
+            // if (Ext.String.startsWith(role_name,'Merchandiser'))
+            //     this.redirectTo('dashboard_mer');
+            // else
+                this.redirectTo('dashboard');
         } else {
             var hash = window.location.hash.substring(1);
             console.log(' hash view: ', hash);
