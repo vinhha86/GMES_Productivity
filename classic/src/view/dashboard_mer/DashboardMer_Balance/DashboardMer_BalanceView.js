@@ -77,7 +77,8 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Balance.DashboardMer_Balanc
             menuDisabled: true,
             sortable: false,
             renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                // return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                return Ext.util.Format.number(value, '0,000');
             },
             summaryType: 'sum',
             summaryRenderer: 'renderSum'
@@ -90,7 +91,8 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Balance.DashboardMer_Balanc
             menuDisabled: true,
             sortable: false,
             renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                // return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                return Ext.util.Format.number(value, '0,000');
             },
             summaryType: 'sum',
             summaryRenderer: 'renderSum'
@@ -103,7 +105,8 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Balance.DashboardMer_Balanc
             menuDisabled: true,
             sortable: false,
             renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                // return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                return Ext.util.Format.number(value, '0,000');
             },
             summaryType: 'sum',
             summaryRenderer: 'renderSum'
@@ -116,7 +119,8 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Balance.DashboardMer_Balanc
             menuDisabled: true,
             sortable: false,
             renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                // return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                return Ext.util.Format.number(value, '0,000');
             },
             summaryType: 'sum',
             summaryRenderer: 'renderSum'
