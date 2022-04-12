@@ -89,13 +89,14 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_PoLineSKU.DashboardMer_PoLi
         }, 
         {
             text: 'SL cần giao',
-            // dataIndex: 'pquantity_porder',
+            dataIndex: 'pquantity_porder',
             width: 70,
             menuDisabled: true,
             sortable: false,
             align: 'right',
             renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                // return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                return Ext.util.Format.number(value, '0,000');
             },
             // editor: {
             //     xtype: 'textfield',
@@ -110,13 +111,14 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_PoLineSKU.DashboardMer_PoLi
         },
         {
             text: 'SL đã cắt',
-            // dataIndex: 'pquantity_porder',
+            dataIndex: 'pquantity_cut',
             width: 70,
             menuDisabled: true,
             sortable: false,
             align: 'right',
             renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                // return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                return Ext.util.Format.number(value, '0,000');
             },
             // editor: {
             //     xtype: 'textfield',
@@ -131,13 +133,14 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_PoLineSKU.DashboardMer_PoLi
         },
         {
             text: 'Vào chuyền',
-            // dataIndex: 'pquantity_porder',
+            dataIndex: 'pquantity_vaoChuyen',
             width: 80,
             menuDisabled: true,
             sortable: false,
             align: 'right',
             renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                // return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                return Ext.util.Format.number(value, '0,000');
             },
             // editor: {
             //     xtype: 'textfield',
@@ -152,13 +155,14 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_PoLineSKU.DashboardMer_PoLi
         },
         {
             text: 'Ra chuyền',
-            // dataIndex: 'pquantity_porder',
+            dataIndex: 'pquantity_raChuyen',
             width: 80,
             menuDisabled: true,
             sortable: false,
             align: 'right',
             renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                // return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                return Ext.util.Format.number(value, '0,000');
             },
             // editor: {
             //     xtype: 'textfield',
@@ -173,13 +177,14 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_PoLineSKU.DashboardMer_PoLi
         },
         {
             text: 'Hoàn thiện',
-            // dataIndex: 'pquantity_porder',
+            dataIndex: 'pquantity_hoanThien',
             width: 70,
             menuDisabled: true,
             sortable: false,
             align: 'right',
             renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                // return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                return Ext.util.Format.number(value, '0,000');
             },
             // editor: {
             //     xtype: 'textfield',
@@ -194,13 +199,14 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_PoLineSKU.DashboardMer_PoLi
         },
         {
             text: 'Tồn kho TP',
-            // dataIndex: 'pquantity_porder',
+            dataIndex: 'pquantity_tonKhoTp',
             width: 70,
             menuDisabled: true,
             sortable: false,
             align: 'right',
             renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                // return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                return Ext.util.Format.number(value, '0,000');
             },
             // editor: {
             //     xtype: 'textfield',
@@ -215,13 +221,14 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_PoLineSKU.DashboardMer_PoLi
         },
         {
             text: 'Đã xuất',
-            // dataIndex: 'pquantity_porder',
+            dataIndex: 'pquantity_daXuat',
             width: 70,
             menuDisabled: true,
             sortable: false,
             align: 'right',
             renderer: function (value, metaData, record, rowIdx, colIdx, stor) {
-                return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                // return value == 0 ? "" : Ext.util.Format.number(value, '0,000');
+                return Ext.util.Format.number(value, '0,000');
             },
             // editor: {
             //     xtype: 'textfield',

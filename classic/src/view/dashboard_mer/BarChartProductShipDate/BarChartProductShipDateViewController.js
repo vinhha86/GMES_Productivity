@@ -100,6 +100,8 @@ Ext.define('GSmartApp.view.DashboardMer.BarChartProductShipDate.BarChartProductS
                 m.loadPoLineList(productIdList, status);
             }
         }
+
+        m.fireEvent('dashboard_selectBarChartProduct');
     },
     loadPoLineList: function(productIdList, status){
         var m = this;
