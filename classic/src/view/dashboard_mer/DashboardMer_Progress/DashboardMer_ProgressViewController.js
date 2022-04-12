@@ -20,6 +20,9 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Progress.DashboardMer_Progr
             'Dashboard_Mer_ViewController': {
                 'dashboard_search': 'on_dashboard_search'
             },
+            'BarChartProductShipDateViewController': {
+                'dashboard_selectBarChartProduct': 'on_selectBarChartProduct'
+            },
             'Dashboard_KhoTP_POLine_Controller': {
                 'dashboard_select_poline': 'on_dashboard_select_poline'
             }
@@ -27,6 +30,14 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Progress.DashboardMer_Progr
     },
 
     on_dashboard_search: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        // var SKUBalanceStore = viewModel.getStore('SKUBalanceStore');
+        // SKUBalanceStore.removeAll();
+        me.setDisabled(true);
+    },
+    on_selectBarChartProduct: function(){
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();

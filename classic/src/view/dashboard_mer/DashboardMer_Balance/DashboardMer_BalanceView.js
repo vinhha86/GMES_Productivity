@@ -42,9 +42,9 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Balance.DashboardMer_Balanc
         // }, 
         {
             text: 'Mã NPL',
-            // dataIndex: 'productbuyercode',
-            // width: 120,
-            flex: 1,
+            dataIndex: 'mat_sku_code',
+            width: 120,
+            // flex: 1,
             menuDisabled: true,
             sortable: false,
             renderer: function (value, metaData, record, rowIdx, colIdx, store) {
@@ -72,7 +72,7 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Balance.DashboardMer_Balanc
         {
             text: 'SL nhu cầu',
             align: 'right',
-            // dataIndex: 'po_quantity',
+            dataIndex: 'mat_sku_demand_dh',
             width: 90,
             menuDisabled: true,
             sortable: false,
@@ -85,7 +85,7 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Balance.DashboardMer_Balanc
         {
             text: 'SL nhập kho',
             align: 'right',
-            // dataIndex: 'po_quantity',
+            dataIndex: 'mat_sku_stockin',
             width: 90,
             menuDisabled: true,
             sortable: false,
@@ -98,7 +98,7 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Balance.DashboardMer_Balanc
         {
             text: 'SL xuất kho',
             align: 'right',
-            // dataIndex: 'po_quantity',
+            dataIndex: 'mat_sku_stockout',
             width: 90,
             menuDisabled: true,
             sortable: false,
@@ -111,7 +111,7 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Balance.DashboardMer_Balanc
         {
             text: 'SL tồn',
             align: 'right',
-            // dataIndex: 'po_quantity',
+            dataIndex: 'in_stock',
             width: 90,
             menuDisabled: true,
             sortable: false,

@@ -14,6 +14,9 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Balance.DashboardMer_Balanc
             'Dashboard_Mer_ViewController': {
                 'dashboard_search': 'on_dashboard_search'
             },
+            'BarChartProductShipDateViewController': {
+                'dashboard_selectBarChartProduct': 'on_selectBarChartProduct'
+            },
             'Dashboard_KhoTP_POLine_Controller': {
                 'dashboard_select_poline': 'on_dashboard_select_poline'
             }
@@ -27,34 +30,54 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Balance.DashboardMer_Balanc
         SKUBalanceStore.removeAll();
         me.setDisabled(true);
     },
+    on_selectBarChartProduct: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var SKUBalanceStore = viewModel.getStore('SKUBalanceStore');
+        SKUBalanceStore.removeAll();
+        me.setDisabled(true);
+    },
     on_dashboard_select_poline: function(record){
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
+        var SKUBalanceStore = viewModel.getStore('SKUBalanceStore');
         me.setDisabled(false);
         // console.log(record);
 
-        // var productid_link = record.get('productid_link');
-        // var pcontractid_link = record.get('pcontractid_link');
+        var productid_link = record.get('productid_link');
+        var pcontractid_link = record.get('pcontractid_link');
+        var pcontract_poid_link = record.get('id');
+        var ls_po = '';
+        var list_productid = '';
+        list_productid += productid_link + ';';
+        ls_po += pcontract_poid_link;
 
-        // var PContractProduct_PO_Store = viewModel.getStore('PContractProduct_PO_Store');
-        // PContractProduct_PO_Store.loadStore_bypairid_Async(productid_link, record.get('po_quantity'), true, pcontractid_link);
-        // PContractProduct_PO_Store.load({
-        //     scope: this,
-        //     callback: function (records, operation, success) {
+        // list_productid: "4047;"
+        // ls_po: "16152;16153"
+        // materialid_link: null
+        // pcontract_poid_link: null
+        // pcontractid_link: 44
 
-        //         var firstRecord = PContractProduct_PO_Store.getAt(0);
-        //         var cmbSanPham = me.down('#cmbSanPham');
-        //         cmbSanPham.select(firstRecord);
-        //         // viewModel.set('IdProduct', record.get('id'));
-        //         // viewModel.set('Product_pquantity', firstRecord.get('pquantity'));
-        //         // console.log(record);
-        //         //clear sku list
-        //         var PContractSKUStore = viewModel.getStore('PContractSKUStore');
-        //         PContractSKUStore.removeAll();
-        //         PContractSKUStore.loadStoreByPO_and_Product(firstRecord.get('id'), record.get('id'));
-        //     }
-        // });
+        var params = new Object();
+        params.pcontractid_link = pcontractid_link;
+        params.list_productid = list_productid;
+        params.ls_po = ls_po;
+        params.materialid_link = null;
+        params.pcontract_poid_link = null;
+
+        me.setLoading(true);
+        GSmartApp.Ajax.post('/api/v1/balance/cal_balance_bycontract', Ext.JSON.encode(params),
+            function (success, response, options) {
+                me.setLoading(false);
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        SKUBalanceStore.setData(response.data);
+                    }
+                }
+            })
     },
 
     renderSum: function (value) {

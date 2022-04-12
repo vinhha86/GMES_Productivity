@@ -17,12 +17,23 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_PoLineSKU.DashboardMer_PoLi
             'Dashboard_Mer_ViewController': {
                 'dashboard_search': 'on_dashboard_search'
             },
+            'BarChartProductShipDateViewController': {
+                'dashboard_selectBarChartProduct': 'on_selectBarChartProduct'
+            },
             'Dashboard_KhoTP_POLine_Controller': {
                 'dashboard_select_poline': 'on_dashboard_select_poline'
             }
         }
     },
     on_dashboard_search: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var PContractSKUStore = viewModel.getStore('PContractSKUStore');
+        PContractSKUStore.removeAll();
+        me.setDisabled(true);
+    },
+    on_selectBarChartProduct: function(){
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
@@ -40,12 +51,13 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_PoLineSKU.DashboardMer_PoLi
         var productid_link = record.get('productid_link');
         var pcontractid_link = record.get('pcontractid_link');
 
+        me.setLoading(true);
         var PContractProduct_PO_Store = viewModel.getStore('PContractProduct_PO_Store');
         PContractProduct_PO_Store.loadStore_bypairid_Async(productid_link, record.get('po_quantity'), true, pcontractid_link);
         PContractProduct_PO_Store.load({
             scope: this,
             callback: function (records, operation, success) {
-
+                me.setLoading(false);
                 var firstRecord = PContractProduct_PO_Store.getAt(0);
                 var cmbSanPham = me.down('#cmbSanPham');
                 cmbSanPham.select(firstRecord);
