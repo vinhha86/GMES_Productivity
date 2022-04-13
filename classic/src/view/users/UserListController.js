@@ -10,11 +10,34 @@ Ext.define('GSmartApp.view.users.UserListController', {
 		userStore.loadStore_bypage('','','','',0);
 	},
 	control: {
+		'#firstname': {
+			keypress: 'onPressEnterSearch'
+		},
+		'#middlename': {
+			keypress: 'onPressEnterSearch'
+		},
+		'#lastname': {
+			keypress: 'onPressEnterSearch'
+		},
+		'#username': {
+			keypress: 'onPressEnterSearch'
+		},
+		'#groupuser': {
+			keypress: 'onPressEnterSearch'
+		},
 		'#btnTimKiem': {
 			click: 'onSearch'
 		},
 		'#User_List': {
 			itemdblclick: 'onItemdblclick'
+		}
+	},
+	// enter to search
+    onPressEnterSearch: function (textfield, e, eOpts) {
+		var m = this;
+		if (e.getKey() == e.ENTER) {
+			// Ext.Msg.alert('Keys','You pressed the Enter key');
+			m.onSearch();
 		}
 	},
 	onSearch:function(){
@@ -99,5 +122,46 @@ Ext.define('GSmartApp.view.users.UserListController', {
 				}
 			}
 		});
-	}
+	},
+
+	onFilterFullNameKeyup: function () {
+        var viewModel = this.getViewModel();
+        var store = viewModel.get('UserStore');
+        var filterField = this.lookupReference('filterFullName');
+        var filters = store.getFilters();
+
+        if (filterField.value) {
+            this.filterFullName = filters.add({
+                id: 'filterFullName',
+                property: 'fullname',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.filterFullName) {
+            filters.remove(this.filterFullName);
+            this.filterFullName = null;
+        }
+    },
+	onFilterUsernameKeyup: function () {
+        var viewModel = this.getViewModel();
+        var store = viewModel.get('UserStore');
+        var filterField = this.lookupReference('filterUsername');
+        var filters = store.getFilters();
+
+        if (filterField.value) {
+            this.filterUsername = filters.add({
+                id: 'filterUsername',
+                property: 'username',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.filterUsername) {
+            filters.remove(this.filterUsername);
+            this.filterUsername = null;
+        }
+    },
 })

@@ -42,6 +42,7 @@ Ext.define('GSmartApp.store.Dashboard_Mer.ProductShipDateChartStore', {
 			// url: config.getAppBaseUrl()+'/api/v1/pcontract/getbypaging',
 			url: config.getAppBaseUrl()+'/api/v1/pcontract_po/getProductShipDateChart',
 			paramsAsJson:true,
+			timeout: 120 * 1000,
 			extraParams : params,
 			noCache: false,
 			headers :{

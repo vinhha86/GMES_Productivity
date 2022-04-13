@@ -35,7 +35,7 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 			paramsAsJson: true,
 			noCache: false,
 			extraParams: params,
-			timeout: 60000,
+			timeout: 120 * 1000,
 			headers: {
 				'Accept': "application/json",
 				'Content-Type': "application/json"
@@ -530,7 +530,7 @@ Ext.define('GSmartApp.store.pcontract.PContractPOStore', {
 			paramsAsJson: true,
 			noCache: false,
 			extraParams: params,
-			timeout: 60000,
+			timeout: 120 * 1000,
 			headers: {
 				'Accept': "application/json",
 				'Content-Type': "application/json"
