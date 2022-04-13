@@ -4,15 +4,15 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Progress.DashboardMer_Progr
     init: function () {
         var viewModel = this.getViewModel();
         var objSearch = viewModel.get('objSearch');
-        var ProductShipDateChartStore2 = viewModel.getStore('ProductShipDateChartStore2');
-        ProductShipDateChartStore2.loadStore(objSearch);
+        // var ProductShipDateChartStore2 = viewModel.getStore('ProductShipDateChartStore2');
+        // ProductShipDateChartStore2.loadStore(objSearch);
     },
 
     //___________________________________________
     control: {
-        '#BarChartProductShipDateView_Chart': {
-            itemclick: 'onItemclick'
-        }
+        // '#BarChartProductShipDateView_Chart': {
+        //     itemclick: 'onItemclick'
+        // }
     },
 
     listen: {
@@ -26,6 +26,11 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Progress.DashboardMer_Progr
             'Dashboard_KhoTP_POLine_Controller': {
                 'dashboard_select_poline': 'on_dashboard_select_poline'
             }
+        },
+        store: {
+            'DashboardMer_ProgressStore': {
+                'DashboardMer_ProgressStore_Done': 'onDashboardMer_ProgressStore_Done'
+            }
         }
     },
 
@@ -33,16 +38,16 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Progress.DashboardMer_Progr
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
-        // var SKUBalanceStore = viewModel.getStore('SKUBalanceStore');
-        // SKUBalanceStore.removeAll();
+        var DashboardMer_ProgressStore = viewModel.getStore('DashboardMer_ProgressStore');
+        DashboardMer_ProgressStore.removeAll();
         me.setDisabled(true);
     },
     on_selectBarChartProduct: function(){
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();
-        // var SKUBalanceStore = viewModel.getStore('SKUBalanceStore');
-        // SKUBalanceStore.removeAll();
+        var DashboardMer_ProgressStore = viewModel.getStore('DashboardMer_ProgressStore');
+        DashboardMer_ProgressStore.removeAll();
         me.setDisabled(true);
     },
     on_dashboard_select_poline: function(record){
@@ -50,29 +55,21 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Progress.DashboardMer_Progr
         var me = this.getView();
         var viewModel = this.getViewModel();
         me.setDisabled(false);
-        // console.log(record);
-
-        // var productid_link = record.get('productid_link');
-        // var pcontractid_link = record.get('pcontractid_link');
-
-        // var PContractProduct_PO_Store = viewModel.getStore('PContractProduct_PO_Store');
-        // PContractProduct_PO_Store.loadStore_bypairid_Async(productid_link, record.get('po_quantity'), true, pcontractid_link);
-        // PContractProduct_PO_Store.load({
-        //     scope: this,
-        //     callback: function (records, operation, success) {
-
-        //         var firstRecord = PContractProduct_PO_Store.getAt(0);
-        //         var cmbSanPham = me.down('#cmbSanPham');
-        //         cmbSanPham.select(firstRecord);
-        //         // viewModel.set('IdProduct', record.get('id'));
-        //         // viewModel.set('Product_pquantity', firstRecord.get('pquantity'));
-        //         // console.log(record);
-        //         //clear sku list
-        //         var PContractSKUStore = viewModel.getStore('PContractSKUStore');
-        //         PContractSKUStore.removeAll();
-        //         PContractSKUStore.loadStoreByPO_and_Product(firstRecord.get('id'), record.get('id'));
-        //     }
-        // });
+        console.log(record);
+        if(record.get('ismap')){
+            var pcontract_poid_link = record.get('id');
+            var objSearch = new Object();
+            objSearch.pcontract_poid_link = pcontract_poid_link;
+    
+            me.setLoading(true);
+            var DashboardMer_ProgressStore = viewModel.getStore('DashboardMer_ProgressStore');
+            DashboardMer_ProgressStore.loadStore(objSearch);
+        }
+    },
+    onDashboardMer_ProgressStore_Done: function(){
+        var m = this;
+        var me = this.getView();
+        me.setLoading(false);
     },
 
     onAxisLabelRender: function(axis, label, layoutContext) {
@@ -138,36 +135,36 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Progress.DashboardMer_Progr
          });
     },
 
-    onItemclick: function(chart, item, event, eOpts){
-        // console.log(chart);
-        // console.log(item);
-        var m = this;
-        var me = this.getView();
-        var viewModel = this.getViewModel();
+    // onItemclick: function(chart, item, event, eOpts){
+    //     // console.log(chart);
+    //     // console.log(item);
+    //     var m = this;
+    //     var me = this.getView();
+    //     var viewModel = this.getViewModel();
 
-        var dashboard_mer = Ext.getCmp('dashboard_mer');
-        var Dashboard_KhoTP_POLine_Main = dashboard_mer.down('#Dashboard_KhoTP_POLine_Main');
-        if(Dashboard_KhoTP_POLine_Main){
-            Dashboard_KhoTP_POLine_Main.setDisabled(false);
-            // load ds poline theo cot tuong ung
-            var productIdList = item.record.get('productIdList');
-            var status = item.record.get('status');
-            var statusName = item.record.get('statusName');
+    //     var dashboard_mer = Ext.getCmp('dashboard_mer');
+    //     var Dashboard_KhoTP_POLine_Main = dashboard_mer.down('#Dashboard_KhoTP_POLine_Main');
+    //     if(Dashboard_KhoTP_POLine_Main){
+    //         Dashboard_KhoTP_POLine_Main.setDisabled(false);
+    //         // load ds poline theo cot tuong ung
+    //         var productIdList = item.record.get('productIdList');
+    //         var status = item.record.get('status');
+    //         var statusName = item.record.get('statusName');
 
-            //
-            // console.log(productIdList);
-            if(productIdList != null && productIdList.length > 0){
-                m.loadPoLineList(productIdList, status);
-            }
-        }
-    },
-    loadPoLineList: function(productIdList, status){
-        var m = this;
-        var me = this.getView();
-        var viewModel = this.getViewModel();
-        var objSearch = viewModel.get('objSearch');
+    //         //
+    //         // console.log(productIdList);
+    //         if(productIdList != null && productIdList.length > 0){
+    //             m.loadPoLineList(productIdList, status);
+    //         }
+    //     }
+    // },
+    // loadPoLineList: function(productIdList, status){
+    //     var m = this;
+    //     var me = this.getView();
+    //     var viewModel = this.getViewModel();
+    //     var objSearch = viewModel.get('objSearch');
 
-        m.fireEvent('dashboard_loadPoLineList', productIdList, status, objSearch);
-        console.log('fire dashboard_loadPoLineList');
-    },
+    //     m.fireEvent('dashboard_loadPoLineList', productIdList, status, objSearch);
+    //     console.log('fire dashboard_loadPoLineList');
+    // },
 });

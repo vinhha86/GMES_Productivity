@@ -20,7 +20,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
             itemclick: 'onSelectProduct'
         },
         '#btnStockoutOrder_Create': {
-            click: 'onStockoutOrder_Create'
+            click: 'onBtnStockoutOrder_Create'
         },
         '#btnTimKiem': {
             click: 'loadPO_HavetoShip'
@@ -28,10 +28,10 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
     },
     listen: {
         controller: {
-            'Dashboard_Mer_ViewController': {
+            'Dashboard_Mer_ViewController': { // dashboard mer nút tìm kiếm
                 'dashboard_search': 'on_dashboard_search'
             },
-            'BarChartProductShipDateViewController': {
+            'BarChartProductShipDateViewController': { // click chọn bar biểu đồ theo dõi mã hàng sắp cần giao
                 'dashboard_loadPoLineList': 'on_dashboard_loadPoLineList',
             },
             
@@ -80,7 +80,108 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
             m.getPorderGrantInfo(pcontract_poid);
         }
     },
+    onBtnStockoutOrder_Create: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var isFromDashBoardMer = viewModel.get('isFromDashBoardMer');
+        if(isFromDashBoardMer){
+            Ext.Msg.show({
+                title: 'Thông báo',
+                msg: 'Bạn có chắc chắn tạo lệnh xuất kho ?',
+                buttons: Ext.Msg.YESNO,
+                icon: Ext.Msg.QUESTION,
+                buttonText: {
+                    yes: 'Có',
+                    no: 'Không'
+                },
+                fn: function (btn) {
+                    if (btn === 'yes') {
+                        m.onStockoutOrder_Create_dashboardMer();
+                    }
+                }
+            });
+            
+        }else{
+            m.onStockoutOrder_Create();
+        }
+    },
+    onStockoutOrder_Create_dashboardMer: function(){
+        // console.log('onStockoutOrder_Create_dashboardMer');
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        me.setLoading(true);
+        var poLinesView = me.down('#Dashboard_KhoTP_POLine_List');
+
+        var data = '';
+        var select = poLinesView.getSelectionModel().getSelection();
+        if (select.length == 0) {
+            Ext.Msg.show({
+                title: "Thông báo",
+                msg: 'Bạn cần chọn PO Line',
+                buttons: Ext.MessageBox.YES,
+                buttonText: {
+                    yes: 'Đóng',
+                }
+            });
+            me.setLoading(false);
+            return;
+        }
+        for (var i = 0; i < select.length; i++) {
+            data = data + select[i].data.id + ';';
+        }
+        // console.log(data);
+        // return;
+
+        var params = new Object();
+        params.list_po = data;
+
+        GSmartApp.Ajax.post('/api/v1/stockoutorder/create_from_po', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        Ext.Msg.show({
+                            title: "Thông báo",
+                            msg: "Tạo lệnh xuất kho thành công",
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                        //Refresh lại danh sách PO Line
+                        // th.loadPO_HavetoShip();
+                    }
+                    else {
+                        Ext.Msg.show({
+                            title: "Thông báo",
+                            msg: response.message,
+                            buttons: Ext.MessageBox.YES,
+                            buttonText: {
+                                yes: 'Đóng',
+                            }
+                        });
+                    }
+                } else {
+                    var response = Ext.decode(response.responseText);
+                    Ext.Msg.show({
+                        title: "Thông báo",
+                        msg: response.message,
+                        buttons: Ext.MessageBox.YES,
+                        buttonText: {
+                            yes: 'Đóng',
+                        }
+                    });
+                }
+                me.setLoading(false);
+            })
+    },
     onStockoutOrder_Create: function(){
+        // console.log('onStockoutOrder_Create_not_dashboardMer');
+        // return;
         //Lấy danh sách các PO Line được chọn --> Gửi lên để tạo Stockout_order
         var me = this.getView();
         var th = this;

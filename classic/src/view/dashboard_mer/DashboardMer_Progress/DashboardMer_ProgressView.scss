@@ -1,0 +1,22 @@
+.DashboardMer_ProgressView{
+    .done {
+        background-color: #ffc000;
+        color:black;
+    }
+    .not-done {
+        background-color: #92d050;
+        color:black;
+    }
+
+    .color-box{
+        display: flex; 
+        align-items: center;
+        font-size: 12px;
+    }
+    .color-square{
+        display: inline-block; 
+        width: 14px; 
+        height: 14px; 
+        border: 1px solid lightgray;
+    }
+}

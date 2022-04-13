@@ -343,20 +343,50 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_PoLineSKU.DashboardMer_PoLi
         }
 
     },
-    renderSum: function (value, summaryData, dataIndex) {
-        var viewmodel = this.getViewModel();
-        var Product_pquantity = viewmodel.get('Product_pquantity');
-        if (null == Product_pquantity) Product_pquantity = 0;
-        if (null == value) value = 0;
-        if (Product_pquantity != value) {
-            // viewmodel.set('isPorderReq_CheckOK', false);
-            viewmodel.set('ProductSKUSummaryCssStyle', '<div style="color:red; font-weight: bold; align: right">');
-        }
-        else {
-            // viewmodel.set('isPorderReq_CheckOK', true);
-            viewmodel.set('ProductSKUSummaryCssStyle', '<div style="color:black; font-weight: bold; align: right">');
-        }
-        return viewmodel.get('ProductSKUSummaryCssStyle') + Ext.util.Format.number(value, '0,000') + '</div>';
+    onYeuCauXuatKhoThanhPham: function (grid, rowIndex, colIndex) {
+        var me = this.getView();
+        var rec = grid.getStore().getAt(rowIndex);
+        
+        Ext.Msg.show({
+            title: 'Thông báo',
+            msg: 'Bạn có chắc chắn tạo yêu cầu xuất kho thành phẩm ' + rec.get('skuCode') + ' ?',
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            buttonText: {
+                yes: 'Có',
+                no: 'Không'
+            },
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    // me.setLoading("Đang xóa dữ liệu");
+                    // var params = new Object();
+                    // params.id = rec.data.id;
+
+                    // GSmartApp.Ajax.post('/api/v1/attributevalue/attributevalue_delete', Ext.JSON.encode(params),
+                    //     function (success, response, options) {
+                    //         if (success) {
+                    //             var store = me.getViewModel().getStore('AttributeValueStore');
+                    //             store.remove(rec);
+                    //             if (rec.removedFrom == store.data.length) {
+                    //                 me.getSelectionModel().select(store.data.length - 1);
+                    //             } else {
+                    //                 me.getSelectionModel().select(rec.removedFrom);
+                    //             }
+                    //         } else {
+                    //             Ext.Msg.show({
+                    //                 title: 'Thông báo',
+                    //                 msg: 'Xóa thất bại',
+                    //                 buttons: Ext.MessageBox.YES,
+                    //                 buttonText: {
+                    //                     yes: 'Đóng',
+                    //                 }
+                    //             });
+                    //         }
+                    //         me.setLoading(false);
+                    //     })
+                }
+            }
+        });
     },
 
     //

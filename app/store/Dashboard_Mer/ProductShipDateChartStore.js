@@ -56,6 +56,7 @@ Ext.define('GSmartApp.store.Dashboard_Mer.ProductShipDateChartStore', {
 		this.loadPage(1,{
 			scope: this,
 			callback: function(records, operation, success) {
+				this.fireEvent('ProductShipDateChartStore_Done');
 				if(!success){
 					//  this.fireEvent('logout');
 				} else {

@@ -2,6 +2,7 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Progress.DashboardMer_Progr
     extend: 'Ext.panel.Panel',
     xtype: 'DashboardMer_ProgressView',
     controller: 'DashboardMer_ProgressViewController',
+    cls: 'DashboardMer_ProgressView',
     requires: ['Ext.chart.theme.Muted'],
     layout: 'fit',
 
@@ -9,6 +10,7 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Progress.DashboardMer_Progr
     {
         xtype: 'cartesian',
         itemId: 'BarChartProductShipDateView_Chart',
+        scrollable: true,
         width: '100%',
         height: '100%',
         plugins: {
@@ -21,7 +23,7 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Progress.DashboardMer_Progr
             //     alignTo: 'chart'
             // },
             subtitle: {
-                text: 'Biểu đồ theo dõi mã hàng sắp cần giao',
+                text: 'Biểu đồ tiến độ sản xuất',
                 alignTo: 'chart'
             }
         },
@@ -41,9 +43,11 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Progress.DashboardMer_Progr
         animation: {
             duration: 200
         },
+        // store: {
+        //     type: 'DashboardMer_ProgressStore'
+        // },
         bind:{
-            store:'{ProductShipDateChartStore2}',
-            // store:'{POrderStatusChartStore}',
+            store:'{DashboardMer_ProgressStore}',
             // captions: '{captions}'
         },
         // legend: {
@@ -53,7 +57,7 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Progress.DashboardMer_Progr
         axes: [{
             type: 'numeric',
             position: 'left',
-            fields: ['sum'],
+            fields: ['sumDone', 'sumNotDone'],
             grid: true,
             // maximum: 1,
             // minimum: 1,
@@ -62,7 +66,7 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Progress.DashboardMer_Progr
         }, {
             type: 'category',
             position: 'bottom',
-            fields: 'statusName',
+            fields: 'orgName',
             // title: {
             //     text: 'Phân xưởng',
             //     translationX: -30
@@ -77,21 +81,24 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Progress.DashboardMer_Progr
         }],
         series: {
             type: 'bar',
+            colors:['#ffc000','#92d050'],
+            // scrollable: true,
             stacked: true,
             fullStack: true,
-            title: ['Số lượng', 'Số lượng 2'],
-            xField: 'statusName',
-            yField: ['sum', 'sum2'],
+            title: ['Số lượng HT', 'Số lượng còn'],
+            xField: 'orgName',
+            yField: ['sumDone', 'sumNotDone'],
             label: {
-                field: ['sum', 'sum2'],
+                field: ['sumDone', 'sumNotDone'],
                 display: 'insideEnd',
                 renderer: 'onSeriesLabelRender'
             },
             highlight: false,
             style: {
-                inGroupGapWidth: -7,
-                minGapWidth: 25,
-                maxBarWidth: 50,
+                // inGroupGapWidth: -10,
+                minGapWidth: 20,
+                maxBarWidth: 30,
+                minBarWidth: 30,
             },
             tooltip: {
                 trackMouse: false,
@@ -105,5 +112,32 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Progress.DashboardMer_Progr
             // renderer: 'onBarRender',
         }
     }
+    ],
+    dockedItems: [
+        {
+            dock: 'bottom',
+            layout: 'vbox',
+            border: false,
+            items: [
+                {
+                    layout: 'hbox',
+                    border: false,
+                    items: [
+                        {
+                            html: '<div class="color-box">'
+                                + '<div class="color-square done"></div>Đã hoàn thành'
+                                + '</div>',
+                            margin: '2'
+                        },
+                        {
+                            html: '<div class="color-box">'
+                                + '<div class="color-square not-done"></div>Chưa hoàn thành'
+                                + '</div>',
+                            margin: '2'
+                        },
+                    ]
+                }
+            ]
+        }
     ]
 });

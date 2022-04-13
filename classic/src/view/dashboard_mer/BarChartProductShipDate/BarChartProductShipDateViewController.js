@@ -2,10 +2,10 @@ Ext.define('GSmartApp.view.DashboardMer.BarChartProductShipDate.BarChartProductS
     extend: 'Ext.app.ViewController',
     alias: 'controller.BarChartProductShipDateViewController',
     init: function () {
-        var viewModel = this.getViewModel();
-        var objSearch = viewModel.get('objSearch');
-        var ProductShipDateChartStore = viewModel.getStore('ProductShipDateChartStore');
-        ProductShipDateChartStore.loadStore(objSearch);
+        // var viewModel = this.getViewModel();
+        // var objSearch = viewModel.get('objSearch');
+        // var ProductShipDateChartStore = viewModel.getStore('ProductShipDateChartStore');
+        // ProductShipDateChartStore.loadStore(objSearch);
     },
 
     //___________________________________________
@@ -13,6 +13,29 @@ Ext.define('GSmartApp.view.DashboardMer.BarChartProductShipDate.BarChartProductS
         '#BarChartProductShipDateView_Chart': {
             itemclick: 'onItemclick'
         }
+    },
+    listen: {
+        controller: {
+            'Dashboard_Mer_ViewController': {
+                'dashboard_search': 'on_dashboard_search'
+            },
+        },
+        store: {
+            'ProductShipDateChartStore': {
+                'ProductShipDateChartStore_Done': 'onProductShipDateChartStore_Done'
+            }
+        }
+    },
+
+    on_dashboard_search: function(){
+        var m = this;
+        var me = this.getView();
+        me.setLoading(true);
+    },
+    onProductShipDateChartStore_Done: function(){
+        var m = this;
+        var me = this.getView();
+        me.setLoading(false);
     },
 
     onAxisLabelRender: function(axis, label, layoutContext) {

@@ -42,8 +42,8 @@ Ext.define('GSmartApp.view.DashboardMer.Dashboard_Mer_ViewModel', {
         ChartsStore: {
             type: 'ChartsStore'
         },
-        ProductShipDateChartStore2: {
-            type: 'ProductShipDateChartStore'
+        DashboardMer_ProgressStore: {
+            type: 'DashboardMer_ProgressStore'
         }
     },
     data: {

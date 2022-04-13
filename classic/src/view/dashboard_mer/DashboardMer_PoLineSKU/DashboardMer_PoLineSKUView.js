@@ -3,11 +3,20 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_PoLineSKU.DashboardMer_PoLi
     xtype: 'DashboardMer_PoLineSKUView',
     itemId: 'DashboardMer_PoLineSKUView',
     controller: 'DashboardMer_PoLineSKUViewController',
+    cls: 'DashboardMer_PoLineSKUView',
     viewConfig: {
         stripeRows: false,
         enableTextSelection: true,
         columnLines: true,
-        rowLines: true,scroll
+        rowLines: true,
+        getRowClass: function (record, index) {
+            var pquantity_porder = record.get('pquantity_porder') == null ? 0 : record.get('pquantity_porder');
+            var pquantity_daXuat = record.get('pquantity_daXuat') == null ? 0 : record.get('pquantity_daXuat');
+            if(pquantity_porder > pquantity_daXuat){
+                return 'row-yellow';
+            }
+            return 'row-white';
+        }
     },
     scrollable: true,
     // plugins: {
@@ -251,7 +260,7 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_PoLineSKU.DashboardMer_PoLi
             items: [{
                 iconCls: 'x-fa fas fa-truck',
                 tooltip: 'Yêu cầu xuất kho TP',
-                // handler: 'onXoa'
+                handler: 'onYeuCauXuatKhoThanhPham'
             }]
         }, 
     ],

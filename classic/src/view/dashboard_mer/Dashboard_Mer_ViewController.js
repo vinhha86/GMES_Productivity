@@ -45,6 +45,7 @@ Ext.define('GSmartApp.view.DashboardMer.Dashboard_Mer_ViewController', {
             property: 'name',
             direction: 'ASC'
         });
+        m.onSearch();
     },
     onSearch:function(){
         var m = this;
