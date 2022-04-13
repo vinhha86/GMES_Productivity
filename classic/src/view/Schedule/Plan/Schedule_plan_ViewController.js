@@ -794,6 +794,22 @@ Ext.define('GSmartApp.view.Schedule.Plan.Schedule_plan_ViewController', {
             me.newResource = newResource;
             record = dragContext.draggedRecords[i].data;
 
+            //Truong hop khong duoc quyen keo tha
+            if (common.Check_ActionColum_Permission("Schedule_drag_drop")){
+                Ext.Msg.show({
+                    title: 'Thông báo',
+                    msg: 'Bạn không có quyền sắp kế hoạch!',
+                    buttons: Ext.MessageBox.YES,
+                    buttonText: {
+                        yes: 'Đóng',
+                    },
+                    fn: function () {
+                        dragContext.finalize(false);
+                    }
+                });
+                return false;                
+            }
+
             //Truong hop keo tha vao phan xuong
             if (newResource.get('type') == 0) {
                 Ext.Msg.show({
