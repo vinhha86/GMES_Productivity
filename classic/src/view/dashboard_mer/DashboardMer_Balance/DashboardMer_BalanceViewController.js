@@ -80,6 +80,26 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Balance.DashboardMer_Balanc
             })
     },
 
+    onFilterMaNPLKeyup: function () {
+        var viewModel = this.getViewModel();
+        var store = viewModel.get('SKUBalanceStore');
+        var filterField = this.lookupReference('filterMaNPL');
+        var filters = store.getFilters();
+
+        if (filterField.value) {
+            this.filterMaNPL = filters.add({
+                id: 'filterMaSP',
+                property: 'mat_sku_code',
+                value: filterField.value,
+                anyMatch: true,
+                caseSensitive: false
+            });
+        }
+        else if (this.filterMaNPL) {
+            filters.remove(this.filterMaNPL);
+            this.filterMaNPL = null;
+        }
+    },
     renderSum: function (value) {
 		if (null == value) value = 0;
 		return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + '</div>';

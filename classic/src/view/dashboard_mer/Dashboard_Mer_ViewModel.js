@@ -39,9 +39,6 @@ Ext.define('GSmartApp.view.DashboardMer.Dashboard_Mer_ViewModel', {
         },
 
         // biểu đồ tiến độ sx (pos5)
-        ChartsStore: {
-            type: 'ChartsStore'
-        },
         DashboardMer_ProgressStore: {
             type: 'DashboardMer_ProgressStore'
         }

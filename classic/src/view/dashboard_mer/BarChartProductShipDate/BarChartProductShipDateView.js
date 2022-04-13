@@ -55,9 +55,11 @@ Ext.define('GSmartApp.view.DashboardMer.BarChartProductShipDate.BarChartProductS
             position: 'left',
             fields: ['sum'],
             grid: true,
+            majorTickSteps: 1,
             // maximum: 1,
-            // minimum: 1,
+            minimum: 0,
             // title: 'Số lượng',
+
             renderer: 'onAxisLabelRender'
         }, {
             type: 'category',
@@ -84,13 +86,15 @@ Ext.define('GSmartApp.view.DashboardMer.BarChartProductShipDate.BarChartProductS
             label: {
                 field: ['sum'],
                 display: 'insideEnd',
+                orientation: 'horizontal',
                 renderer: 'onSeriesLabelRender'
             },
             highlight: false,
             style: {
                 inGroupGapWidth: -7,
-                minGapWidth: 25,
-                maxBarWidth: 50,
+                minGapWidth: 20,
+                maxBarWidth: 70,
+                minBarWidth: 60,
             },
             tooltip: {
                 trackMouse: false,

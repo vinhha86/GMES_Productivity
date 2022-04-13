@@ -59,8 +59,9 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Progress.DashboardMer_Progr
             position: 'left',
             fields: ['sumDone', 'sumNotDone'],
             grid: true,
-            // maximum: 1,
-            // minimum: 1,
+            majorTickSteps: 10,
+            maximum: 100,
+            minimum: 0,
             // title: 'Số lượng',
             renderer: 'onAxisLabelRender'
         }, {
@@ -91,14 +92,15 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Progress.DashboardMer_Progr
             label: {
                 field: ['sumDone', 'sumNotDone'],
                 display: 'insideEnd',
+                orientation: 'horizontal',
                 renderer: 'onSeriesLabelRender'
             },
             highlight: false,
             style: {
-                // inGroupGapWidth: -10,
+                inGroupGapWidth: -7,
                 minGapWidth: 20,
-                maxBarWidth: 30,
-                minBarWidth: 30,
+                maxBarWidth: 70,
+                minBarWidth: 60,
             },
             tooltip: {
                 trackMouse: false,

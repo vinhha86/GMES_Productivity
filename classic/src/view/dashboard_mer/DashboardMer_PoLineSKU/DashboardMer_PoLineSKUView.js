@@ -250,28 +250,29 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_PoLineSKU.DashboardMer_PoLi
             summaryType: 'sum',
             summaryRenderer: 'renderSum'
         },
-        {
-            xtype: 'actioncolumn',
-            text: 'Yêu cầu xuất kho TP',
-            width: 50,
-            menuDisabled: true,
-            sortable: false,
-            align: 'center',
-            items: [{
-                iconCls: 'x-fa fas fa-truck',
-                tooltip: 'Yêu cầu xuất kho TP',
-                handler: 'onYeuCauXuatKhoThanhPham'
-            }]
-        }, 
+        // {
+        //     xtype: 'actioncolumn',
+        //     text: 'Yêu cầu xuất kho TP',
+        //     width: 50,
+        //     menuDisabled: true,
+        //     sortable: false,
+        //     align: 'center',
+        //     items: [{
+        //         iconCls: 'x-fa fas fa-truck',
+        //         tooltip: 'Yêu cầu xuất kho TP',
+        //         handler: 'onYeuCauXuatKhoThanhPham'
+        //     }]
+        // }, 
     ],
     dockedItems: [{
         dock: 'top',
         xtype: 'toolbar',
-        padding: '0 0 10 5',
-        height: 40,
+        // padding: '0 0 10 5',
+        // height: 40,
         items: [{
             xtype: 'displayfield',
             fieldStyle: "font-weight: 500; font-size: 14px; color: black",
+            margin: 1,
             labelWidth: 0,
             bind: {
                 value: 'Chi tiết màu, cỡ'
@@ -289,12 +290,12 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_PoLineSKU.DashboardMer_PoLi
             anyMatch: true,
             fieldLabel: 'Sản phẩm',
             labelWidth: 70,
-            margin: '5 5 5 20',
+            margin: '1 1 1 20',
             itemId: 'cmbSanPham',
             anyMatch: true
         },
             '->'
-            ,
+        ,
         // {
         //     xtype: 'button',
         //     itemId: 'btnThemSKU',

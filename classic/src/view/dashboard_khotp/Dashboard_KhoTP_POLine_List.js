@@ -67,9 +67,9 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
                 buffer: 500
             },
         },
-        bind: {
-            hidden: '{isFromDashBoardMer}'
-        }
+        // bind: {
+        //     hidden: '{isFromDashBoardMer}'
+        // }
     },
     {
         text: 'PO Buyer',
@@ -103,49 +103,49 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
             if (null == value) value = 0;
             return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + ' (line)</div>';
         },
-        bind: {
-            hidden: '{isFromDashBoardMer}'
-        }
+        // bind: {
+        //     hidden: '{isFromDashBoardMer}'
+        // }
     }, 
-    {
-        text: 'Mã SP (Buyer)',
-        dataIndex: 'productbuyercode',
-        // width: 120,
-        flex: 1,
-        menuDisabled: true,
-        sortable: false,
-        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
-            return value;
-        },
-        bind: {
-            hidden: '{!isFromDashBoardMer}'
-        }
-    },
-    {
-        text: 'PO Buyer',
-        dataIndex: 'po_buyer',
-        width: 100,
-        // flex: 1,
-        menuDisabled: true,
-        sortable: false,
-        renderer: function (value, metaData, record, rowIdx, colIdx, store) {
-            metaData.tdAttr = 'data-qtip="' + value + '"';
+    // {
+    //     text: 'Mã SP (Buyer)',
+    //     dataIndex: 'productbuyercode',
+    //     // width: 120,
+    //     flex: 1,
+    //     menuDisabled: true,
+    //     sortable: false,
+    //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+    //         metaData.tdAttr = 'data-qtip="' + value + '"';
+    //         return value;
+    //     },
+    //     bind: {
+    //         hidden: '{!isFromDashBoardMer}'
+    //     }
+    // },
+    // {
+    //     text: 'PO Buyer',
+    //     dataIndex: 'po_buyer',
+    //     width: 100,
+    //     // flex: 1,
+    //     menuDisabled: true,
+    //     sortable: false,
+    //     renderer: function (value, metaData, record, rowIdx, colIdx, store) {
+    //         metaData.tdAttr = 'data-qtip="' + value + '"';
 
-            if (record.data.ismap) {
-                metaData.tdCls = "po_offer";
-            }
-            return value;
-        },
-        summaryType: 'count',
-        summaryRenderer: function (value, record) {
-            if (null == value) value = 0;
-            return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + ' (line)</div>';
-        },
-        bind: {
-            hidden: '{!isFromDashBoardMer}'
-        }
-    }, 
+    //         if (record.data.ismap) {
+    //             metaData.tdCls = "po_offer";
+    //         }
+    //         return value;
+    //     },
+    //     summaryType: 'count',
+    //     summaryRenderer: function (value, record) {
+    //         if (null == value) value = 0;
+    //         return '<div style="font-weight: bold; color:darkred;">' + Ext.util.Format.number(value, '0,000') + ' (line)</div>';
+    //     },
+    //     bind: {
+    //         hidden: '{!isFromDashBoardMer}'
+    //     }
+    // }, 
     {
         text: 'PT vận chuyển',
         dataIndex: 'shipmodeid_link',
@@ -280,8 +280,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
             // bind: {
             //     hidden: '{isFromDashBoardMer}'
             // }
-        },
-    ]
+        }]
 	}]
 });
 
