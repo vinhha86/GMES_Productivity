@@ -2,25 +2,27 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockin_M_Edit_Controller',
     init: function () {
+        var m = this;
+        var me = this.getView();
         var viewModel = this.getViewModel();
         common.Check_Object_Permission();
-        // var UnitStore = viewModel.getStore('UnitStore');
-        // UnitStore.loadStore();
-        // var UnitStoreFilters = UnitStore.getFilters();
-        // if (!this.UnitStoreFilters) {
-        //     this.UnitStoreFilters = UnitStoreFilters.add({
-        //         id: 'UnitStoreFilters',
-        //         property: 'unittype',
-        //         value: 0,
-        //         exactMatch: true,
-        //     });
-        // }
+
+        // var stockin = viewModel.get('stockin');
+        // console.log(stockin);
 
         if (viewModel.get('isAdd_Pcontract_Stockin')) {
-            if (viewModel.get('isNewStockin'))
-                this.onNewData(null, viewModel.get('stockintypeid_link'));
-            else
-                this.getInfo(viewModel.get('stockinid_link'));
+            // tạo phiếu nhập từ đơn hàng
+            if (viewModel.get('isNewStockin')){
+                m.onNewData(null, viewModel.get('stockintypeid_link'));
+            }
+            else{
+                m.getInfo(viewModel.get('stockinid_link'));
+            }
+        }else if(viewModel.get('isAdd_DashboardMer_Stockin')){
+            // tạo phiếu nhập từ dashboard mer
+            if (viewModel.get('isNewStockin')){
+                m.onNewData(null, viewModel.get('stockintypeid_link'));
+            }
         }
     },
     listen: {
@@ -65,7 +67,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         }
     },
     onNewData: function (type, id) {
-
+        var m = this;
+        var me = this.getView();
         var viewModel = this.getViewModel();
         var session = GSmartApp.util.State.get('session');
 
@@ -124,6 +127,10 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             var OrgToStore = viewModel.getStore('OrgToStore');
             OrgToStore.LoadOrginReqByPContractAndProduct(3, false);
         }
+
+        // thêm ds npl theo skuNplIdList (truyền vào từ DashboardMer_BalanceViewController)
+        var skuNplIdList = viewModel.get('skuNplIdList');
+        m.addStockinDBySkuIdList(skuNplIdList);
     },
     onLoadData: function (id, type) {
         // console.log('loaddata da vao');
@@ -232,7 +239,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
 
         // Kiem tra noi giao co trong danh muc
         var isNoiGiaoExist = m.checkNoiGiao();
-        // console.log(isNoiGiaoExist);
         if (!isNoiGiaoExist) {
             Ext.MessageBox.show({
                 title: "Thông báo",
@@ -244,18 +250,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             });
             return;
         }
-
-        // if(isNaN(stockin.totalpackage)){
-        //     Ext.MessageBox.show({
-        //         title: "Thông báo",
-        //         msg: 'Số kiện tổng phải là số',
-        //         buttons: Ext.MessageBox.YES,
-        //         buttonText: {
-        //             yes: 'Đóng',
-        //         }
-        //     });
-        //     return;
-        // }
 
         if (stockin.orgid_from_link == null || stockin.orgid_from_link == '') {
             Ext.MessageBox.show({
@@ -323,7 +317,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
             return;
         }
 
-        // console.log(stockin);
         params.data.push(stockin);
         me.setLoading("Đang lưu dữ liệu");
         GSmartApp.Ajax.postJitin('/api/v1/stockin/stockin_create', Ext.JSON.encode(params),
@@ -340,12 +333,14 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                                 yes: 'Đóng',
                             }
                         });
-                        if (!viewModel.get('isAdd_Pcontract_Stockin')) {
-                            // m.redirectTo("stockin_m_main/" + response.id + "/edit");
-                            // m.getInfo(response.id);
-
-                            // m.redirectTo("stockin_m/" + response.id + "/edit");
-
+                        
+                        if (viewModel.get('isAdd_Pcontract_Stockin')) {
+                            m.getInfo(response.id);
+                            m.fireEvent('LuuPhieuNhapThanhCong');
+                        }else if (viewModel.get('isAdd_DashboardMer_Stockin')) {
+                            m.getInfo(response.id);
+                            m.fireEvent('LuuPhieuNhapThanhCong');
+                        }else {
                             var str = Ext.getWin().dom.location.href;
                             var hash = str.split('#')[1];
                             if(hash == "stockin_m/" + response.id + "/edit"){
@@ -354,65 +349,6 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                                 m.redirectTo("stockin_m/" + response.id + "/edit");
                             }
                         }
-                        if (viewModel.get('isAdd_Pcontract_Stockin')) {
-                            m.getInfo(response.id);
-                            m.fireEvent('LuuPhieuNhapThanhCong');
-                        }
-
-                        // // nếu là lưu từ tab Nguyên phụ liệu về trong Đơn hàng GC, fire event để reload store
-                        // if (viewModel.get('isAdd_Pcontract_Stockin')) {
-                        //     var data = response.data;
-
-                        //     // Danh sách nguyên liệu
-                        //     var StockinD_Store = viewModel.getStore('StockinD_Store');
-                        //     var StockinD_Store_data = StockinD_Store.getData().items;
-                        //     // console.log(StockinD_Store_data);
-                        //     // console.log(data.stockin_d);
-                        //     // skuname, sku_product_desc, sku_product_color, size_name
-                        //     for (var i = 0; i < data.stockin_d.length; i++) {
-                        //         for (var j = 0; j < StockinD_Store_data.length; j++) {
-                        //             if (StockinD_Store_data[j].get('skuid_link') == data.stockin_d[i].skuid_link) {
-                        //                 // StockinD_Store_data[j].set('id', data.stockin_d[i].id);
-                        //                 data.stockin_d[i].skuname = StockinD_Store_data[j].get('skuname');
-                        //                 data.stockin_d[i].sku_product_desc = StockinD_Store_data[j].get('sku_product_desc');
-                        //                 data.stockin_d[i].sku_product_color = StockinD_Store_data[j].get('sku_product_color');
-                        //                 data.stockin_d[i].size_name = StockinD_Store_data[j].get('size_name');
-                        //             }
-                        //         }
-                        //     }
-                        //     // StockinD_Store.setData(data.stockin_d);
-                        //     StockinD_Store.removeAll();
-                        //     StockinD_Store.insert(0, data.stockin_d); console.log(data.stockin_d);
-                        //     StockinD_Store.commitChanges();
-
-                        //     // Danh sách sản phẩm
-                        //     var StockinProduct_Store = viewModel.getStore('StockinProduct_Store');
-                        //     var StockinProduct_Store_data = StockinProduct_Store.getData().items;
-                        //     // console.log(StockinD_Store_data);
-                        //     // console.log(data.stockin_d);
-                        //     // skuname, sku_product_desc, sku_product_color, size_name
-                        //     for (var i = 0; i < data.stockin_product.length; i++) {
-                        //         for (var j = 0; j < StockinProduct_Store_data.length; j++) {
-                        //             if (StockinProduct_Store_data[j].get('productid_link') == data.stockin_product[i].productid_link) {
-                        //                 // StockinD_Store_data[j].set('id', data.stockin_d[i].id);
-                        //                 data.stockin_product[i].product_code = StockinProduct_Store_data[j].get('product_code');
-                        //                 data.stockin_product[i].product_desc = StockinProduct_Store_data[j].get('product_desc');
-                        //                 data.stockin_product[i].product_name = StockinProduct_Store_data[j].get('product_name');
-                        //             }
-                        //         }
-                        //     }
-
-                        //     // StockinProduct_Store.setData(data.stockin_product);
-                        //     StockinProduct_Store.removeAll();
-                        //     StockinProduct_Store.insert(0, data.stockin_product);
-                        //     StockinProduct_Store.commitChanges();
-
-                        //     viewModel.set('stockin', data);
-                        //     // console.log(data);
-                        //     m.getCreateName(data.usercreateid_link);
-
-                        //     m.fireEvent('LuuPhieuNhapThanhCong');
-                        // }
                     }
                 } else {
                     var response = Ext.decode(response.responseText);
@@ -711,22 +647,11 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
         form.down('#Stockin_P_Poline_MainView').getController().on('Thoat', function () {
             form.close();
         })
+    },
+    addStockinDBySkuIdList: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        // 
     }
-    // onBtnTestRedirect:function(){
-	// 	console.log('click redirect');
-	// 	var m = this;
-    //     var me = this.getView();
-    //     var viewModel = this.getViewModel();
-    //     var str = Ext.getWin().dom.location.href;
-    //     console.log(str);
-    //     console.log(str.split('#'));
-    //     var hash = str.split('#')[1];
-    //     if(hash == "stockin_m/" + '509' + "/edit"){
-    //         m.getInfo(509);
-    //         console.log('1');
-    //     }else{
-    //         m.redirectTo("stockin_m/" + '509' + "/edit");
-    //         console.log('2');
-    //     }
-	// }
 })

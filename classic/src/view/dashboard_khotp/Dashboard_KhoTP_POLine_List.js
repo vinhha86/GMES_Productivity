@@ -17,10 +17,10 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
         mode: 'SINGLE',
         checkOnly: true
     },
-    features: [{
-        ftype: 'summary',
-        dock: 'top'
-    }],
+    // features: [{
+    //     ftype: 'summary',
+    //     dock: 'bottom'
+    // }],
     columns: [{
         xtype: 'actioncolumn',
         width: 28,
@@ -45,7 +45,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
         width: 80
     },
     {
-        text: 'Mã SP (Buyer)',
+        text: 'Mã SP',
         dataIndex: 'productbuyercode',
         // width: 120,
         flex: 1,
@@ -72,7 +72,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
         // }
     },
     {
-        text: 'PO Buyer',
+        text: 'PO',
         dataIndex: 'po_buyer',
         width: 100,
         // flex: 1,

@@ -2,6 +2,8 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
     extend: 'Ext.app.ViewController',
     alias: 'controller.Stockin_SubM_Edit_Controller',
 	init: function() {
+        var m = this;
+        var me = this.getView();
         var viewModel = this.getViewModel();
 
         if (viewModel.get('isAdd_Pcontract_Stockin')){
@@ -9,6 +11,11 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
                 this.onNewData(null,viewModel.get('stockintypeid_link'));
             else
                 this.getInfo(viewModel.get('stockinid_link'));
+        }else if(viewModel.get('isAdd_DashboardMer_Stockin')){
+            // tạo phiếu nhập từ dashboard mer
+            if (viewModel.get('isNewStockin')){
+                m.onNewData(null, viewModel.get('stockintypeid_link'));
+            }
         }
     },
     listen: {
@@ -33,6 +40,9 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
         '#btnClose':{
             click: 'onCloseButton'
         },
+        '#btnDSPoline': {
+            click: 'onBtnDSPoline'
+        }
     },
     onUrlBack: function(type){
         
@@ -44,7 +54,8 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
         }
     },
     onNewData:function(type, id){
-        
+        var m = this;
+        var me = this.getView();
         var viewModel = this.getViewModel();
         var session = GSmartApp.util.State.get('session');
 
@@ -91,14 +102,18 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
             orgfromstore.loadStore_byRoot(listidtype);
         }
 
-        // set store org from
-        if(id == 11) { // mua moi -> kho
+        if (id == 11) { // mua moi -> kho
             var OrgToStore = viewModel.getStore('OrgToStore');
-            OrgToStore.loadOrgByTypeAndUser([19]);
-        }else if(id == 12) { // nhap dieu chuyen (kho -> kho)
+            OrgToStore.LoadOrginReqByPContractAndProduct([19]);
+        } else if (id == 12) { // nhap dieu chuyen (kho -> kho)
             var OrgToStore = viewModel.getStore('OrgToStore');
-            OrgToStore.loadStore(19, false);
+            OrgToStore.LoadOrginReqByPContractAndProduct(19, false);
         }
+
+        // thêm ds npl theo skuNplIdList (truyền vào từ DashboardMer_BalanceViewController)
+        var skuNplIdList = viewModel.get('skuNplIdList');
+
+        
     },
     onLoadData:function(id,type){
         var m = this;
@@ -283,11 +298,11 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
                                 yes: 'Đóng',
                             }
                         });		
-                        if (!viewModel.get('isAdd_Pcontract_Stockin')){	
-                            m.redirectTo("stockin_subm/" + response.id + "/edit");
-                            m.fireEvent('loaddata', response.id);
-                            console.log('m.fireEvent(loaddata, response.id)');
-                        }
+                        // if (!viewModel.get('isAdd_Pcontract_Stockin')){	
+                        //     m.redirectTo("stockin_subm/" + response.id + "/edit");
+                        //     m.fireEvent('loaddata', response.id);
+                        //     console.log('m.fireEvent(loaddata, response.id)');
+                        // }
                         
                         // nếu là lưu từ tab Nguyên phụ liệu về trong Đơn hàng GC, fire event để reload store
                         if (viewModel.get('isAdd_Pcontract_Stockin')){
@@ -341,6 +356,17 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
                             m.getCreateName(data.usercreateid_link);
 
                             m.fireEvent('LuuPhieuNhapThanhCong');
+                        }else if (viewModel.get('isAdd_DashboardMer_Stockin')) {
+                            m.getInfo(response.id);
+                            m.fireEvent('LuuPhieuNhapThanhCong');
+                        }else {
+                            var str = Ext.getWin().dom.location.href;
+                            var hash = str.split('#')[1];
+                            if(hash == "stockin_subm/" + response.id + "/edit"){
+                                m.getInfo(response.id);
+                            }else{
+                                m.redirectTo("stockin_subm/" + response.id + "/edit");
+                            }
                         }
                     }
                 } else {
@@ -515,4 +541,40 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
                 }
             })
     },
+    onBtnDSPoline: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+
+        var stockin = viewModel.get('stockin');
+
+        var form = Ext.create('Ext.window.Window', {
+            height: '90%',
+            width: '90%',
+            closable: true,
+            resizable: false,
+            modal: true,
+            border: false,
+            title: "Danh sách PO Line",
+            closeAction: 'destroy',
+            bodyStyle: 'background-color: transparent',
+            layout: {
+                type: 'fit', // fit screen for window
+                padding: 5
+            },
+            items: [{
+                xtype: 'Stockin_P_Poline_MainView',
+                viewModel: {
+                    data: {
+                        stockin: stockin
+                    }
+                }
+            }]
+        });
+        form.show();
+
+        form.down('#Stockin_P_Poline_MainView').getController().on('Thoat', function () {
+            form.close();
+        })
+    }
 })

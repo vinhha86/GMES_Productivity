@@ -160,7 +160,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
                 items: [{
                     xtype: 'Stockin_M_Edit',
                     viewModel: {
-                        type: 'Stockin_M_ViewModel',
+                        // type: 'Stockin_M_ViewModel',
                         data: {
                             isNewStockin: true,
                             isAdd_Pcontract_Stockin: true,
@@ -242,10 +242,7 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_List_Main_Controll
                     StockinD_Store.removeAll();
                 });
             }
-        } 
-        // else {
-        //     this.redirectTo('stockin_subm/11/create');
-        // }
+        }
     },
     onNhapDieuChuyen: function(){
         this.redirectTo('stockin_m/2/create');

@@ -26,7 +26,15 @@ Ext.define('GSmartApp.view.DashboardMer.BarChartProductShipDate.BarChartProductS
             }
         },
         theme: 'Muted',
-        interactions: ['itemhighlight'],
+        interactions: [
+            {
+                type: 'itemhighlight'
+            },
+            // {
+            //     type: 'panzoom',
+            //     zoomOnPanGesture: true
+            // }
+        ],
         // interactions: [
         //     {
         //         type: 'itemhighlight'

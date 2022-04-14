@@ -27,6 +27,10 @@ Ext.define('GSmartApp.view.DashboardMer.BarChartProductShipDate.BarChartProductS
         }
     },
 
+    onItemclick: function(series, item, event, eOpts){
+        console.log(item);
+    },
+
     on_dashboard_search: function(){
         var m = this;
         var me = this.getView();
@@ -133,6 +137,6 @@ Ext.define('GSmartApp.view.DashboardMer.BarChartProductShipDate.BarChartProductS
         var objSearch = viewModel.get('objSearch');
 
         m.fireEvent('dashboard_loadPoLineList', productIdList, status, objSearch);
-        console.log('fire dashboard_loadPoLineList');
+        // console.log('fire dashboard_loadPoLineList');
     },
 });

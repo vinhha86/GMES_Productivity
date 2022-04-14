@@ -3,7 +3,10 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
     xtype: 'Stockin_M_Edit',
     id: 'Stockin_M_Edit',
     controller: 'Stockin_M_Edit_Controller',
-    viewModel: 'Stockin_M_ViewModel',
+    // viewModel: 'Stockin_M_ViewModel',
+    viewModel: {
+        type: 'Stockin_M_ViewModel'
+    },
     reference: 'Stockin_M_Edit_Classic',
     layout: {
         type: 'vbox',
@@ -33,8 +36,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                     text: "Quay lại",
                     iconCls: 'x-fa fa-backward',
                     itemId: 'btnBack',
+                    hidden: true,
                     bind: {
-                        hidden: '{isAdd_Pcontract_Stockin}'
+                        hidden: '{isBtnBackHidden}'
                     }
                 },
                 {
@@ -43,8 +47,9 @@ Ext.define('GSmartApp.view.stockin.stockin_material.stockin_m_edit.Stockin_M_Edi
                     text: "Đóng",
                     iconCls: 'x-fa fa-window-close',
                     itemId: 'btnClose',
+                    hidden: true,
                     bind: {
-                        hidden: '{!isAdd_Pcontract_Stockin}'
+                        hidden: '{isBtnCloseHidden}'
                     }
                 },
                 {

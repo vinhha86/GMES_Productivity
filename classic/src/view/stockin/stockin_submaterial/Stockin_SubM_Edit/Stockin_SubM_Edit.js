@@ -3,7 +3,10 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
     xtype: 'Stockin_SubM_Edit',
     id: 'Stockin_SubM_Edit',
     controller: 'Stockin_SubM_Edit_Controller',
-    viewModel: 'Stockin_SubM_Edit_ViewModel',
+    // viewModel: 'Stockin_SubM_Edit_ViewModel',
+    viewModel: {
+        type: 'Stockin_SubM_Edit_ViewModel'
+    },
 	layout: {
         type: 'vbox',
         pack: 'start',
@@ -33,7 +36,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
                 iconCls: 'x-fa fa-backward',
                 itemId: 'btnBack',
                 bind: {
-                    hidden: '{isAdd_Pcontract_Stockin}'
+                    hidden: '{isBtnBackHidden}'
                 }
             },
             {
@@ -43,7 +46,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
                 iconCls: 'x-fa fa-window-close',
                 itemId: 'btnClose',
                 bind: {
-                    hidden: '{!isAdd_Pcontract_Stockin}'
+                    hidden: '{isBtnCloseHidden}'
                 }
             },
             {
@@ -60,19 +63,31 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
             {
                 flex:1
             },
+            // {
+            //     margin: '0 5 5 0',
+            //     xtype:'button',
+            //     text:  'In phiếu',
+            //     iconCls: 'x-fa fa-print',
+            //     itemId: 'btnStockin_Print'
+            // },
+            // {
+            //     margin: '0 5 5 0',
+            //     xtype:'button',
+            //     text:  'Đồng bộ kế toán',
+            //     iconCls: 'x-fa fa-refresh',
+            //     itemId: 'btnStockin_Sync'
+            // },
             {
                 margin: '0 5 5 0',
                 xtype:'button',
-                text:  'In phiếu',
-                iconCls: 'x-fa fa-print',
-                itemId: 'btnStockin_Print'
-            },
-            {
-                margin: '0 5 5 0',
-                xtype:'button',
-                text:  'Đồng bộ kế toán',
-                iconCls: 'x-fa fa-refresh',
-                itemId: 'btnStockin_Sync'
+                text:  'Danh sách PO Line',
+                iconCls: 'x-fa fa-calendar-minus-o',
+                itemId: 'btnDSPoline',
+                bind: {
+                    // disabled: '{isStart}',
+                    hidden: '{isbtnDSPolineHidden}',
+                },
+                // hidden: true
             },
             {
                 margin: '0 5 5 0',

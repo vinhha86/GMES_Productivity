@@ -85,7 +85,9 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
 		pcontractid_link: null,
 		stockinid_link: null,
 		stockintypeid_link: 11,
-		isAdd_Pcontract_Stockin: false,
+		isAdd_Pcontract_Stockin: false, // true = pcontractView
+		isAdd_DashboardMer_Stockin: false, // true = dashboard_mer view
+		skuNplIdList: [], // ds id sku npl gửi vào từ dashboard_mer
 		isNewStockin: false,
 		//
 	},
@@ -154,6 +156,29 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
 		},
 		isBtnAddNoiGiaoHidden: function (get){
 			if(get('stockin.stockintypeid_link') ==11){
+				return false;
+			}
+			return true;
+		},
+		isbtnDSPolineHidden: function(get){
+			var stockin = get('stockin');
+			if(stockin.id == null || stockin.id == 0){
+				return true;
+			}
+			return false;
+		},
+		isBtnBackHidden: function(get){
+			var isAdd_Pcontract_Stockin = get('isAdd_Pcontract_Stockin');
+			var isAdd_DashboardMer_Stockin = get('isAdd_DashboardMer_Stockin');
+			if(isAdd_Pcontract_Stockin || isAdd_DashboardMer_Stockin){
+				return true;
+			}
+			return false;
+		},
+		isBtnCloseHidden: function(get){
+			var isAdd_Pcontract_Stockin = get('isAdd_Pcontract_Stockin');
+			var isAdd_DashboardMer_Stockin = get('isAdd_DashboardMer_Stockin');
+			if(isAdd_Pcontract_Stockin || isAdd_DashboardMer_Stockin){
 				return false;
 			}
 			return true;

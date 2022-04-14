@@ -50,7 +50,8 @@ Ext.define('GSmartApp.view.DashboardMer.Dashboard_Mer_ViewModel', {
             po_code: null,
             buyer: null,
             vendor: null,
-        }
+        },
+        selectedPoline: null,
     },
     formulas: {
         // title: function (data) {

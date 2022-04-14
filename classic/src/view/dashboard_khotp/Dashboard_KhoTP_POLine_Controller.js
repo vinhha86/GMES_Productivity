@@ -475,7 +475,7 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_Controller', {
         me.setDisabled(true);
     },
     on_dashboard_loadPoLineList: function(productIdList, status, objSearch){
-        console.log('get on_dashboard_loadPoLineList');
+        // console.log('get on_dashboard_loadPoLineList');
         var m = this;
         var me = this.getView();
         var viewModel = this.getViewModel();

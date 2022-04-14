@@ -18,10 +18,10 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Balance.DashboardMer_Balanc
     //     mode: 'MULTI',
     //     checkOnly: true
     // },
-    features: [{
-        ftype: 'summary',
-        dock: 'top'
-    }],
+    // features: [{
+    //     ftype: 'summary',
+    //     dock: 'bottom'
+    // }],
     columns: [
         // {
         //     xtype: 'actioncolumn',
@@ -145,7 +145,7 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Balance.DashboardMer_Balanc
                 // iconCls: 'x-fa fa-bars',
                 menu: [
                     {
-                        itemId: 'btnNhapMuaMoi', // id:1
+                        itemId: 'btnNhapMuaMoiNguyenLieu', // id:1
                         // iconCls: 'x-fa fa-plus',
                         text: 'Nguyên liệu',
                         // handler: 'onNhapMuaMoi'

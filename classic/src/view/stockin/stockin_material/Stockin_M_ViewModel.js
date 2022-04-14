@@ -107,6 +107,8 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
 		stockinid_link: null,
 		stockintypeid_link: 1,
 		isAdd_Pcontract_Stockin: false, // true = pcontractView
+		isAdd_DashboardMer_Stockin: false, // true = dashboard_mer view
+		skuNplIdList: [], // ds id sku npl gửi vào từ dashboard_mer
 		isNewStockin: false,
 		isCanDoiNplPopup: false, // dùng cho 2 cột nhập kho và xuất kho trong tab cân đối NPL của tab tiến độ giao hàng
 		mat_skuid_link: null, // dùng cho 2 cột nhập kho và xuất kho trong tab cân đối NPL của tab tiến độ giao hàng
@@ -306,6 +308,22 @@ Ext.define('GSmartApp.view.stockin.stockin_material.Stockin_M_ViewModel', {
 				return true;
 			}
 			return false;
+		},
+		isBtnBackHidden: function(get){
+			var isAdd_Pcontract_Stockin = get('isAdd_Pcontract_Stockin');
+			var isAdd_DashboardMer_Stockin = get('isAdd_DashboardMer_Stockin');
+			if(isAdd_Pcontract_Stockin || isAdd_DashboardMer_Stockin){
+				return true;
+			}
+			return false;
+		},
+		isBtnCloseHidden: function(get){
+			var isAdd_Pcontract_Stockin = get('isAdd_Pcontract_Stockin');
+			var isAdd_DashboardMer_Stockin = get('isAdd_DashboardMer_Stockin');
+			if(isAdd_Pcontract_Stockin || isAdd_DashboardMer_Stockin){
+				return false;
+			}
+			return true;
 		},
     }
 })
