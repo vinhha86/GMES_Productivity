@@ -112,8 +112,15 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
 
         // thêm ds npl theo skuNplIdList (truyền vào từ DashboardMer_BalanceViewController)
         var skuNplIdList = viewModel.get('skuNplIdList');
+        if(skuNplIdList.length > 0){
+            m.getStockinDBySkuIdList(skuNplIdList);
+        }
+        // thêm sp vào ds sp phiếu nhập
+        var productid_link = viewModel.get('productid_link');
+        if(productid_link != null){
+            m.getProduct(productid_link);
+        }
 
-        
     },
     onLoadData:function(id,type){
         var m = this;
@@ -576,5 +583,109 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
         form.down('#Stockin_P_Poline_MainView').getController().on('Thoat', function () {
             form.close();
         })
-    }
+    },
+
+    getStockinDBySkuIdList: function(skuNplIdList){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        // từ skuNplIdList lấy thông tin npl để thêm vào ds stockinD
+
+        var params = new Object();
+        params.skuNplIdList = skuNplIdList;
+        params.skuType = 20; // vải
+
+        GSmartApp.Ajax.post('/api/v1/sku/getBySkuIdList', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        m.addStockinDBySkuIdList(response.data);
+                    }
+                }
+            })
+    },
+    addStockinDBySkuIdList: function(skuList){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var stockin = viewModel.get('stockin');
+        var StockinD_Store = viewModel.get('StockinD_Store');
+
+        var stockinDListToInsert = new Array();
+        for(var i=0;i<skuList.length;i++){
+            var sku = skuList[i];
+            var stockinD = new Object();
+            stockinD.skuCode = sku.code;
+            stockinD.skuname = sku.name;
+            stockinD.sku_product_desc = sku.description;
+            stockinD.sku_product_color = sku.product_color;
+            stockinD.size_name = sku.size_name;
+            stockinD.unitid_link = stockin.unitid_link;
+            stockinD.totalmet_origin = 0;
+            stockinD.totalmet_check = 0;
+            stockinD.totalydsorigin = 0;
+            stockinD.totalydscheck = 0;
+            stockinD.grossweight = 0;
+            stockinD.netweight = 0;
+            stockinD.grossweight_lbs = 0;
+            stockinD.netweight_lbs = 0;
+            stockinD.totalpackagecheck = 0;
+            // 
+            stockinD.orgrootid_link = 1;
+            stockinD.skucode = sku.code;
+            stockinD.skuid_link = sku.id;
+            stockinD.colorid_link = sku.color_id;
+            stockinD.status = -1;
+            stockinDListToInsert.push(stockinD);
+        }
+        StockinD_Store.insert(0, stockinDListToInsert);
+        viewModel.set('stockin.stockin_d', stockinDListToInsert);
+        // skuCode, skuname, sku_product_desc, sku_product_color, size_name, unitid_link
+        // totalmet_origin, totalmet_check, totalydsorigin, totalydscheck, 
+        // grossweight, netweight, grossweight_lbs, netweight_lbs
+        // totalpackagecheck
+    },
+    getProduct: function(productid_link){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var pcontractid_link = viewModel.get('pcontractid_link');
+
+        var params = new Object();
+        params.id = productid_link;
+        params.pcontractid_link = pcontractid_link;
+
+        GSmartApp.Ajax.post('/api/v1/product/getSpDonById', Ext.JSON.encode(params),
+            function (success, response, options) {
+                if (success) {
+                    var response = Ext.decode(response.responseText);
+                    if (response.respcode == 200) {
+                        m.addProduct(response.data);
+                    }
+                }
+            })
+    },
+    addProduct: function(products){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        // console.log(products);
+        var stockin = viewModel.get('stockin');
+        var StockinProduct_Store = viewModel.get('StockinProduct_Store');
+
+        var productsToInsert = new Array();
+        for(var i=0;i<products.length;i++){
+            var product = products[i];
+            var stockinProduct = new Object();
+            stockinProduct.productid_link = product.id;
+            // product_code, product_name, product_desc
+            stockinProduct.product_code = product.buyercode;
+            stockinProduct.product_name = product.name;
+            stockinProduct.product_desc = product.description;
+            productsToInsert.push(stockinProduct);
+        }
+        StockinProduct_Store.insert(0, productsToInsert);
+        viewModel.set('stockin.stockin_product', productsToInsert);
+    },
 })

@@ -86,7 +86,10 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Balance.DashboardMer_Balanc
         var selectedPoline = viewModel.get('selectedPoline');
         var pcontractid_link = selectedPoline.get('pcontractid_link');
         var pcontract_poid_link = selectedPoline.get('id');
+        var productid_link = selectedPoline.get('productid_link');
+        var product_typeid_link = selectedPoline.get('product_typeid_link');
         // console.log(selectedPoline);
+        // return;
 
         var SKUBalanceStore = viewModel.getStore('SKUBalanceStore');
         var storeData = SKUBalanceStore.getDataSource().items;
@@ -95,7 +98,7 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Balance.DashboardMer_Balanc
             var mat_skuid_link = storeData[i].get('mat_skuid_link');
             skuNplIdList.push(mat_skuid_link);
         }
-        
+
         // console.log(storeData);
         // return;
 
@@ -122,6 +125,8 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Balance.DashboardMer_Balanc
                         pcontractid_link: pcontractid_link,
                         pcontract_poid_link: pcontract_poid_link,
                         skuNplIdList: skuNplIdList,
+                        productid_link: productid_link,
+                        product_typeid_link: product_typeid_link,
                         stockintypeid_link: 1,
                     }
                 }
@@ -184,6 +189,8 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Balance.DashboardMer_Balanc
                         pcontractid_link: pcontractid_link,
                         pcontract_poid_link: pcontract_poid_link,
                         skuNplIdList: skuNplIdList,
+                        productid_link: productid_link,
+                        product_typeid_link: product_typeid_link,
                         stockintypeid_link: 11,
                     }
                 }

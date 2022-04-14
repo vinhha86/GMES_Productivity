@@ -86,10 +86,13 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
 		stockinid_link: null,
 		stockintypeid_link: 11,
 		isAdd_Pcontract_Stockin: false, // true = pcontractView
+		isNewStockin: false,
+		
+		//dashboard mer view
 		isAdd_DashboardMer_Stockin: false, // true = dashboard_mer view
 		skuNplIdList: [], // ds id sku npl gửi vào từ dashboard_mer
-		isNewStockin: false,
-		//
+		productid_link: null, // productid_link gửi vào từ dashboard_mer
+		product_typeid_link: null, // product_typeid_link gửi vào từ dashboard_mer
 	},
 	formulas: {
 		isEdit: function (get) {
