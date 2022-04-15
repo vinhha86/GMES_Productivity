@@ -593,7 +593,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
 
         var params = new Object();
         params.skuNplIdList = skuNplIdList;
-        params.skuType = 20; // vải
+        params.skuType = 30; // phu lieu
 
         GSmartApp.Ajax.post('/api/v1/sku/getBySkuIdList', Ext.JSON.encode(params),
             function (success, response, options) {
@@ -640,6 +640,7 @@ Ext.define('GSmartApp.view.stockin.stockin_submaterial.stockin_subm_edit.Stockin
             stockinDListToInsert.push(stockinD);
         }
         StockinD_Store.insert(0, stockinDListToInsert);
+        StockinD_Store.commitChanges();
         viewModel.set('stockin.stockin_d', stockinDListToInsert);
         // skuCode, skuname, sku_product_desc, sku_product_color, size_name, unitid_link
         // totalmet_origin, totalmet_check, totalydsorigin, totalydscheck, 

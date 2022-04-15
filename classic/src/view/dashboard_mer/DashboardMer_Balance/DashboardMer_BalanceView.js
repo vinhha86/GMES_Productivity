@@ -18,10 +18,18 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Balance.DashboardMer_Balanc
     //     mode: 'MULTI',
     //     checkOnly: true
     // },
-    // features: [{
-    //     ftype: 'summary',
-    //     dock: 'bottom'
-    // }],
+    features: [
+        {
+            ftype: 'grouping',
+            groupHeaderTpl: '{name}',
+            collapseTip: "",
+            expandTip: ""
+        },
+        // {
+        //     ftype: 'summary',
+        //     dock: 'bottom'
+        // }
+    ],
     columns: [
         // {
         //     xtype: 'actioncolumn',

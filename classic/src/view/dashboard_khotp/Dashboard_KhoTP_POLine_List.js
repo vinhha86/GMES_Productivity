@@ -13,9 +13,11 @@ Ext.define('GSmartApp.view.dashboard_khotp.Dashboard_KhoTP_POLine_List', {
         store: '{POLineStore}'
     },
     selModel: {
-        selType: 'checkboxmodel',
+        selType: 'rowmodel',
+        // selType: 'checkboxmodel',
         mode: 'SINGLE',
-        checkOnly: true
+        // mode: 'MULTI',
+        // checkOnly: true
     },
     // features: [{
     //     ftype: 'summary',

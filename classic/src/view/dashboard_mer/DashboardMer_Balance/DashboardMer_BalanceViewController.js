@@ -5,6 +5,9 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Balance.DashboardMer_Balanc
 
     },
     control: {
+        '#DashboardMer_BalanceView': {
+            afterrender: 'onAfterrender'
+        },
         '#btnNhapMuaMoiNguyenLieu': {
             click: 'onBtnNhapMuaMoiNguyenLieu'
         },
@@ -24,6 +27,13 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Balance.DashboardMer_Balanc
                 'dashboard_select_poline': 'on_dashboard_select_poline'
             }
         }
+    },
+    onAfterrender: function(){
+        var m = this;
+        var me = this.getView();
+        var viewModel = this.getViewModel();
+        var SKUBalanceStore = viewModel.getStore('SKUBalanceStore');
+        SKUBalanceStore.setGroupField('mat_sku_product_typename');
     },
     on_dashboard_search: function(){
         var m = this;
@@ -154,6 +164,8 @@ Ext.define('GSmartApp.view.DashboardMer.DashboardMer_Balance.DashboardMer_Balanc
         var selectedPoline = viewModel.get('selectedPoline');
         var pcontractid_link = selectedPoline.get('pcontractid_link');
         var pcontract_poid_link = selectedPoline.get('id');
+        var productid_link = selectedPoline.get('productid_link');
+        var product_typeid_link = selectedPoline.get('product_typeid_link');
         // console.log(selectedPoline);
         var SKUBalanceStore = viewModel.getStore('SKUBalanceStore');
         var storeData = SKUBalanceStore.getDataSource().items;
